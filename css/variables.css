@@ -1,0 +1,65 @@
+/* ============================================================
+   CSS CUSTOM PROPERTIES — World News Map Viewer
+   ============================================================ */
+
+:root {
+  /* Background colors */
+  --bg-primary: #0d1117;
+  --bg-secondary: #161b22;
+  --bg-tertiary: #21262d;
+  --bg-hover: #2a3040;
+  --border-color: #30363d;
+  --border-muted: #21262d;
+
+  /* Text colors */
+  --text-primary: #e6edf3;
+  --text-secondary: #8b949e;
+  --text-muted: #6e7681;
+
+  /* Accent colors */
+  --accent-blue: #58a6ff;
+  --accent-orange: #f78166;
+  --accent-green: #3fb950;
+  --accent-yellow: #d29922;
+  --accent-red: #f85149;
+
+  /* Category colors */
+  --cat-politics: #a78bfa;
+  --cat-economy: #34d399;
+  --cat-conflict: #f87171;
+  --cat-disaster: #fb923c;
+  --cat-science: #38bdf8;
+  --cat-technology: #818cf8;
+  --cat-health: #f472b6;
+  --cat-sports: #4ade80;
+  --cat-culture: #fbbf24;
+  --cat-other: #94a3b8;
+
+  /* Layout */
+  --header-height: 56px;
+  --category-bar-height: 40px;
+  --left-panel-width: 300px;
+  --right-panel-width: 320px;
+  --panel-padding: 16px;
+
+  /* Border radius */
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+
+  /* Transitions */
+  --transition-fast: 150ms ease;
+  --transition-med: 250ms ease;
+
+  /* Shadows */
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.4);
+  --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.5);
+  --shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.6);
+
+  /* Z-index layers */
+  --z-map: 0;
+  --z-panels: 10;
+  --z-header: 100;
+  --z-drawer: 200;
+  --z-popup: 300;
+}

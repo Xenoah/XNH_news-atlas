@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="World News Map — Real-time global news events visualized on an interactive map">
+  <meta name="theme-color" content="#0d1117">
+  <title>World News Map</title>
+
+  <!-- Stylesheets -->
+  <link rel="stylesheet" href="css/reset.css">
+  <link rel="stylesheet" href="css/variables.css">
+  <link rel="stylesheet" href="css/style.css">
+
+  <!-- MapLibre GL JS -->
+  <link href="https://unpkg.com/maplibre-gl@3.6.2/dist/maplibre-gl.css" rel="stylesheet">
+</head>
+<body>
+  <div id="app">
+
+    <!-- ════════════════════════════════════════════
+         HEADER
+         ════════════════════════════════════════════ -->
+    <header id="header">
+      <div id="header-left">
+        <div id="site-title">
+          <span class="title-icon" aria-hidden="true">◉</span>
+          <span class="title-text">World News Map</span>
+        </div>
+      </div>
+
+      <div id="header-center">
+        <div id="search-wrapper">
+          <span class="search-icon" aria-hidden="true">⌕</span>
+          <input
+            type="text"
+            id="search-input"
+            class="search-input"
+            placeholder="Search events, countries, topics…"
+            autocomplete="off"
+            spellcheck="false"
+            aria-label="Search events"
+          >
+        </div>
+      </div>
+
+      <div id="header-right">
+        <!-- Mode switcher -->
+        <nav id="mode-switcher" aria-label="View modes">
+          <button class="mode-btn active" data-mode="events"   title="Events Mode — ranked list of news events">Events</button>
+          <button class="mode-btn"        data-mode="density"  title="Density Mode — heatmap view">Density</button>
+          <button class="mode-btn"        data-mode="trends"   title="Trends Mode — trending events">Trends</button>
+          <button class="mode-btn"        data-mode="analysis" title="Analysis Mode — statistical breakdown">Analysis</button>
+        </nav>
+
+        <!-- Time filter -->
+        <div id="time-filter" role="group" aria-label="Time range filter">
+          <button class="time-btn"        data-time="1h"  title="Last 1 hour">1H</button>
+          <button class="time-btn"        data-time="6h"  title="Last 6 hours">6H</button>
+          <button class="time-btn active" data-time="24h" title="Last 24 hours">24H</button>
+          <button class="time-btn"        data-time="7d"  title="Last 7 days">7D</button>
+        </div>
+
+        <!-- Status -->
+        <div id="status-section">
+          <span id="status-badge" class="status-badge static" aria-live="polite">STATIC</span>
+          <span id="update-time" class="update-time">Loading…</span>
+        </div>
+      </div>
+    </header>
+
+    <!-- ════════════════════════════════════════════
+         CATEGORY FILTER BAR
+         ════════════════════════════════════════════ -->
+    <div id="category-bar" role="group" aria-label="Category filters">
+      <button class="category-chip active" data-category="all">All</button>
+      <button class="category-chip" data-category="politics">Politics</button>
+      <button class="category-chip" data-category="economy">Economy</button>
+      <button class="category-chip" data-category="conflict">Conflict</button>
+      <button class="category-chip" data-category="disaster">Disaster</button>
+      <button class="category-chip" data-category="science">Science</button>
+      <button class="category-chip" data-category="technology">Technology</button>
+      <button class="category-chip" data-category="health">Health</button>
+      <button class="category-chip" data-category="sports">Sports</button>
+      <button class="category-chip" data-category="culture">Culture</button>
+    </div>
+
+    <!-- ════════════════════════════════════════════
+         MAIN LAYOUT
+         ════════════════════════════════════════════ -->
+    <div id="main-layout">
+
+      <!-- LEFT PANEL -->
+      <aside id="left-panel" aria-label="Event rankings">
+        <div id="left-content">
+          <!-- Populated by renderers.js via app.js -->
+          <div class="loading-state">
+            <div class="loading-spinner"></div>
+            <div class="loading-text">Loading events…</div>
+          </div>
+        </div>
+      </aside>
+
+      <!-- MAP CONTAINER -->
+      <div id="map-container">
+        <div id="map" aria-label="World news map"></div>
+
+        <!-- Map overlay controls -->
+        <div id="map-controls" aria-label="Panel visibility controls">
+          <button id="toggle-left"  class="map-control-btn" title="Toggle left panel"  aria-label="Toggle left panel">◀</button>
+          <button id="toggle-right" class="map-control-btn" title="Toggle right panel" aria-label="Toggle right panel">▶</button>
+        </div>
+
+        <!-- Zoom level indicator -->
+        <div id="zoom-indicator" aria-live="polite"></div>
+      </div>
+
+      <!-- RIGHT PANEL -->
+      <aside id="right-panel" aria-label="Event detail">
+        <div id="right-content">
+          <!-- Populated by renderers.js via app.js -->
+        </div>
+      </aside>
+
+    </div><!-- /#main-layout -->
+
+    <!-- ════════════════════════════════════════════
+         MOBILE BOTTOM DRAWER
+         ════════════════════════════════════════════ -->
+    <div id="mobile-drawer" role="dialog" aria-modal="true" aria-label="Event detail">
+      <div id="drawer-handle">
+        <button id="drawer-close" aria-label="Close detail panel">✕ Close</button>
+      </div>
+      <div id="drawer-content">
+        <!-- Populated dynamically for mobile event detail view -->
+      </div>
+    </div>
+
+  </div><!-- /#app -->
+
+  <!-- ══════════════════════════════════════════════
+       SCRIPTS  (order matters)
+       ══════════════════════════════════════════════ -->
+
+  <!-- MapLibre GL JS -->
+  <script src="https://unpkg.com/maplibre-gl@3.6.2/dist/maplibre-gl.js"></script>
+
+  <!-- App modules -->
+  <script src="js/utils.js"></script>
+  <script src="js/scoring.js"></script>
+  <script src="js/filters.js"></script>
+  <script src="js/data.js"></script>
+  <script src="js/renderers.js"></script>
+  <script src="js/ui.js"></script>
+  <script src="js/map.js"></script>
+  <script src="js/app.js"></script>
+  <script src="js/main.js"></script>
+
+</body>
+</html>
