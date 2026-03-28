@@ -113,6 +113,45 @@
 
         <!-- Zoom level indicator -->
         <div id="zoom-indicator" aria-live="polite"></div>
+
+        <!-- Map Legend -->
+        <div id="map-legend" aria-label="Map legend">
+          <button id="legend-toggle" class="legend-toggle">
+            <span>Legend</span>
+            <span class="legend-arrow">▾</span>
+          </button>
+          <div id="legend-body" class="legend-body">
+            <div class="legend-section">
+              <div class="legend-subtitle">Map Elements</div>
+              <div class="legend-row">
+                <div class="legend-icon"><div class="legend-cluster-icon">5+</div></div>
+                <span class="legend-label">Cluster (click to zoom)</span>
+              </div>
+              <div class="legend-row">
+                <div class="legend-icon"><div class="legend-bubble-icon"></div></div>
+                <span class="legend-label">Breaking / High attention</span>
+              </div>
+              <div class="legend-row">
+                <div class="legend-icon"><div class="legend-event-icon"></div></div>
+                <span class="legend-label">Individual event</span>
+              </div>
+              <div class="legend-row">
+                <div class="legend-icon"><div class="legend-selected-icon"></div></div>
+                <span class="legend-label">Selected event</span>
+              </div>
+              <div class="legend-row">
+                <div class="legend-icon"><div class="legend-heat-icon"></div></div>
+                <span class="legend-label">Density (Density mode)</span>
+              </div>
+            </div>
+            <div class="legend-section">
+              <div class="legend-subtitle">Categories</div>
+              <div id="legend-cats" class="legend-cats">
+                <!-- Populated by ui.js -->
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
 
       <!-- RIGHT PANEL -->

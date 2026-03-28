@@ -57,23 +57,33 @@ NewsAtlas.renderers = {
       </div>`;
   },
 
-  /* ── Rank Item ───────────────────────────────────────────── */
+  /* ── Rank Item (compact 2-line, hover expands) ───────────── */
 
   rankItem(event, rank) {
     const u = NewsAtlas.utils;
     const isTop = rank <= 3;
-    const freshness = event.freshness || NewsAtlas.scoring.getFreshness(event.publishedAt);
+    const score = event.attentionScore || 0;
+    const pct   = Math.round(score * 100);
+    const scoreClass = score >= 0.8 ? 'high' : score >= 0.5 ? 'medium' : 'low';
+    const scoreColor = score >= 0.8 ? '#f87171' : score >= 0.5 ? '#fb923c' : '#8b949e';
     return `
-      <div class="rank-item" data-event-id="${u.escapeHtml(event.id)}" onclick="NewsAtlas.app.onEventSelect(NewsAtlas.app.getEventById('${u.escapeHtml(event.id)}'))">
+      <div class="rank-item" data-event-id="${u.escapeHtml(event.id)}"
+           onclick="NewsAtlas.app.onEventSelect(NewsAtlas.app.getEventById('${u.escapeHtml(event.id)}'))">
         <div class="rank-number${isTop ? ' top-3' : ''}">${rank}</div>
         <div class="rank-body">
           <div class="rank-title">${u.escapeHtml(event.title)}</div>
           <div class="rank-meta">
             ${this.categoryBadge(event.category)}
-            ${this.freshnessBadge(freshness)}
-            <span style="font-size:11px;color:var(--text-muted);">${u.escapeHtml(event.countryName)}</span>
+            <span class="rank-country">${u.escapeHtml(event.countryName)}</span>
+            <span class="rank-score ${scoreClass}">${pct}%</span>
           </div>
-          ${this.scoreBar(event.attentionScore)}
+          <div class="rank-expand">
+            <div class="score-bar-container" style="margin-top:4px">
+              <div class="score-bar">
+                <div class="score-bar-fill" style="width:${pct}%;background:${scoreColor}"></div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>`;
   },
@@ -192,12 +202,26 @@ NewsAtlas.renderers = {
 
   sourceItem(source) {
     const u = NewsAtlas.utils;
-    const name = u.escapeHtml(source.name || source);
-    const count = source.articleCount || source.count || '';
+    const name  = u.escapeHtml(source.name  || (typeof source === 'string' ? source : 'Unknown'));
+    const url   = source.url || null;
+    const title = source.title ? u.escapeHtml(source.title.substring(0, 90)) : '';
+    const time  = source.publishedAt ? u.timeAgo(source.publishedAt) : '';
+
+    if (url) {
+      return `
+        <div class="source-item">
+          <a href="${u.escapeHtml(url)}" target="_blank" rel="noopener noreferrer" class="source-link">
+            <span class="source-domain">${name}</span>
+            ${title && title !== name ? `<span class="source-title-text">${title}</span>` : ''}
+            ${time ? `<span class="source-time">${u.escapeHtml(time)}</span>` : ''}
+            <span class="source-external">↗</span>
+          </a>
+        </div>`;
+    }
     return `
       <div class="source-item">
         <span class="source-name">${name}</span>
-        ${count ? `<span class="source-articles">${count}</span>` : ''}
+        ${time ? `<span style="font-size:10px;color:var(--text-muted);padding-right:12px">${u.escapeHtml(time)}</span>` : ''}
       </div>`;
   },
 
@@ -253,94 +277,95 @@ NewsAtlas.renderers = {
     const u = NewsAtlas.utils;
     if (!event) return this.emptyState('Select an event to view details');
 
-    const freshness = event.freshness || NewsAtlas.scoring.getFreshness(event.publishedAt);
-    const tags = (event.tags || []).map(t => `<span class="tag">${u.escapeHtml(t)}</span>`).join('');
-    const sources = (event.sources || []).slice(0, 6).map(s => this.sourceItem(s)).join('');
-
-    const scoreColor = event.attentionScore >= 0.8 ? 'var(--accent-red)'
-      : event.attentionScore >= 0.6 ? 'var(--accent-orange)'
-      : event.attentionScore >= 0.4 ? 'var(--accent-blue)'
+    const freshness  = event.freshness || NewsAtlas.scoring.getFreshness(event.publishedAt);
+    const score      = event.attentionScore || 0;
+    const scoreColor = score >= 0.8 ? 'var(--accent-red)'
+      : score >= 0.6 ? 'var(--accent-orange)'
+      : score >= 0.4 ? 'var(--accent-blue)'
       : 'var(--text-muted)';
+    const tags    = (event.tags || []).map(t => `<span class="tag">${u.escapeHtml(t)}</span>`).join('');
+    const allSrcs = event.sources || [];
+    const sources = allSrcs.slice(0, 8).map(s => this.sourceItem(s)).join('');
 
     return `
       <div class="detail-card">
+
+        <!-- Title block: badges → title → location/time in one clean block -->
         <div class="detail-header">
           <div class="detail-badges">
             ${this.categoryBadge(event.category)}
             ${this.freshnessBadge(freshness)}
-            ${event.crossBorderFactor > 0.5 ? '<span class="freshness-badge ongoing">🌐 Cross-border</span>' : ''}
+            ${(event.crossBorderFactor || 0) > 0.5 ? '<span class="freshness-badge ongoing">🌐 Cross-border</span>' : ''}
           </div>
           <div class="detail-title">${u.escapeHtml(event.title)}</div>
-          <div class="detail-location">
-            📍 ${u.escapeHtml(event.locationName || '')}${event.locationName && event.countryName ? ', ' : ''}${u.escapeHtml(event.countryName || '')}
-            &nbsp;·&nbsp; ${u.timeAgo(event.publishedAt)}
+          <div class="detail-meta-row">
+            <span>📍 ${u.escapeHtml(event.locationName || event.countryName || '')}</span>
+            <span class="detail-meta-sep">·</span>
+            <span>${u.timeAgo(event.publishedAt)}</span>
+            ${event.geoPrecision ? `<span class="detail-meta-sep">·</span><span>${u.escapeHtml(event.geoPrecision)}</span>` : ''}
           </div>
         </div>
 
+        <!-- Summary: prominent, readable -->
         <div class="detail-summary">${u.escapeHtml(event.summary)}</div>
 
+        <!-- Core metrics: 2×2 grid, values first -->
         <div class="detail-stats">
           <div class="detail-stat">
-            <div class="detail-stat-label">Articles</div>
             <div class="detail-stat-value">${u.formatCount(event.articleCount)}</div>
-            <div class="detail-stat-sub">tracked</div>
+            <div class="detail-stat-label">Articles</div>
           </div>
           <div class="detail-stat">
-            <div class="detail-stat-label">Sources</div>
             <div class="detail-stat-value">${u.formatCount(event.sourceCount)}</div>
-            <div class="detail-stat-sub">outlets</div>
+            <div class="detail-stat-label">Sources</div>
           </div>
           <div class="detail-stat">
+            <div class="detail-stat-value" style="color:${scoreColor}">${Math.round(score * 100)}%</div>
             <div class="detail-stat-label">Attention</div>
-            <div class="detail-stat-value" style="color:${scoreColor}">${Math.round((event.attentionScore || 0) * 100)}%</div>
-            <div class="detail-stat-sub">score</div>
           </div>
           <div class="detail-stat">
-            <div class="detail-stat-label">Velocity</div>
             <div class="detail-stat-value" style="color:var(--accent-blue)">${Math.round((event.velocityScore || 0) * 100)}%</div>
-            <div class="detail-stat-sub">trending</div>
+            <div class="detail-stat-label">Velocity</div>
           </div>
         </div>
 
+        <!-- Sources: most actionable, shown prominently -->
+        ${sources ? `
+          <div class="panel-section">
+            <div class="panel-section-header">
+              <span class="panel-section-title">Sources</span>
+              <span class="panel-section-count">${allSrcs.length}</span>
+            </div>
+            <div class="source-list">${sources}</div>
+            ${allSrcs.length > 8 ? `<div style="padding:8px 12px;font-size:11px;color:var(--text-muted)">+${allSrcs.length - 8} more</div>` : ''}
+          </div>` : ''}
+
+        <!-- Score bar: secondary emphasis -->
         <div class="panel-section">
           <div class="panel-section-header">
             <span class="panel-section-title">Attention Score</span>
           </div>
-          <div style="padding:12px">
-            ${this.scoreBar(event.attentionScore)}
-            ${event.crossBorderFactor > 0 ? `
-              <div style="margin-top:8px;display:flex;align-items:center;gap:6px">
-                <span style="font-size:11px;color:var(--text-muted)">Cross-border factor:</span>
-                <span style="font-size:11px;font-weight:600;color:var(--text-secondary)">${Math.round((event.crossBorderFactor || 0) * 100)}%</span>
-              </div>` : ''}
+          <div style="padding:10px 12px">
+            ${this.scoreBar(score)}
           </div>
         </div>
 
+        <!-- Tags: low priority -->
         ${tags ? `
           <div class="panel-section">
             <div class="panel-section-header">
               <span class="panel-section-title">Tags</span>
             </div>
-            <div style="padding:10px 12px">
+            <div style="padding:8px 12px">
               <div class="tag-list">${tags}</div>
             </div>
           </div>` : ''}
 
-        ${sources ? `
-          <div class="panel-section">
-            <div class="panel-section-header">
-              <span class="panel-section-title">Sources</span>
-              <span class="panel-section-count">${(event.sources || []).length}</span>
-            </div>
-            <div class="source-list">${sources}</div>
-            ${(event.sources || []).length > 6 ? `<div class="view-more-link">+${event.sources.length - 6} more sources</div>` : ''}
-          </div>` : ''}
-
-        <div style="font-size:10px;color:var(--text-muted);padding:4px 0;display:flex;flex-direction:column;gap:2px">
+        <!-- Metadata: lowest priority -->
+        <div style="font-size:10px;color:var(--text-muted);padding:8px 0 4px;display:flex;flex-direction:column;gap:2px">
           <span>First seen: ${u.formatDate(event.firstSeenAt)}</span>
-          <span>Last updated: ${u.formatDate(event.lastUpdatedAt)}</span>
-          <span>Geo precision: ${u.escapeHtml(event.geoPrecision || 'city')}</span>
-          <span>Region: ${u.escapeHtml(event.regionName || '')}</span>
+          <span>Updated: ${u.formatDate(event.lastUpdatedAt)}</span>
+          ${event.regionName ? `<span>Region: ${u.escapeHtml(event.regionName)}</span>` : ''}
         </div>
       </div>`;
   },
@@ -606,6 +631,17 @@ NewsAtlas.renderers = {
             <div class="panel-section-body">${trendRows}</div>
           </div>` : ''}
       </div>`;
+  },
+
+  /* ── Map Legend Category HTML ────────────────────────────── */
+
+  legendCatsHTML() {
+    const cats = ['conflict','politics','economy','disaster','health','technology','science','sports','culture','other'];
+    return cats.map(cat => `
+      <div class="legend-cat-row">
+        <div class="legend-cat-dot" style="background:${NewsAtlas.utils.categoryHex(cat)}"></div>
+        <span class="legend-cat-name">${cat}</span>
+      </div>`).join('');
   },
 
   /* ── Empty State ─────────────────────────────────────────── */

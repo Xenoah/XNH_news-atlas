@@ -95,6 +95,12 @@ NewsAtlas.map = (function() {
       type: 'geojson',
       data: { type: 'FeatureCollection', features: [] }
     });
+
+    // Selected event highlight source
+    _map.addSource('selected-event', {
+      type: 'geojson',
+      data: { type: 'FeatureCollection', features: [] }
+    });
   }
 
   /* ── Layers ───────────────────────────────────────────────── */
@@ -208,6 +214,33 @@ NewsAtlas.map = (function() {
         'circle-stroke-width': 2,
         'circle-stroke-color': ['get', 'colorHex'],
         'circle-opacity': 0
+      }
+    });
+
+    // ── Selected event: outer glow ──────────────────────────────
+    _map.addLayer({
+      id: 'selected-glow',
+      type: 'circle',
+      source: 'selected-event',
+      paint: {
+        'circle-color': ['get', 'colorHex'],
+        'circle-radius': 24,
+        'circle-opacity': 0.18,
+        'circle-stroke-width': 0
+      }
+    });
+
+    // ── Selected event: sharp ring ──────────────────────────────
+    _map.addLayer({
+      id: 'selected-ring',
+      type: 'circle',
+      source: 'selected-event',
+      paint: {
+        'circle-color': 'rgba(0,0,0,0)',
+        'circle-radius': 18,
+        'circle-opacity': 0,
+        'circle-stroke-width': 3,
+        'circle-stroke-color': '#ffffff'
       }
     });
   }
@@ -394,6 +427,22 @@ NewsAtlas.map = (function() {
     }
   }
 
+  /* ── Selected Event Highlight ─────────────────────────────── */
+
+  function highlightEvent(event) {
+    if (!_map || !_initialized) return;
+    const src = _map.getSource('selected-event');
+    if (!src) return;
+    src.setData({
+      type: 'FeatureCollection',
+      features: event ? [{
+        type: 'Feature',
+        geometry: { type: 'Point', coordinates: [event.lng, event.lat] },
+        properties: { colorHex: NewsAtlas.utils.categoryHex(event.category) }
+      }] : []
+    });
+  }
+
   /* ── Popup ────────────────────────────────────────────────── */
 
   function showPopup(event) {
@@ -431,6 +480,7 @@ NewsAtlas.map = (function() {
     init,
     updateEvents,
     updateHeatmap,
+    highlightEvent,
     showPopup,
     flyTo,
     getZoom,

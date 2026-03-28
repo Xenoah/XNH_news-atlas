@@ -89,6 +89,23 @@ NewsAtlas.ui = (function() {
     document.addEventListener('keydown', (e) => {
       if (e.key === 'Escape') closeDrawer();
     });
+
+    // Map legend toggle
+    const legendToggle = document.getElementById('legend-toggle');
+    if (legendToggle) {
+      legendToggle.addEventListener('click', () => {
+        const body  = document.getElementById('legend-body');
+        const arrow = legendToggle.querySelector('.legend-arrow');
+        if (body) body.classList.toggle('collapsed');
+        if (arrow) arrow.textContent = body && body.classList.contains('collapsed') ? '▸' : '▾';
+      });
+    }
+
+    // Populate legend category dots (requires renderers to be loaded)
+    const legendCatsEl = document.getElementById('legend-cats');
+    if (legendCatsEl && NewsAtlas.renderers) {
+      legendCatsEl.innerHTML = NewsAtlas.renderers.legendCatsHTML();
+    }
   }
 
   /* ── Active State Helpers ─────────────────────────────────── */
@@ -171,7 +188,8 @@ NewsAtlas.ui = (function() {
 
   function setStatusBadge(mode) {
     if (!el.statusBadge) return;
-    el.statusBadge.textContent = mode === 'live' ? 'LIVE' : 'STATIC';
+    const labels = { live: 'LIVE', gdelt: 'GDELT', static: 'STATIC' };
+    el.statusBadge.textContent = labels[mode] || mode.toUpperCase();
     el.statusBadge.className   = `status-badge ${mode}`;
   }
 

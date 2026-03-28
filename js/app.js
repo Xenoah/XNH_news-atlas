@@ -26,7 +26,6 @@ NewsAtlas.app = (function() {
   };
 
   let _initialized   = false;
-  let _mapReady      = false;
   let _pendingRender = false;
 
   /* ── Init ─────────────────────────────────────────────────── */
@@ -56,6 +55,9 @@ NewsAtlas.app = (function() {
     state.heatmapData = heatmap;
     state.lastUpdated = new Date();
 
+    // Update mode badge — may have changed after GDELT attempt
+    state.dataMode = NewsAtlas.data.getMode();
+    NewsAtlas.ui.setStatusBadge(state.dataMode);
     NewsAtlas.ui.setUpdateTime(NewsAtlas.utils.formatDate(state.lastUpdated.toISOString()));
 
     // Apply filters and render
@@ -188,6 +190,7 @@ NewsAtlas.app = (function() {
     state.selectedRegion = null;
     NewsAtlas.ui.showEventDetail(event);
     try {
+      NewsAtlas.map.highlightEvent(event);
       NewsAtlas.map.showPopup(event);
       const currentZoom = NewsAtlas.map.getZoom();
       NewsAtlas.map.flyTo(event.lng, event.lat, Math.max(currentZoom, 6));
@@ -196,7 +199,7 @@ NewsAtlas.app = (function() {
 
   /* ── Zoom Change ──────────────────────────────────────────── */
 
-  function onZoomChange(zoom, zoomCategory) {
+  function onZoomChange(_zoom, _zoomCategory) {
     // Reserved for future zoom-level-dependent behavior
   }
 
