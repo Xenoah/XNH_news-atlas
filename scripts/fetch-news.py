@@ -32,8 +32,8 @@ from collections import defaultdict
 
 GDELT_API          = "https://api.gdeltproject.org/api/v2/doc/doc"
 OUTPUT_DIR         = os.path.join(os.path.dirname(__file__), "..", "data")
-ARTICLES_PER_TOPIC = 75    # GDELT allows up to 250; 75 balances volume vs. speed
-MAX_EVENTS_OUTPUT  = 300   # Top N events written to world-latest.json
+ARTICLES_PER_TOPIC = 150   # GDELT allows up to 250; 150 balances volume vs. speed
+MAX_EVENTS_OUTPUT  = 600   # Top N events written to world-latest.json
 REQUEST_DELAY_S    = 0.5   # Polite delay between GDELT requests (seconds)
 BUBBLE_THRESHOLD   = 0.93  # attentionScore above which bubble:true is set
 
