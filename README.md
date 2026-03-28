@@ -1,3 +1,6 @@
+Preview→ https://xenoah.github.io/XNH_news-atlas/
+
+
 # World News Map Viewer
 
 A production-quality static web application that visualizes global news events on an interactive dark-themed world map. No build tools required — open `index.html` in a browser and everything works.
