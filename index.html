@@ -61,10 +61,15 @@
           <button class="time-btn"        data-time="7d"  title="Last 7 days">7D</button>
         </div>
 
-        <!-- Status -->
+        <!-- Refresh + Status -->
         <div id="status-section">
-          <span id="status-badge" class="status-badge static" aria-live="polite">STATIC</span>
-          <span id="update-time" class="update-time">Loading…</span>
+          <button id="refresh-btn" class="refresh-btn" title="Refresh from GDELT live feed" aria-label="Refresh news data">
+            <span class="refresh-icon">↻</span>
+          </button>
+          <div id="status-info">
+            <span id="status-badge" class="status-badge static" aria-live="polite">STATIC</span>
+            <span id="update-time" class="update-time">Loading…</span>
+          </div>
         </div>
       </div>
     </header>

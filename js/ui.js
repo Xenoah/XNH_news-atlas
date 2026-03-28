@@ -90,6 +90,14 @@ NewsAtlas.ui = (function() {
       if (e.key === 'Escape') closeDrawer();
     });
 
+    // Refresh button (manual GDELT browser fetch)
+    const refreshBtn = document.getElementById('refresh-btn');
+    if (refreshBtn) {
+      refreshBtn.addEventListener('click', () => {
+        if (NewsAtlas.app) NewsAtlas.app.onRefresh();
+      });
+    }
+
     // Map legend toggle
     const legendToggle = document.getElementById('legend-toggle');
     if (legendToggle) {
@@ -224,6 +232,16 @@ NewsAtlas.ui = (function() {
     }
   }
 
+  /* ── Refresh button state ─────────────────────────────────── */
+
+  function setRefreshing(isRefreshing) {
+    const btn = document.getElementById('refresh-btn');
+    if (!btn) return;
+    btn.disabled = isRefreshing;
+    btn.classList.toggle('refreshing', isRefreshing);
+    btn.title = isRefreshing ? 'Fetching from GDELT…' : 'Refresh from GDELT live feed';
+  }
+
   /* ── Public API ───────────────────────────────────────────── */
 
   return {
@@ -234,6 +252,7 @@ NewsAtlas.ui = (function() {
     showRegionDetail,
     setStatusBadge,
     setUpdateTime,
+    setRefreshing,
     openDrawer,
     closeDrawer,
     setActiveMode,

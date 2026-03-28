@@ -55,20 +55,53 @@ NewsAtlas.app = (function() {
     state.heatmapData = heatmap;
     state.lastUpdated = new Date();
 
-    // Update mode badge — may have changed after GDELT attempt
+    // Update mode badge
     state.dataMode = NewsAtlas.data.getMode();
     NewsAtlas.ui.setStatusBadge(state.dataMode);
-    NewsAtlas.ui.setUpdateTime(NewsAtlas.utils.formatDate(state.lastUpdated.toISOString()));
+
+    // Show data freshness from meta.json (GitHub Actions generation time)
+    NewsAtlas.data.getMeta().then(meta => {
+      if (meta && meta.generatedAt) {
+        NewsAtlas.ui.setUpdateTime(NewsAtlas.utils.timeAgo(meta.generatedAt));
+      } else {
+        NewsAtlas.ui.setUpdateTime(NewsAtlas.utils.formatDate(state.lastUpdated.toISOString()));
+      }
+    });
 
     // Apply filters and render
     _applyFiltersAndRender();
 
-    // Setup auto-refresh
-    const refreshMs = state.dataMode === 'live' ? 60_000 : 300_000;
-    setInterval(_refresh, refreshMs);
+    // Auto-refresh static data every 5 min (reloads GA-updated JSON)
+    if (state.dataMode !== 'live') {
+      setInterval(_autoRefreshStatic, 300_000);
+    } else {
+      setInterval(_refresh, 60_000);
+    }
   }
 
-  /* ── Refresh ──────────────────────────────────────────────── */
+  /* ── Auto-refresh static JSON (every 5 min, silent) ─────── */
+
+  async function _autoRefreshStatic() {
+    NewsAtlas.data.clearCache();
+    try {
+      const [events, trends] = await Promise.all([
+        NewsAtlas.data.getEvents(),
+        NewsAtlas.data.getTrends().catch(() => state.trends)
+      ]);
+      state.allEvents = events;
+      state.trends    = trends;
+      state.lastUpdated = new Date();
+      _applyFiltersAndRender();
+      // Update freshness from meta
+      NewsAtlas.data.getMeta().then(meta => {
+        if (meta && meta.generatedAt) NewsAtlas.ui.setUpdateTime(NewsAtlas.utils.timeAgo(meta.generatedAt));
+      });
+    } catch (err) {
+      console.warn('[app] Auto-refresh failed:', err.message);
+    }
+  }
+
+  /* ── Live API refresh ─────────────────────────────────────── */
 
   async function _refresh() {
     NewsAtlas.data.clearCache();
@@ -81,6 +114,26 @@ NewsAtlas.app = (function() {
     state.lastUpdated = new Date();
     NewsAtlas.ui.setUpdateTime(NewsAtlas.utils.formatDate(state.lastUpdated.toISOString()));
     _applyFiltersAndRender();
+  }
+
+  /* ── Manual GDELT Refresh (user-triggered) ───────────────── */
+
+  async function onRefresh() {
+    NewsAtlas.ui.setRefreshing(true);
+    try {
+      const events = await NewsAtlas.data.refreshFromGDELT();
+      state.allEvents   = events;
+      state.lastUpdated = new Date();
+      state.dataMode    = NewsAtlas.data.getMode();
+      NewsAtlas.ui.setStatusBadge(state.dataMode);
+      NewsAtlas.ui.setUpdateTime('Just now (GDELT live)');
+      _applyFiltersAndRender();
+    } catch (err) {
+      console.warn('[app] Manual GDELT refresh failed:', err);
+      NewsAtlas.ui.setUpdateTime('Refresh failed — using cached data');
+    } finally {
+      NewsAtlas.ui.setRefreshing(false);
+    }
   }
 
   /* ── Filter + Render ──────────────────────────────────────── */
@@ -237,6 +290,7 @@ NewsAtlas.app = (function() {
     onSearchChange,
     onEventSelect,
     onZoomChange,
+    onRefresh,
     getEventById,
     getState
   };
