@@ -1,28 +1,82 @@
 {
-  "generatedAt": "2026-03-28T07:51:59.975793+00:00",
+  "generatedAt": "2026-03-28T08:52:49.574461+00:00",
   "timeRange": "24h",
   "risingEvents": [
     {
-      "id": "ga_b58ff7ca8a5d",
-      "title": "Brace yourself : history shows most oil shocks lead to recession",
+      "id": "ga_6e00c3faa8ae",
+      "title": "Tehran strikes military base in Saudi Arabia after Israel hits Iranian nuclear facilities",
       "velocityScore": 1.0,
-      "category": "economy",
-      "countryName": "Saudi Arabia"
+      "category": "conflict",
+      "countryName": "Iran"
+    },
+    {
+      "id": "ga_23435d1ed005",
+      "title": "Two landmark verdicts against social media platforms",
+      "velocityScore": 1.0,
+      "category": "health",
+      "countryName": "United States"
+    },
+    {
+      "id": "ga_3b3c04ab001c",
+      "title": "Missile fired from Yemen as Israel and US target Iran",
+      "velocityScore": 0.9933,
+      "category": "conflict",
+      "countryName": "Iran"
+    },
+    {
+      "id": "ga_57cb4098a0ff",
+      "title": "Trump trapped in Iran deadlock , 70 , 000 troops face annihilation – Shock strike on Israeli frigates in Mediterranean",
+      "velocityScore": 0.9866,
+      "category": "conflict",
+      "countryName": "Iran"
+    },
+    {
+      "id": "ga_8a0a45dff31f",
+      "title": "Trump trapped in Iran deadlock , 70 , 000 troops face annihilation – Shock strike on Israeli frigates in Mediterranean",
+      "velocityScore": 0.9799,
+      "category": "conflict",
+      "countryName": "Iran"
+    },
+    {
+      "id": "ga_551ec7f8b7fc",
+      "title": "The Latest : Iranian missile attack wounds several US troops at Saudi air base , AP sources say",
+      "velocityScore": 0.9732,
+      "category": "conflict",
+      "countryName": "Iran"
+    },
+    {
+      "id": "ga_fe322739b361",
+      "title": "The Latest : Iranian missile attack wounds several US troops at Saudi air base , AP sources say",
+      "velocityScore": 0.9664,
+      "category": "conflict",
+      "countryName": "Iran"
+    },
+    {
+      "id": "ga_8c2506db99c8",
+      "title": "Israel warns attacks on Iran  will escalate and expand",
+      "velocityScore": 0.9597,
+      "category": "conflict",
+      "countryName": "Iran"
     }
   ],
   "risingRegions": [],
   "categoryTrends": {
-    "economy": {
+    "conflict": {
+      "count": 150,
+      "change": "+150",
+      "changePercent": 100
+    },
+    "health": {
       "count": 1,
       "change": "+1",
       "changePercent": 100
     }
   },
-  "totalEvents": 1,
-  "totalSources": 1,
+  "totalEvents": 151,
+  "totalSources": 151,
   "globalStats": {
-    "avgAttentionScore": 0.682,
-    "totalArticles": 1,
-    "bubbleCount": 0
+    "avgAttentionScore": 0.824,
+    "totalArticles": 151,
+    "bubbleCount": 30
   }
 }
