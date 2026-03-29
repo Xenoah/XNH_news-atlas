@@ -1,17 +1,24 @@
 {
-  "generatedAt": "2026-03-29T15:04:44.424621+00:00",
+  "generatedAt": "2026-03-29T15:46:33.371797+00:00",
   "timeRange": "24h",
   "risingEvents": [
     {
-      "id": "rss_a5041fe26caa",
-      "title": "The US-Israeli war on humanity",
-      "velocityScore": 1.0,
-      "category": "conflict",
-      "countryName": "Israel"
-    },
-    {
       "id": "rss_d1e9dedc3e4c",
       "title": "‘Nowhere is really safe’: Iranian dissidents grapple with US war in Iran",
+      "velocityScore": 1.0,
+      "category": "conflict",
+      "countryName": "Iran"
+    },
+    {
+      "id": "rss_f4aa09091bd5",
+      "title": "Houthis open new front in Iran war: Will Yemeni group block Bab al-Mandeb?",
+      "velocityScore": 1.0,
+      "category": "conflict",
+      "countryName": "Iran"
+    },
+    {
+      "id": "rss_366065387f1f",
+      "title": "How the US memeifies its war on Iran",
       "velocityScore": 1.0,
       "category": "conflict",
       "countryName": "Iran"
@@ -50,25 +57,18 @@
       "velocityScore": 1.0,
       "category": "conflict",
       "countryName": "United States"
-    },
-    {
-      "id": "rss_23e7f5e45760",
-      "title": "Israeli footballer’s role in assault on southern Lebanon sparks outrage",
-      "velocityScore": 1.0,
-      "category": "politics",
-      "countryName": "Israel"
     }
   ],
   "risingRegions": [],
   "categoryTrends": {
     "politics": {
-      "count": 147,
-      "change": "+147",
+      "count": 151,
+      "change": "+151",
       "changePercent": 100
     },
     "conflict": {
-      "count": 87,
-      "change": "+87",
+      "count": 91,
+      "change": "+91",
       "changePercent": 100
     },
     "sports": {
@@ -102,11 +102,11 @@
       "changePercent": 100
     }
   },
-  "totalEvents": 313,
-  "totalSources": 313,
+  "totalEvents": 321,
+  "totalSources": 321,
   "globalStats": {
-    "avgAttentionScore": 0.776,
-    "totalArticles": 313,
-    "bubbleCount": 119
+    "avgAttentionScore": 0.779,
+    "totalArticles": 321,
+    "bubbleCount": 127
   }
 }
