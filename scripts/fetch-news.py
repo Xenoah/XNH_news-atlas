@@ -1,20 +1,19 @@
 #!/usr/bin/env python3
 """
-World News Map Viewer — GDELT News Data Fetcher v2
---------------------------------------------------
-Key changes from v1:
-  - Each GDELT article → individual map event  (was: 1 topic = 1 event)
-  - 75 articles per topic  (was 25)  →  up to ~3,900 raw before dedup
-  - URL deduplication across topics  →  ~600–1,500 unique events
-  - Top 300 output sorted by attention score
-  - Stable URL-seeded jitter: same article always maps to same position
-  - Top-N bubble markers controlled by absolute score threshold
-  - 52 topics for broader geographic coverage
+World News Map Viewer — RSS News Data Fetcher v3
+------------------------------------------------
+Replaces GDELT DOC API (blocked GitHub Actions IPs) with public RSS feeds.
+Sources: BBC, Al Jazeera, Deutsche Welle, France24, The Guardian, NPR, VOA
 
-GitHub Actions runtime:
-  52 topics × ~2.0 s avg (fetch + delay) ≈ 104 s/run ≈ 1.7 min/run
-  Public repo  → unlimited Actions minutes (GitHub Pages)
-  Private repo → 744 runs/month × 1.7 min ≈ 1,265 min  (under 2,000 limit)
+Strategy:
+  1. Load existing world-latest.json (accumulation base)
+  2. Fetch all RSS feeds (fast, no rate limits)
+  3. Extract location & category from article title/description
+  4. Merge: add only new URLs — skip duplicates
+  5. Prune events older than 7 days
+  6. Sort by attention score → write top MAX_EVENTS_OUTPUT
+
+Runtime: ~30 sources × ~1s each ≈ 30–60 s per run (well under 10 min limit)
 """
 
 import hashlib
@@ -22,26 +21,83 @@ import json
 import math
 import os
 import random
+import re
 import time
 import urllib.request
-import urllib.parse
-from datetime import datetime, timezone
-from collections import defaultdict
+import xml.etree.ElementTree as ET
+from datetime import datetime, timedelta, timezone
+from email.utils import parsedate_to_datetime
 
-# ── Config ───────────────────────────────────────────────────────────────────
+# ── Config ────────────────────────────────────────────────────────────────────
 
-GDELT_API          = "https://api.gdeltproject.org/api/v2/doc/doc"
-OUTPUT_DIR         = os.path.join(os.path.dirname(__file__), "..", "data")
-ARTICLES_PER_TOPIC = 25    # Keep small: GDELT responds faster, less timeout risk
-MAX_EVENTS_OUTPUT  = 600   # Top N events written to world-latest.json
-REQUEST_DELAY_S    = 0.3   # Polite delay between GDELT requests (seconds)
-GDELT_TIMEOUT_S    = 10    # Per-request timeout — fail fast, retry next hour
-TIME_BUDGET_S      = 480   # 8-minute global budget; stop fetching topics if exceeded
-BUBBLE_THRESHOLD   = 0.93  # attentionScore above which bubble:true is set
+OUTPUT_DIR        = os.path.join(os.path.dirname(__file__), "..", "data")
+MAX_EVENTS_OUTPUT = 600    # top N events written to world-latest.json
+PRUNE_DAYS        = 7      # remove events older than this
+FETCH_TIMEOUT_S   = 15     # per-feed HTTP timeout
+BUBBLE_THRESHOLD  = 0.82   # attentionScore above which bubble:true is set
 
-# ── Scoring weights ───────────────────────────────────────────────────────────
+# ── RSS Sources ───────────────────────────────────────────────────────────────
 
-CATEGORY_WEIGHTS = {
+RSS_SOURCES = [
+    # BBC (most reliable, many regional sub-feeds)
+    {"url": "http://feeds.bbci.co.uk/news/world/rss.xml",                    "cat": "politics"},
+    {"url": "http://feeds.bbci.co.uk/news/world/us_and_canada/rss.xml",      "cat": "politics"},
+    {"url": "http://feeds.bbci.co.uk/news/world/europe/rss.xml",             "cat": "politics"},
+    {"url": "http://feeds.bbci.co.uk/news/world/asia/rss.xml",               "cat": "politics"},
+    {"url": "http://feeds.bbci.co.uk/news/world/africa/rss.xml",             "cat": "conflict"},
+    {"url": "http://feeds.bbci.co.uk/news/world/middle_east/rss.xml",        "cat": "conflict"},
+    {"url": "http://feeds.bbci.co.uk/news/world/latin_america/rss.xml",      "cat": "politics"},
+    {"url": "http://feeds.bbci.co.uk/news/business/rss.xml",                 "cat": "economy"},
+    {"url": "http://feeds.bbci.co.uk/news/technology/rss.xml",               "cat": "technology"},
+    {"url": "http://feeds.bbci.co.uk/news/science_and_environment/rss.xml",  "cat": "science"},
+    {"url": "http://feeds.bbci.co.uk/news/health/rss.xml",                   "cat": "health"},
+    {"url": "http://feeds.bbci.co.uk/sport/rss.xml",                         "cat": "sports"},
+    # Al Jazeera
+    {"url": "https://www.aljazeera.com/xml/rss/all.xml",                     "cat": "politics"},
+    # Deutsche Welle
+    {"url": "https://rss.dw.com/rdf/rss-en-world",                           "cat": "politics"},
+    {"url": "https://rss.dw.com/rdf/rss-en-top",                             "cat": "politics"},
+    # France 24
+    {"url": "https://www.france24.com/en/rss",                               "cat": "politics"},
+    # The Guardian
+    {"url": "https://www.theguardian.com/world/rss",                         "cat": "politics"},
+    {"url": "https://www.theguardian.com/us-news/rss",                       "cat": "politics"},
+    {"url": "https://www.theguardian.com/business/rss",                      "cat": "economy"},
+    {"url": "https://www.theguardian.com/technology/rss",                    "cat": "technology"},
+    {"url": "https://www.theguardian.com/environment/rss",                   "cat": "science"},
+    {"url": "https://www.theguardian.com/society/rss",                       "cat": "health"},
+    # NPR
+    {"url": "https://feeds.npr.org/1001/rss.xml",                            "cat": "politics"},
+    {"url": "https://feeds.npr.org/1004/rss.xml",                            "cat": "politics"},
+    # VOA
+    {"url": "https://www.voanews.com/api/zommqveiqt",                        "cat": "politics"},
+    # ABC Australia
+    {"url": "https://www.abc.net.au/news/feed/51120/rss.xml",                "cat": "politics"},
+    # Euronews
+    {"url": "https://www.euronews.com/rss",                                  "cat": "politics"},
+    # Hacker News (tech)
+    {"url": "https://hnrss.org/frontpage",                                   "cat": "technology"},
+]
+
+# ── Source reputation weights (for attention scoring) ─────────────────────────
+
+SOURCE_REPUTATION: dict[str, float] = {
+    "bbc.co.uk": 1.0, "bbc.com": 1.0,
+    "aljazeera.com": 0.95,
+    "theguardian.com": 0.90,
+    "dw.com": 0.88,
+    "france24.com": 0.85,
+    "npr.org": 0.85,
+    "voanews.com": 0.80,
+    "abc.net.au": 0.80,
+    "euronews.com": 0.75,
+    "ycombinator.com": 0.65,
+}
+DEFAULT_REPUTATION = 0.60
+
+# ── Category weights ──────────────────────────────────────────────────────────
+
+CATEGORY_WEIGHTS: dict[str, float] = {
     "conflict":   1.0,
     "politics":   0.9,
     "disaster":   0.9,
@@ -54,251 +110,210 @@ CATEGORY_WEIGHTS = {
     "other":      0.2,
 }
 
-# ── Country coordinate table ──────────────────────────────────────────────────
-# Used for: (a) topic default coords  (b) CODE_TO_COORDS reverse lookup
+# ── Category keyword overrides ────────────────────────────────────────────────
+# If any of these words appear in title (case-insensitive), override feed's default category.
 
-COUNTRY_COORDS = {
-    "United States":    {"code": "US", "lat":  38.89, "lng":  -77.03},
-    "United Kingdom":   {"code": "GB", "lat":  51.51, "lng":   -0.13},
-    "France":           {"code": "FR", "lat":  48.86, "lng":    2.35},
-    "Germany":          {"code": "DE", "lat":  52.52, "lng":   13.40},
-    "Russia":           {"code": "RU", "lat":  55.75, "lng":   37.62},
-    "China":            {"code": "CN", "lat":  39.91, "lng":  116.39},
-    "Japan":            {"code": "JP", "lat":  35.69, "lng":  139.69},
-    "India":            {"code": "IN", "lat":  28.61, "lng":   77.21},
-    "Brazil":           {"code": "BR", "lat": -15.78, "lng":  -47.93},
-    "Australia":        {"code": "AU", "lat": -33.87, "lng":  151.21},
-    "Canada":           {"code": "CA", "lat":  45.42, "lng":  -75.70},
-    "South Korea":      {"code": "KR", "lat":  37.57, "lng":  126.98},
-    "Ukraine":          {"code": "UA", "lat":  50.45, "lng":   30.52},
-    "Israel":           {"code": "IL", "lat":  31.77, "lng":   35.22},
-    "Iran":             {"code": "IR", "lat":  35.69, "lng":   51.39},
-    "Pakistan":         {"code": "PK", "lat":  33.72, "lng":   73.06},
-    "Turkey":           {"code": "TR", "lat":  39.93, "lng":   32.86},
-    "Saudi Arabia":     {"code": "SA", "lat":  24.69, "lng":   46.72},
-    "Nigeria":          {"code": "NG", "lat":   9.08, "lng":    7.40},
-    "Egypt":            {"code": "EG", "lat":  30.04, "lng":   31.24},
-    "Mexico":           {"code": "MX", "lat":  19.43, "lng":  -99.13},
-    "Indonesia":        {"code": "ID", "lat":  -6.21, "lng":  106.85},
-    "Poland":           {"code": "PL", "lat":  52.23, "lng":   21.01},
-    "Taiwan":           {"code": "TW", "lat":  25.05, "lng":  121.56},
-    "Spain":            {"code": "ES", "lat":  40.42, "lng":   -3.70},
-    "Italy":            {"code": "IT", "lat":  41.90, "lng":   12.50},
-    "Netherlands":      {"code": "NL", "lat":  52.37, "lng":    4.90},
-    "Switzerland":      {"code": "CH", "lat":  46.95, "lng":    7.45},
-    "Sweden":           {"code": "SE", "lat":  59.33, "lng":   18.07},
-    "Singapore":        {"code": "SG", "lat":   1.35, "lng":  103.82},
-    "South Africa":     {"code": "ZA", "lat": -25.75, "lng":   28.19},
-    "Ethiopia":         {"code": "ET", "lat":   9.03, "lng":   38.74},
-    "Kenya":            {"code": "KE", "lat":  -1.29, "lng":   36.82},
-    "Argentina":        {"code": "AR", "lat": -34.61, "lng":  -58.38},
-    "Thailand":         {"code": "TH", "lat":  13.75, "lng":  100.52},
-    "Philippines":      {"code": "PH", "lat":  14.60, "lng":  120.98},
-    "Vietnam":          {"code": "VN", "lat":  21.03, "lng":  105.85},
-    "Iraq":             {"code": "IQ", "lat":  33.34, "lng":   44.40},
-    "Syria":            {"code": "SY", "lat":  33.51, "lng":   36.29},
-    "Yemen":            {"code": "YE", "lat":  15.36, "lng":   44.19},
-    "Libya":            {"code": "LY", "lat":  32.90, "lng":   13.18},
-    "Myanmar":          {"code": "MM", "lat":  16.87, "lng":   96.15},
-    "North Korea":      {"code": "KP", "lat":  39.02, "lng":  125.76},
-    "Colombia":         {"code": "CO", "lat":   4.71, "lng":  -74.07},
-    "Venezuela":        {"code": "VE", "lat":  10.49, "lng":  -66.88},
-    "Belgium":          {"code": "BE", "lat":  50.85, "lng":    4.35},
-    "Afghanistan":      {"code": "AF", "lat":  34.52, "lng":   69.18},
-    "DR Congo":         {"code": "CD", "lat":  -4.32, "lng":   15.32},
-    "Somalia":          {"code": "SO", "lat":   2.05, "lng":   45.34},
-    "Sudan":            {"code": "SD", "lat":  15.55, "lng":   32.53},
-    "Hungary":          {"code": "HU", "lat":  47.50, "lng":   19.04},
-    "Morocco":          {"code": "MA", "lat":  33.99, "lng":   -6.85},
-    "Bangladesh":       {"code": "BD", "lat":  23.72, "lng":   90.41},
-    "Kazakhstan":       {"code": "KZ", "lat":  51.18, "lng":   71.45},
-    "New Zealand":      {"code": "NZ", "lat": -36.86, "lng":  174.77},
-    "Chile":            {"code": "CL", "lat": -33.46, "lng":  -70.65},
-    "Peru":             {"code": "PE", "lat": -12.05, "lng":  -77.04},
-    "Greece":           {"code": "GR", "lat":  37.98, "lng":   23.73},
-    "Portugal":         {"code": "PT", "lat":  38.72, "lng":   -9.14},
-    "Czech Republic":   {"code": "CZ", "lat":  50.09, "lng":   14.42},
-    "Romania":          {"code": "RO", "lat":  44.44, "lng":   26.10},
-    "Austria":          {"code": "AT", "lat":  48.21, "lng":   16.37},
-    "Malaysia":         {"code": "MY", "lat":   3.14, "lng":  101.69},
-    "Pakistan":         {"code": "PK", "lat":  33.72, "lng":   73.06},
-    "Qatar":            {"code": "QA", "lat":  25.29, "lng":   51.53},
-    "United Arab Emirates": {"code": "AE", "lat": 24.45, "lng": 54.38},
-}
+CATEGORY_KEYWORDS: list[tuple[str, str]] = [
+    # conflict first (highest priority)
+    ("war",            "conflict"), ("military",    "conflict"), ("troops",     "conflict"),
+    ("ceasefire",      "conflict"), ("airstrike",   "conflict"), ("offensive",  "conflict"),
+    ("frontline",      "conflict"), ("invasion",    "conflict"), ("insurgent",  "conflict"),
+    ("rebel",          "conflict"), ("jihadist",    "conflict"), ("killed in",  "conflict"),
+    ("casualties",     "conflict"), ("bombing",     "conflict"), ("missile strike","conflict"),
+    # disaster
+    ("earthquake",     "disaster"), ("tsunami",     "disaster"), ("hurricane",  "disaster"),
+    ("typhoon",        "disaster"), ("cyclone",     "disaster"), ("tornado",    "disaster"),
+    ("wildfire",       "disaster"), ("volcano",     "disaster"), ("eruption",   "disaster"),
+    ("flood",          "disaster"), ("landslide",   "disaster"), ("drought",    "disaster"),
+    # economy
+    ("inflation",      "economy"),  ("recession",   "economy"),  ("tariff",     "economy"),
+    ("gdp",            "economy"),  ("interest rate","economy"), ("bitcoin",    "economy"),
+    ("cryptocurrency", "economy"),  ("oil price",   "economy"),  ("stock market","economy"),
+    ("trade war",      "economy"),  ("sanctions",   "economy"),  ("imf",        "economy"),
+    # health
+    ("outbreak",       "health"),   ("pandemic",    "health"),   ("epidemic",   "health"),
+    ("vaccine",        "health"),   ("virus",       "health"),   ("who ",       "health"),
+    ("bird flu",       "health"),   ("mpox",        "health"),   ("cancer",     "health"),
+    # technology
+    ("artificial intelligence","technology"), ("chatgpt","technology"),
+    ("cybersecurity",  "technology"), ("ransomware","technology"),
+    ("semiconductor",  "technology"), ("openai",    "technology"),
+    # science
+    ("climate change", "science"),  ("global warming","science"), ("emissions","science"),
+    ("nasa",           "science"),  ("spacex",      "science"),   ("asteroid",  "science"),
+    # sports
+    ("world cup",      "sports"),   ("olympic",     "sports"),   ("championship","sports"),
+    ("tournament",     "sports"),   ("premier league","sports"),
+]
 
-# Reverse lookup: 2-letter ISO code → coords + name
-# Used when article has sourcecountry but topic has no fixed coords
-CODE_TO_COORDS: dict[str, dict] = {
-    info["code"]: {"lat": info["lat"], "lng": info["lng"], "name": name}
-    for name, info in COUNTRY_COORDS.items()
-}
+# ── Location keyword table ────────────────────────────────────────────────────
+# Checked against title + description (case-sensitive scan, longest match wins).
+# Cities/specific places listed before country names so they match first.
 
-# ── Topic definitions ─────────────────────────────────────────────────────────
-# country/code/lat/lng = fixed location for this topic (None = auto-detect from sourcecountry)
-
-TOPICS = [
-    # ── Conflict ─────────────────────────────────────────────────────────────
-    {"q": "ukraine russia war military ceasefire frontline Kyiv Zaporizhzhia",
-     "country": "Ukraine",       "code": "UA", "lat":  50.45, "lng":  30.52, "cat": "conflict"},
-    {"q": "israel gaza hamas war ceasefire hostages West Bank IDF strike",
-     "country": "Israel",        "code": "IL", "lat":  31.77, "lng":  35.22, "cat": "conflict"},
-    {"q": "taiwan strait china military PLA threat invasion deterrence",
-     "country": "Taiwan",        "code": "TW", "lat":  25.05, "lng": 121.56, "cat": "conflict"},
-    {"q": "north korea missile nuclear Kim Jong-un Pyongyang ICBM launch",
-     "country": "North Korea",   "code": "KP", "lat":  39.02, "lng": 125.76, "cat": "conflict"},
-    {"q": "myanmar civil war military junta resistance coup protest Yangon",
-     "country": "Myanmar",       "code": "MM", "lat":  16.87, "lng":  96.15, "cat": "conflict"},
-    {"q": "sudan civil war RSF Khartoum humanitarian crisis famine",
-     "country": "Sudan",         "code": "SD", "lat":  15.55, "lng":  32.53, "cat": "conflict"},
-    {"q": "iran israel strike missile attack Middle East escalation",
-     "country": "Iran",          "code": "IR", "lat":  35.69, "lng":  51.39, "cat": "conflict"},
-    {"q": "mexico cartel violence drugs narco border crime Culiacan Sinaloa",
-     "country": "Mexico",        "code": "MX", "lat":  19.43, "lng": -99.13, "cat": "conflict"},
-    {"q": "pakistan india kashmir border military tensions line of control",
-     "country": "Pakistan",      "code": "PK", "lat":  33.72, "lng":  73.06, "cat": "conflict"},
-    {"q": "nigeria africa sahel conflict coup insurgency Boko Haram Lagos Abuja",
-     "country": "Nigeria",       "code": "NG", "lat":   9.08, "lng":   7.40, "cat": "conflict"},
-    {"q": "afghanistan Taliban Kabul attack bombing humanitarian women",
-     "country": "Afghanistan",   "code": "AF", "lat":  34.52, "lng":  69.18, "cat": "conflict"},
-    {"q": "DR Congo DRC M23 rebel fighting Kinshasa eastern Congo FDLR",
-     "country": "DR Congo",      "code": "CD", "lat":  -4.32, "lng":  15.32, "cat": "conflict"},
-    {"q": "somalia Al-Shabaab attack Mogadishu conflict Kenya Ethiopia AU",
-     "country": "Somalia",       "code": "SO", "lat":   2.05, "lng":  45.34, "cat": "conflict"},
-    {"q": "colombia FARC ELN guerrilla armed group ceasefire Petro Bogota",
-     "country": "Colombia",      "code": "CO", "lat":   4.71, "lng": -74.07, "cat": "conflict"},
-
-    # ── Politics ─────────────────────────────────────────────────────────────
-    {"q": "united states trump congress white house senate tariff executive order",
-     "country": "United States", "code": "US", "lat":  38.89, "lng": -77.03, "cat": "politics"},
-    {"q": "russia kremlin putin opposition war diplomacy ceasefire talks",
-     "country": "Russia",        "code": "RU", "lat":  55.75, "lng":  37.62, "cat": "politics"},
-    {"q": "china xi jinping communist party policy Beijing Taiwan diplomacy",
-     "country": "China",         "code": "CN", "lat":  39.91, "lng": 116.39, "cat": "politics"},
-    {"q": "UK Britain parliament London Starmer government reform Labour",
-     "country": "United Kingdom","code": "GB", "lat":  51.51, "lng":  -0.13, "cat": "politics"},
-    {"q": "france macron paris government politics parliament far-right",
-     "country": "France",        "code": "FR", "lat":  48.86, "lng":   2.35, "cat": "politics"},
-    {"q": "india modi BJP parliament New Delhi election coalition opposition",
-     "country": "India",         "code": "IN", "lat":  28.61, "lng":  77.21, "cat": "politics"},
-    {"q": "turkey erdogan istanbul opposition politics lira arrested",
-     "country": "Turkey",        "code": "TR", "lat":  39.93, "lng":  32.86, "cat": "politics"},
-    {"q": "brazil lula amazon deforestation politics congress reform",
-     "country": "Brazil",        "code": "BR", "lat": -15.78, "lng": -47.93, "cat": "politics"},
-    {"q": "south africa ANC politics Ramaphosa Johannesburg election coalition",
-     "country": "South Africa",  "code": "ZA", "lat": -25.75, "lng":  28.19, "cat": "politics"},
-    {"q": "iran nuclear sanctions Tehran negotiations Khamenei deal IAEA",
-     "country": "Iran",          "code": "IR", "lat":  35.69, "lng":  51.39, "cat": "politics"},
-    {"q": "indonesia politics election Prabowo Jakarta government policy",
-     "country": "Indonesia",     "code": "ID", "lat":  -6.21, "lng": 106.85, "cat": "politics"},
-    {"q": "philippines marcos Manila politics South China Sea military US",
-     "country": "Philippines",   "code": "PH", "lat":  14.60, "lng": 120.98, "cat": "politics"},
-    {"q": "venezuela Maduro opposition election Caracas sanctions oil crisis",
-     "country": "Venezuela",     "code": "VE", "lat":  10.49, "lng": -66.88, "cat": "politics"},
-    {"q": "poland Warsaw NATO Russia border EU politics government",
-     "country": "Poland",        "code": "PL", "lat":  52.23, "lng":  21.01, "cat": "politics"},
-    {"q": "australia china trade Pacific AUKUS Albanese defense",
-     "country": "Australia",     "code": "AU", "lat": -33.87, "lng": 151.21, "cat": "politics"},
-    {"q": "kenya Nairobi East Africa politics election economy IMF",
-     "country": "Kenya",         "code": "KE", "lat":  -1.29, "lng":  36.82, "cat": "politics"},
-
-    # ── Economy ──────────────────────────────────────────────────────────────
-    {"q": "federal reserve interest rates inflation Wall Street US economy recession",
-     "country": "United States", "code": "US", "lat":  40.71, "lng": -74.01, "cat": "economy"},
-    {"q": "china economy market trade GDP Beijing stimulus property sector",
-     "country": "China",         "code": "CN", "lat":  39.91, "lng": 116.39, "cat": "economy"},
-    {"q": "oil gas energy prices OPEC Saudi Arabia barrel market supply cut",
-     "country": "Saudi Arabia",  "code": "SA", "lat":  24.69, "lng":  46.72, "cat": "economy"},
-    {"q": "germany economy recession GDP inflation Berlin manufacturing",
-     "country": "Germany",       "code": "DE", "lat":  52.52, "lng":  13.40, "cat": "economy"},
-    {"q": "japan economy yen Tokyo stock Bank of Japan interest rates Nikkei",
-     "country": "Japan",         "code": "JP", "lat":  35.69, "lng": 139.69, "cat": "economy"},
-    {"q": "india economy growth GDP Mumbai RBI Sensex investment infrastructure",
-     "country": "India",         "code": "IN", "lat":  19.08, "lng":  72.88, "cat": "economy"},
-    {"q": "European Union ECB euro economy trade tariffs Brussels recession",
-     "country": "Belgium",       "code": "BE", "lat":  50.85, "lng":   4.35, "cat": "economy"},
-    {"q": "cryptocurrency bitcoin ethereum blockchain DeFi market crash surge",
-     "country": "United States", "code": "US", "lat":  37.77, "lng":-122.42, "cat": "economy"},
-    {"q": "argentina Milei peso inflation IMF austerity economy Buenos Aires",
-     "country": "Argentina",     "code": "AR", "lat": -34.61, "lng": -58.38, "cat": "economy"},
-    {"q": "trade tariff WTO import export sanction global supply chain",
-     "country": "United States", "code": "US", "lat":  38.89, "lng": -77.03, "cat": "economy"},
-
-    # ── Technology ───────────────────────────────────────────────────────────
-    {"q": "artificial intelligence AI OpenAI ChatGPT Google Gemini regulation",
-     "country": "United States", "code": "US", "lat":  37.38, "lng":-122.08, "cat": "technology"},
-    {"q": "semiconductor chip TSMC Intel AMD Nvidia shortage supply chain",
-     "country": "Taiwan",        "code": "TW", "lat":  25.05, "lng": 121.56, "cat": "technology"},
-    {"q": "cybersecurity hack data breach ransomware attack malware espionage",
-     "country": "United States", "code": "US", "lat":  38.89, "lng": -77.03, "cat": "technology"},
-    {"q": "china technology Huawei ban restriction export control Shenzhen",
-     "country": "China",         "code": "CN", "lat":  22.54, "lng": 114.06, "cat": "technology"},
-    {"q": "space SpaceX nasa rocket moon Mars Starship Artemis satellite launch",
-     "country": "United States", "code": "US", "lat":  28.45, "lng": -80.53, "cat": "science"},
-    {"q": "south korea Samsung LG semiconductor battery EV electric vehicle Seoul",
-     "country": "South Korea",   "code": "KR", "lat":  37.57, "lng": 126.98, "cat": "technology"},
-
-    # ── Health ───────────────────────────────────────────────────────────────
-    {"q": "WHO health pandemic disease outbreak virus epidemic warning Geneva",
-     "country": "Switzerland",   "code": "CH", "lat":  46.95, "lng":   7.45, "cat": "health"},
-    {"q": "mpox bird flu H5N1 influenza avian outbreak spread cases confirmed",
-     "country": None,            "code": None, "lat":  None,  "lng":  None,  "cat": "health"},
-    {"q": "cancer drug trial vaccine approval FDA medicine treatment clinical",
-     "country": "United States", "code": "US", "lat":  39.00, "lng": -77.10, "cat": "health"},
-    {"q": "mental health crisis children youth suicide depression anxiety",
-     "country": "United States", "code": "US", "lat":  38.89, "lng": -77.03, "cat": "health"},
-
-    # ── Disaster ─────────────────────────────────────────────────────────────
-    {"q": "earthquake tsunami magnitude Richter victims evacuate rescue",
-     "country": None,            "code": None, "lat":  None,  "lng":  None,  "cat": "disaster"},
-    {"q": "hurricane typhoon cyclone storm landfall Category emergency evacuation",
-     "country": None,            "code": None, "lat":  None,  "lng":  None,  "cat": "disaster"},
-    {"q": "flood wildfire drought extreme weather heatwave disaster relief",
-     "country": None,            "code": None, "lat":  None,  "lng":  None,  "cat": "disaster"},
-    {"q": "volcano eruption ash lava alert evacuate seismic",
-     "country": None,            "code": None, "lat":  None,  "lng":  None,  "cat": "disaster"},
-
-    # ── Science ──────────────────────────────────────────────────────────────
-    {"q": "climate change global warming emissions carbon net zero Paris COP",
-     "country": "United Kingdom","code": "GB", "lat":  51.51, "lng":  -0.13, "cat": "science"},
-    {"q": "nuclear energy power plant SMR reactor clean energy fusion",
-     "country": "United States", "code": "US", "lat":  38.89, "lng": -77.03, "cat": "science"},
-
-    # ── Sports ───────────────────────────────────────────────────────────────
-    {"q": "FIFA World Cup soccer football tournament championship goal",
-     "country": None,            "code": None, "lat":  None,  "lng":  None,  "cat": "sports"},
-    {"q": "Olympic Games Paris 2028 Los Angeles athlete medal record",
-     "country": None,            "code": None, "lat":  None,  "lng":  None,  "cat": "sports"},
+LOCATION_KEYWORDS: list[tuple[str, dict]] = [
+    # ── Specific cities / places ──────────────────────────────────────────────
+    ("Gaza",          {"country": "Israel",        "code": "IL", "lat":  31.50, "lng":  34.47}),
+    ("West Bank",     {"country": "Israel",        "code": "IL", "lat":  31.90, "lng":  35.20}),
+    ("Kyiv",          {"country": "Ukraine",       "code": "UA", "lat":  50.45, "lng":  30.52}),
+    ("Kiev",          {"country": "Ukraine",       "code": "UA", "lat":  50.45, "lng":  30.52}),
+    ("Kharkiv",       {"country": "Ukraine",       "code": "UA", "lat":  49.99, "lng":  36.23}),
+    ("Zaporizhzhia",  {"country": "Ukraine",       "code": "UA", "lat":  47.84, "lng":  35.14}),
+    ("Moscow",        {"country": "Russia",        "code": "RU", "lat":  55.75, "lng":  37.62}),
+    ("Kremlin",       {"country": "Russia",        "code": "RU", "lat":  55.75, "lng":  37.62}),
+    ("Beijing",       {"country": "China",         "code": "CN", "lat":  39.91, "lng": 116.39}),
+    ("Shanghai",      {"country": "China",         "code": "CN", "lat":  31.23, "lng": 121.47}),
+    ("Washington",    {"country": "United States", "code": "US", "lat":  38.89, "lng": -77.03}),
+    ("White House",   {"country": "United States", "code": "US", "lat":  38.89, "lng": -77.03}),
+    ("Wall Street",   {"country": "United States", "code": "US", "lat":  40.71, "lng": -74.01}),
+    ("New York",      {"country": "United States", "code": "US", "lat":  40.71, "lng": -74.01}),
+    ("Silicon Valley",{"country": "United States", "code": "US", "lat":  37.38, "lng":-122.08}),
+    ("San Francisco", {"country": "United States", "code": "US", "lat":  37.77, "lng":-122.42}),
+    ("London",        {"country": "United Kingdom","code": "GB", "lat":  51.51, "lng":  -0.13}),
+    ("Paris",         {"country": "France",        "code": "FR", "lat":  48.86, "lng":   2.35}),
+    ("Berlin",        {"country": "Germany",       "code": "DE", "lat":  52.52, "lng":  13.40}),
+    ("Brussels",      {"country": "Belgium",       "code": "BE", "lat":  50.85, "lng":   4.35}),
+    ("Rome",          {"country": "Italy",         "code": "IT", "lat":  41.90, "lng":  12.50}),
+    ("Madrid",        {"country": "Spain",         "code": "ES", "lat":  40.42, "lng":  -3.70}),
+    ("Warsaw",        {"country": "Poland",        "code": "PL", "lat":  52.23, "lng":  21.01}),
+    ("Budapest",      {"country": "Hungary",       "code": "HU", "lat":  47.50, "lng":  19.04}),
+    ("Kyiv",          {"country": "Ukraine",       "code": "UA", "lat":  50.45, "lng":  30.52}),
+    ("Tokyo",         {"country": "Japan",         "code": "JP", "lat":  35.69, "lng": 139.69}),
+    ("Seoul",         {"country": "South Korea",   "code": "KR", "lat":  37.57, "lng": 126.98}),
+    ("Pyongyang",     {"country": "North Korea",   "code": "KP", "lat":  39.02, "lng": 125.76}),
+    ("Taipei",        {"country": "Taiwan",        "code": "TW", "lat":  25.05, "lng": 121.56}),
+    ("New Delhi",     {"country": "India",         "code": "IN", "lat":  28.61, "lng":  77.21}),
+    ("Mumbai",        {"country": "India",         "code": "IN", "lat":  19.08, "lng":  72.88}),
+    ("Islamabad",     {"country": "Pakistan",      "code": "PK", "lat":  33.72, "lng":  73.06}),
+    ("Kabul",         {"country": "Afghanistan",   "code": "AF", "lat":  34.52, "lng":  69.18}),
+    ("Tehran",        {"country": "Iran",          "code": "IR", "lat":  35.69, "lng":  51.39}),
+    ("Baghdad",       {"country": "Iraq",          "code": "IQ", "lat":  33.34, "lng":  44.40}),
+    ("Damascus",      {"country": "Syria",         "code": "SY", "lat":  33.51, "lng":  36.29}),
+    ("Riyadh",        {"country": "Saudi Arabia",  "code": "SA", "lat":  24.69, "lng":  46.72}),
+    ("Ankara",        {"country": "Turkey",        "code": "TR", "lat":  39.93, "lng":  32.86}),
+    ("Istanbul",      {"country": "Turkey",        "code": "TR", "lat":  41.01, "lng":  28.98}),
+    ("Cairo",         {"country": "Egypt",         "code": "EG", "lat":  30.04, "lng":  31.24}),
+    ("Nairobi",       {"country": "Kenya",         "code": "KE", "lat":  -1.29, "lng":  36.82}),
+    ("Lagos",         {"country": "Nigeria",       "code": "NG", "lat":   6.45, "lng":   3.40}),
+    ("Abuja",         {"country": "Nigeria",       "code": "NG", "lat":   9.08, "lng":   7.40}),
+    ("Johannesburg",  {"country": "South Africa",  "code": "ZA", "lat": -26.20, "lng":  28.04}),
+    ("Addis Ababa",   {"country": "Ethiopia",      "code": "ET", "lat":   9.03, "lng":  38.74}),
+    ("Kinshasa",      {"country": "DR Congo",      "code": "CD", "lat":  -4.32, "lng":  15.32}),
+    ("Mogadishu",     {"country": "Somalia",       "code": "SO", "lat":   2.05, "lng":  45.34}),
+    ("Khartoum",      {"country": "Sudan",         "code": "SD", "lat":  15.55, "lng":  32.53}),
+    ("Tripoli",       {"country": "Libya",         "code": "LY", "lat":  32.90, "lng":  13.18}),
+    ("Sanaa",         {"country": "Yemen",         "code": "YE", "lat":  15.36, "lng":  44.19}),
+    ("Yangon",        {"country": "Myanmar",       "code": "MM", "lat":  16.87, "lng":  96.15}),
+    ("Bangkok",       {"country": "Thailand",      "code": "TH", "lat":  13.75, "lng": 100.52}),
+    ("Jakarta",       {"country": "Indonesia",     "code": "ID", "lat":  -6.21, "lng": 106.85}),
+    ("Manila",        {"country": "Philippines",   "code": "PH", "lat":  14.60, "lng": 120.98}),
+    ("Hanoi",         {"country": "Vietnam",       "code": "VN", "lat":  21.03, "lng": 105.85}),
+    ("Brasilia",      {"country": "Brazil",        "code": "BR", "lat": -15.78, "lng": -47.93}),
+    ("Buenos Aires",  {"country": "Argentina",     "code": "AR", "lat": -34.61, "lng": -58.38}),
+    ("Bogota",        {"country": "Colombia",      "code": "CO", "lat":   4.71, "lng": -74.07}),
+    ("Caracas",       {"country": "Venezuela",     "code": "VE", "lat":  10.49, "lng": -66.88}),
+    ("Mexico City",   {"country": "Mexico",        "code": "MX", "lat":  19.43, "lng": -99.13}),
+    ("Ottawa",        {"country": "Canada",        "code": "CA", "lat":  45.42, "lng": -75.70}),
+    ("Sydney",        {"country": "Australia",     "code": "AU", "lat": -33.87, "lng": 151.21}),
+    ("Canberra",      {"country": "Australia",     "code": "AU", "lat": -35.28, "lng": 149.13}),
+    ("Singapore",     {"country": "Singapore",     "code": "SG", "lat":   1.35, "lng": 103.82}),
+    # ── Countries / political entities ────────────────────────────────────────
+    ("Ukraine",       {"country": "Ukraine",       "code": "UA", "lat":  50.45, "lng":  30.52}),
+    ("Russia",        {"country": "Russia",        "code": "RU", "lat":  55.75, "lng":  37.62}),
+    ("China",         {"country": "China",         "code": "CN", "lat":  39.91, "lng": 116.39}),
+    ("United States", {"country": "United States", "code": "US", "lat":  38.89, "lng": -77.03}),
+    ("Trump",         {"country": "United States", "code": "US", "lat":  38.89, "lng": -77.03}),
+    ("Biden",         {"country": "United States", "code": "US", "lat":  38.89, "lng": -77.03}),
+    ("American",      {"country": "United States", "code": "US", "lat":  38.89, "lng": -77.03}),
+    ("Britain",       {"country": "United Kingdom","code": "GB", "lat":  51.51, "lng":  -0.13}),
+    ("British",       {"country": "United Kingdom","code": "GB", "lat":  51.51, "lng":  -0.13}),
+    (" UK ",          {"country": "United Kingdom","code": "GB", "lat":  51.51, "lng":  -0.13}),
+    ("France",        {"country": "France",        "code": "FR", "lat":  48.86, "lng":   2.35}),
+    ("Germany",       {"country": "Germany",       "code": "DE", "lat":  52.52, "lng":  13.40}),
+    ("Japan",         {"country": "Japan",         "code": "JP", "lat":  35.69, "lng": 139.69}),
+    ("South Korea",   {"country": "South Korea",   "code": "KR", "lat":  37.57, "lng": 126.98}),
+    ("North Korea",   {"country": "North Korea",   "code": "KP", "lat":  39.02, "lng": 125.76}),
+    ("Taiwan",        {"country": "Taiwan",        "code": "TW", "lat":  25.05, "lng": 121.56}),
+    ("India",         {"country": "India",         "code": "IN", "lat":  28.61, "lng":  77.21}),
+    ("Pakistan",      {"country": "Pakistan",      "code": "PK", "lat":  33.72, "lng":  73.06}),
+    ("Afghanistan",   {"country": "Afghanistan",   "code": "AF", "lat":  34.52, "lng":  69.18}),
+    ("Taliban",       {"country": "Afghanistan",   "code": "AF", "lat":  34.52, "lng":  69.18}),
+    ("Iran",          {"country": "Iran",          "code": "IR", "lat":  35.69, "lng":  51.39}),
+    ("Iraq",          {"country": "Iraq",          "code": "IQ", "lat":  33.34, "lng":  44.40}),
+    ("Syria",         {"country": "Syria",         "code": "SY", "lat":  33.51, "lng":  36.29}),
+    ("Saudi Arabia",  {"country": "Saudi Arabia",  "code": "SA", "lat":  24.69, "lng":  46.72}),
+    ("Turkey",        {"country": "Turkey",        "code": "TR", "lat":  39.93, "lng":  32.86}),
+    ("Egypt",         {"country": "Egypt",         "code": "EG", "lat":  30.04, "lng":  31.24}),
+    ("Libya",         {"country": "Libya",         "code": "LY", "lat":  32.90, "lng":  13.18}),
+    ("Sudan",         {"country": "Sudan",         "code": "SD", "lat":  15.55, "lng":  32.53}),
+    ("Ethiopia",      {"country": "Ethiopia",      "code": "ET", "lat":   9.03, "lng":  38.74}),
+    ("Nigeria",       {"country": "Nigeria",       "code": "NG", "lat":   9.08, "lng":   7.40}),
+    ("Kenya",         {"country": "Kenya",         "code": "KE", "lat":  -1.29, "lng":  36.82}),
+    ("South Africa",  {"country": "South Africa",  "code": "ZA", "lat": -25.75, "lng":  28.19}),
+    ("Brazil",        {"country": "Brazil",        "code": "BR", "lat": -15.78, "lng": -47.93}),
+    ("Argentina",     {"country": "Argentina",     "code": "AR", "lat": -34.61, "lng": -58.38}),
+    ("Mexico",        {"country": "Mexico",        "code": "MX", "lat":  19.43, "lng": -99.13}),
+    ("Canada",        {"country": "Canada",        "code": "CA", "lat":  45.42, "lng": -75.70}),
+    ("Australia",     {"country": "Australia",     "code": "AU", "lat": -33.87, "lng": 151.21}),
+    ("Indonesia",     {"country": "Indonesia",     "code": "ID", "lat":  -6.21, "lng": 106.85}),
+    ("Philippines",   {"country": "Philippines",   "code": "PH", "lat":  14.60, "lng": 120.98}),
+    ("Myanmar",       {"country": "Myanmar",       "code": "MM", "lat":  16.87, "lng":  96.15}),
+    ("Venezuela",     {"country": "Venezuela",     "code": "VE", "lat":  10.49, "lng": -66.88}),
+    ("Colombia",      {"country": "Colombia",      "code": "CO", "lat":   4.71, "lng": -74.07}),
+    ("Yemen",         {"country": "Yemen",         "code": "YE", "lat":  15.36, "lng":  44.19}),
+    ("Somalia",       {"country": "Somalia",       "code": "SO", "lat":   2.05, "lng":  45.34}),
+    ("DR Congo",      {"country": "DR Congo",      "code": "CD", "lat":  -4.32, "lng":  15.32}),
+    ("Congo",         {"country": "DR Congo",      "code": "CD", "lat":  -4.32, "lng":  15.32}),
+    ("Poland",        {"country": "Poland",        "code": "PL", "lat":  52.23, "lng":  21.01}),
+    ("Israel",        {"country": "Israel",        "code": "IL", "lat":  31.77, "lng":  35.22}),
+    ("Hamas",         {"country": "Israel",        "code": "IL", "lat":  31.50, "lng":  34.47}),
+    ("Lebanon",       {"country": "Lebanon",       "code": "LB", "lat":  33.89, "lng":  35.50}),
+    ("Hezbollah",     {"country": "Lebanon",       "code": "LB", "lat":  33.89, "lng":  35.50}),
+    ("Vietnam",       {"country": "Vietnam",       "code": "VN", "lat":  21.03, "lng": 105.85}),
+    ("Thailand",      {"country": "Thailand",      "code": "TH", "lat":  13.75, "lng": 100.52}),
+    ("Malaysia",      {"country": "Malaysia",      "code": "MY", "lat":   3.14, "lng": 101.69}),
+    ("NATO",          {"country": "Belgium",       "code": "BE", "lat":  50.85, "lng":   4.35}),
+    ("European Union",{"country": "Belgium",       "code": "BE", "lat":  50.85, "lng":   4.35}),
+    (" EU ",          {"country": "Belgium",       "code": "BE", "lat":  50.85, "lng":   4.35}),
+    ("OPEC",          {"country": "Saudi Arabia",  "code": "SA", "lat":  24.69, "lng":  46.72}),
 ]
 
 # ── Helpers ───────────────────────────────────────────────────────────────────
 
 def url_hash(url: str) -> str:
-    """Short deterministic hash of a URL for use as event ID."""
     return hashlib.md5(url.encode()).hexdigest()[:12]
 
 
-def stable_jitter(url: str, lat: float, lng: float, radius: float = 0.7) -> tuple[float, float]:
-    """
-    Apply a small, deterministic offset to coords based on the URL hash.
-    Same article always appears at exactly the same map position across refreshes.
-    Avoids piling all same-country articles on a single point.
-    """
+def stable_jitter(url: str, lat: float, lng: float, radius: float = 0.5) -> tuple[float, float]:
+    """Deterministic per-URL coordinate jitter. Same article → same map position."""
     seed = int(hashlib.md5(url.encode()).hexdigest()[:8], 16)
     rng  = random.Random(seed)
     angle = rng.uniform(0.0, 2.0 * math.pi)
-    r     = rng.uniform(0.05, radius)
+    r     = rng.uniform(0.02, radius)
     return round(lat + r * math.sin(angle), 4), round(lng + r * math.cos(angle), 4)
 
 
-def parse_gdelt_date(s: str) -> str:
-    """Convert GDELT seendate '20260328T120000Z' → ISO-8601 string."""
-    if not s:
+def strip_html(text: str) -> str:
+    return re.sub(r"<[^>]+>", " ", text or "").strip()
+
+
+def parse_pub_date(date_str: str) -> str:
+    """Convert RSS (RFC 822) or Atom (ISO 8601) date → ISO 8601 UTC string."""
+    if not date_str:
         return datetime.now(timezone.utc).isoformat()
+    date_str = date_str.strip()
+    # ISO 8601 (Atom)
+    for fmt in ("%Y-%m-%dT%H:%M:%SZ", "%Y-%m-%dT%H:%M:%S%z", "%Y-%m-%d"):
+        try:
+            dt = datetime.strptime(date_str[:len(fmt)], fmt)
+            if dt.tzinfo is None:
+                dt = dt.replace(tzinfo=timezone.utc)
+            return dt.astimezone(timezone.utc).isoformat()
+        except ValueError:
+            pass
+    # RFC 822 (RSS 2.0)
     try:
-        c = s.replace("T", "").replace("Z", "")
-        hh = c[8:10] if len(c) > 8 else "00"
-        mm = c[10:12] if len(c) > 10 else "00"
-        return f"{c[:4]}-{c[4:6]}-{c[6:8]}T{hh}:{mm}:00Z"
+        dt = parsedate_to_datetime(date_str)
+        return dt.astimezone(timezone.utc).isoformat()
     except Exception:
         return datetime.now(timezone.utc).isoformat()
 
@@ -315,188 +330,216 @@ def calc_freshness(iso: str) -> str:
         return "recent"
 
 
-def fetch_gdelt(query: str, timespan: str = "24h", max_records: int = ARTICLES_PER_TOPIC) -> list:
-    """
-    Call GDELT DOC 2.0 API (ArtList mode).
-    Implements the API per official documentation:
-      https://blog.gdeltproject.org/gdelt-doc-2-0-api-debuts/
+def is_within_window(event: dict, days: int = PRUNE_DAYS) -> bool:
+    cutoff = datetime.now(timezone.utc) - timedelta(days=days)
+    try:
+        pub = datetime.fromisoformat(event["publishedAt"].replace("Z", "+00:00"))
+        return pub >= cutoff
+    except Exception:
+        return True
 
-    Valid URL parameters: query, mode, maxrecords, format, timespan,
-                          startdatetime, enddatetime, sort
-    Note: sourcelang / sourcecountry are query OPERATORS embedded in the
-          query string (e.g. "ukraine war sourcelang:English"), NOT URL params.
-    """
-    # sourcelang:English goes inside the query string, per official docs
-    full_query = f"{query} sourcelang:English"
-    params = urllib.parse.urlencode({
-        "query":      full_query,
-        "mode":       "ArtList",
-        "maxrecords": str(max_records),
-        "format":     "json",
-        "timespan":   timespan,
-        "sort":       "HybridRel",   # hybrid relevance+recency, per official docs
-    })
-    request_url = f"{GDELT_API}?{params}"
+
+def extract_location(title: str, description: str) -> dict | None:
+    """Scan title then description for known location keywords. Return first match."""
+    text = f"{title} {strip_html(description)}"
+    for keyword, loc in LOCATION_KEYWORDS:
+        if keyword in text:
+            return loc
+    return None
+
+
+def extract_category(title: str, default_cat: str) -> str:
+    """Override feed's default category if title contains a stronger keyword."""
+    title_lower = title.lower()
+    for keyword, cat in CATEGORY_KEYWORDS:
+        if keyword.lower() in title_lower:
+            return cat
+    return default_cat
+
+
+def get_source_domain(url: str) -> str:
+    try:
+        host = url.split("//", 1)[1].split("/")[0].lstrip("www.")
+        return host
+    except Exception:
+        return "unknown"
+
+
+def reputation(domain: str) -> float:
+    for key, val in SOURCE_REPUTATION.items():
+        if key in domain:
+            return val
+    return DEFAULT_REPUTATION
+
+
+# ── RSS Fetching & Parsing ────────────────────────────────────────────────────
+
+def fetch_rss(url: str) -> str:
+    """Fetch raw XML from an RSS/Atom URL. Returns empty string on failure."""
     try:
         req = urllib.request.Request(
-            request_url,
-            headers={"User-Agent": "WorldNewsMapViewer/2.0 (github.com; news visualization)"}
+            url,
+            headers={
+                "User-Agent": "WorldNewsMapViewer/3.0 (news visualization; github.com)",
+                "Accept": "application/rss+xml, application/atom+xml, text/xml, */*",
+            }
         )
-        with urllib.request.urlopen(req, timeout=GDELT_TIMEOUT_S) as resp:
-            data = json.loads(resp.read().decode("utf-8"))
-            arts = data.get("articles") or []
-            return [a for a in arts if a.get("url") and a.get("title")]
+        with urllib.request.urlopen(req, timeout=FETCH_TIMEOUT_S) as resp:
+            raw = resp.read()
+            # Try UTF-8, fall back to latin-1
+            try:
+                return raw.decode("utf-8")
+            except UnicodeDecodeError:
+                return raw.decode("latin-1")
     except Exception as e:
-        print(f"    [GDELT error] {type(e).__name__}: {e}")
+        print(f"    [fetch error] {type(e).__name__}: {e}")
+        return ""
+
+
+def parse_rss(xml_text: str) -> list[dict]:
+    """Parse RSS 2.0, Atom, or RDF. Returns list of raw item dicts."""
+    if not xml_text:
+        return []
+    try:
+        # Strip any XML declaration encoding to avoid ElementTree complaints
+        xml_text = re.sub(r"<\?xml[^>]+\?>", "", xml_text, count=1).strip()
+        root = ET.fromstring(xml_text)
+    except ET.ParseError as e:
+        print(f"    [parse error] {e}")
         return []
 
+    items: list[dict] = []
+    tag = root.tag.lower()
 
-def process_topic(topic: dict, timespan: str = "24h") -> list[dict]:
-    """
-    Fetch one topic and return a list of individual article-level events.
-    Each article becomes its own map event (vs. v1 where 1 topic = 1 event).
-    """
-    cat     = topic["cat"]
-    country = topic.get("country")
-    code    = topic.get("code")
-    lat     = topic.get("lat")
-    lng     = topic.get("lng")
-    label   = f"{cat}/{country or '?'}"
-    print(f"  → {label:<30} {topic['q'][:52]}…")
+    # ── RSS 2.0 ──────────────────────────────────────────────────────────────
+    if "rss" in tag or "rdf" in tag:
+        for item in root.iter("item"):
+            title = (item.findtext("title") or "").strip()
+            link  = (item.findtext("link")  or "").strip()
+            desc  = (item.findtext("description") or "").strip()
+            pub   = (item.findtext("pubDate") or
+                     item.findtext("{http://purl.org/dc/elements/1.1/}date") or "").strip()
+            if title and link:
+                items.append({"title": title, "url": link, "description": desc, "pubDate": pub})
 
-    articles = fetch_gdelt(topic["q"], timespan, ARTICLES_PER_TOPIC)
-    if not articles:
-        print(f"    ✗  No results")
-        return []
+    # ── Atom ─────────────────────────────────────────────────────────────────
+    else:
+        ns = "http://www.w3.org/2005/Atom"
+        for entry in root.iter(f"{{{ns}}}entry"):
+            t_el  = entry.find(f"{{{ns}}}title")
+            l_el  = entry.find(f"{{{ns}}}link")
+            s_el  = entry.find(f"{{{ns}}}summary")
+            u_el  = entry.find(f"{{{ns}}}updated")
+            title = t_el.text.strip() if t_el is not None and t_el.text else ""
+            link  = l_el.get("href", "") if l_el is not None else ""
+            desc  = s_el.text or "" if s_el is not None else ""
+            pub   = u_el.text or "" if u_el is not None else ""
+            if title and link:
+                items.append({"title": title, "url": link, "description": desc, "pubDate": pub})
 
-    # Topic-level stats used to score every article in this topic
-    domains   = {a.get("domain", "") for a in articles if a.get("domain")}
-    n_sources = len(domains)
-    coverage  = min(n_sources / 20.0, 1.0)  # 20+ unique domains = max coverage
-    cat_w     = CATEGORY_WEIGHTS.get(cat, 0.2)
-    n         = len(articles)
+    return items
 
-    print(f"    ✓  {n} articles / {n_sources} sources")
 
-    events: list[dict] = []
+def rss_item_to_event(item: dict, default_cat: str, feed_domain: str) -> dict | None:
+    """Convert a parsed RSS item to our event schema. Returns None if no location."""
+    title = strip_html(item["title"])
+    if not title or not item["url"]:
+        return None
 
-    for i, article in enumerate(articles):
-        art_url   = (article.get("url")   or "").strip()
-        art_title = (article.get("title") or "").strip()
-        if not art_url or not art_title:
-            continue
+    loc = extract_location(title, item.get("description", ""))
+    if loc is None:
+        return None
 
-        # ── Resolve coordinates ─────────────────────────────────────────────
-        a_lat, a_lng = lat, lng
-        a_country, a_code = country, code
+    art_url      = item["url"]
+    published_at = parse_pub_date(item.get("pubDate", ""))
+    freshness    = calc_freshness(published_at)
+    if freshness == "archive":
+        return None   # too old for this run
 
-        if a_lat is None:
-            sc   = (article.get("sourcecountry") or "").upper()
-            info = CODE_TO_COORDS.get(sc)
-            if info:
-                a_lat, a_lng = info["lat"], info["lng"]
-                a_country    = info["name"]
-                a_code       = sc
+    cat    = extract_category(title, default_cat)
+    cat_w  = CATEGORY_WEIGHTS.get(cat, 0.2)
+    rep    = reputation(feed_domain)
+    fresh_score = {"fresh": 1.0, "recent": 0.8, "ongoing": 0.5}.get(freshness, 0.3)
 
-        if a_lat is None:
-            continue  # can't place this article on the map
+    attention = round(
+        min(0.40 * cat_w + 0.35 * rep + 0.25 * fresh_score, 0.99),
+        4
+    )
 
-        # Stable per-URL jitter so position is reproducible across refreshes
-        j_lat, j_lng = stable_jitter(art_url, a_lat, a_lng)
+    domain = get_source_domain(art_url)
+    j_lat, j_lng = stable_jitter(art_url, loc["lat"], loc["lng"])
 
-        # ── Attention score ─────────────────────────────────────────────────
-        # position_ratio: 1.0 for first article (most relevant), 0.0 for last
-        position_ratio = 1.0 - (i / max(n - 1, 1))
-        attention = round(
-            min(0.35 * position_ratio + 0.40 * cat_w + 0.25 * coverage, 0.99),
-            4
-        )
-        velocity = round(position_ratio, 4)
+    summary_raw = strip_html(item.get("description", ""))
+    summary = (summary_raw[:200] + "…") if len(summary_raw) > 200 else summary_raw
+    if not summary:
+        summary = f"Reported by {domain}."
 
-        published_at = parse_gdelt_date(article.get("seendate"))
-        freshness    = calc_freshness(published_at)
-        domain       = article.get("domain", "unknown")
-
-        # Build a slightly informative summary from available metadata
-        rank_word = "Breaking" if i == 0 else ("Top story" if i < 5 else "Developing")
-        summary   = (
-            f"{rank_word} via {domain}. "
-            f"Covered by {n_sources} source{'s' if n_sources != 1 else ''} "
-            f"in {cat} category."
-        )
-
-        events.append({
-            "id":                f"ga_{url_hash(art_url)}",
-            "title":             art_title,
-            "summary":           summary,
-            "category":          cat,
-            "countryCode":       a_code or "XX",
-            "countryName":       a_country or "Unknown",
-            "regionName":        a_country or "Unknown",
-            "locationName":      a_country or "Unknown",
-            "lat":               j_lat,
-            "lng":               j_lng,
-            "geoPrecision":      "city" if topic.get("lat") else "country",
-            "publishedAt":       published_at,
-            "firstSeenAt":       published_at,
-            "lastUpdatedAt":     datetime.now(timezone.utc).isoformat(),
-            "freshness":         freshness,
-            "articleCount":      1,
-            "sourceCount":       1,
-            "attentionScore":    attention,
-            "velocityScore":     velocity,
-            "crossBorderFactor": round(coverage, 4),
-            "bubble":            False,   # set in main() after global sort
-            "tags":              [w for w in topic["q"].split() if len(w) > 3][:6],
-            "sources": [{
-                "name":        domain,
-                "url":         art_url,
-                "title":       art_title,
-                "publishedAt": published_at,
-            }],
-        })
-
-    return events
+    return {
+        "id":                f"rss_{url_hash(art_url)}",
+        "title":             title,
+        "summary":           summary,
+        "category":          cat,
+        "countryCode":       loc["code"],
+        "countryName":       loc["country"],
+        "regionName":        loc["country"],
+        "locationName":      loc["country"],
+        "lat":               j_lat,
+        "lng":               j_lng,
+        "geoPrecision":      "country",
+        "publishedAt":       published_at,
+        "firstSeenAt":       published_at,
+        "lastUpdatedAt":     datetime.now(timezone.utc).isoformat(),
+        "freshness":         freshness,
+        "articleCount":      1,
+        "sourceCount":       1,
+        "attentionScore":    attention,
+        "velocityScore":     round(fresh_score, 4),
+        "crossBorderFactor": round(rep, 4),
+        "bubble":            False,
+        "tags":              [w for w in title.split() if len(w) > 4][:6],
+        "sources": [{
+            "name":        domain,
+            "url":         art_url,
+            "title":       title,
+            "publishedAt": published_at,
+        }],
+    }
 
 
 # ── Output builders ───────────────────────────────────────────────────────────
 
 def build_heatmap(events: list) -> dict:
-    """GeoJSON FeatureCollection for MapLibre heatmap layer."""
-    features = [
-        {
-            "type": "Feature",
-            "geometry": {"type": "Point", "coordinates": [e["lng"], e["lat"]]},
-            "properties": {
-                "intensity": e.get("attentionScore", 0.5),
-                "count":     e.get("articleCount", 1),
-                "region":    e.get("locationName", ""),
-            },
-        }
-        for e in events
-        if e.get("lat") is not None and e.get("lng") is not None
-    ]
-    return {"type": "FeatureCollection", "features": features}
+    return {
+        "type": "FeatureCollection",
+        "features": [
+            {
+                "type": "Feature",
+                "geometry": {"type": "Point", "coordinates": [e["lng"], e["lat"]]},
+                "properties": {
+                    "intensity": e.get("attentionScore", 0.5),
+                    "count":     e.get("articleCount", 1),
+                    "region":    e.get("locationName", ""),
+                },
+            }
+            for e in events
+            if e.get("lat") is not None and e.get("lng") is not None
+        ],
+    }
 
 
 def build_trends(events: list) -> dict:
+    from collections import defaultdict
     cat_counts: dict[str, int] = defaultdict(int)
     for e in events:
         cat_counts[e["category"]] += 1
-
     rising = sorted(events, key=lambda e: e.get("velocityScore", 0), reverse=True)[:8]
-
     return {
         "generatedAt":  datetime.now(timezone.utc).isoformat(),
         "timeRange":    "24h",
         "risingEvents": [
-            {
-                "id":            e["id"],
-                "title":         e["title"],
-                "velocityScore": e["velocityScore"],
-                "category":      e["category"],
-                "countryName":   e["countryName"],
-            }
+            {"id": e["id"], "title": e["title"],
+             "velocityScore": e["velocityScore"], "category": e["category"],
+             "countryName": e["countryName"]}
             for e in rising
         ],
         "risingRegions": [],
@@ -510,7 +553,7 @@ def build_trends(events: list) -> dict:
             "avgAttentionScore": round(
                 sum(e.get("attentionScore", 0) for e in events) / max(len(events), 1), 3
             ),
-            "totalArticles": sum(e.get("articleCount", 0) for e in events),
+            "totalArticles": len(events),
             "bubbleCount":   sum(1 for e in events if e.get("bubble")),
         },
     }
@@ -531,93 +574,116 @@ def main() -> int:
     now_str  = datetime.now(timezone.utc).strftime("%Y-%m-%d %H:%M UTC")
 
     print(f"\n{'='*68}")
-    print(f"  World News Map — Data Fetcher v2")
-    print(f"  {now_str}  |  {len(TOPICS)} topics  |  {ARTICLES_PER_TOPIC} art/topic")
+    print(f"  World News Map — RSS Fetcher v3")
+    print(f"  {now_str}  |  {len(RSS_SOURCES)} feeds")
     print(f"{'='*68}\n")
 
-    # Collect all article-events, deduplicate by URL
+    # ── Step 1: Load existing events (7-day accumulation base) ────────────────
+    existing_path = os.path.join(OUTPUT_DIR, "world-latest.json")
     events_by_url: dict[str, dict] = {}
-    failed = 0
+    if os.path.exists(existing_path):
+        try:
+            with open(existing_path, encoding="utf-8") as f:
+                existing = json.load(f)
+            for e in (existing if isinstance(existing, list) else []):
+                if is_within_window(e):
+                    url = e.get("sources", [{}])[0].get("url", e.get("id", ""))
+                    if url:
+                        events_by_url[url] = e
+            print(f"  Loaded {len(events_by_url)} existing events (≤ {PRUNE_DAYS} days)\n")
+        except Exception as ex:
+            print(f"  [warn] Could not load existing data: {ex}\n")
 
-    for i, topic in enumerate(TOPICS):
-        elapsed_so_far = time.time() - start_ts
-        if elapsed_so_far > TIME_BUDGET_S:
-            print(f"  ⏱ Time budget ({TIME_BUDGET_S}s) reached after {i}/{len(TOPICS)} topics — stopping early")
-            break
+    # ── Step 2: Fetch all RSS feeds ───────────────────────────────────────────
+    new_count  = 0
+    skip_count = 0
+    fail_count = 0
 
-        new_events = process_topic(topic, timespan="24h")
-        if not new_events:
-            failed += 1
-        for e in new_events:
-            art_url = e["sources"][0]["url"]
-            if art_url not in events_by_url:
-                events_by_url[art_url] = e
-            else:
-                # Same article appeared in multiple topic queries; keep higher score
-                if e["attentionScore"] > events_by_url[art_url]["attentionScore"]:
-                    events_by_url[art_url] = e
-        if i < len(TOPICS) - 1:
-            time.sleep(REQUEST_DELAY_S)
+    for src in RSS_SOURCES:
+        feed_url    = src["url"]
+        default_cat = src["cat"]
+        feed_domain = get_source_domain(feed_url)
+        print(f"  ↓  {feed_domain:<30} {feed_url[:55]}")
+
+        xml_text = fetch_rss(feed_url)
+        items    = parse_rss(xml_text)
+
+        if not items:
+            fail_count += 1
+            continue
+
+        added = 0
+        for item in items:
+            art_url = item.get("url", "")
+            if art_url in events_by_url:
+                skip_count += 1
+                continue  # duplicate — skip
+
+            event = rss_item_to_event(item, default_cat, feed_domain)
+            if event is None:
+                continue
+
+            events_by_url[art_url] = event
+            new_count += 1
+            added += 1
+
+        print(f"     {len(items)} items  →  {added} new")
 
     elapsed = round(time.time() - start_ts, 1)
 
-    # Sort globally and take top MAX_EVENTS_OUTPUT
-    all_events = sorted(events_by_url.values(),
-                        key=lambda e: e["attentionScore"], reverse=True)
+    # ── Step 3: Sort and cap ──────────────────────────────────────────────────
+    all_events = sorted(
+        events_by_url.values(),
+        key=lambda e: (
+            e.get("attentionScore", 0) *
+            {"fresh": 1.0, "recent": 0.9, "ongoing": 0.7}.get(
+                calc_freshness(e.get("publishedAt", "")), 0.5
+            )
+        ),
+        reverse=True,
+    )
     all_events = all_events[:MAX_EVENTS_OUTPUT]
 
-    # Mark top articles as bubble (high-attention events get pulsing marker)
     for e in all_events:
-        e["bubble"] = e["attentionScore"] >= BUBBLE_THRESHOLD
+        e["bubble"]    = e.get("attentionScore", 0) >= BUBBLE_THRESHOLD
+        e["freshness"] = calc_freshness(e.get("publishedAt", ""))
 
     bubble_count = sum(1 for e in all_events if e["bubble"])
 
     print(f"\n{'─'*68}")
-    print(f"  Raw unique events : {len(events_by_url)}")
-    print(f"  Output (top {MAX_EVENTS_OUTPUT})    : {len(all_events)}")
-    print(f"  Bubble markers    : {bubble_count}")
-    print(f"  Failed topics     : {failed}")
-    print(f"  Elapsed           : {elapsed}s")
+    print(f"  Pool after merge+prune : {len(events_by_url)}")
+    print(f"  New this run           : {new_count}")
+    print(f"  Skipped (duplicate)    : {skip_count}")
+    print(f"  Failed feeds           : {fail_count}/{len(RSS_SOURCES)}")
+    print(f"  Output (top {MAX_EVENTS_OUTPUT})        : {len(all_events)}")
+    print(f"  Bubble markers         : {bubble_count}")
+    print(f"  Elapsed                : {elapsed}s")
     print(f"{'─'*68}\n")
 
     if not all_events:
-        # Preserve existing data rather than overwriting with empty files.
-        # This protects against GDELT rate-limiting on a single run.
-        print("WARNING: No events fetched (possible rate limit). Existing data preserved.")
-        return 0   # exit 0 so Actions marks the run green and retries next hour
+        print("WARNING: No events — existing data preserved.")
+        return 0
 
-    # Warn loudly but continue if yield is unusually low (< 5% of expected)
-    expected_min = len(TOPICS) * 3
-    if len(all_events) < expected_min:
-        print(f"WARNING: Only {len(all_events)} events (expected ≥ {expected_min}). "
-              "GDELT may be rate-limiting this run.")
-
-    # ── Write output files ────────────────────────────────────────────────────
+    # ── Step 4: Write files ───────────────────────────────────────────────────
     print("Writing output files:")
-
     write_json(os.path.join(OUTPUT_DIR, "world-latest.json"), all_events)
-
     write_json(os.path.join(OUTPUT_DIR, "top-headlines.json"), {
         "headlines":   all_events[:10],
         "generatedAt": datetime.now(timezone.utc).isoformat(),
     })
-
-    write_json(os.path.join(OUTPUT_DIR, "trends.json"), build_trends(all_events))
-
-    write_json(os.path.join(OUTPUT_DIR, "heatmap-24h.json"), build_heatmap(all_events))
-
-    fresh_events = [e for e in all_events if e.get("freshness") == "fresh"]
+    write_json(os.path.join(OUTPUT_DIR, "trends.json"),       build_trends(all_events))
+    write_json(os.path.join(OUTPUT_DIR, "heatmap-24h.json"),  build_heatmap(all_events))
+    fresh_ev = [e for e in all_events if e.get("freshness") == "fresh"]
     write_json(os.path.join(OUTPUT_DIR, "heatmap-1h.json"),
-               build_heatmap(fresh_events or all_events[:20]))
-
+               build_heatmap(fresh_ev or all_events[:20]))
     write_json(os.path.join(OUTPUT_DIR, "meta.json"), {
         "generatedAt":    datetime.now(timezone.utc).isoformat(),
         "eventCount":     len(all_events),
-        "rawUniqueCount": len(events_by_url),
-        "failedTopics":   failed,
+        "newThisRun":     new_count,
+        "failedFeeds":    fail_count,
         "elapsedSec":     elapsed,
-        "source":         "gdelt",
-        "version":        2,
+        "source":         "rss",
+        "version":        3,
     })
 
     print(f"\n{'='*68}")
