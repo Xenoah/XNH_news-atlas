@@ -3,8 +3,7 @@ name: Fetch News Data
 # Run every hour and allow manual trigger
 on:
   schedule:
-    - cron: '0 * * * *'       # Every hour at :00 UTC (~72 min/day, safe for free tier)
-    # - cron: '*/30 * * * *'  # Every 30 min (~144 min/day) — enable if on paid plan
+    - cron: '*/15 * * * *'    # Every 15 min (RSS feeds; ~2,880 min/month — public repo OK)
   workflow_dispatch:            # Manual trigger from GitHub Actions UI
 
 permissions:
