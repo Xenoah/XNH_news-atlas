@@ -1,9 +1,9 @@
-Preview→ https://xenoah.github.io/XNH_news-atlas/
+Preview → https://xenoah.github.io/XNH_news-atlas/
 
 
 # World News Map Viewer
 
-A production-quality static web application that visualizes global news events on an interactive dark-themed world map. No build tools required — open `index.html` in a browser and everything works.
+A production-quality static web application that visualizes global news events on an interactive dark-themed world map. Data is pre-fetched hourly from GDELT via GitHub Actions and served as static JSON — no backend required.
 
 ---
 
@@ -14,10 +14,13 @@ A production-quality static web application that visualizes global news events o
 - **Time Filters** — 1H, 6H, 24H, 7D windows applied across map and panels simultaneously
 - **Category Filters** — 10 categories with color-coded chips; multi-select supported
 - **Full-text Search** — Filters across title, summary, country, location, and tags in real-time
-- **Attention Scoring** — Composite score from article count, source count, velocity, category weight, and cross-border factor
-- **Live/Static Mode** — Auto-detects local API at `localhost:8787`; falls back gracefully to static JSON
-- **Mobile Support** — Responsive layout; panels hidden on mobile with a bottom drawer for event detail
-- **Auto-refresh** — 60s for live mode, 5 minutes for static mode
+- **Source Links** — Each event links to original article sources with domain, title, and timestamp
+- **GDELT Integration** — Real news data pre-fetched hourly via GitHub Actions; browser-side GDELT refresh also available
+- **3-Tier Data Priority** — Live API (`localhost:8787`) → Static JSON (GitHub Actions) → Browser GDELT fetch
+- **7-Day Accumulation** — Hourly runs accumulate non-duplicate articles for up to 7 days; events decay in score as they age
+- **Map Legend** — Collapsible category legend with color reference
+- **Auto-refresh** — Static JSON silently reloads every 5 minutes; "last updated X ago" shown in header
+- **Mobile Support** — Responsive layout with bottom drawer for event detail on small screens
 
 ---
 
@@ -25,61 +28,81 @@ A production-quality static web application that visualizes global news events o
 
 ```
 XNH_news-atlas/
-├── index.html              # Main entry point
+├── index.html                        # Main entry point
 ├── css/
-│   ├── reset.css           # Comprehensive CSS reset
-│   ├── variables.css       # CSS custom properties
-│   └── style.css           # Complete dark-theme styles
+│   ├── reset.css                     # CSS reset
+│   ├── variables.css                 # CSS custom properties
+│   └── style.css                     # Complete dark-theme styles
 ├── js/
-│   ├── utils.js            # Shared utility functions
-│   ├── scoring.js          # Attention score & ranking logic
-│   ├── filters.js          # Time, category, and search filters
-│   ├── data.js             # Data layer (live API + static JSON)
-│   ├── renderers.js        # HTML string renderers for all UI components
-│   ├── ui.js               # DOM interactions and panel updates
-│   ├── map.js              # MapLibre GL JS integration
-│   ├── app.js              # Central state management
-│   └── main.js             # Entry point (DOMContentLoaded)
-└── data/
-    ├── world-latest.json   # 38 realistic world news events (mock)
-    ├── top-headlines.json  # Top 10 events by attention score
-    ├── trends.json         # Trend metadata and category statistics
-    ├── heatmap-1h.json     # Heatmap GeoJSON for 1-hour window
-    └── heatmap-24h.json    # Heatmap GeoJSON for 24-hour window
+│   ├── utils.js                      # Shared utility functions
+│   ├── scoring.js                    # Attention score & ranking logic
+│   ├── filters.js                    # Time, category, and search filters
+│   ├── data.js                       # Data layer (live API / static JSON / GDELT)
+│   ├── renderers.js                  # HTML string renderers for all UI components
+│   ├── ui.js                         # DOM interactions and panel updates
+│   ├── map.js                        # MapLibre GL JS integration
+│   ├── app.js                        # Central state management
+│   └── main.js                       # Entry point (DOMContentLoaded)
+├── scripts/
+│   └── fetch-news.py                 # GDELT data fetcher (run by GitHub Actions)
+├── .github/
+│   └── workflows/
+│       └── fetch-news.yml            # Hourly GitHub Actions workflow
+└── data/                             # Pre-fetched static JSON (auto-updated)
+    ├── world-latest.json             # Up to 600 world news events
+    ├── top-headlines.json            # Top 10 events by attention score
+    ├── trends.json                   # Trend metadata and category statistics
+    ├── heatmap-1h.json               # Heatmap GeoJSON for 1-hour window
+    ├── heatmap-24h.json              # Heatmap GeoJSON for 24-hour window
+    └── meta.json                     # Generation metadata (timestamp, event count)
 ```
+
+---
+
+## Data Pipeline
+
+### GitHub Actions (Hourly)
+
+The workflow `.github/workflows/fetch-news.yml` runs every hour:
+
+1. Queries GDELT DOC 2.0 API across **52 topics** (conflict, politics, economy, technology, health, disaster, science, sports)
+2. Each article becomes an individual map event (up to 50 articles per topic)
+3. Deduplicates by URL — new articles are added; existing URLs are skipped
+4. Prunes events older than **7 days**
+5. Sorts the top **600 events** by time-decayed attention score
+6. Commits updated JSON to the `data/` directory if anything changed
+
+Total runtime: ~2 minutes per run, well within GitHub Actions limits.
+
+### Browser-Side Refresh
+
+The **↻** button in the header triggers a direct GDELT query from the browser (no Actions required). This is useful for getting events not yet in the latest hourly snapshot. Data mode badge changes to `GDELT` while active.
 
 ---
 
 ## Quick Start
 
-### Static Mode (no server needed)
-
-The app can be served directly from any static file server:
+The app must be served from a local HTTP server (not `file://`) due to browser CORS restrictions on `fetch()`:
 
 ```bash
-# Python (built-in)
-cd XNH_news-atlas
+# Python
 python -m http.server 8080
 
-# Node.js (npx)
+# Node.js
 npx serve .
 
-# Then open in browser:
-# http://localhost:8080
+# Then open: http://localhost:8080
 ```
-
-> **Note:** Opening `index.html` directly with `file://` protocol will fail due to CORS restrictions on `fetch()`. You must serve from a local server.
 
 ### Live API Mode
 
-If you have a backend running at `http://localhost:8787`, the app will auto-detect it and switch the status badge from `STATIC` to `LIVE`. The app probes `/status` with a 2-second timeout.
+If a backend is running at `http://localhost:8787`, the app auto-detects it and switches the status badge to `LIVE`.
 
-Expected endpoints:
 | Endpoint | Returns |
 |---|---|
 | `GET /status` | `200 OK` health check |
 | `GET /events/latest` | Array of events (same schema as `world-latest.json`) |
-| `GET /headlines` | Array or `{ headlines: [...] }` |
+| `GET /headlines` | `{ headlines: [...] }` |
 | `GET /trends` | Trends object (same schema as `trends.json`) |
 | `GET /heatmap?range=1h` | GeoJSON FeatureCollection |
 | `GET /heatmap?range=24h` | GeoJSON FeatureCollection |
@@ -92,29 +115,50 @@ Each event in `world-latest.json` follows this schema:
 
 ```json
 {
-  "id": "evt-001",
+  "id": "ga_abc123def456",
   "title": "string",
-  "summary": "string (2-4 sentences)",
+  "summary": "string",
   "category": "conflict | politics | economy | disaster | science | technology | health | sports | culture | other",
   "countryCode": "ISO 3166-1 alpha-2",
   "countryName": "string",
   "regionName": "string",
   "locationName": "string",
-  "lat": -90.0,
-  "lng": -180.0,
-  "geoPrecision": "city | region | country",
+  "lat": 0.0,
+  "lng": 0.0,
+  "geoPrecision": "city | country",
   "publishedAt": "ISO 8601",
   "firstSeenAt": "ISO 8601",
   "lastUpdatedAt": "ISO 8601",
   "freshness": "fresh | recent | ongoing | archive",
-  "articleCount": 0,
-  "sourceCount": 0,
+  "articleCount": 1,
+  "sourceCount": 1,
   "attentionScore": 0.0,
   "velocityScore": 0.0,
   "crossBorderFactor": 0.0,
   "bubble": false,
   "tags": ["string"],
-  "sources": [{ "name": "string", "articleCount": 0 }]
+  "sources": [
+    {
+      "name": "reuters.com",
+      "url": "https://...",
+      "title": "string",
+      "publishedAt": "ISO 8601"
+    }
+  ]
+}
+```
+
+`meta.json` schema:
+
+```json
+{
+  "generatedAt": "ISO 8601",
+  "eventCount": 600,
+  "rawUniqueCount": 1200,
+  "failedTopics": 2,
+  "elapsedSec": 110.4,
+  "source": "gdelt",
+  "version": 2
 }
 ```
 
@@ -122,16 +166,25 @@ Each event in `world-latest.json` follows this schema:
 
 ## Attention Score Formula
 
+Per-article score at fetch time:
+
 ```
 attentionScore =
-  0.30 × min(articleCount / 200, 1)  +
-  0.25 × min(sourceCount / 30, 1)    +
-  0.20 × min(velocityScore, 1)       +
-  0.15 × categoryWeight              +
-  0.10 × crossBorderFactor
+  0.35 × positionRatio     (1.0 = first result, 0.0 = last)  +
+  0.40 × categoryWeight                                        +
+  0.25 × coverage          (unique domains in topic / 20)
 ```
 
-Category weights: conflict 1.0, politics 0.9, disaster 0.9, economy 0.8, health 0.7, technology 0.6, science 0.5, sports 0.4, culture 0.3, other 0.2
+Score is further decayed at render time by freshness:
+
+| Freshness | Age | Decay |
+|---|---|---|
+| fresh | < 3 h | 1.0× |
+| recent | < 24 h | 0.9× |
+| ongoing | < 7 d | 0.7× |
+| archive | > 7 d | pruned |
+
+Category weights: conflict 1.0, politics/disaster 0.9, economy 0.8, health 0.7, technology 0.6, science 0.5, sports 0.4, culture 0.3, other 0.2
 
 ---
 
@@ -139,61 +192,37 @@ Category weights: conflict 1.0, politics 0.9, disaster 0.9, economy 0.8, health 
 
 ### Namespace Pattern
 
-All modules attach to `window.NewsAtlas`:
+All modules attach to `window.NewsAtlas` — no build tools required:
 
 ```javascript
 window.NewsAtlas = window.NewsAtlas || {};
-NewsAtlas.utils    // utility functions
-NewsAtlas.scoring  // scoring logic
-NewsAtlas.filters  // filter logic
-NewsAtlas.data     // data fetching
-NewsAtlas.renderers // HTML renderers
-NewsAtlas.ui       // DOM management
-NewsAtlas.map      // MapLibre integration
-NewsAtlas.app      // central state + orchestration
+NewsAtlas.utils      // utility functions
+NewsAtlas.scoring    // scoring logic
+NewsAtlas.filters    // filter logic
+NewsAtlas.data       // data fetching (3-tier)
+NewsAtlas.renderers  // HTML renderers
+NewsAtlas.ui         // DOM management
+NewsAtlas.map        // MapLibre integration
+NewsAtlas.app        // central state + orchestration
 ```
 
 ### Data Flow
 
 ```
 main.js
-  → ui.init()          (bind DOM events)
-  → map.init('map')    (create MapLibre instance)
+  → ui.init()
+  → map.init('map')
   → app.init()
-      → data.init()    (detect live vs. static)
-      → data.getEvents() + getHeadlines() + getTrends() + getHeatmap()
+      → data.init()          (probe localhost:8787; read meta.json)
+      → data.getEvents()     (static JSON by default)
       → filters.apply()
       → scoring.rankEvents()
-      → renderers.*()  (generate HTML strings)
+      → renderers.*()
       → ui.updateLeftPanel() / ui.updateRightPanel()
-      → map.updateEvents() / map.updateHeatmap()
+      → map.updateEvents()   / map.updateHeatmap()
 ```
 
-### State
-
-All application state lives in `NewsAtlas.app.getState()`:
-
-```javascript
-{
-  mode: 'events',           // 'events' | 'density' | 'trends' | 'analysis'
-  timeFilter: '24h',        // '1h' | '6h' | '24h' | '7d'
-  categoryFilters: Set,     // Set of category strings, or Set(['all'])
-  searchQuery: '',
-  selectedEvent: null,
-  selectedRegion: null,
-  dataMode: 'static',       // 'live' | 'static'
-  lastUpdated: Date,
-  allEvents: [],
-  filteredEvents: [],
-  headlines: [],
-  trends: {},
-  heatmapData: null
-}
-```
-
----
-
-## Map Layers
+### Map Layers
 
 | Layer ID | Type | Description |
 |---|---|---|
@@ -202,9 +231,10 @@ All application state lives in `NewsAtlas.app.getState()`:
 | `cluster-circles` | circle | Clustered event groups |
 | `cluster-count` | symbol | Cluster count labels |
 | `event-points` | circle | Individual events (color by category) |
-| `bubble-rings` | circle | High-attention event ring overlay |
+| `selected-glow` | circle | Selected event highlight (fill) |
+| `selected-ring` | circle | Selected event highlight (ring) |
 
-HTML `bubble-marker` elements are added as MapLibre `Marker` instances with a CSS pulsing animation for the top 10 breaking events.
+HTML `bubble-marker` elements are added as MapLibre `Marker` instances with CSS pulsing animation for high-attention events (`attentionScore ≥ 0.93`).
 
 ---
 
@@ -227,13 +257,9 @@ HTML `bubble-marker` elements are added as MapLibre `Marker` instances with a CS
 
 ## Browser Support
 
-Requires a modern browser with ES2020+ support:
-- Chrome 90+
-- Firefox 88+
-- Safari 15+
-- Edge 90+
+Requires a modern browser with ES2020+ and WebGL support:
 
-WebGL is required for the MapLibre map. The app will display an error message if WebGL is unavailable.
+- Chrome 90+, Firefox 88+, Safari 15+, Edge 90+
 
 ---
 
