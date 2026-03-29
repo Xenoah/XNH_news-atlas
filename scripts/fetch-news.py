@@ -314,28 +314,45 @@ def calc_freshness(iso: str) -> str:
 
 
 def fetch_gdelt(query: str, timespan: str = "24h", max_records: int = ARTICLES_PER_TOPIC) -> list:
-    """Call GDELT DOC API (artlist mode). Returns list of article dicts."""
+    """
+    Call GDELT DOC 2.0 API (ArtList mode).
+    Implements the API per official documentation:
+      https://blog.gdeltproject.org/gdelt-doc-2-0-api-debuts/
+
+    Valid URL parameters: query, mode, maxrecords, format, timespan,
+                          startdatetime, enddatetime, sort
+    Note: sourcelang / sourcecountry are query OPERATORS embedded in the
+          query string (e.g. "ukraine war sourcelang:English"), NOT URL params.
+    """
+    # sourcelang:English goes inside the query string, per official docs
+    full_query = f"{query} sourcelang:English"
     params = urllib.parse.urlencode({
-        "query":      query,
-        "mode":       "artlist",
+        "query":      full_query,
+        "mode":       "ArtList",
         "maxrecords": str(max_records),
         "format":     "json",
-        "sourcelang": "english",
         "timespan":   timespan,
+        "sort":       "HybridRel",   # hybrid relevance+recency, per official docs
     })
-    url = f"{GDELT_API}?{params}"
-    try:
-        req = urllib.request.Request(
-            url,
-            headers={"User-Agent": "WorldNewsMapViewer/2.0 (github.com; news visualization)"}
-        )
-        with urllib.request.urlopen(req, timeout=25) as resp:
-            data = json.loads(resp.read().decode("utf-8"))
-            arts = data.get("articles") or []
-            return [a for a in arts if a.get("url") and a.get("title")]
-    except Exception as e:
-        print(f"    [GDELT error] {type(e).__name__}: {e}")
-        return []
+    request_url = f"{GDELT_API}?{params}"
+
+    for attempt in range(3):   # up to 3 attempts with exponential backoff
+        try:
+            req = urllib.request.Request(
+                request_url,
+                headers={"User-Agent": "WorldNewsMapViewer/2.0 (github.com; news visualization)"}
+            )
+            with urllib.request.urlopen(req, timeout=30) as resp:
+                data = json.loads(resp.read().decode("utf-8"))
+                arts = data.get("articles") or []
+                return [a for a in arts if a.get("url") and a.get("title")]
+        except Exception as e:
+            wait = 2 ** attempt   # 1 s, 2 s, 4 s
+            print(f"    [GDELT attempt {attempt+1}/3] {type(e).__name__}: {e}  (retry in {wait}s)")
+            if attempt < 2:
+                time.sleep(wait)
+
+    return []
 
 
 def process_topic(topic: dict, timespan: str = "24h") -> list[dict]:
@@ -563,8 +580,16 @@ def main() -> int:
     print(f"{'─'*68}\n")
 
     if not all_events:
-        print("ERROR: No events fetched. Existing data unchanged.")
-        return 1
+        # Preserve existing data rather than overwriting with empty files.
+        # This protects against GDELT rate-limiting on a single run.
+        print("WARNING: No events fetched (possible rate limit). Existing data preserved.")
+        return 0   # exit 0 so Actions marks the run green and retries next hour
+
+    # Warn loudly but continue if yield is unusually low (< 5% of expected)
+    expected_min = len(TOPICS) * 3
+    if len(all_events) < expected_min:
+        print(f"WARNING: Only {len(all_events)} events (expected ≥ {expected_min}). "
+              "GDELT may be rate-limiting this run.")
 
     # ── Write output files ────────────────────────────────────────────────────
     print("Writing output files:")
