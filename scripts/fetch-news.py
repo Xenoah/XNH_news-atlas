@@ -32,9 +32,11 @@ from collections import defaultdict
 
 GDELT_API          = "https://api.gdeltproject.org/api/v2/doc/doc"
 OUTPUT_DIR         = os.path.join(os.path.dirname(__file__), "..", "data")
-ARTICLES_PER_TOPIC = 150   # GDELT allows up to 250; 150 balances volume vs. speed
+ARTICLES_PER_TOPIC = 25    # Keep small: GDELT responds faster, less timeout risk
 MAX_EVENTS_OUTPUT  = 600   # Top N events written to world-latest.json
-REQUEST_DELAY_S    = 0.5   # Polite delay between GDELT requests (seconds)
+REQUEST_DELAY_S    = 0.3   # Polite delay between GDELT requests (seconds)
+GDELT_TIMEOUT_S    = 10    # Per-request timeout — fail fast, retry next hour
+TIME_BUDGET_S      = 480   # 8-minute global budget; stop fetching topics if exceeded
 BUBBLE_THRESHOLD   = 0.93  # attentionScore above which bubble:true is set
 
 # ── Scoring weights ───────────────────────────────────────────────────────────
@@ -335,24 +337,18 @@ def fetch_gdelt(query: str, timespan: str = "24h", max_records: int = ARTICLES_P
         "sort":       "HybridRel",   # hybrid relevance+recency, per official docs
     })
     request_url = f"{GDELT_API}?{params}"
-
-    for attempt in range(3):   # up to 3 attempts with exponential backoff
-        try:
-            req = urllib.request.Request(
-                request_url,
-                headers={"User-Agent": "WorldNewsMapViewer/2.0 (github.com; news visualization)"}
-            )
-            with urllib.request.urlopen(req, timeout=30) as resp:
-                data = json.loads(resp.read().decode("utf-8"))
-                arts = data.get("articles") or []
-                return [a for a in arts if a.get("url") and a.get("title")]
-        except Exception as e:
-            wait = 2 ** attempt   # 1 s, 2 s, 4 s
-            print(f"    [GDELT attempt {attempt+1}/3] {type(e).__name__}: {e}  (retry in {wait}s)")
-            if attempt < 2:
-                time.sleep(wait)
-
-    return []
+    try:
+        req = urllib.request.Request(
+            request_url,
+            headers={"User-Agent": "WorldNewsMapViewer/2.0 (github.com; news visualization)"}
+        )
+        with urllib.request.urlopen(req, timeout=GDELT_TIMEOUT_S) as resp:
+            data = json.loads(resp.read().decode("utf-8"))
+            arts = data.get("articles") or []
+            return [a for a in arts if a.get("url") and a.get("title")]
+    except Exception as e:
+        print(f"    [GDELT error] {type(e).__name__}: {e}")
+        return []
 
 
 def process_topic(topic: dict, timespan: str = "24h") -> list[dict]:
@@ -544,6 +540,11 @@ def main() -> int:
     failed = 0
 
     for i, topic in enumerate(TOPICS):
+        elapsed_so_far = time.time() - start_ts
+        if elapsed_so_far > TIME_BUDGET_S:
+            print(f"  ⏱ Time budget ({TIME_BUDGET_S}s) reached after {i}/{len(TOPICS)} topics — stopping early")
+            break
+
         new_events = process_topic(topic, timespan="24h")
         if not new_events:
             failed += 1

@@ -17,7 +17,7 @@ jobs:
   fetch-news:
     name: Fetch & commit news data
     runs-on: ubuntu-latest
-    timeout-minutes: 12
+    timeout-minutes: 10
 
     steps:
       - name: Checkout repository
