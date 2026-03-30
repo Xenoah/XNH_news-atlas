@@ -1,14 +1,7 @@
 {
-  "generatedAt": "2026-03-30T16:40:02.872832+00:00",
+  "generatedAt": "2026-03-30T17:36:41.309879+00:00",
   "timeRange": "24h",
   "risingEvents": [
-    {
-      "id": "rss_12bf5494a674",
-      "title": "War on Iran disrupts Asia’s used-car exports to the Middle East",
-      "velocityScore": 1.0,
-      "category": "conflict",
-      "countryName": "Iran"
-    },
     {
       "id": "rss_0969796d1504",
       "title": "Egypt’s president urges Trump to stop war on Iran",
@@ -26,13 +19,6 @@
     {
       "id": "rss_f7b37d0f0971",
       "title": "Marco Rubio says President Trump prefers diplomatic solution to war on Iran",
-      "velocityScore": 1.0,
-      "category": "conflict",
-      "countryName": "United States"
-    },
-    {
-      "id": "rss_aee477bdb9dc",
-      "title": "Distancing himself from Trump and a badly waged war in Iran might be the smartest move Albanese can make",
       "velocityScore": 1.0,
       "category": "conflict",
       "countryName": "United States"
@@ -57,13 +43,27 @@
       "velocityScore": 1.0,
       "category": "conflict",
       "countryName": "Israel"
+    },
+    {
+      "id": "rss_7c407a44dbad",
+      "title": "We dug up medics in Gaza. A year later, international law remains buried",
+      "velocityScore": 1.0,
+      "category": "politics",
+      "countryName": "Israel"
+    },
+    {
+      "id": "rss_576d3cfa7fce",
+      "title": "Heavy rain, floods kill at least 45 people in Afghanistan, Pakistan",
+      "velocityScore": 1.0,
+      "category": "disaster",
+      "countryName": "Pakistan"
     }
   ],
   "risingRegions": [],
   "categoryTrends": {
     "politics": {
-      "count": 350,
-      "change": "+350",
+      "count": 358,
+      "change": "+358",
       "changePercent": 100
     },
     "conflict": {
@@ -81,32 +81,32 @@
       "change": "+19",
       "changePercent": 100
     },
-    "sports": {
-      "count": 19,
-      "change": "+19",
-      "changePercent": 100
-    },
     "technology": {
       "count": 16,
       "change": "+16",
       "changePercent": 100
     },
-    "science": {
-      "count": 10,
-      "change": "+10",
+    "sports": {
+      "count": 15,
+      "change": "+15",
       "changePercent": 100
     },
     "disaster": {
       "count": 8,
       "change": "+8",
       "changePercent": 100
+    },
+    "science": {
+      "count": 6,
+      "change": "+6",
+      "changePercent": 100
     }
   },
   "totalEvents": 600,
   "totalSources": 600,
   "globalStats": {
-    "avgAttentionScore": 0.849,
+    "avgAttentionScore": 0.853,
     "totalArticles": 600,
-    "bubbleCount": 409
+    "bubbleCount": 418
   }
 }
