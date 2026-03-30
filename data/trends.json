@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-03-30T20:26:53.461532+00:00",
+  "generatedAt": "2026-03-30T21:09:05.106319+00:00",
   "timeRange": "24h",
   "risingEvents": [
     {
@@ -8,20 +8,6 @@
       "velocityScore": 1.0,
       "category": "conflict",
       "countryName": "Israel"
-    },
-    {
-      "id": "rss_08cddc90c04a",
-      "title": "IMF warns Middle East conflict will lead to higher prices and slower global growth",
-      "velocityScore": 1.0,
-      "category": "conflict",
-      "countryName": "United States"
-    },
-    {
-      "id": "rss_b382a0c9c1a7",
-      "title": "The Guardian view on Trump’s Iran war: escalation without end | Editorial",
-      "velocityScore": 1.0,
-      "category": "conflict",
-      "countryName": "Iran"
     },
     {
       "id": "rss_955d1641c4c2",
@@ -38,22 +24,36 @@
       "countryName": "United States"
     },
     {
-      "id": "rss_91838ebe824a",
-      "title": "Three UN peacekeepers killed in south Lebanon in 24 hours amid Israel-Hezbollah conflict",
+      "id": "rss_ca1d55805316",
+      "title": "French police make two more arrests over foiled attack on Bank of America",
       "velocityScore": 1.0,
-      "category": "conflict",
-      "countryName": "Israel"
+      "category": "politics",
+      "countryName": "Iran"
     },
     {
-      "id": "rss_d73db83814af",
-      "title": "What is the ‘Greater Israel’ project?",
+      "id": "rss_eb302dcdf2ed",
+      "title": "Cuba waits for Russian oil tanker to arrive amid US blockade",
+      "velocityScore": 1.0,
+      "category": "politics",
+      "countryName": "Russia"
+    },
+    {
+      "id": "rss_1ad0831fa989",
+      "title": "US embassy reopens in Venezuela months after Maduro abduction",
+      "velocityScore": 1.0,
+      "category": "politics",
+      "countryName": "Venezuela"
+    },
+    {
+      "id": "rss_d350a9f0619a",
+      "title": "What we know about attack on key Israeli oil refinery",
       "velocityScore": 1.0,
       "category": "politics",
       "countryName": "Israel"
     },
     {
-      "id": "rss_ca1d55805316",
-      "title": "French police make two more arrests over foiled attack on Bank of America",
+      "id": "rss_a04e8bd458e1",
+      "title": "Rubio says NATO must be re-examined after Spain blocks US operation on Iran",
       "velocityScore": 1.0,
       "category": "politics",
       "countryName": "Iran"
@@ -62,13 +62,13 @@
   "risingRegions": [],
   "categoryTrends": {
     "politics": {
-      "count": 364,
-      "change": "+364",
+      "count": 363,
+      "change": "+363",
       "changePercent": 100
     },
     "conflict": {
-      "count": 167,
-      "change": "+167",
+      "count": 168,
+      "change": "+168",
       "changePercent": 100
     },
     "health": {
@@ -105,8 +105,8 @@
   "totalEvents": 600,
   "totalSources": 600,
   "globalStats": {
-    "avgAttentionScore": 0.87,
+    "avgAttentionScore": 0.873,
     "totalArticles": 600,
-    "bubbleCount": 463
+    "bubbleCount": 470
   }
 }
