@@ -36,6 +36,15 @@ PRUNE_DAYS        = 7      # remove events older than this
 FETCH_TIMEOUT_S   = 15     # per-feed HTTP timeout
 BUBBLE_THRESHOLD  = 0.82   # attentionScore above which bubble:true is set
 
+# Only publishers with feed terms we could confirm are allowed here.
+# Keep this list conservative and re-check before any commercial use.
+THUMBNAIL_WHITELIST = {
+    "abc.net.au",
+}
+
+MEDIA_NS = "http://search.yahoo.com/mrss/"
+ATOM_NS  = "http://www.w3.org/2005/Atom"
+
 # ── RSS Sources ───────────────────────────────────────────────────────────────
 
 RSS_SOURCES = [
@@ -365,6 +374,50 @@ def get_source_domain(url: str) -> str:
         return "unknown"
 
 
+def is_thumbnail_allowed(domain: str) -> bool:
+    return any(allowed in domain for allowed in THUMBNAIL_WHITELIST)
+
+
+def normalize_thumbnail_url(url: str | None) -> str:
+    if not url:
+        return ""
+    url = url.strip()
+    if url.startswith("//"):
+        return f"https:{url}"
+    return url if url.startswith(("http://", "https://")) else ""
+
+
+def extract_thumbnail_url(node: ET.Element) -> str:
+    media_thumb = node.find(f"{{{MEDIA_NS}}}thumbnail")
+    if media_thumb is not None:
+        thumb_url = normalize_thumbnail_url(media_thumb.get("url"))
+        if thumb_url:
+            return thumb_url
+
+    for media_content in node.findall(f"{{{MEDIA_NS}}}content"):
+        media_url  = normalize_thumbnail_url(media_content.get("url"))
+        media_type = (media_content.get("type") or "").lower()
+        medium     = (media_content.get("medium") or "").lower()
+        if media_url and (media_type.startswith("image/") or medium == "image"):
+            return media_url
+
+    enclosure = node.find("enclosure")
+    if enclosure is not None:
+        enc_url  = normalize_thumbnail_url(enclosure.get("url"))
+        enc_type = (enclosure.get("type") or "").lower()
+        if enc_url and enc_type.startswith("image/"):
+            return enc_url
+
+    for atom_link in node.findall(f"{{{ATOM_NS}}}link"):
+        rel   = (atom_link.get("rel") or "").lower()
+        href  = normalize_thumbnail_url(atom_link.get("href"))
+        ltype = (atom_link.get("type") or "").lower()
+        if href and rel == "enclosure" and ltype.startswith("image/"):
+            return href
+
+    return ""
+
+
 def reputation(domain: str) -> float:
     for key, val in SOURCE_REPUTATION.items():
         if key in domain:
@@ -419,12 +472,19 @@ def parse_rss(xml_text: str) -> list[dict]:
             desc  = (item.findtext("description") or "").strip()
             pub   = (item.findtext("pubDate") or
                      item.findtext("{http://purl.org/dc/elements/1.1/}date") or "").strip()
+            thumbnail = extract_thumbnail_url(item)
             if title and link:
-                items.append({"title": title, "url": link, "description": desc, "pubDate": pub})
+                items.append({
+                    "title": title,
+                    "url": link,
+                    "description": desc,
+                    "pubDate": pub,
+                    "thumbnailUrl": thumbnail,
+                })
 
     # ── Atom ─────────────────────────────────────────────────────────────────
     else:
-        ns = "http://www.w3.org/2005/Atom"
+        ns = ATOM_NS
         for entry in root.iter(f"{{{ns}}}entry"):
             t_el  = entry.find(f"{{{ns}}}title")
             l_el  = entry.find(f"{{{ns}}}link")
@@ -434,8 +494,15 @@ def parse_rss(xml_text: str) -> list[dict]:
             link  = l_el.get("href", "") if l_el is not None else ""
             desc  = s_el.text or "" if s_el is not None else ""
             pub   = u_el.text or "" if u_el is not None else ""
+            thumbnail = extract_thumbnail_url(entry)
             if title and link:
-                items.append({"title": title, "url": link, "description": desc, "pubDate": pub})
+                items.append({
+                    "title": title,
+                    "url": link,
+                    "description": desc,
+                    "pubDate": pub,
+                    "thumbnailUrl": thumbnail,
+                })
 
     return items
 
@@ -473,6 +540,9 @@ def rss_item_to_event(item: dict, default_cat: str, feed_domain: str) -> dict | 
     summary = (summary_raw[:200] + "…") if len(summary_raw) > 200 else summary_raw
     if not summary:
         summary = f"Reported by {domain}."
+    thumbnail_url = normalize_thumbnail_url(item.get("thumbnailUrl", ""))
+    if thumbnail_url and not is_thumbnail_allowed(domain):
+        thumbnail_url = ""
 
     return {
         "id":                f"rss_{url_hash(art_url)}",
@@ -496,12 +566,14 @@ def rss_item_to_event(item: dict, default_cat: str, feed_domain: str) -> dict | 
         "velocityScore":     round(fresh_score, 4),
         "crossBorderFactor": round(rep, 4),
         "bubble":            False,
+        "thumbnailUrl":      thumbnail_url,
         "tags":              [w for w in title.split() if len(w) > 4][:6],
         "sources": [{
             "name":        domain,
             "url":         art_url,
             "title":       title,
             "publishedAt": published_at,
+            "thumbnailUrl": thumbnail_url,
         }],
     }
 
@@ -616,6 +688,15 @@ def main() -> int:
         for item in items:
             art_url = item.get("url", "")
             if art_url in events_by_url:
+                existing = events_by_url[art_url]
+                if not existing.get("thumbnailUrl"):
+                    thumb_url = normalize_thumbnail_url(item.get("thumbnailUrl", ""))
+                    if thumb_url and is_thumbnail_allowed(get_source_domain(art_url)):
+                        existing["thumbnailUrl"] = thumb_url
+                        for src in existing.get("sources", []):
+                            if src.get("url") == art_url:
+                                src["thumbnailUrl"] = thumb_url
+                                break
                 skip_count += 1
                 continue  # duplicate — skip
 

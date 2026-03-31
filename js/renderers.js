@@ -285,6 +285,8 @@ NewsAtlas.renderers = {
       : 'var(--text-muted)';
     const tags    = (event.tags || []).map(t => `<span class="tag">${u.escapeHtml(t)}</span>`).join('');
     const allSrcs = event.sources || [];
+    const thumbSource = allSrcs.find(s => s.thumbnailUrl) || null;
+    const thumbnailUrl = u.escapeHtml(event.thumbnailUrl || (thumbSource && thumbSource.thumbnailUrl) || '');
     const sources = allSrcs.slice(0, 8).map(s => this.sourceItem(s)).join('');
 
     return `
@@ -305,6 +307,21 @@ NewsAtlas.renderers = {
             ${event.geoPrecision ? `<span class="detail-meta-sep">·</span><span>${u.escapeHtml(event.geoPrecision)}</span>` : ''}
           </div>
         </div>
+
+        ${thumbnailUrl ? `
+          <div class="detail-thumbnail-card">
+            <img
+              class="detail-thumbnail"
+              src="${thumbnailUrl}"
+              alt="${u.escapeHtml(event.title)}"
+              loading="lazy"
+              referrerpolicy="no-referrer"
+            >
+            <div class="detail-thumbnail-meta">
+              <span class="detail-thumbnail-label">Licensed Feed Image</span>
+              <span class="detail-thumbnail-source">${u.escapeHtml((thumbSource && thumbSource.name) || 'Whitelisted source')}</span>
+            </div>
+          </div>` : ''}
 
         <!-- Summary: prominent, readable -->
         <div class="detail-summary">${u.escapeHtml(event.summary)}</div>
