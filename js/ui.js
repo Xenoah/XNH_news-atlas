@@ -88,6 +88,7 @@ NewsAtlas.ui = (function() {
   let _debugConsoleTimer = null;
   let _debugKonamiIndex = 0;
   let _debugConsoleHooked = false;
+  let _debugPopupWindow = null;
   const _debugLogEntries = [];
 
   /* ── Init ──────────────────────────────────────────────────── */
@@ -644,24 +645,33 @@ NewsAtlas.ui = (function() {
 
   function setDebugConsoleOpen(open) {
     _debugConsoleOpen = Boolean(open);
-    if (!el.debugConsole) return;
-
-    el.debugConsole.hidden = !_debugConsoleOpen;
-    el.debugConsole.classList.toggle('visible', _debugConsoleOpen);
 
     if (_debugConsoleOpen) {
+      const popupOpened = ensureDebugPopupWindow();
+      if (el.debugConsole) {
+        el.debugConsole.hidden = popupOpened;
+        el.debugConsole.classList.toggle('visible', !popupOpened);
+      }
       renderDebugConsole();
       window.clearInterval(_debugConsoleTimer);
       _debugConsoleTimer = window.setInterval(renderDebugConsole, 1000);
-      pushDebugLog('info', ['Debug console opened.']);
+      pushDebugLog('info', [popupOpened ? 'Debug console opened in a separate window.' : 'Debug console opened in overlay mode.']);
     } else {
+      if (el.debugConsole) {
+        el.debugConsole.hidden = true;
+        el.debugConsole.classList.remove('visible');
+      }
       window.clearInterval(_debugConsoleTimer);
       _debugConsoleTimer = null;
+      if (_debugPopupWindow && !_debugPopupWindow.closed) {
+        _debugPopupWindow.close();
+      }
+      _debugPopupWindow = null;
     }
   }
 
   function renderDebugConsole() {
-    if (!el.debugConsole || !_debugConsoleOpen) return;
+    if (!_debugConsoleOpen) return;
 
     const snapshot = collectDebugSnapshot();
     const summaryCards = [
@@ -671,7 +681,9 @@ NewsAtlas.ui = (function() {
       { label: 'Zoom', value: snapshot.map.zoom }
     ];
 
-    if (el.debugSummary) {
+    renderDebugPopup(snapshot, summaryCards);
+
+    if (el.debugConsole && !el.debugConsole.hidden && el.debugSummary) {
       el.debugSummary.innerHTML = summaryCards.map(card => `
         <div class="debug-summary-card">
           <div class="debug-summary-label">${NewsAtlas.utils.escapeHtml(card.label)}</div>
@@ -680,11 +692,11 @@ NewsAtlas.ui = (function() {
       `).join('');
     }
 
-    if (el.debugJson) {
+    if (el.debugConsole && !el.debugConsole.hidden && el.debugJson) {
       el.debugJson.textContent = JSON.stringify(snapshot, null, 2);
     }
 
-    if (el.debugLog) {
+    if (el.debugConsole && !el.debugConsole.hidden && el.debugLog) {
       el.debugLog.innerHTML = _debugLogEntries.slice().reverse().map(entry => `
         <div class="debug-log-entry ${NewsAtlas.utils.escapeHtml(entry.type)}">
           <div class="debug-log-meta">
@@ -760,6 +772,206 @@ NewsAtlas.ui = (function() {
 
     pushDebugLog('warn', ['Clipboard copy is unavailable in this browser context.']);
     renderDebugConsole();
+  }
+
+  function ensureDebugPopupWindow() {
+    if (_debugPopupWindow && !_debugPopupWindow.closed) {
+      _debugPopupWindow.focus();
+      return true;
+    }
+
+    try {
+      _debugPopupWindow = window.open('', 'newsatlas-debug-console', 'popup=yes,width=980,height=760,resizable=yes,scrollbars=yes');
+    } catch (_) {
+      _debugPopupWindow = null;
+    }
+
+    if (!_debugPopupWindow) {
+      pushDebugLog('warn', ['Popup window was blocked. Falling back to the in-page overlay.']);
+      return false;
+    }
+
+    _debugPopupWindow.document.title = 'News Atlas Debug Console';
+    _debugPopupWindow.addEventListener('beforeunload', () => {
+      _debugPopupWindow = null;
+      _debugConsoleOpen = false;
+      window.clearInterval(_debugConsoleTimer);
+      _debugConsoleTimer = null;
+      if (el.debugConsole) {
+        el.debugConsole.hidden = true;
+        el.debugConsole.classList.remove('visible');
+      }
+    });
+    return true;
+  }
+
+  function renderDebugPopup(snapshot, summaryCards) {
+    if (!_debugPopupWindow || _debugPopupWindow.closed) {
+      _debugPopupWindow = null;
+      return;
+    }
+
+    const popupDoc = _debugPopupWindow.document;
+    const logHtml = _debugLogEntries.slice().reverse().map(entry => `
+      <div class="entry ${escapeDebugHtml(entry.type)}">
+        <div class="entry-meta">
+          <span>${escapeDebugHtml(entry.time)}</span>
+          <span>${escapeDebugHtml(entry.type.toUpperCase())}</span>
+        </div>
+        <div class="entry-text">${escapeDebugHtml(entry.message)}</div>
+      </div>
+    `).join('');
+    const summaryHtml = summaryCards.map(card => `
+      <div class="summary-card">
+        <div class="summary-label">${escapeDebugHtml(card.label)}</div>
+        <div class="summary-value">${escapeDebugHtml(card.value)}</div>
+      </div>
+    `).join('');
+
+    popupDoc.open();
+    popupDoc.write(`<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>News Atlas Debug Console</title>
+  <style>
+    :root { color-scheme: dark; }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: Inter, "Segoe UI", sans-serif;
+      background:
+        radial-gradient(circle at top right, rgba(59, 130, 246, 0.16), transparent 28%),
+        linear-gradient(180deg, #08111f, #050913 68%);
+      color: #e5edf7;
+    }
+    .shell {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      padding: 18px;
+    }
+    .header, .summary, .grid, .actions { display: flex; }
+    .header {
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+    }
+    .kicker, .panel-title, .summary-label, .entry-meta {
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+    }
+    .kicker { font-size: 11px; color: #8ea3bf; font-weight: 700; }
+    .title { margin-top: 4px; font-size: 26px; font-weight: 800; }
+    .actions { gap: 10px; flex-wrap: wrap; }
+    button {
+      border: 1px solid rgba(148, 163, 184, 0.25);
+      background: rgba(15, 23, 42, 0.88);
+      color: #e5edf7;
+      border-radius: 999px;
+      padding: 10px 14px;
+      font-size: 12px;
+      font-weight: 700;
+      cursor: pointer;
+    }
+    button.primary {
+      border-color: rgba(96, 165, 250, 0.45);
+      background: linear-gradient(135deg, rgba(37, 99, 235, 0.94), rgba(59, 130, 246, 0.88));
+    }
+    .summary { gap: 12px; flex-wrap: wrap; }
+    .summary-card, .panel, .entry {
+      border: 1px solid rgba(148, 163, 184, 0.16);
+      background: rgba(15, 23, 42, 0.72);
+      border-radius: 16px;
+    }
+    .summary-card { min-width: 160px; padding: 12px 14px; }
+    .summary-label { font-size: 10px; color: #8ea3bf; font-weight: 700; }
+    .summary-value { margin-top: 6px; font-size: 16px; font-weight: 700; }
+    .grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1.1fr) minmax(300px, 0.9fr);
+      gap: 14px;
+      min-height: 0;
+      flex: 1;
+    }
+    .panel {
+      min-height: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      padding: 14px;
+    }
+    .panel-title { font-size: 10px; font-weight: 800; color: #93c5fd; }
+    pre, .log {
+      margin: 0;
+      min-height: 0;
+      overflow: auto;
+      background: rgba(2, 6, 23, 0.84);
+      border-radius: 14px;
+      padding: 14px;
+      font-family: "IBM Plex Mono", Consolas, monospace;
+      font-size: 12px;
+      line-height: 1.6;
+      color: #e2e8f0;
+    }
+    .log { display: flex; flex-direction: column; gap: 10px; }
+    .entry { padding: 10px 12px; border-radius: 12px; }
+    .entry.warn { border-color: rgba(251, 191, 36, 0.3); }
+    .entry.error { border-color: rgba(248, 113, 113, 0.34); }
+    .entry-meta {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      font-size: 10px;
+      font-weight: 700;
+      color: #8ea3bf;
+    }
+    .entry-text {
+      margin-top: 6px;
+      white-space: pre-wrap;
+      word-break: break-word;
+      color: #d4dde9;
+    }
+    @media (max-width: 860px) {
+      .header { flex-direction: column; align-items: flex-start; }
+      .grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <div class="shell">
+    <div class="header">
+      <div>
+        <div class="kicker">Secret Debug</div>
+        <div class="title">Atlas Console</div>
+      </div>
+      <div class="actions">
+        <button onclick="window.opener.NewsAtlas.ui.copyDebugSnapshot()">Copy JSON</button>
+        <button onclick="window.opener.NewsAtlas.ui.refreshDebugConsole()">Refresh</button>
+        <button class="primary" onclick="window.opener.NewsAtlas.ui.closeDebugConsole()">Close</button>
+      </div>
+    </div>
+    <div class="summary">${summaryHtml}</div>
+    <div class="grid">
+      <section class="panel">
+        <div class="panel-title">Snapshot</div>
+        <pre>${escapeDebugHtml(JSON.stringify(snapshot, null, 2))}</pre>
+      </section>
+      <section class="panel">
+        <div class="panel-title">Runtime Log</div>
+        <div class="log">${logHtml}</div>
+      </section>
+    </div>
+  </div>
+</body>
+</html>`);
+    popupDoc.close();
+  }
+
+  function escapeDebugHtml(value) {
+    return NewsAtlas.utils.escapeHtml(String(value == null ? '' : value));
   }
 
   function hookDebugConsole() {
@@ -956,6 +1168,9 @@ NewsAtlas.ui = (function() {
     setActiveTime,
     showLoading,
     setLicenseMenuOpen,
-    registerLicenseControl
+    registerLicenseControl,
+    copyDebugSnapshot,
+    refreshDebugConsole: renderDebugConsole,
+    closeDebugConsole: () => setDebugConsoleOpen(false)
   };
 })();
