@@ -63,3 +63,26 @@
   --z-drawer: 200;
   --z-popup: 300;
 }
+
+:root[data-theme="light"] {
+  --bg-primary: #eef3fb;
+  --bg-secondary: #ffffff;
+  --bg-tertiary: #f5f8fc;
+  --bg-hover: #e7eef8;
+  --border-color: #d7e0ec;
+  --border-muted: #e7edf5;
+
+  --text-primary: #172033;
+  --text-secondary: #51607a;
+  --text-muted: #74829a;
+
+  --accent-blue: #2563eb;
+  --accent-orange: #f97316;
+  --accent-green: #16a34a;
+  --accent-yellow: #ca8a04;
+  --accent-red: #dc2626;
+
+  --shadow-sm: 0 1px 3px rgba(15, 23, 42, 0.10);
+  --shadow-md: 0 8px 24px rgba(15, 23, 42, 0.12);
+  --shadow-lg: 0 18px 40px rgba(15, 23, 42, 0.16);
+}

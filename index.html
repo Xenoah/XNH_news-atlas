@@ -64,6 +64,55 @@
           </select>
         </div>
 
+        <div id="display-settings" class="notranslate" translate="no">
+          <button
+            id="display-settings-toggle"
+            class="display-settings-toggle"
+            type="button"
+            aria-haspopup="dialog"
+            aria-controls="display-settings-menu"
+            aria-expanded="false"
+          >
+            Display
+          </button>
+          <div
+            id="display-settings-menu"
+            class="display-settings-menu"
+            role="dialog"
+            aria-label="Display settings"
+            aria-hidden="true"
+          >
+            <div class="display-settings-header">
+              <div>
+                <div class="display-settings-kicker">View</div>
+                <div class="display-settings-title">Display Settings</div>
+              </div>
+              <button id="display-settings-close" class="display-settings-close" type="button" aria-label="Close display settings">x</button>
+            </div>
+
+            <div class="display-settings-section">
+              <div class="display-settings-label">Theme</div>
+              <div class="display-theme-group" role="group" aria-label="Theme">
+                <button class="display-theme-btn" type="button" data-theme="dark">Dark</button>
+                <button class="display-theme-btn" type="button" data-theme="light">Light</button>
+              </div>
+            </div>
+
+            <div class="display-settings-section">
+              <div class="display-settings-row">
+                <div>
+                  <div class="display-settings-label">Sunlight Overlay</div>
+                  <div class="display-settings-hint">Show daylight conditions on the map and in event detail.</div>
+                </div>
+                <label class="display-switch" aria-label="Toggle sunlight status">
+                  <input id="sunlight-toggle" type="checkbox" checked>
+                  <span class="display-switch-track"></span>
+                </label>
+              </div>
+            </div>
+          </div>
+        </div>
+
         <!-- Mode switcher -->
         <nav id="mode-switcher" aria-label="View modes">
           <button class="mode-btn active" data-mode="events"   title="Events Mode — ranked list of news events">Events</button>

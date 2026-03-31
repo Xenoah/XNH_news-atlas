@@ -7,9 +7,14 @@ window.NewsAtlas = window.NewsAtlas || {};
 
 NewsAtlas.ui = (function() {
   const TRANSLATE_STORAGE_KEY = 'newsatlas:translate-language';
+  const DISPLAY_SETTINGS_STORAGE_KEY = 'newsatlas:display-settings';
   const TRANSLATE_LANGUAGES = ['ja', 'ko', 'zh-CN', 'zh-TW', 'es', 'fr', 'de', 'pt', 'ar', 'hi', 'ru'];
   const DEBUG_KONAMI_CODE = ['up', 'up', 'down', 'down', 'left', 'right', 'left', 'right', 'b', 'a'];
   const DEBUG_LOG_LIMIT = 80;
+  const DEFAULT_DISPLAY_SETTINGS = {
+    theme: 'dark',
+    showSunlight: true
+  };
   const LICENSE_SECTIONS = [
     {
       id: 'oss',
@@ -84,6 +89,8 @@ NewsAtlas.ui = (function() {
   let _translateRefreshTimer = null;
   let _translateFallbackUrl = '';
   let _translateChromeObserver = null;
+  let _displaySettingsOpen = false;
+  let _displaySettings = { ...DEFAULT_DISPLAY_SETTINGS };
   let _debugConsoleOpen = false;
   let _debugConsoleTimer = null;
   let _debugKonamiIndex = 0;
@@ -99,6 +106,12 @@ NewsAtlas.ui = (function() {
     el.rightPanel     = document.getElementById('right-panel');
     el.searchInput    = document.getElementById('search-input');
     el.languageSelect = document.getElementById('language-select');
+    el.displaySettings = document.getElementById('display-settings');
+    el.displaySettingsToggle = document.getElementById('display-settings-toggle');
+    el.displaySettingsMenu = document.getElementById('display-settings-menu');
+    el.displaySettingsClose = document.getElementById('display-settings-close');
+    el.displayThemeButtons = document.querySelectorAll('.display-theme-btn');
+    el.sunlightToggle = document.getElementById('sunlight-toggle');
     el.modeButtons    = document.querySelectorAll('.mode-btn');
     el.timeButtons    = document.querySelectorAll('.time-btn');
     el.categoryChips  = document.querySelectorAll('.category-chip');
@@ -125,6 +138,7 @@ NewsAtlas.ui = (function() {
     el.debugClose = document.getElementById('debug-close');
 
     renderLicenseMenu();
+    initDisplaySettings();
     protectInteractiveControlsFromTranslation();
     initDebugConsole();
     initGoogleTranslate();
@@ -173,6 +187,35 @@ NewsAtlas.ui = (function() {
     if (el.languageSelect) {
       el.languageSelect.addEventListener('change', (e) => {
         applyTranslationLanguage(e.target.value);
+      });
+    }
+
+    if (el.displaySettingsToggle) {
+      el.displaySettingsToggle.addEventListener('click', (e) => {
+        e.stopPropagation();
+        setDisplaySettingsOpen(!_displaySettingsOpen);
+      });
+    }
+
+    if (el.displaySettingsClose) {
+      el.displaySettingsClose.addEventListener('click', () => setDisplaySettingsOpen(false));
+    }
+
+    if (el.displaySettingsMenu) {
+      el.displaySettingsMenu.addEventListener('click', (e) => e.stopPropagation());
+    }
+
+    if (el.displayThemeButtons && el.displayThemeButtons.length) {
+      el.displayThemeButtons.forEach(btn => {
+        btn.addEventListener('click', () => {
+          updateDisplaySettings({ theme: btn.dataset.theme || 'dark' });
+        });
+      });
+    }
+
+    if (el.sunlightToggle) {
+      el.sunlightToggle.addEventListener('change', (e) => {
+        updateDisplaySettings({ showSunlight: Boolean(e.target.checked) });
       });
     }
 
@@ -241,6 +284,7 @@ NewsAtlas.ui = (function() {
       if (e.key === 'Escape') {
         closeDrawer();
         setLicenseMenuOpen(false);
+        setDisplaySettingsOpen(false);
         hideTranslateFallback();
         setDebugConsoleOpen(false);
       }
@@ -250,6 +294,13 @@ NewsAtlas.ui = (function() {
       if (!_licenseMenuOpen || !el.licenseWidget) return;
       if (!el.licenseWidget.contains(e.target)) {
         setLicenseMenuOpen(false);
+      }
+    });
+
+    document.addEventListener('click', (e) => {
+      if (!_displaySettingsOpen || !el.displaySettings) return;
+      if (!el.displaySettings.contains(e.target)) {
+        setDisplaySettingsOpen(false);
       }
     });
 
@@ -339,6 +390,107 @@ NewsAtlas.ui = (function() {
       e.stopPropagation();
       setLicenseMenuOpen(!_licenseMenuOpen);
     });
+  }
+
+  function initDisplaySettings() {
+    _displaySettings = loadDisplaySettings();
+    applyTheme(_displaySettings.theme, true);
+    syncDisplaySettingsControls();
+  }
+
+  function loadDisplaySettings() {
+    try {
+      const raw = window.localStorage.getItem(DISPLAY_SETTINGS_STORAGE_KEY);
+      if (!raw) return { ...DEFAULT_DISPLAY_SETTINGS };
+      const parsed = JSON.parse(raw);
+      return {
+        theme: parsed && parsed.theme === 'light' ? 'light' : 'dark',
+        showSunlight: parsed && typeof parsed.showSunlight === 'boolean'
+          ? parsed.showSunlight
+          : DEFAULT_DISPLAY_SETTINGS.showSunlight
+      };
+    } catch (_) {
+      return { ...DEFAULT_DISPLAY_SETTINGS };
+    }
+  }
+
+  function saveDisplaySettings() {
+    try {
+      window.localStorage.setItem(DISPLAY_SETTINGS_STORAGE_KEY, JSON.stringify(_displaySettings));
+    } catch (_) {}
+  }
+
+  function getDisplaySettings() {
+    return { ..._displaySettings };
+  }
+
+  function updateDisplaySettings(nextSettings) {
+    const nextTheme = nextSettings && (nextSettings.theme === 'light' || nextSettings.theme === 'dark')
+      ? nextSettings.theme
+      : _displaySettings.theme;
+    _displaySettings = {
+      ..._displaySettings,
+      ...nextSettings,
+      theme: nextTheme || 'dark',
+      showSunlight: nextSettings && typeof nextSettings.showSunlight === 'boolean'
+        ? nextSettings.showSunlight
+        : _displaySettings.showSunlight
+    };
+
+    saveDisplaySettings();
+    applyTheme(_displaySettings.theme);
+    syncDisplaySettingsControls();
+
+    if (NewsAtlas.app && NewsAtlas.app.refreshView) {
+      NewsAtlas.app.refreshView();
+    }
+  }
+
+  function syncDisplaySettingsControls() {
+    if (el.displaySettingsToggle) {
+      el.displaySettingsToggle.setAttribute('aria-expanded', String(_displaySettingsOpen));
+    }
+    if (el.displaySettings) {
+      el.displaySettings.classList.toggle('open', _displaySettingsOpen);
+    }
+    if (el.displaySettingsMenu) {
+      el.displaySettingsMenu.setAttribute('aria-hidden', String(!_displaySettingsOpen));
+    }
+    if (el.displayThemeButtons && el.displayThemeButtons.length) {
+      el.displayThemeButtons.forEach(btn => {
+        btn.classList.toggle('active', btn.dataset.theme === _displaySettings.theme);
+      });
+    }
+    if (el.sunlightToggle) {
+      el.sunlightToggle.checked = Boolean(_displaySettings.showSunlight);
+    }
+  }
+
+  function setDisplaySettingsOpen(open) {
+    _displaySettingsOpen = Boolean(open);
+    syncDisplaySettingsControls();
+  }
+
+  function applyTheme(theme, skipRenderSync) {
+    const resolvedTheme = theme === 'light' ? 'light' : 'dark';
+    _displaySettings.theme = resolvedTheme;
+
+    document.documentElement.dataset.theme = resolvedTheme;
+    const themeColor = document.querySelector('meta[name="theme-color"]');
+    if (themeColor) {
+      themeColor.setAttribute('content', resolvedTheme === 'light' ? '#eef3fb' : '#0d1117');
+    }
+
+    if (NewsAtlas.map && NewsAtlas.map.setTheme) {
+      NewsAtlas.map.setTheme(resolvedTheme);
+    }
+    if (NewsAtlas.map && NewsAtlas.map.refreshSunlightOverlay) {
+      NewsAtlas.map.refreshSunlightOverlay();
+    }
+
+    if (!skipRenderSync && _debugConsoleOpen) {
+      renderDebugConsole();
+    }
   }
 
   function initGoogleTranslate() {
@@ -1169,6 +1321,7 @@ NewsAtlas.ui = (function() {
     showLoading,
     setLicenseMenuOpen,
     registerLicenseControl,
+    getDisplaySettings,
     copyDebugSnapshot,
     refreshDebugConsole: renderDebugConsole,
     closeDebugConsole: () => setDebugConsoleOpen(false)

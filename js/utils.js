@@ -124,6 +124,156 @@ NewsAtlas.utils = {
     return map[category] || map.other;
   },
 
+  getSolarContext(atDate) {
+    const date = atDate instanceof Date ? atDate : new Date(atDate || Date.now());
+    if (isNaN(date.getTime())) return null;
+
+    const dayOfYear = this.getDayOfYear(date);
+    const utcMinutes = date.getUTCHours() * 60 + date.getUTCMinutes() + date.getUTCSeconds() / 60;
+    const gamma = 2 * Math.PI / 365 * (dayOfYear - 1 + (utcMinutes / 60 - 12) / 24);
+    const eqTime = 229.18 * (
+      0.000075 +
+      0.001868 * Math.cos(gamma) -
+      0.032077 * Math.sin(gamma) -
+      0.014615 * Math.cos(2 * gamma) -
+      0.040849 * Math.sin(2 * gamma)
+    );
+    const decl = (
+      0.006918 -
+      0.399912 * Math.cos(gamma) +
+      0.070257 * Math.sin(gamma) -
+      0.006758 * Math.cos(2 * gamma) +
+      0.000907 * Math.sin(2 * gamma) -
+      0.002697 * Math.cos(3 * gamma) +
+      0.00148 * Math.sin(3 * gamma)
+    );
+
+    return {
+      date,
+      utcMinutes,
+      eqTime,
+      declination: decl
+    };
+  },
+
+  getSunAltitude(lat, lng, contextOrDate) {
+    const latitude = Number(lat);
+    const longitude = Number(lng);
+    if (!Number.isFinite(latitude) || !Number.isFinite(longitude)) return null;
+
+    const context = contextOrDate && typeof contextOrDate === 'object' && 'declination' in contextOrDate
+      ? contextOrDate
+      : this.getSolarContext(contextOrDate);
+    if (!context) return null;
+
+    let trueSolarMinutes = context.utcMinutes + context.eqTime + 4 * longitude;
+    trueSolarMinutes = ((trueSolarMinutes % 1440) + 1440) % 1440;
+
+    let hourAngleDeg = trueSolarMinutes / 4 - 180;
+    if (hourAngleDeg < -180) hourAngleDeg += 360;
+
+    const latRad = latitude * Math.PI / 180;
+    const haRad = hourAngleDeg * Math.PI / 180;
+    const cosZenith = this.clamp(
+      Math.sin(latRad) * Math.sin(context.declination) + Math.cos(latRad) * Math.cos(context.declination) * Math.cos(haRad),
+      -1,
+      1
+    );
+    return {
+      altitude: 90 - (Math.acos(cosZenith) * 180 / Math.PI),
+      localSolarMinutes: trueSolarMinutes,
+      hourAngleDeg
+    };
+  },
+
+  /**
+   * Estimate current sunlight conditions for a coordinate using NOAA-style solar position math.
+   */
+  getSunlightState(lat, lng, atDate) {
+    const solar = this.getSunAltitude(lat, lng, atDate);
+    if (!solar) return null;
+    const altitude = solar.altitude;
+
+    let phase = 'night';
+    let label = 'Night';
+    let accent = 'night';
+    if (altitude >= 6) {
+      phase = 'day';
+      label = 'Daylight';
+      accent = 'day';
+    } else if (altitude > -6) {
+      phase = solar.hourAngleDeg < 0 ? 'dawn' : 'dusk';
+      label = solar.hourAngleDeg < 0 ? 'Dawn' : 'Dusk';
+      accent = phase;
+    }
+
+    return {
+      phase,
+      label,
+      accent,
+      altitude: Math.round(altitude * 10) / 10,
+      localSolarTime: this.formatClock24(solar.localSolarMinutes)
+    };
+  },
+
+  getSunlightOverlayGeoJSON(atDate, cellSizeDeg) {
+    const context = this.getSolarContext(atDate);
+    if (!context) {
+      return { type: 'FeatureCollection', features: [] };
+    }
+
+    const step = Number(cellSizeDeg) > 0 ? Number(cellSizeDeg) : 6;
+    const features = [];
+
+    for (let lat = -90; lat < 90; lat += step) {
+      const north = Math.min(lat + step, 90);
+      const centerLat = Math.max(-89.5, Math.min(89.5, lat + step / 2));
+
+      for (let lng = -180; lng < 180; lng += step) {
+        const east = Math.min(lng + step, 180);
+        const centerLng = lng + step / 2;
+        const solar = this.getSunAltitude(centerLat, centerLng, context);
+        if (!solar) continue;
+
+        const phase = solar.altitude <= -6 ? 'night' : solar.altitude < 6 ? 'twilight' : '';
+        if (!phase) continue;
+
+        features.push({
+          type: 'Feature',
+          properties: { phase },
+          geometry: {
+            type: 'Polygon',
+            coordinates: [[
+              [lng, lat],
+              [east, lat],
+              [east, north],
+              [lng, north],
+              [lng, lat]
+            ]]
+          }
+        });
+      }
+    }
+
+    return {
+      type: 'FeatureCollection',
+      features
+    };
+  },
+
+  getDayOfYear(date) {
+    const start = Date.UTC(date.getUTCFullYear(), 0, 0);
+    const current = Date.UTC(date.getUTCFullYear(), date.getUTCMonth(), date.getUTCDate());
+    return Math.floor((current - start) / 86400000);
+  },
+
+  formatClock24(totalMinutes) {
+    const minutes = ((Math.round(totalMinutes) % 1440) + 1440) % 1440;
+    const hours = String(Math.floor(minutes / 60)).padStart(2, '0');
+    const mins = String(minutes % 60).padStart(2, '0');
+    return `${hours}:${mins}`;
+  },
+
   /**
    * Escape HTML special characters
    */

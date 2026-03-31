@@ -287,6 +287,10 @@ NewsAtlas.renderers = {
     const allSrcs = event.sources || [];
     const thumbSource = allSrcs.find(s => s.thumbnailUrl) || null;
     const thumbnailUrl = u.escapeHtml(event.thumbnailUrl || (thumbSource && thumbSource.thumbnailUrl) || '');
+    const sunlight = u.getSunlightState(event.lat, event.lng);
+    const displaySettings = NewsAtlas.ui && NewsAtlas.ui.getDisplaySettings
+      ? NewsAtlas.ui.getDisplaySettings()
+      : { showSunlight: true };
     const sources = allSrcs.slice(0, 8).map(s => this.sourceItem(s)).join('');
 
     return `
@@ -325,6 +329,20 @@ NewsAtlas.renderers = {
 
         <!-- Summary: prominent, readable -->
         <div class="detail-summary">${u.escapeHtml(event.summary)}</div>
+
+        ${displaySettings.showSunlight && sunlight ? `
+          <div class="detail-conditions">
+            <div class="detail-condition-card ${u.escapeHtml(sunlight.accent)}">
+              <div class="detail-condition-kicker">Current Light</div>
+              <div class="detail-condition-value">${u.escapeHtml(sunlight.label)}</div>
+              <div class="detail-condition-sub">Altitude ${u.escapeHtml(String(sunlight.altitude))}deg</div>
+            </div>
+            <div class="detail-condition-card neutral">
+              <div class="detail-condition-kicker">Solar Time</div>
+              <div class="detail-condition-value">${u.escapeHtml(sunlight.localSolarTime)}</div>
+              <div class="detail-condition-sub">Approximate at this location</div>
+            </div>
+          </div>` : ''}
 
         <!-- Core metrics: 2×2 grid, values first -->
         <div class="detail-stats">

@@ -263,6 +263,13 @@ NewsAtlas.app = (function() {
     return state.allEvents.find(e => e.id === id) || null;
   }
 
+  function refreshView() {
+    _renderAll();
+    if (state.selectedEvent) {
+      NewsAtlas.ui.showEventDetail(state.selectedEvent);
+    }
+  }
+
   function getState() { return state; }
 
   /* ── Map Ready Listener ───────────────────────────────────── */
@@ -291,6 +298,7 @@ NewsAtlas.app = (function() {
     onEventSelect,
     onZoomChange,
     onRefresh,
+    refreshView,
     getEventById,
     getState
   };

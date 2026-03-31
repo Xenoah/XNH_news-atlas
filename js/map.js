@@ -11,43 +11,77 @@ NewsAtlas.map = (function() {
   let _popup   = null;
   let _currentZoomCategory = 'low'; // 'low' | 'mid' | 'high'
   let _initialized = false;
+  let _currentBaseTheme = 'dark';
+  let _sunlightTimer = null;
 
   /* ── CartoDB Dark Style Definition ──────────────────────── */
 
-  const DARK_STYLE = {
-    version: 8,
-    glyphs: 'https://demotiles.maplibre.org/font/{fontstack}/{range}.pbf',
-    sources: {
-      'carto-dark': {
-        type: 'raster',
-        tiles: [
-          'https://a.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}@2x.png',
-          'https://b.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}@2x.png',
-          'https://c.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}@2x.png',
-          'https://d.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}@2x.png'
-        ],
-        tileSize: 256,
-        maxzoom: 19,
-        attribution: '&copy; <a href="https://carto.com/">CARTO</a> &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
-      }
-    },
-    layers: [
-      {
-        id: 'carto-dark-tiles',
-        type: 'raster',
-        source: 'carto-dark',
-        minzoom: 0,
-        maxzoom: 22
-      }
-    ]
-  };
+  const CARTO_ATTRIBUTION = '&copy; <a href="https://carto.com/">CARTO</a> &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>';
+
+  function createBaseStyle(theme) {
+    const resolvedTheme = theme === 'light' ? 'light' : 'dark';
+
+    return {
+      version: 8,
+      glyphs: 'https://demotiles.maplibre.org/font/{fontstack}/{range}.pbf',
+      sources: {
+        'carto-dark': {
+          type: 'raster',
+          tiles: [
+            'https://a.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}@2x.png',
+            'https://b.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}@2x.png',
+            'https://c.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}@2x.png',
+            'https://d.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}@2x.png'
+          ],
+          tileSize: 256,
+          maxzoom: 19,
+          attribution: CARTO_ATTRIBUTION
+        },
+        'carto-light': {
+          type: 'raster',
+          tiles: [
+            'https://a.basemaps.cartocdn.com/light_all/{z}/{x}/{y}@2x.png',
+            'https://b.basemaps.cartocdn.com/light_all/{z}/{x}/{y}@2x.png',
+            'https://c.basemaps.cartocdn.com/light_all/{z}/{x}/{y}@2x.png',
+            'https://d.basemaps.cartocdn.com/light_all/{z}/{x}/{y}@2x.png'
+          ],
+          tileSize: 256,
+          maxzoom: 19,
+          attribution: CARTO_ATTRIBUTION
+        }
+      },
+      layers: [
+        {
+          id: 'carto-dark-tiles',
+          type: 'raster',
+          source: 'carto-dark',
+          layout: { visibility: resolvedTheme === 'dark' ? 'visible' : 'none' },
+          minzoom: 0,
+          maxzoom: 22
+        },
+        {
+          id: 'carto-light-tiles',
+          type: 'raster',
+          source: 'carto-light',
+          layout: { visibility: resolvedTheme === 'light' ? 'visible' : 'none' },
+          minzoom: 0,
+          maxzoom: 22
+        }
+      ]
+    };
+  }
 
   /* ── Init ─────────────────────────────────────────────────── */
 
   function init(containerId) {
+    const initialTheme = NewsAtlas.ui && NewsAtlas.ui.getDisplaySettings
+      ? NewsAtlas.ui.getDisplaySettings().theme
+      : 'dark';
+    _currentBaseTheme = initialTheme === 'light' ? 'light' : 'dark';
+
     _map = new maplibregl.Map({
       container: containerId,
-      style: DARK_STYLE,
+      style: createBaseStyle(_currentBaseTheme),
       center: [10, 20],
       zoom: 2,
       minZoom: 1,
@@ -62,9 +96,12 @@ NewsAtlas.map = (function() {
     _map.on('load', () => {
       _setupSources();
       _setupLayers();
+      refreshSunlightOverlay(true);
       _setupZoomHandler();
       _setupClickHandlers();
       _initialized = true;
+      window.clearInterval(_sunlightTimer);
+      _sunlightTimer = window.setInterval(() => refreshSunlightOverlay(), 300000);
 
       // Dispatch a custom event so app.js knows map is ready
       document.dispatchEvent(new CustomEvent('newsatlas:mapready'));
@@ -73,9 +110,32 @@ NewsAtlas.map = (function() {
     return _map;
   }
 
+  function setTheme(theme) {
+    _currentBaseTheme = theme === 'light' ? 'light' : 'dark';
+    if (!_map || !_map.isStyleLoaded()) return;
+
+    if (_map.getLayer('carto-dark-tiles')) {
+      _map.setLayoutProperty('carto-dark-tiles', 'visibility', _currentBaseTheme === 'dark' ? 'visible' : 'none');
+    }
+    if (_map.getLayer('carto-light-tiles')) {
+      _map.setLayoutProperty('carto-light-tiles', 'visibility', _currentBaseTheme === 'light' ? 'visible' : 'none');
+    }
+    if (_map.getLayer('sunlight-night')) {
+      _map.setPaintProperty('sunlight-night', 'fill-color', _currentBaseTheme === 'light' ? 'rgba(15,23,42,0.16)' : 'rgba(2,6,23,0.34)');
+    }
+    if (_map.getLayer('sunlight-twilight')) {
+      _map.setPaintProperty('sunlight-twilight', 'fill-color', _currentBaseTheme === 'light' ? 'rgba(249,115,22,0.08)' : 'rgba(251,146,60,0.16)');
+    }
+  }
+
   /* ── Sources ──────────────────────────────────────────────── */
 
   function _setupSources() {
+    _map.addSource('sunlight-overlay', {
+      type: 'geojson',
+      data: { type: 'FeatureCollection', features: [] }
+    });
+
     // Clustered events source
     _map.addSource('events', {
       type: 'geojson',
@@ -130,6 +190,27 @@ NewsAtlas.map = (function() {
   /* ── Layers ───────────────────────────────────────────────── */
 
   function _setupLayers() {
+    _map.addLayer({
+      id: 'sunlight-night',
+      type: 'fill',
+      source: 'sunlight-overlay',
+      filter: ['==', ['get', 'phase'], 'night'],
+      paint: {
+        'fill-color': _currentBaseTheme === 'light' ? 'rgba(15,23,42,0.16)' : 'rgba(2,6,23,0.34)',
+        'fill-opacity': 1
+      }
+    });
+
+    _map.addLayer({
+      id: 'sunlight-twilight',
+      type: 'fill',
+      source: 'sunlight-overlay',
+      filter: ['==', ['get', 'phase'], 'twilight'],
+      paint: {
+        'fill-color': _currentBaseTheme === 'light' ? 'rgba(249,115,22,0.08)' : 'rgba(251,146,60,0.16)',
+        'fill-opacity': 1
+      }
+    });
 
     // ── Heatmap layer ──────────────────────────────────────────
     _map.addLayer({
@@ -390,6 +471,31 @@ NewsAtlas.map = (function() {
 
   /* ── HTML Bubble Markers ──────────────────────────────────── */
 
+  function refreshSunlightOverlay(force) {
+    if (!_map || !_map.getSource('sunlight-overlay')) return;
+
+    const settings = NewsAtlas.ui && NewsAtlas.ui.getDisplaySettings
+      ? NewsAtlas.ui.getDisplaySettings()
+      : { showSunlight: true };
+    const visible = Boolean(settings.showSunlight);
+
+    _setLayerVisibility('sunlight-night', visible);
+    _setLayerVisibility('sunlight-twilight', visible);
+
+    if (!visible) {
+      if (force) {
+        const hiddenSrc = _map.getSource('sunlight-overlay');
+        if (hiddenSrc) hiddenSrc.setData({ type: 'FeatureCollection', features: [] });
+      }
+      return;
+    }
+
+    const src = _map.getSource('sunlight-overlay');
+    if (src) {
+      src.setData(NewsAtlas.utils.getSunlightOverlayGeoJSON(new Date(), 6));
+    }
+  }
+
   function _updateBubbleMarkers(bubbleEvents) {
     // Remove existing markers
     _markers.forEach(m => m.remove());
@@ -507,6 +613,8 @@ NewsAtlas.map = (function() {
     highlightEvent,
     showPopup,
     flyTo,
+    setTheme,
+    refreshSunlightOverlay,
     getZoom,
     getMap
   };
