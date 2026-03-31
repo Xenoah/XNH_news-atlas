@@ -331,17 +331,9 @@ NewsAtlas.renderers = {
         <div class="detail-summary">${u.escapeHtml(event.summary)}</div>
 
         ${displaySettings.showSunlight && sunlight ? `
-          <div class="detail-conditions">
-            <div class="detail-condition-card ${u.escapeHtml(sunlight.accent)}">
-              <div class="detail-condition-kicker">Current Light</div>
-              <div class="detail-condition-value">${u.escapeHtml(sunlight.label)}</div>
-              <div class="detail-condition-sub">Altitude ${u.escapeHtml(String(sunlight.altitude))}deg</div>
-            </div>
-            <div class="detail-condition-card neutral">
-              <div class="detail-condition-kicker">Solar Time</div>
-              <div class="detail-condition-value">${u.escapeHtml(sunlight.localSolarTime)}</div>
-              <div class="detail-condition-sub">Approximate at this location</div>
-            </div>
+          <div class="detail-solar-time" title="Approximate local solar time at this location">
+            <span class="detail-solar-time-label">Solar Time</span>
+            <span class="detail-solar-time-value">${u.escapeHtml(sunlight.localSolarTime)}</span>
           </div>` : ''}
 
         <!-- Core metrics: 2×2 grid, values first -->
