@@ -128,9 +128,11 @@ NewsAtlas.utils = {
     const date = atDate instanceof Date ? atDate : new Date(atDate || Date.now());
     if (isNaN(date.getTime())) return null;
 
+    // Based on NOAA's published solar position equations.
     const dayOfYear = this.getDayOfYear(date);
     const utcMinutes = date.getUTCHours() * 60 + date.getUTCMinutes() + date.getUTCSeconds() / 60;
-    const gamma = 2 * Math.PI / 365 * (dayOfYear - 1 + (utcMinutes / 60 - 12) / 24);
+    const daysInYear = this.isLeapYear(date.getUTCFullYear()) ? 366 : 365;
+    const gamma = 2 * Math.PI / daysInYear * (dayOfYear - 1 + (utcMinutes / 60 - 12) / 24);
     const eqTime = 229.18 * (
       0.000075 +
       0.001868 * Math.cos(gamma) -
@@ -265,6 +267,10 @@ NewsAtlas.utils = {
     const start = Date.UTC(date.getUTCFullYear(), 0, 0);
     const current = Date.UTC(date.getUTCFullYear(), date.getUTCMonth(), date.getUTCDate());
     return Math.floor((current - start) / 86400000);
+  },
+
+  isLeapYear(year) {
+    return year % 4 === 0 && (year % 100 !== 0 || year % 400 === 0);
   },
 
   formatClock24(totalMinutes) {
