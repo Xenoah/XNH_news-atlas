@@ -110,6 +110,7 @@ NewsAtlas.ui = (function() {
     el.translateFallbackClose = document.getElementById('translate-fallback-close');
 
     renderLicenseMenu();
+    protectInteractiveControlsFromTranslation();
     initGoogleTranslate();
     bindEvents();
   }
@@ -456,6 +457,7 @@ NewsAtlas.ui = (function() {
 
     window.clearTimeout(_translateRefreshTimer);
     _translateRefreshTimer = window.setTimeout(() => {
+      protectInteractiveControlsFromTranslation();
       suppressTranslateChrome();
       getTranslateCombo()
         .then(combo => {
@@ -466,6 +468,14 @@ NewsAtlas.ui = (function() {
         })
         .catch(() => {});
     }, 220);
+  }
+
+  function protectInteractiveControlsFromTranslation(root) {
+    const scope = root && root.querySelectorAll ? root : document;
+    scope.querySelectorAll('input, textarea, select, option, [contenteditable="true"]').forEach(node => {
+      node.classList.add('notranslate');
+      node.setAttribute('translate', 'no');
+    });
   }
 
   function showTranslateFallback(message, language) {
