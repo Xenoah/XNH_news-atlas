@@ -119,6 +119,36 @@
         <!-- Zoom level indicator -->
         <div id="zoom-indicator" aria-live="polite"></div>
 
+        <!-- License / credits menu -->
+        <div id="map-license" aria-label="Project licenses and credits">
+          <div
+            id="license-menu"
+            class="license-menu"
+            role="dialog"
+            aria-label="Licenses and credits"
+            aria-hidden="true"
+          >
+            <div class="license-menu-header">
+              <div>
+                <div class="license-menu-kicker">Open Source</div>
+                <div class="license-menu-title">Licenses & Credits</div>
+              </div>
+              <button
+                id="license-close"
+                class="license-close-btn"
+                type="button"
+                aria-label="Close licenses and credits"
+                title="Close"
+              >
+                x
+              </button>
+            </div>
+            <div id="license-menu-body" class="license-menu-body">
+              <!-- Populated by ui.js -->
+            </div>
+          </div>
+        </div>
+
         <!-- Map Legend -->
         <div id="map-legend" aria-label="Map legend">
           <button id="legend-toggle" class="legend-toggle">

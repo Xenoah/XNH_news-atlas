@@ -6,8 +6,75 @@
 window.NewsAtlas = window.NewsAtlas || {};
 
 NewsAtlas.ui = (function() {
+  const LICENSE_SECTIONS = [
+    {
+      id: 'oss',
+      label: 'Open-Source Libraries',
+      items: [
+        {
+          name: 'MapLibre GL JS',
+          version: 'v3.6.2',
+          badge: 'BSD-3-Clause',
+          accent: 'blue',
+          description: 'Interactive map rendering engine loaded from unpkg.',
+          usage: 'Used for the map canvas, popups, navigation controls, and map interactions.',
+          url: 'https://maplibre.org/maplibre-gl-js/docs/'
+        }
+      ]
+    },
+    {
+      id: 'map-data',
+      label: 'Basemap & Geographic Data',
+      items: [
+        {
+          name: 'OpenStreetMap Contributors',
+          version: 'Map Data',
+          badge: 'ODbL 1.0',
+          accent: 'green',
+          description: 'Underlying geographic data used through the basemap attribution chain.',
+          usage: 'Credited for the base map data shown beneath event overlays.',
+          url: 'https://www.openstreetmap.org/copyright'
+        },
+        {
+          name: 'CARTO Basemaps',
+          version: 'Raster Tiles',
+          badge: 'Attribution',
+          accent: 'orange',
+          description: 'Dark raster basemap tiles served from the CARTO CDN.',
+          usage: 'Used as the visual world map style behind the event layers.',
+          url: 'https://carto.com/attributions'
+        }
+      ]
+    },
+    {
+      id: 'feeds',
+      label: 'Data Sources & Terms',
+      items: [
+        {
+          name: 'GDELT Project',
+          version: 'Live Refresh',
+          badge: 'Data Terms',
+          accent: 'violet',
+          description: 'Browser refresh mode pulls live event data from the GDELT DOC API.',
+          usage: 'Used when the refresh button requests live updates instead of static snapshots.',
+          url: 'https://www.gdeltproject.org/'
+        },
+        {
+          name: 'Public RSS Publishers',
+          version: 'News Feeds',
+          badge: 'Publisher Rights',
+          accent: 'red',
+          description: 'Static snapshots are built from public RSS feeds such as BBC, Al Jazeera, DW, France 24, The Guardian, NPR, VOA, ABC, Euronews, and HNRSS.',
+          usage: 'Original article copyrights remain with each publisher. This app stores headlines, summaries, and source links for aggregation.',
+          url: ''
+        }
+      ]
+    }
+  ];
+
   // Cached DOM element references
   const el = {};
+  let _licenseMenuOpen = false;
 
   /* ── Init ──────────────────────────────────────────────────── */
 
@@ -25,7 +92,12 @@ NewsAtlas.ui = (function() {
     el.rightContent   = document.getElementById('right-content');
     el.mobileDrawer   = document.getElementById('mobile-drawer');
     el.drawerContent  = document.getElementById('drawer-content');
+    el.licenseWidget  = document.getElementById('map-license');
+    el.licenseMenu    = document.getElementById('license-menu');
+    el.licenseMenuBody = document.getElementById('license-menu-body');
+    el.licenseClose   = document.getElementById('license-close');
 
+    renderLicenseMenu();
     bindEvents();
   }
 
@@ -78,6 +150,14 @@ NewsAtlas.ui = (function() {
     const drawerClose = document.getElementById('drawer-close');
     if (drawerClose) drawerClose.addEventListener('click', closeDrawer);
 
+    if (el.licenseClose) {
+      el.licenseClose.addEventListener('click', () => setLicenseMenuOpen(false));
+    }
+
+    if (el.licenseMenu) {
+      el.licenseMenu.addEventListener('click', (e) => e.stopPropagation());
+    }
+
     // Close drawer when clicking the overlay backdrop (outside drawer)
     if (el.mobileDrawer) {
       el.mobileDrawer.addEventListener('click', (e) => {
@@ -87,7 +167,17 @@ NewsAtlas.ui = (function() {
 
     // Keyboard shortcut: Escape closes drawer
     document.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape') closeDrawer();
+      if (e.key === 'Escape') {
+        closeDrawer();
+        setLicenseMenuOpen(false);
+      }
+    });
+
+    document.addEventListener('click', (e) => {
+      if (!_licenseMenuOpen || !el.licenseWidget) return;
+      if (!el.licenseWidget.contains(e.target)) {
+        setLicenseMenuOpen(false);
+      }
     });
 
     // Refresh button (manual GDELT browser fetch)
@@ -114,6 +204,68 @@ NewsAtlas.ui = (function() {
     if (legendCatsEl && NewsAtlas.renderers) {
       legendCatsEl.innerHTML = NewsAtlas.renderers.legendCatsHTML();
     }
+  }
+
+  function renderLicenseMenu() {
+    if (!el.licenseMenuBody) return;
+
+    el.licenseMenuBody.innerHTML = LICENSE_SECTIONS.map(section => `
+      <section class="license-section">
+        <div class="license-section-label">${NewsAtlas.utils.escapeHtml(section.label)}</div>
+        <div class="license-card-list">
+          ${section.items.map(item => `
+            <article class="license-card ${NewsAtlas.utils.escapeHtml(item.accent)}">
+              <div class="license-card-top">
+                <div>
+                  <div class="license-card-name">${NewsAtlas.utils.escapeHtml(item.name)}</div>
+                  <div class="license-card-version">${NewsAtlas.utils.escapeHtml(item.version)}</div>
+                </div>
+                <span class="license-card-badge">${NewsAtlas.utils.escapeHtml(item.badge)}</span>
+              </div>
+              <p class="license-card-description">${NewsAtlas.utils.escapeHtml(item.description)}</p>
+              <p class="license-card-usage">${NewsAtlas.utils.escapeHtml(item.usage)}</p>
+              ${item.url ? `
+                <a
+                  class="license-card-link"
+                  href="${NewsAtlas.utils.escapeHtml(item.url)}"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  View source
+                </a>
+              ` : '<span class="license-card-link muted">See source-specific terms</span>'}
+            </article>
+          `).join('')}
+        </div>
+      </section>
+    `).join('');
+  }
+
+  function setLicenseMenuOpen(open) {
+    _licenseMenuOpen = Boolean(open);
+
+    if (el.licenseWidget) {
+      el.licenseWidget.classList.toggle('open', _licenseMenuOpen);
+    }
+
+    if (el.licenseToggle) {
+      el.licenseToggle.setAttribute('aria-expanded', String(_licenseMenuOpen));
+    }
+
+    if (el.licenseMenu) {
+      el.licenseMenu.setAttribute('aria-hidden', String(!_licenseMenuOpen));
+    }
+  }
+
+  function registerLicenseControl(buttonEl) {
+    if (!buttonEl) return;
+
+    el.licenseToggle = buttonEl;
+    el.licenseToggle.setAttribute('aria-expanded', String(_licenseMenuOpen));
+    el.licenseToggle.addEventListener('click', (e) => {
+      e.stopPropagation();
+      setLicenseMenuOpen(!_licenseMenuOpen);
+    });
   }
 
   /* ── Active State Helpers ─────────────────────────────────── */
@@ -257,6 +409,8 @@ NewsAtlas.ui = (function() {
     closeDrawer,
     setActiveMode,
     setActiveTime,
-    showLoading
+    showLoading,
+    setLicenseMenuOpen,
+    registerLicenseControl
   };
 })();

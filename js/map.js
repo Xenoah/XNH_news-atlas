@@ -57,6 +57,7 @@ NewsAtlas.map = (function() {
 
     _map.addControl(new maplibregl.NavigationControl(), 'top-right');
     _map.addControl(new maplibregl.ScaleControl({ unit: 'metric' }), 'bottom-left');
+    _setupLicenseButton();
 
     _map.on('load', () => {
       _setupSources();
@@ -101,6 +102,29 @@ NewsAtlas.map = (function() {
       type: 'geojson',
       data: { type: 'FeatureCollection', features: [] }
     });
+  }
+
+  function _setupLicenseButton() {
+    const attrib = _map && _map.getContainer()
+      ? _map.getContainer().querySelector('.maplibregl-ctrl-bottom-right .maplibregl-ctrl-attrib')
+      : null;
+
+    if (!attrib || attrib.querySelector('.license-toggle-btn')) return;
+
+    const button = document.createElement('button');
+    button.type = 'button';
+    button.className = 'license-toggle-btn';
+    button.setAttribute('aria-haspopup', 'dialog');
+    button.setAttribute('aria-controls', 'license-menu');
+    button.setAttribute('aria-label', 'Show licenses and credits');
+    button.title = 'Show licenses and credits';
+    button.textContent = 'LISENSE';
+
+    attrib.insertBefore(button, attrib.firstChild);
+
+    if (NewsAtlas.ui && NewsAtlas.ui.registerLicenseControl) {
+      NewsAtlas.ui.registerLicenseControl(button);
+    }
   }
 
   /* ── Layers ───────────────────────────────────────────────── */

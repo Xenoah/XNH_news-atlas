@@ -483,7 +483,7 @@ body {
 
 #zoom-indicator {
   position: absolute;
-  bottom: 24px;
+  bottom: 104px;
   right: 12px;
   background: rgba(22, 27, 34, 0.85);
   border: 1px solid var(--border-color);
@@ -491,6 +491,226 @@ body {
   padding: 4px 8px;
   font-size: 10px;
   color: var(--text-muted);
+}
+
+#map-license {
+  position: absolute;
+  right: 8px;
+  bottom: 30px;
+  z-index: 12;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+
+.license-menu {
+  width: min(360px, calc(100vw - 24px));
+  max-height: min(430px, calc(100vh - 180px));
+  display: flex;
+  flex-direction: column;
+  border: 1px solid rgba(88, 166, 255, 0.2);
+  border-radius: 18px;
+  background:
+    linear-gradient(180deg, rgba(17, 24, 34, 0.98), rgba(10, 14, 20, 0.96)),
+    radial-gradient(circle at top, rgba(88, 166, 255, 0.1), transparent 55%);
+  box-shadow:
+    0 22px 48px rgba(0, 0, 0, 0.5),
+    inset 0 1px 0 rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(18px);
+  opacity: 0;
+  transform: translateY(12px) scale(0.98);
+  transform-origin: bottom right;
+  pointer-events: none;
+  transition:
+    opacity var(--transition-med),
+    transform var(--transition-med),
+    border-color var(--transition-fast);
+  overflow: hidden;
+}
+
+#map-license.open .license-menu {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+  pointer-events: auto;
+  border-color: rgba(88, 166, 255, 0.3);
+}
+
+.license-menu-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 14px 14px 12px;
+  border-bottom: 1px solid rgba(48, 54, 61, 0.9);
+  background: linear-gradient(180deg, rgba(88, 166, 255, 0.08), rgba(88, 166, 255, 0));
+}
+
+.license-menu-kicker {
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: rgba(88, 166, 255, 0.78);
+  margin-bottom: 4px;
+}
+
+.license-menu-title {
+  font-size: 17px;
+  font-weight: 700;
+  color: #f4f8ff;
+}
+
+.license-close-btn {
+  width: 28px;
+  height: 28px;
+  flex-shrink: 0;
+  border: 1px solid rgba(139, 148, 158, 0.22);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.03);
+  color: var(--text-secondary);
+  cursor: pointer;
+  transition:
+    color var(--transition-fast),
+    background var(--transition-fast),
+    border-color var(--transition-fast);
+}
+
+.license-close-btn:hover {
+  color: var(--text-primary);
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(139, 148, 158, 0.34);
+}
+
+.license-menu-body {
+  overflow-y: auto;
+  padding: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.license-section {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.license-section-label {
+  padding: 0 2px;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+
+.license-card-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.license-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 12px;
+  border-radius: 14px;
+  border: 1px solid rgba(48, 54, 61, 0.95);
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.03), rgba(255, 255, 255, 0.015)),
+    rgba(13, 17, 23, 0.82);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.04);
+}
+
+.license-card::before {
+  content: '';
+  position: absolute;
+  inset: 0 auto 0 0;
+  width: 3px;
+  border-radius: 14px 0 0 14px;
+  background: rgba(88, 166, 255, 0.8);
+}
+
+.license-card.blue::before { background: #58a6ff; }
+.license-card.green::before { background: #3fb950; }
+.license-card.orange::before { background: #d29922; }
+.license-card.violet::before { background: #a78bfa; }
+.license-card.red::before { background: #f87171; }
+
+.license-card-top {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.license-card-name {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+.license-card-version {
+  margin-top: 3px;
+  font-size: 11px;
+  color: var(--text-muted);
+}
+
+.license-card-badge {
+  padding: 4px 8px;
+  border-radius: 999px;
+  background: rgba(88, 166, 255, 0.12);
+  border: 1px solid rgba(88, 166, 255, 0.18);
+  color: #b7d7ff;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  white-space: nowrap;
+}
+
+.license-card-description,
+.license-card-usage {
+  font-size: 12px;
+  line-height: 1.6;
+  margin: 0;
+}
+
+.license-card-description {
+  color: var(--text-primary);
+}
+
+.license-card-usage {
+  color: var(--text-secondary);
+}
+
+.license-card-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  color: #9cccff;
+  text-decoration: none;
+}
+
+.license-card-link::after {
+  content: '->';
+  font-size: 10px;
+}
+
+.license-card-link:hover {
+  color: #d3e7ff;
+}
+
+.license-card-link.muted {
+  color: var(--text-muted);
+}
+
+.license-card-link.muted::after {
+  content: '';
 }
 
 /* ── Panel Sections ────────────────────────────────────────── */
@@ -1528,6 +1748,31 @@ body {
   color: var(--text-muted) !important;
 }
 
+.maplibregl-ctrl-attrib .license-toggle-btn {
+  margin: 0 6px 0 0;
+  padding: 0 6px;
+  border: none;
+  background: transparent;
+  color: var(--text-muted);
+  font-size: 9px;
+  line-height: 1.5;
+  cursor: pointer;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  transition: color var(--transition-fast), background var(--transition-fast);
+}
+
+.maplibregl-ctrl-attrib .license-toggle-btn:hover {
+  color: var(--text-primary);
+  background: rgba(255, 255, 255, 0.04);
+}
+
+.maplibregl-ctrl-attrib .license-toggle-btn:focus-visible {
+  outline: none;
+  color: var(--text-primary);
+  background: rgba(88, 166, 255, 0.12);
+}
+
 .maplibregl-ctrl-group {
   background: var(--bg-secondary) !important;
   border: 1px solid var(--border-color) !important;
@@ -1916,6 +2161,25 @@ body {
 
   #map-controls {
     bottom: 16px;
+  }
+
+  #zoom-indicator {
+    bottom: 98px;
+    right: 10px;
+  }
+
+  #map-license {
+    right: 10px;
+    bottom: 34px;
+  }
+
+  .license-menu {
+    width: min(340px, calc(100vw - 20px));
+    max-height: min(52vh, 420px);
+  }
+
+  .license-menu-title {
+    font-size: 16px;
   }
 
   #mobile-drawer {
