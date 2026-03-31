@@ -1834,17 +1834,26 @@ body {
 }
 
 .google-translate-host {
-  position: absolute;
-  width: 0;
-  height: 0;
-  overflow: hidden;
-  visibility: hidden;
+  position: fixed;
+  left: -9999px;
+  top: 0;
+  width: 1px;
+  height: 1px;
+  opacity: 0;
+  pointer-events: none;
 }
 
 .goog-te-banner-frame.skiptranslate,
 .goog-te-balloon-frame,
+.goog-te-menu-frame.skiptranslate,
+iframe.goog-te-banner-frame,
+iframe.goog-te-menu-frame,
+body > .skiptranslate,
+body > .skiptranslate iframe,
 #goog-gt-tt {
   display: none !important;
+  visibility: hidden !important;
+  opacity: 0 !important;
 }
 
 .goog-text-highlight {
@@ -1852,8 +1861,83 @@ body {
   box-shadow: none !important;
 }
 
+html,
 body {
   top: 0 !important;
+}
+
+.translate-fallback {
+  position: fixed;
+  inset: 0;
+  z-index: 350;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  background: rgba(5, 8, 12, 0.58);
+  backdrop-filter: blur(10px);
+}
+
+.translate-fallback-card {
+  width: min(420px, calc(100vw - 32px));
+  padding: 18px;
+  border: 1px solid rgba(88, 166, 255, 0.24);
+  border-radius: 18px;
+  background:
+    linear-gradient(180deg, rgba(17, 24, 34, 0.98), rgba(10, 14, 20, 0.96)),
+    radial-gradient(circle at top, rgba(88, 166, 255, 0.12), transparent 55%);
+  box-shadow:
+    0 24px 48px rgba(0, 0, 0, 0.45),
+    inset 0 1px 0 rgba(255, 255, 255, 0.05);
+}
+
+.translate-fallback-title {
+  font-size: 17px;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: 8px;
+}
+
+.translate-fallback-text {
+  font-size: 13px;
+  line-height: 1.6;
+  color: var(--text-secondary);
+}
+
+.translate-fallback-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-top: 16px;
+}
+
+.translate-fallback-btn {
+  height: 34px;
+  padding: 0 12px;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border-color);
+  background: var(--bg-tertiary);
+  color: var(--text-primary);
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background var(--transition-fast), border-color var(--transition-fast), color var(--transition-fast);
+}
+
+.translate-fallback-btn:hover {
+  background: var(--bg-hover);
+  border-color: rgba(139, 148, 158, 0.5);
+}
+
+.translate-fallback-btn.primary {
+  background: rgba(88, 166, 255, 0.14);
+  border-color: rgba(88, 166, 255, 0.3);
+  color: #cfe5ff;
+}
+
+.translate-fallback-btn.primary:hover {
+  background: rgba(88, 166, 255, 0.22);
+  border-color: rgba(88, 166, 255, 0.42);
 }
 
 /* ── Animations ────────────────────────────────────────────── */
