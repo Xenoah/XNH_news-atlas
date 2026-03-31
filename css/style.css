@@ -120,6 +120,45 @@ body {
   flex-shrink: 0;
 }
 
+#language-menu {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  height: 34px;
+  padding: 0 10px;
+  background: var(--bg-tertiary);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  flex-shrink: 0;
+}
+
+.language-label {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+
+.language-select {
+  min-width: 132px;
+  background: transparent;
+  border: none;
+  color: var(--text-primary);
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.language-select:focus {
+  outline: none;
+}
+
+.language-select option {
+  background: var(--bg-secondary);
+  color: var(--text-primary);
+}
+
 /* ── Mode Switcher ─────────────────────────────────────────── */
 
 #mode-switcher {
@@ -1794,6 +1833,29 @@ body {
   filter: invert(0.7);
 }
 
+.google-translate-host {
+  position: absolute;
+  width: 0;
+  height: 0;
+  overflow: hidden;
+  visibility: hidden;
+}
+
+.goog-te-banner-frame.skiptranslate,
+.goog-te-balloon-frame,
+#goog-gt-tt {
+  display: none !important;
+}
+
+.goog-text-highlight {
+  background-color: transparent !important;
+  box-shadow: none !important;
+}
+
+body {
+  top: 0 !important;
+}
+
 /* ── Animations ────────────────────────────────────────────── */
 
 @keyframes spin {
@@ -2137,6 +2199,20 @@ body {
 
   #mode-switcher .mode-btn {
     padding: 5px 8px;
+    font-size: 11px;
+  }
+
+  #language-menu {
+    gap: 6px;
+    padding: 0 8px;
+  }
+
+  .language-label {
+    display: none;
+  }
+
+  .language-select {
+    min-width: 102px;
     font-size: 11px;
   }
 

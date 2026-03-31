@@ -6,6 +6,8 @@
 window.NewsAtlas = window.NewsAtlas || {};
 
 NewsAtlas.ui = (function() {
+  const TRANSLATE_STORAGE_KEY = 'newsatlas:translate-language';
+  const TRANSLATE_LANGUAGES = ['ja', 'ko', 'zh-CN', 'zh-TW', 'es', 'fr', 'de', 'pt', 'ar', 'hi', 'ru'];
   const LICENSE_SECTIONS = [
     {
       id: 'oss',
@@ -75,6 +77,7 @@ NewsAtlas.ui = (function() {
   // Cached DOM element references
   const el = {};
   let _licenseMenuOpen = false;
+  let _translateScriptRequested = false;
 
   /* ── Init ──────────────────────────────────────────────────── */
 
@@ -83,6 +86,7 @@ NewsAtlas.ui = (function() {
     el.leftPanel      = document.getElementById('left-panel');
     el.rightPanel     = document.getElementById('right-panel');
     el.searchInput    = document.getElementById('search-input');
+    el.languageSelect = document.getElementById('language-select');
     el.modeButtons    = document.querySelectorAll('.mode-btn');
     el.timeButtons    = document.querySelectorAll('.time-btn');
     el.categoryChips  = document.querySelectorAll('.category-chip');
@@ -98,6 +102,7 @@ NewsAtlas.ui = (function() {
     el.licenseClose   = document.getElementById('license-close');
 
     renderLicenseMenu();
+    initGoogleTranslate();
     bindEvents();
   }
 
@@ -138,6 +143,12 @@ NewsAtlas.ui = (function() {
           NewsAtlas.app.onSearchChange(e.target.value);
         }, 300)
       );
+    }
+
+    if (el.languageSelect) {
+      el.languageSelect.addEventListener('change', (e) => {
+        applyTranslationLanguage(e.target.value);
+      });
     }
 
     // Mobile panel toggles
@@ -265,6 +276,98 @@ NewsAtlas.ui = (function() {
     el.licenseToggle.addEventListener('click', (e) => {
       e.stopPropagation();
       setLicenseMenuOpen(!_licenseMenuOpen);
+    });
+  }
+
+  function initGoogleTranslate() {
+    const savedLanguage = getStoredLanguage();
+
+    if (el.languageSelect) {
+      el.languageSelect.value = savedLanguage;
+    }
+
+    if (window.google && window.google.translate && window.google.translate.TranslateElement) {
+      mountGoogleTranslate();
+      return;
+    }
+
+    if (_translateScriptRequested) return;
+    _translateScriptRequested = true;
+
+    window.googleTranslateElementInit = mountGoogleTranslate;
+
+    const script = document.createElement('script');
+    script.src = 'https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit';
+    script.async = true;
+    script.onerror = () => {
+      if (el.languageSelect) {
+        el.languageSelect.title = 'Google Translate could not be loaded';
+      }
+    };
+    document.head.appendChild(script);
+  }
+
+  function mountGoogleTranslate() {
+    const host = document.getElementById('google_translate_element');
+    if (!host || !(window.google && window.google.translate && window.google.translate.TranslateElement)) return;
+
+    host.innerHTML = '';
+
+    try {
+      new window.google.translate.TranslateElement({
+        pageLanguage: 'en',
+        autoDisplay: false,
+        includedLanguages: TRANSLATE_LANGUAGES.join(',')
+      }, 'google_translate_element');
+    } catch (_) {
+      if (el.languageSelect) {
+        el.languageSelect.title = 'Google Translate could not be initialized';
+      }
+    }
+  }
+
+  function applyTranslationLanguage(language) {
+    storeLanguage(language);
+    setTranslateCookie(language);
+    window.location.reload();
+  }
+
+  function getStoredLanguage() {
+    try {
+      return window.localStorage.getItem(TRANSLATE_STORAGE_KEY) || '';
+    } catch (_) {
+      return '';
+    }
+  }
+
+  function storeLanguage(language) {
+    try {
+      if (language) {
+        window.localStorage.setItem(TRANSLATE_STORAGE_KEY, language);
+      } else {
+        window.localStorage.removeItem(TRANSLATE_STORAGE_KEY);
+      }
+    } catch (_) {}
+  }
+
+  function setTranslateCookie(language) {
+    const cookieValue = language ? `/en/${language}` : '';
+    const maxAge = language ? '31536000' : '0';
+    const host = window.location.hostname;
+    const cookieTargets = [`path=/;max-age=${maxAge}`];
+
+    if (host && host !== 'localhost' && host !== '127.0.0.1') {
+      cookieTargets.push(`domain=${host};path=/;max-age=${maxAge}`);
+
+      const hostParts = host.split('.');
+      if (hostParts.length > 2) {
+        const rootDomain = hostParts.slice(-2).join('.');
+        cookieTargets.push(`domain=.${rootDomain};path=/;max-age=${maxAge}`);
+      }
+    }
+
+    cookieTargets.forEach(target => {
+      document.cookie = `googtrans=${cookieValue};${target}`;
     });
   }
 
