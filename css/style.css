@@ -282,6 +282,220 @@ body {
   animation: spin 0.8s linear infinite;
 }
 
+.debug-console {
+  position: fixed;
+  inset: 0;
+  z-index: 5200;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  background: rgba(4, 10, 22, 0.72);
+  backdrop-filter: blur(18px);
+}
+
+.debug-console-card {
+  width: min(1100px, 100%);
+  max-height: min(82vh, 900px);
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding: 20px;
+  border-radius: 24px;
+  border: 1px solid rgba(96, 165, 250, 0.22);
+  background:
+    radial-gradient(circle at top right, rgba(59, 130, 246, 0.14), transparent 30%),
+    linear-gradient(180deg, rgba(10, 18, 34, 0.96), rgba(6, 11, 22, 0.94));
+  box-shadow: 0 28px 80px rgba(0, 0, 0, 0.42);
+}
+
+.debug-console-header,
+.debug-console-actions,
+.debug-summary,
+.debug-log-meta {
+  display: flex;
+}
+
+.debug-console-header {
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.debug-console-kicker,
+.debug-console-panel-title,
+.debug-summary-label,
+.debug-log-meta {
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+}
+
+.debug-console-kicker {
+  font-size: 11px;
+  font-weight: 700;
+  color: rgba(148, 163, 184, 0.88);
+}
+
+.debug-console-title {
+  margin-top: 4px;
+  font-size: 24px;
+  font-weight: 800;
+  color: var(--text-primary);
+}
+
+.debug-console-actions {
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.debug-console-btn {
+  border: 1px solid rgba(148, 163, 184, 0.22);
+  background: rgba(15, 23, 42, 0.86);
+  color: var(--text-primary);
+  border-radius: 999px;
+  padding: 10px 14px;
+  font-size: 12px;
+  font-weight: 700;
+  cursor: pointer;
+  transition:
+    transform var(--transition-fast),
+    border-color var(--transition-fast),
+    background var(--transition-fast);
+}
+
+.debug-console-btn:hover {
+  transform: translateY(-1px);
+  border-color: rgba(96, 165, 250, 0.4);
+  background: rgba(30, 41, 59, 0.95);
+}
+
+.debug-console-btn.primary {
+  border-color: rgba(96, 165, 250, 0.45);
+  background: linear-gradient(135deg, rgba(37, 99, 235, 0.92), rgba(59, 130, 246, 0.88));
+}
+
+.debug-summary {
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.debug-summary-card,
+.debug-console-panel,
+.debug-log-entry {
+  border: 1px solid rgba(148, 163, 184, 0.16);
+  background: rgba(15, 23, 42, 0.72);
+}
+
+.debug-summary-card {
+  min-width: 160px;
+  padding: 12px 14px;
+  border-radius: 16px;
+}
+
+.debug-summary-label {
+  font-size: 10px;
+  font-weight: 700;
+  color: var(--text-muted);
+}
+
+.debug-summary-value {
+  margin-top: 6px;
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+.debug-console-grid {
+  min-height: 0;
+  display: grid;
+  grid-template-columns: minmax(0, 1.15fr) minmax(320px, 0.85fr);
+  gap: 14px;
+}
+
+.debug-console-panel {
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 14px;
+  border-radius: 18px;
+}
+
+.debug-console-panel-title {
+  font-size: 10px;
+  font-weight: 800;
+  color: rgba(147, 197, 253, 0.92);
+}
+
+.debug-console-pre,
+.debug-console-log {
+  min-height: 0;
+  overflow: auto;
+  margin: 0;
+  padding: 14px;
+  border-radius: 14px;
+  background: rgba(2, 6, 23, 0.84);
+  font-family: "IBM Plex Mono", "Fira Code", Consolas, monospace;
+  font-size: 12px;
+  line-height: 1.6;
+  color: rgba(226, 232, 240, 0.94);
+}
+
+.debug-console-log {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.debug-log-entry {
+  padding: 10px 12px;
+  border-radius: 12px;
+}
+
+.debug-log-entry.warn {
+  border-color: rgba(251, 191, 36, 0.3);
+}
+
+.debug-log-entry.error {
+  border-color: rgba(248, 113, 113, 0.34);
+}
+
+.debug-log-meta {
+  justify-content: space-between;
+  gap: 12px;
+  font-size: 10px;
+  font-weight: 700;
+  color: var(--text-muted);
+}
+
+.debug-log-text {
+  margin-top: 6px;
+  white-space: pre-wrap;
+  word-break: break-word;
+  color: var(--text-secondary);
+}
+
+@media (max-width: 900px) {
+  .debug-console {
+    padding: 12px;
+  }
+
+  .debug-console-card {
+    max-height: 88vh;
+    padding: 16px;
+    border-radius: 20px;
+  }
+
+  .debug-console-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .debug-console-header {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+}
+
 @keyframes spin {
   from { transform: rotate(0deg); }
   to   { transform: rotate(360deg); }

@@ -8,6 +8,8 @@ window.NewsAtlas = window.NewsAtlas || {};
 NewsAtlas.ui = (function() {
   const TRANSLATE_STORAGE_KEY = 'newsatlas:translate-language';
   const TRANSLATE_LANGUAGES = ['ja', 'ko', 'zh-CN', 'zh-TW', 'es', 'fr', 'de', 'pt', 'ar', 'hi', 'ru'];
+  const DEBUG_KONAMI_CODE = ['up', 'up', 'down', 'down', 'left', 'right', 'left', 'right', 'b', 'a'];
+  const DEBUG_LOG_LIMIT = 80;
   const LICENSE_SECTIONS = [
     {
       id: 'oss',
@@ -82,6 +84,11 @@ NewsAtlas.ui = (function() {
   let _translateRefreshTimer = null;
   let _translateFallbackUrl = '';
   let _translateChromeObserver = null;
+  let _debugConsoleOpen = false;
+  let _debugConsoleTimer = null;
+  let _debugKonamiIndex = 0;
+  let _debugConsoleHooked = false;
+  const _debugLogEntries = [];
 
   /* ── Init ──────────────────────────────────────────────────── */
 
@@ -108,9 +115,17 @@ NewsAtlas.ui = (function() {
     el.translateFallbackText = document.getElementById('translate-fallback-text');
     el.translateFallbackOpen = document.getElementById('translate-fallback-open');
     el.translateFallbackClose = document.getElementById('translate-fallback-close');
+    el.debugConsole = document.getElementById('debug-console');
+    el.debugSummary = document.getElementById('debug-summary');
+    el.debugJson = document.getElementById('debug-json');
+    el.debugLog = document.getElementById('debug-log');
+    el.debugCopy = document.getElementById('debug-copy');
+    el.debugRefresh = document.getElementById('debug-refresh');
+    el.debugClose = document.getElementById('debug-close');
 
     renderLicenseMenu();
     protectInteractiveControlsFromTranslation();
+    initDebugConsole();
     initGoogleTranslate();
     bindEvents();
   }
@@ -170,6 +185,24 @@ NewsAtlas.ui = (function() {
       el.translateFallbackClose.addEventListener('click', hideTranslateFallback);
     }
 
+    if (el.debugCopy) {
+      el.debugCopy.addEventListener('click', copyDebugSnapshot);
+    }
+
+    if (el.debugRefresh) {
+      el.debugRefresh.addEventListener('click', renderDebugConsole);
+    }
+
+    if (el.debugClose) {
+      el.debugClose.addEventListener('click', () => setDebugConsoleOpen(false));
+    }
+
+    if (el.debugConsole) {
+      el.debugConsole.addEventListener('click', (e) => {
+        if (e.target === el.debugConsole) setDebugConsoleOpen(false);
+      });
+    }
+
     // Mobile panel toggles
     const leftToggle  = document.getElementById('toggle-left');
     const rightToggle = document.getElementById('toggle-right');
@@ -203,10 +236,12 @@ NewsAtlas.ui = (function() {
 
     // Keyboard shortcut: Escape closes drawer
     document.addEventListener('keydown', (e) => {
+      trackDebugKonamiCode(e);
       if (e.key === 'Escape') {
         closeDrawer();
         setLicenseMenuOpen(false);
         hideTranslateFallback();
+        setDebugConsoleOpen(false);
       }
     });
 
@@ -573,6 +608,206 @@ NewsAtlas.ui = (function() {
   }
 
   /* ── Active State Helpers ─────────────────────────────────── */
+
+  function initDebugConsole() {
+    hookDebugConsole();
+    pushDebugLog('info', ['Debug console ready. Enter Up Up Down Down Left Right Left Right B A.']);
+  }
+
+  function trackDebugKonamiCode(event) {
+    if (event.altKey || event.ctrlKey || event.metaKey) return;
+
+    const key = normalizeDebugKey(event.key);
+    if (!key) return;
+
+    if (key === DEBUG_KONAMI_CODE[_debugKonamiIndex]) {
+      _debugKonamiIndex += 1;
+      if (_debugKonamiIndex === DEBUG_KONAMI_CODE.length) {
+        _debugKonamiIndex = 0;
+        setDebugConsoleOpen(!_debugConsoleOpen);
+      }
+      return;
+    }
+
+    _debugKonamiIndex = key === DEBUG_KONAMI_CODE[0] ? 1 : 0;
+  }
+
+  function normalizeDebugKey(key) {
+    const normalized = String(key || '').toLowerCase();
+    if (normalized === 'arrowup') return 'up';
+    if (normalized === 'arrowdown') return 'down';
+    if (normalized === 'arrowleft') return 'left';
+    if (normalized === 'arrowright') return 'right';
+    if (normalized === 'b' || normalized === 'a') return normalized;
+    return '';
+  }
+
+  function setDebugConsoleOpen(open) {
+    _debugConsoleOpen = Boolean(open);
+    if (!el.debugConsole) return;
+
+    el.debugConsole.hidden = !_debugConsoleOpen;
+    el.debugConsole.classList.toggle('visible', _debugConsoleOpen);
+
+    if (_debugConsoleOpen) {
+      renderDebugConsole();
+      window.clearInterval(_debugConsoleTimer);
+      _debugConsoleTimer = window.setInterval(renderDebugConsole, 1000);
+      pushDebugLog('info', ['Debug console opened.']);
+    } else {
+      window.clearInterval(_debugConsoleTimer);
+      _debugConsoleTimer = null;
+    }
+  }
+
+  function renderDebugConsole() {
+    if (!el.debugConsole || !_debugConsoleOpen) return;
+
+    const snapshot = collectDebugSnapshot();
+    const summaryCards = [
+      { label: 'Mode', value: snapshot.mode },
+      { label: 'Filtered', value: String(snapshot.counts.filteredEvents) },
+      { label: 'Selected', value: snapshot.selected.eventTitle || 'none' },
+      { label: 'Zoom', value: snapshot.map.zoom }
+    ];
+
+    if (el.debugSummary) {
+      el.debugSummary.innerHTML = summaryCards.map(card => `
+        <div class="debug-summary-card">
+          <div class="debug-summary-label">${NewsAtlas.utils.escapeHtml(card.label)}</div>
+          <div class="debug-summary-value">${NewsAtlas.utils.escapeHtml(card.value)}</div>
+        </div>
+      `).join('');
+    }
+
+    if (el.debugJson) {
+      el.debugJson.textContent = JSON.stringify(snapshot, null, 2);
+    }
+
+    if (el.debugLog) {
+      el.debugLog.innerHTML = _debugLogEntries.slice().reverse().map(entry => `
+        <div class="debug-log-entry ${NewsAtlas.utils.escapeHtml(entry.type)}">
+          <div class="debug-log-meta">
+            <span>${NewsAtlas.utils.escapeHtml(entry.time)}</span>
+            <span>${NewsAtlas.utils.escapeHtml(entry.type.toUpperCase())}</span>
+          </div>
+          <div class="debug-log-text">${NewsAtlas.utils.escapeHtml(entry.message)}</div>
+        </div>
+      `).join('');
+    }
+  }
+
+  function collectDebugSnapshot() {
+    const appState = NewsAtlas.app && NewsAtlas.app.getState ? NewsAtlas.app.getState() : null;
+    const map = NewsAtlas.map && NewsAtlas.map.getMap ? NewsAtlas.map.getMap() : null;
+    const mapCenter = map && map.getCenter ? map.getCenter() : null;
+    const selectedEvent = appState && appState.selectedEvent ? appState.selectedEvent : null;
+
+    return {
+      timestamp: new Date().toISOString(),
+      mode: appState ? appState.mode : 'unknown',
+      timeFilter: appState ? appState.timeFilter : '',
+      searchQuery: appState ? appState.searchQuery : '',
+      dataMode: appState ? appState.dataMode : '',
+      translationLanguage: getStoredLanguage() || 'en',
+      counts: {
+        allEvents: appState && Array.isArray(appState.allEvents) ? appState.allEvents.length : 0,
+        filteredEvents: appState && Array.isArray(appState.filteredEvents) ? appState.filteredEvents.length : 0,
+        headlines: appState && Array.isArray(appState.headlines) ? appState.headlines.length : 0
+      },
+      filters: {
+        categories: appState && appState.categoryFilters ? Array.from(appState.categoryFilters) : [],
+        selectedRegion: appState ? appState.selectedRegion : null
+      },
+      selected: {
+        eventId: selectedEvent ? selectedEvent.id : null,
+        eventTitle: selectedEvent ? selectedEvent.title : null,
+        country: selectedEvent ? selectedEvent.countryName : null
+      },
+      panels: {
+        leftHidden: el.leftPanel ? el.leftPanel.classList.contains('panel-hidden') : false,
+        rightHidden: el.rightPanel ? el.rightPanel.classList.contains('panel-hidden') : false,
+        drawerOpen: el.mobileDrawer ? el.mobileDrawer.classList.contains('drawer-open') : false,
+        licenseOpen: _licenseMenuOpen
+      },
+      map: {
+        ready: Boolean(map),
+        zoom: NewsAtlas.map && NewsAtlas.map.getZoom ? NewsAtlas.map.getZoom().toFixed(2) : '0.00',
+        center: mapCenter ? {
+          lng: Number(mapCenter.lng).toFixed(4),
+          lat: Number(mapCenter.lat).toFixed(4)
+        } : null
+      },
+      viewport: {
+        width: window.innerWidth,
+        height: window.innerHeight,
+        mobile: window.innerWidth <= 768
+      }
+    };
+  }
+
+  async function copyDebugSnapshot() {
+    const snapshot = JSON.stringify(collectDebugSnapshot(), null, 2);
+
+    try {
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        await navigator.clipboard.writeText(snapshot);
+        pushDebugLog('info', ['Snapshot copied to clipboard.']);
+        renderDebugConsole();
+        return;
+      }
+    } catch (_) {}
+
+    pushDebugLog('warn', ['Clipboard copy is unavailable in this browser context.']);
+    renderDebugConsole();
+  }
+
+  function hookDebugConsole() {
+    if (_debugConsoleHooked) return;
+    _debugConsoleHooked = true;
+
+    ['log', 'warn', 'error'].forEach(type => {
+      const original = console[type];
+      console[type] = function(...args) {
+        pushDebugLog(type, args);
+        return original.apply(console, args);
+      };
+    });
+
+    window.addEventListener('error', (event) => {
+      pushDebugLog('error', [event.message || 'Unhandled error']);
+      renderDebugConsole();
+    });
+
+    window.addEventListener('unhandledrejection', (event) => {
+      pushDebugLog('error', [event.reason || 'Unhandled promise rejection']);
+      renderDebugConsole();
+    });
+  }
+
+  function pushDebugLog(type, args) {
+    const message = args.map(formatDebugLogArg).join(' ');
+    _debugLogEntries.push({
+      type,
+      time: new Date().toLocaleTimeString(),
+      message
+    });
+
+    if (_debugLogEntries.length > DEBUG_LOG_LIMIT) {
+      _debugLogEntries.splice(0, _debugLogEntries.length - DEBUG_LOG_LIMIT);
+    }
+  }
+
+  function formatDebugLogArg(value) {
+    if (typeof value === 'string') return value;
+    if (value instanceof Error) return value.stack || value.message;
+
+    try {
+      return JSON.stringify(value);
+    } catch (_) {
+      return String(value);
+    }
+  }
 
   function setActiveMode(mode) {
     el.modeButtons.forEach(btn => {

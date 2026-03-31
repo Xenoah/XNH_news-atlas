@@ -263,5 +263,37 @@
     </div>
   </div>
 
+  <div id="debug-console" class="debug-console notranslate" translate="no" hidden>
+    <div class="debug-console-card">
+      <div class="debug-console-header">
+        <div>
+          <div class="debug-console-kicker">Secret Debug</div>
+          <div class="debug-console-title">Atlas Console</div>
+        </div>
+        <div class="debug-console-actions">
+          <button id="debug-copy" class="debug-console-btn" type="button">Copy JSON</button>
+          <button id="debug-refresh" class="debug-console-btn" type="button">Refresh</button>
+          <button id="debug-close" class="debug-console-btn primary" type="button">Close</button>
+        </div>
+      </div>
+
+      <div id="debug-summary" class="debug-summary">
+        <!-- Populated by ui.js -->
+      </div>
+
+      <div class="debug-console-grid">
+        <section class="debug-console-panel">
+          <div class="debug-console-panel-title">Snapshot</div>
+          <pre id="debug-json" class="debug-console-pre"></pre>
+        </section>
+
+        <section class="debug-console-panel">
+          <div class="debug-console-panel-title">Runtime Log</div>
+          <div id="debug-log" class="debug-console-log"></div>
+        </section>
+      </div>
+    </div>
+  </div>
+
 </body>
 </html>
