@@ -1,20 +1,20 @@
 {
-  "generatedAt": "2026-04-01T09:37:45.219846+00:00",
+  "generatedAt": "2026-04-01T10:40:06.622927+00:00",
   "timeRange": "24h",
   "risingEvents": [
-    {
-      "id": "rss_018087612237",
-      "title": "Iran war: What is happening on day 33 of US-Israel attacks?",
-      "velocityScore": 1.0,
-      "category": "conflict",
-      "countryName": "United States"
-    },
     {
       "id": "rss_ca05a169d37d",
       "title": "War on Iran: Three key takeaways from Araghchi’s interview with Al Jazeera",
       "velocityScore": 1.0,
       "category": "conflict",
       "countryName": "Iran"
+    },
+    {
+      "id": "rss_6efee09d169a",
+      "title": "Israel kills 7 people in Beirut, Hezbollah fights invasion in south Lebanon",
+      "velocityScore": 1.0,
+      "category": "conflict",
+      "countryName": "Israel"
     },
     {
       "id": "rss_55b7848d39cc",
@@ -45,40 +45,45 @@
       "countryName": "Mexico"
     },
     {
-      "id": "rss_390050ab2c84",
-      "title": "Spain’s FA condemns Islamophobic chants during game with Egypt",
+      "id": "rss_75b308cf2831",
+      "title": "UK needs ‘ambitious’ new EU ties amid Iran war, Starmer says",
       "velocityScore": 1.0,
-      "category": "politics",
-      "countryName": "Egypt"
+      "category": "conflict",
+      "countryName": "United Kingdom"
     },
     {
-      "id": "rss_8ac9129ae17b",
-      "title": "US messages via Witkoff and intermediaries are not negotiations: Araghchi",
+      "id": "rss_df718696406a",
+      "title": "First Thing: Trump launches tirade against Europe for not joining Iran war",
       "velocityScore": 1.0,
-      "category": "politics",
+      "category": "conflict",
       "countryName": "United States"
     }
   ],
   "risingRegions": [],
   "categoryTrends": {
     "politics": {
-      "count": 375,
-      "change": "+375",
+      "count": 365,
+      "change": "+365",
       "changePercent": 100
     },
     "conflict": {
-      "count": 192,
-      "change": "+192",
+      "count": 199,
+      "change": "+199",
       "changePercent": 100
     },
     "health": {
-      "count": 13,
-      "change": "+13",
+      "count": 14,
+      "change": "+14",
       "changePercent": 100
     },
     "sports": {
-      "count": 8,
-      "change": "+8",
+      "count": 10,
+      "change": "+10",
+      "changePercent": 100
+    },
+    "technology": {
+      "count": 4,
+      "change": "+4",
       "changePercent": 100
     },
     "disaster": {
@@ -91,22 +96,17 @@
       "change": "+3",
       "changePercent": 100
     },
-    "technology": {
-      "count": 3,
-      "change": "+3",
-      "changePercent": 100
-    },
     "science": {
-      "count": 3,
-      "change": "+3",
+      "count": 2,
+      "change": "+2",
       "changePercent": 100
     }
   },
   "totalEvents": 600,
   "totalSources": 600,
   "globalStats": {
-    "avgAttentionScore": 0.919,
+    "avgAttentionScore": 0.918,
     "totalArticles": 600,
-    "bubbleCount": 573
+    "bubbleCount": 572
   }
 }
