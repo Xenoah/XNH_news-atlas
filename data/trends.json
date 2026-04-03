@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-04-03T21:06:16.366871+00:00",
+  "generatedAt": "2026-04-03T21:49:45.994350+00:00",
   "timeRange": "24h",
   "risingEvents": [
     {
@@ -8,20 +8,6 @@
       "velocityScore": 1.0,
       "category": "conflict",
       "countryName": "United States"
-    },
-    {
-      "id": "rss_8f064cc929d3",
-      "title": "Iran: US fighter jet downed, War “It’s not a show”, The Space Race, Will Syrians leave Germany?",
-      "velocityScore": 1.0,
-      "category": "conflict",
-      "countryName": "United States"
-    },
-    {
-      "id": "rss_aadef3766974",
-      "title": "Drone strike on Sudan hospital kills 10, medical charity MSF says",
-      "velocityScore": 1.0,
-      "category": "politics",
-      "countryName": "Sudan"
     },
     {
       "id": "rss_558f278a28bc",
@@ -57,31 +43,45 @@
       "velocityScore": 1.0,
       "category": "politics",
       "countryName": "Iran"
+    },
+    {
+      "id": "rss_69e810b79544",
+      "title": "Christians in Lebanon observe Good Friday under Israeli attacks",
+      "velocityScore": 1.0,
+      "category": "politics",
+      "countryName": "Israel"
+    },
+    {
+      "id": "rss_b0ef02b88295",
+      "title": "How the Iran war is pushing US ally the Philippines into economic crisis",
+      "velocityScore": 1.0,
+      "category": "conflict",
+      "countryName": "Iran"
     }
   ],
   "risingRegions": [],
   "categoryTrends": {
     "politics": {
-      "count": 323,
-      "change": "+323",
+      "count": 322,
+      "change": "+322",
       "changePercent": 100
     },
     "conflict": {
-      "count": 264,
-      "change": "+264",
+      "count": 265,
+      "change": "+265",
       "changePercent": 100
     },
     "economy": {
-      "count": 7,
-      "change": "+7",
-      "changePercent": 100
-    },
-    "disaster": {
-      "count": 2,
-      "change": "+2",
+      "count": 6,
+      "change": "+6",
       "changePercent": 100
     },
     "health": {
+      "count": 3,
+      "change": "+3",
+      "changePercent": 100
+    },
+    "disaster": {
       "count": 2,
       "change": "+2",
       "changePercent": 100
@@ -97,6 +97,6 @@
   "globalStats": {
     "avgAttentionScore": 0.936,
     "totalArticles": 600,
-    "bubbleCount": 593
+    "bubbleCount": 592
   }
 }
