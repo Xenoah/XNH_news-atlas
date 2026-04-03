@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-04-03T17:19:20.508663+00:00",
+  "generatedAt": "2026-04-03T17:59:47.100945+00:00",
   "timeRange": "24h",
   "risingEvents": [
     {
@@ -31,6 +31,13 @@
       "countryName": "United States"
     },
     {
+      "id": "rss_6ab5c09da226",
+      "title": "US unemployment rate drops despite economic uncertainty and Iran war",
+      "velocityScore": 1.0,
+      "category": "conflict",
+      "countryName": "United States"
+    },
+    {
       "id": "rss_421ea8c152f1",
       "title": "University of Washington professor fired from director job after sending email criticizing Iran war",
       "velocityScore": 1.0,
@@ -50,13 +57,6 @@
       "velocityScore": 1.0,
       "category": "politics",
       "countryName": "Iran"
-    },
-    {
-      "id": "rss_dc0503ec1d8b",
-      "title": "Trump says with more time, US can ‘take the oil’ in Iran",
-      "velocityScore": 1.0,
-      "category": "politics",
-      "countryName": "United States"
     }
   ],
   "risingRegions": [],
@@ -67,8 +67,8 @@
       "changePercent": 100
     },
     "conflict": {
-      "count": 261,
-      "change": "+261",
+      "count": 262,
+      "change": "+262",
       "changePercent": 100
     },
     "economy": {
@@ -76,14 +76,14 @@
       "change": "+10",
       "changePercent": 100
     },
-    "health": {
+    "science": {
       "count": 3,
       "change": "+3",
       "changePercent": 100
     },
-    "science": {
-      "count": 3,
-      "change": "+3",
+    "health": {
+      "count": 2,
+      "change": "+2",
       "changePercent": 100
     },
     "disaster": {
