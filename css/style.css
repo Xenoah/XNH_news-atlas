@@ -251,7 +251,8 @@ body {
 
 .display-settings-header,
 .display-settings-row,
-.display-theme-group {
+.display-theme-group,
+.display-boundary-group {
   display: flex;
 }
 
@@ -316,7 +317,13 @@ body {
   margin-top: 10px;
 }
 
-.display-theme-btn {
+.display-boundary-group {
+  gap: 8px;
+  margin-top: 10px;
+}
+
+.display-theme-btn,
+.display-boundary-btn {
   flex: 1;
   padding: 8px 10px;
   border: 1px solid var(--border-color);
@@ -329,13 +336,15 @@ body {
   transition: background var(--transition-fast), color var(--transition-fast), border-color var(--transition-fast);
 }
 
-.display-theme-btn.active {
+.display-theme-btn.active,
+.display-boundary-btn.active {
   color: #fff;
   background: var(--accent-blue);
   border-color: transparent;
 }
 
-:root[data-theme="light"] .display-theme-btn.active {
+:root[data-theme="light"] .display-theme-btn.active,
+:root[data-theme="light"] .display-boundary-btn.active {
   color: #fff;
 }
 

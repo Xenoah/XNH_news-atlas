@@ -127,15 +127,14 @@
               </div>
             </div>
             <div class="display-settings-section">
-              <div class="display-settings-row">
-                <div>
-                  <div class="display-settings-label">Timezone Boundaries</div>
-                  <div class="display-settings-hint">Show researched civil timezone boundaries on the map.</div>
-                </div>
-                <label class="display-switch" aria-label="Toggle timezone boundaries">
-                  <input id="timezone-grid-toggle" name="timezone-grid" type="checkbox" checked>
-                  <span class="display-switch-track"></span>
-                </label>
+              <div>
+                <div class="display-settings-label">Boundary Overlay</div>
+                <div class="display-settings-hint">Switch between no overlay, civil timezone boundaries, or country borders.</div>
+              </div>
+              <div class="display-boundary-group" role="group" aria-label="Boundary overlay mode">
+                <button class="display-boundary-btn" type="button" data-boundary-mode="off">Off</button>
+                <button class="display-boundary-btn" type="button" data-boundary-mode="timezone">Timezone</button>
+                <button class="display-boundary-btn" type="button" data-boundary-mode="country">Country</button>
               </div>
             </div>
           </div>

@@ -16,8 +16,11 @@ NewsAtlas.map = (function() {
   let _allEvents = [];
   let _currentMode = 'events';
   const TIMEZONE_BOUNDARIES_URL = 'https://cdn.jsdelivr.net/gh/dejurin/simplified-timezone-boundaries@main/output.geojson';
+  const COUNTRY_BOUNDARIES_URL = 'https://datahub.io/core/geo-boundaries-world-110m/_r/-/countries.geojson';
   let _timezoneDataPromise = null;
   let _timezoneDataLoaded = false;
+  let _countryDataPromise = null;
+  let _countryDataLoaded = false;
 
   function _getTimezoneFillExpression(theme) {
     const dark = theme !== 'light';
@@ -46,6 +49,14 @@ NewsAtlas.map = (function() {
 
   function _getTimezoneLabelHaloColor(theme) {
     return theme === 'light' ? 'rgba(252,248,238,0.86)' : 'rgba(8,12,18,0.82)';
+  }
+
+  function _getCountryBoundaryColor(theme) {
+    return theme === 'light' ? 'rgba(122,72,42,0.72)' : 'rgba(240,213,176,0.42)';
+  }
+
+  function _getTaiwanBoundaryColor(theme) {
+    return theme === 'light' ? 'rgba(161,74,42,0.94)' : 'rgba(255,210,138,0.82)';
   }
 
   function _parseTimeZoneOffset(tzid, atDate = new Date()) {
@@ -94,6 +105,34 @@ NewsAtlas.map = (function() {
     };
   }
 
+  function _buildCountryBoundaryData(rawData) {
+    const base = rawData && rawData.type === 'FeatureCollection' ? rawData : { type: 'FeatureCollection', features: [] };
+    return {
+      type: 'FeatureCollection',
+      features: (base.features || []).map(feature => {
+        const props = feature && feature.properties ? { ...feature.properties } : {};
+        const iso3 = String(
+          props['ISO3166-1-Alpha-3'] ||
+          props.iso_a3 ||
+          props.ADM0_A3 ||
+          props.adm0_a3 ||
+          ''
+        ).toUpperCase();
+        return {
+          ...feature,
+          properties: {
+            ...props,
+            countryCode3: iso3,
+            countryName: iso3 === 'TWN'
+              ? 'Taiwan'
+              : (props.name || props.ADMIN || props.admin || props.NAME || ''),
+            isTaiwan: iso3 === 'TWN'
+          }
+        };
+      })
+    };
+  }
+
   async function _ensureTimezoneBoundariesLoaded() {
     if (_timezoneDataLoaded) return true;
     if (_timezoneDataPromise) return _timezoneDataPromise;
@@ -120,6 +159,34 @@ NewsAtlas.map = (function() {
         _timezoneDataPromise = null;
       });
     return _timezoneDataPromise;
+  }
+
+  async function _ensureCountryBoundariesLoaded() {
+    if (_countryDataLoaded) return true;
+    if (_countryDataPromise) return _countryDataPromise;
+    _countryDataPromise = fetch(COUNTRY_BOUNDARIES_URL)
+      .then(response => {
+        if (!response.ok) {
+          throw new Error(`Country boundaries fetch failed: ${response.status}`);
+        }
+        return response.json();
+      })
+      .then(data => {
+        const src = _map && _map.getSource('country-boundaries');
+        if (src) {
+          src.setData(_buildCountryBoundaryData(data));
+          _countryDataLoaded = true;
+        }
+        return true;
+      })
+      .catch(err => {
+        console.warn('[map] Failed to load country boundaries:', err);
+        return false;
+      })
+      .finally(() => {
+        _countryDataPromise = null;
+      });
+    return _countryDataPromise;
   }
 
   /* ── CartoDB Dark Style Definition ──────────────────────── */
@@ -250,6 +317,12 @@ NewsAtlas.map = (function() {
       _map.setPaintProperty('timezone-grid-labels', 'text-color', _getTimezoneLabelColor(_currentBaseTheme));
       _map.setPaintProperty('timezone-grid-labels', 'text-halo-color', _getTimezoneLabelHaloColor(_currentBaseTheme));
     }
+    if (_map.getLayer('country-boundary-lines')) {
+      _map.setPaintProperty('country-boundary-lines', 'line-color', _getCountryBoundaryColor(_currentBaseTheme));
+    }
+    if (_map.getLayer('country-boundary-taiwan')) {
+      _map.setPaintProperty('country-boundary-taiwan', 'line-color', _getTaiwanBoundaryColor(_currentBaseTheme));
+    }
   }
 
   /* ── Sources ──────────────────────────────────────────────── */
@@ -261,6 +334,11 @@ NewsAtlas.map = (function() {
     });
 
     _map.addSource('timezone-grid', {
+      type: 'geojson',
+      data: { type: 'FeatureCollection', features: [] }
+    });
+
+    _map.addSource('country-boundaries', {
       type: 'geojson',
       data: { type: 'FeatureCollection', features: [] }
     });
@@ -398,6 +476,49 @@ NewsAtlas.map = (function() {
         'text-halo-color': _getTimezoneLabelHaloColor(_currentBaseTheme),
         'text-halo-width': 1.2,
         'text-opacity': 0.95
+      }
+    });
+
+    _map.addLayer({
+      id: 'country-boundary-lines',
+      type: 'line',
+      source: 'country-boundaries',
+      layout: {
+        'line-join': 'round',
+        'line-cap': 'round'
+      },
+      paint: {
+        'line-color': _getCountryBoundaryColor(_currentBaseTheme),
+        'line-width': [
+          'interpolate', ['linear'], ['zoom'],
+          1, 0.65,
+          3, 0.9,
+          6, 1.25,
+          10, 1.8
+        ],
+        'line-opacity': 0.92
+      }
+    });
+
+    _map.addLayer({
+      id: 'country-boundary-taiwan',
+      type: 'line',
+      source: 'country-boundaries',
+      filter: ['==', ['get', 'countryCode3'], 'TWN'],
+      layout: {
+        'line-join': 'round',
+        'line-cap': 'round'
+      },
+      paint: {
+        'line-color': _getTaiwanBoundaryColor(_currentBaseTheme),
+        'line-width': [
+          'interpolate', ['linear'], ['zoom'],
+          1, 1.1,
+          3, 1.35,
+          6, 1.85,
+          10, 2.4
+        ],
+        'line-opacity': 1
       }
     });
 
@@ -771,18 +892,28 @@ NewsAtlas.map = (function() {
   }
 
   function refreshTimezoneGrid() {
-    if (!_map || !_map.getSource('timezone-grid')) return;
+    if (!_map) return;
 
     const settings = NewsAtlas.ui && NewsAtlas.ui.getDisplaySettings
       ? NewsAtlas.ui.getDisplaySettings()
-      : { showTimezoneGrid: true };
-    const visible = Boolean(settings.showTimezoneGrid);
+      : { boundaryMode: 'timezone' };
+    const mode = ['off', 'timezone', 'country'].includes(settings.boundaryMode)
+      ? settings.boundaryMode
+      : (settings.showTimezoneGrid ? 'timezone' : 'off');
+    const showTimezone = mode === 'timezone';
+    const showCountry = mode === 'country';
 
-    _setLayerVisibility('timezone-zone-fills', visible);
-    _setLayerVisibility('timezone-grid-lines', visible);
-    _setLayerVisibility('timezone-grid-labels', visible);
-    if (visible) {
+    _setLayerVisibility('timezone-zone-fills', showTimezone);
+    _setLayerVisibility('timezone-grid-lines', showTimezone);
+    _setLayerVisibility('timezone-grid-labels', showTimezone);
+    _setLayerVisibility('country-boundary-lines', showCountry);
+    _setLayerVisibility('country-boundary-taiwan', showCountry);
+
+    if (showTimezone && _map.getSource('timezone-grid')) {
       _ensureTimezoneBoundariesLoaded();
+    }
+    if (showCountry && _map.getSource('country-boundaries')) {
+      _ensureCountryBoundariesLoaded();
     }
   }
 

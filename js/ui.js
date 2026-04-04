@@ -15,7 +15,7 @@ NewsAtlas.ui = (function() {
   const DEFAULT_DISPLAY_SETTINGS = {
     theme: 'dark',
     showSunlight: true,
-    showTimezoneGrid: true
+    boundaryMode: 'timezone'
   };
   const LICENSE_SECTIONS = [
     {
@@ -115,8 +115,8 @@ NewsAtlas.ui = (function() {
     el.displaySettingsMenu = document.getElementById('display-settings-menu');
     el.displaySettingsClose = document.getElementById('display-settings-close');
     el.displayThemeButtons = document.querySelectorAll('.display-theme-btn');
+    el.displayBoundaryButtons = document.querySelectorAll('.display-boundary-btn');
     el.sunlightToggle = document.getElementById('sunlight-toggle');
-    el.timezoneGridToggle = document.getElementById('timezone-grid-toggle');
     el.clockUtcValue = document.getElementById('clock-utc-value');
     el.clockUtcDate = document.getElementById('clock-utc-date');
     el.clockJstValue = document.getElementById('clock-jst-value');
@@ -256,9 +256,11 @@ NewsAtlas.ui = (function() {
       });
     }
 
-    if (el.timezoneGridToggle) {
-      el.timezoneGridToggle.addEventListener('change', (e) => {
-        updateDisplaySettings({ showTimezoneGrid: Boolean(e.target.checked) });
+    if (el.displayBoundaryButtons && el.displayBoundaryButtons.length) {
+      el.displayBoundaryButtons.forEach(btn => {
+        btn.addEventListener('click', () => {
+          updateDisplaySettings({ boundaryMode: btn.dataset.boundaryMode || 'off' });
+        });
       });
     }
 
@@ -561,14 +563,17 @@ NewsAtlas.ui = (function() {
       const raw = window.localStorage.getItem(DISPLAY_SETTINGS_STORAGE_KEY);
       if (!raw) return { ...DEFAULT_DISPLAY_SETTINGS };
       const parsed = JSON.parse(raw);
+      const legacyBoundaryMode = parsed && typeof parsed.showTimezoneGrid === 'boolean'
+        ? (parsed.showTimezoneGrid ? 'timezone' : 'off')
+        : DEFAULT_DISPLAY_SETTINGS.boundaryMode;
       return {
         theme: parsed && parsed.theme === 'light' ? 'light' : 'dark',
         showSunlight: parsed && typeof parsed.showSunlight === 'boolean'
           ? parsed.showSunlight
           : DEFAULT_DISPLAY_SETTINGS.showSunlight,
-        showTimezoneGrid: parsed && typeof parsed.showTimezoneGrid === 'boolean'
-          ? parsed.showTimezoneGrid
-          : DEFAULT_DISPLAY_SETTINGS.showTimezoneGrid
+        boundaryMode: parsed && ['off', 'timezone', 'country'].includes(parsed.boundaryMode)
+          ? parsed.boundaryMode
+          : legacyBoundaryMode
       };
     } catch (_) {
       return { ...DEFAULT_DISPLAY_SETTINGS };
@@ -589,6 +594,9 @@ NewsAtlas.ui = (function() {
     const nextTheme = nextSettings && (nextSettings.theme === 'light' || nextSettings.theme === 'dark')
       ? nextSettings.theme
       : _displaySettings.theme;
+    const nextBoundaryMode = nextSettings && ['off', 'timezone', 'country'].includes(nextSettings.boundaryMode)
+      ? nextSettings.boundaryMode
+      : _displaySettings.boundaryMode;
     _displaySettings = {
       ..._displaySettings,
       ...nextSettings,
@@ -596,9 +604,7 @@ NewsAtlas.ui = (function() {
       showSunlight: nextSettings && typeof nextSettings.showSunlight === 'boolean'
         ? nextSettings.showSunlight
         : _displaySettings.showSunlight,
-      showTimezoneGrid: nextSettings && typeof nextSettings.showTimezoneGrid === 'boolean'
-        ? nextSettings.showTimezoneGrid
-        : _displaySettings.showTimezoneGrid
+      boundaryMode: nextBoundaryMode
     };
 
     saveDisplaySettings();
@@ -635,8 +641,12 @@ NewsAtlas.ui = (function() {
     if (el.sunlightToggle) {
       el.sunlightToggle.checked = Boolean(_displaySettings.showSunlight);
     }
-    if (el.timezoneGridToggle) {
-      el.timezoneGridToggle.checked = Boolean(_displaySettings.showTimezoneGrid);
+    if (el.displayBoundaryButtons && el.displayBoundaryButtons.length) {
+      el.displayBoundaryButtons.forEach(btn => {
+        const active = btn.dataset.boundaryMode === _displaySettings.boundaryMode;
+        btn.classList.toggle('active', active);
+        btn.setAttribute('aria-pressed', String(active));
+      });
     }
   }
 
