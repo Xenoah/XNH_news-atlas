@@ -10,7 +10,7 @@ Strategy:
   2. Fetch all RSS feeds (fast, no rate limits)
   3. Extract location & category from article title/description
   4. Merge: add only new URLs — skip duplicates
-  5. Prune events older than 7 days
+  5. Prune events 7 days after publication
   6. Sort by attention score → write top MAX_EVENTS_OUTPUT
 
 Runtime: ~30 sources × ~1s each ≈ 30–60 s per run (well under 10 min limit)
@@ -31,8 +31,8 @@ from email.utils import parsedate_to_datetime
 # ── Config ────────────────────────────────────────────────────────────────────
 
 OUTPUT_DIR        = os.path.join(os.path.dirname(__file__), "..", "data")
-MAX_EVENTS_OUTPUT = 600    # top N events written to world-latest.json
-PRUNE_DAYS        = 7      # remove events older than this
+MAX_EVENTS_OUTPUT = 2400   # top N events written to world-latest.json
+PRUNE_DAYS        = 7      # remove events this many days after publication
 FETCH_TIMEOUT_S   = 15     # per-feed HTTP timeout
 BUBBLE_THRESHOLD  = 0.82   # attentionScore above which bubble:true is set
 
@@ -339,13 +339,23 @@ def calc_freshness(iso: str) -> str:
         return "recent"
 
 
+def parse_iso_datetime(value: str | None) -> datetime | None:
+    if not value:
+        return None
+    try:
+        return datetime.fromisoformat(value.replace("Z", "+00:00"))
+    except Exception:
+        return None
+
+
+def get_published_at(event: dict) -> datetime | None:
+    return parse_iso_datetime(event.get("publishedAt"))
+
+
 def is_within_window(event: dict, days: int = PRUNE_DAYS) -> bool:
     cutoff = datetime.now(timezone.utc) - timedelta(days=days)
-    try:
-        pub = datetime.fromisoformat(event["publishedAt"].replace("Z", "+00:00"))
-        return pub >= cutoff
-    except Exception:
-        return True
+    published_at = get_published_at(event)
+    return True if published_at is None else published_at >= cutoff
 
 
 def extract_location(title: str, description: str) -> dict | None:
@@ -519,6 +529,7 @@ def rss_item_to_event(item: dict, default_cat: str, feed_domain: str) -> dict | 
 
     art_url      = item["url"]
     published_at = parse_pub_date(item.get("pubDate", ""))
+    fetched_at   = datetime.now(timezone.utc).isoformat()
     freshness    = calc_freshness(published_at)
     if freshness == "archive":
         return None   # too old for this run
@@ -556,9 +567,10 @@ def rss_item_to_event(item: dict, default_cat: str, feed_domain: str) -> dict | 
         "lat":               j_lat,
         "lng":               j_lng,
         "geoPrecision":      "country",
+        "fetchedAt":         fetched_at,
         "publishedAt":       published_at,
-        "firstSeenAt":       published_at,
-        "lastUpdatedAt":     datetime.now(timezone.utc).isoformat(),
+        "firstSeenAt":       fetched_at,
+        "lastUpdatedAt":     fetched_at,
         "freshness":         freshness,
         "articleCount":      1,
         "sourceCount":       1,
@@ -662,7 +674,7 @@ def main() -> int:
                     url = e.get("sources", [{}])[0].get("url", e.get("id", ""))
                     if url:
                         events_by_url[url] = e
-            print(f"  Loaded {len(events_by_url)} existing events (≤ {PRUNE_DAYS} days)\n")
+            print(f"  Loaded {len(events_by_url)} existing events (<= {PRUNE_DAYS} days since publish)\n")
         except Exception as ex:
             print(f"  [warn] Could not load existing data: {ex}\n")
 
@@ -713,8 +725,15 @@ def main() -> int:
     elapsed = round(time.time() - start_ts, 1)
 
     # ── Step 3: Sort and cap ──────────────────────────────────────────────────
-    all_events = sorted(
+    retained_events = sorted(
         events_by_url.values(),
+        key=lambda e: get_published_at(e) or datetime.min.replace(tzinfo=timezone.utc),
+        reverse=True,
+    )[:MAX_EVENTS_OUTPUT]
+    dropped_count = max(len(events_by_url) - len(retained_events), 0)
+
+    all_events = sorted(
+        retained_events,
         key=lambda e: (
             e.get("attentionScore", 0) *
             {"fresh": 1.0, "recent": 0.9, "ongoing": 0.7}.get(
@@ -723,7 +742,6 @@ def main() -> int:
         ),
         reverse=True,
     )
-    all_events = all_events[:MAX_EVENTS_OUTPUT]
 
     for e in all_events:
         e["bubble"]    = e.get("attentionScore", 0) >= BUBBLE_THRESHOLD
@@ -733,6 +751,7 @@ def main() -> int:
 
     print(f"\n{'─'*68}")
     print(f"  Pool after merge+prune : {len(events_by_url)}")
+    print(f"  Dropped oldest first   : {dropped_count}")
     print(f"  New this run           : {new_count}")
     print(f"  Skipped (duplicate)    : {skip_count}")
     print(f"  Failed feeds           : {fail_count}/{len(RSS_SOURCES)}")

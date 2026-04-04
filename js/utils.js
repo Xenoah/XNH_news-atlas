@@ -218,41 +218,225 @@ NewsAtlas.utils = {
     };
   },
 
+  smoothstep(edge0, edge1, x) {
+    if (edge0 === edge1) return x < edge0 ? 0 : 1;
+    const t = this.clamp((x - edge0) / (edge1 - edge0), 0, 1);
+    return t * t * (3 - 2 * t);
+  },
+
+  clearCanvas(canvas) {
+    if (!canvas) return;
+    const ctx = canvas.getContext('2d');
+    if (!ctx) return;
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+  },
+
+  renderSunlightOverlayCanvas(canvas, atDate, theme) {
+    if (!canvas) return;
+
+    const context = this.getSolarContext(atDate);
+    const ctx = canvas.getContext('2d', { willReadFrequently: true });
+    if (!ctx || !context) return;
+
+    const width = canvas.width || 1024;
+    const height = canvas.height || 512;
+    const image = ctx.createImageData(width, height);
+    const data = image.data;
+    const palette = theme === 'light'
+      ? {
+          day: [255, 244, 214, 0.08],
+          twilight: [249, 115, 22, 0.10],
+          night: [15, 23, 42, 0.16]
+        }
+      : {
+          day: [250, 204, 21, 0.06],
+          twilight: [251, 146, 60, 0.12],
+          night: [2, 6, 23, 0.34]
+        };
+
+    for (let y = 0; y < height; y += 1) {
+      const lat = 90 - ((y + 0.5) / height) * 180;
+
+      for (let x = 0; x < width; x += 1) {
+        const lng = -180 + ((x + 0.5) / width) * 360;
+        const solar = this.getSunAltitude(lat, lng, context);
+        const altitude = solar ? solar.altitude : -90;
+        const dayWeight = this.smoothstep(-4, 18, altitude);
+        const nightWeight = 1 - this.smoothstep(-18, 4, altitude);
+        const twilightWeight = Math.pow(Math.max(0, 1 - Math.abs(altitude) / 18), 1.5);
+
+        const dayAlpha = palette.day[3] * dayWeight;
+        const twilightAlpha = palette.twilight[3] * twilightWeight;
+        const nightAlpha = palette.night[3] * nightWeight;
+        const alphaSum = dayAlpha + twilightAlpha + nightAlpha;
+        const idx = (y * width + x) * 4;
+
+        if (alphaSum <= 0.001) {
+          data[idx + 0] = 0;
+          data[idx + 1] = 0;
+          data[idx + 2] = 0;
+          data[idx + 3] = 0;
+          continue;
+        }
+
+        data[idx + 0] = Math.round(
+          (palette.day[0] * dayAlpha + palette.twilight[0] * twilightAlpha + palette.night[0] * nightAlpha) / alphaSum
+        );
+        data[idx + 1] = Math.round(
+          (palette.day[1] * dayAlpha + palette.twilight[1] * twilightAlpha + palette.night[1] * nightAlpha) / alphaSum
+        );
+        data[idx + 2] = Math.round(
+          (palette.day[2] * dayAlpha + palette.twilight[2] * twilightAlpha + palette.night[2] * nightAlpha) / alphaSum
+        );
+        data[idx + 3] = Math.round(this.clamp(alphaSum, 0, 0.42) * 255);
+      }
+    }
+
+    ctx.putImageData(image, 0, 0);
+  },
+
+  normalizeLongitude(lng) {
+    const normalized = ((Number(lng) + 180) % 360 + 360) % 360 - 180;
+    return normalized === -180 ? -180 : normalized;
+  },
+
+  getSubsolarLongitude(context) {
+    return this.normalizeLongitude(180 - (context.utcMinutes + context.eqTime) / 4);
+  },
+
+  getAboveAltitudeIntervals(lat, altitudeDeg, context) {
+    const latitude = this.clamp(Number(lat), -89.999, 89.999);
+    const latRad = latitude * Math.PI / 180;
+    const sinLat = Math.sin(latRad);
+    const cosLat = Math.cos(latRad);
+    const sinDecl = Math.sin(context.declination);
+    const cosDecl = Math.cos(context.declination);
+    const denominator = cosLat * cosDecl;
+
+    if (Math.abs(denominator) < 1e-6) {
+      const solar = this.getSunAltitude(latitude, this.getSubsolarLongitude(context), context);
+      return solar && solar.altitude >= altitudeDeg ? [[-180, 180]] : [];
+    }
+
+    const target = Math.sin(altitudeDeg * Math.PI / 180);
+    const ratio = (target - sinLat * sinDecl) / denominator;
+    if (ratio <= -1) return [[-180, 180]];
+    if (ratio >= 1) return [];
+
+    const halfWidth = Math.acos(this.clamp(ratio, -1, 1)) * 180 / Math.PI;
+    const center = this.getSubsolarLongitude(context);
+    const west = this.normalizeLongitude(center - halfWidth);
+    const east = this.normalizeLongitude(center + halfWidth);
+
+    if (west <= east) return [[west, east]];
+    return [[-180, east], [west, 180]];
+  },
+
+  complementIntervals(intervals) {
+    if (!intervals.length) return [[-180, 180]];
+
+    const result = [];
+    let cursor = -180;
+    intervals.forEach(([start, end]) => {
+      if (start > cursor) result.push([cursor, start]);
+      cursor = Math.max(cursor, end);
+    });
+    if (cursor < 180) result.push([cursor, 180]);
+    return result.filter(([start, end]) => end - start > 1e-6);
+  },
+
+  subtractIntervals(baseIntervals, removeIntervals) {
+    if (!baseIntervals.length) return [];
+    if (!removeIntervals.length) return baseIntervals.map(([start, end]) => [start, end]);
+
+    const result = [];
+    baseIntervals.forEach(([baseStart, baseEnd]) => {
+      let cursor = baseStart;
+      removeIntervals.forEach(([removeStart, removeEnd]) => {
+        if (removeEnd <= cursor || removeStart >= baseEnd) return;
+        if (removeStart > cursor) result.push([cursor, Math.min(removeStart, baseEnd)]);
+        cursor = Math.max(cursor, removeEnd);
+      });
+      if (cursor < baseEnd) result.push([cursor, baseEnd]);
+    });
+
+    return result.filter(([start, end]) => end - start > 1e-6);
+  },
+
+  getSunPhaseIntervals(lat, context) {
+    const day = this.getAboveAltitudeIntervals(lat, 6, context);
+    const lit = this.getAboveAltitudeIntervals(lat, -6, context);
+    return {
+      day,
+      twilight: this.subtractIntervals(lit, day),
+      night: this.complementIntervals(lit)
+    };
+  },
+
+  intervalMidpoint(interval) {
+    return (interval[0] + interval[1]) / 2;
+  },
+
+  pickMatchingInterval(intervals, seedInterval) {
+    if (!intervals.length) return null;
+    const midpoint = this.intervalMidpoint(seedInterval);
+    const containing = intervals.find(([start, end]) => midpoint >= start && midpoint <= end);
+    if (containing) return containing;
+
+    return intervals.reduce((best, current) => {
+      const bestDistance = Math.abs(this.intervalMidpoint(best) - midpoint);
+      const currentDistance = Math.abs(this.intervalMidpoint(current) - midpoint);
+      return currentDistance < bestDistance ? current : best;
+    });
+  },
+
   getSunlightOverlayGeoJSON(atDate, cellSizeDeg) {
     const context = this.getSolarContext(atDate);
     if (!context) {
       return { type: 'FeatureCollection', features: [] };
     }
 
-    const step = Number(cellSizeDeg) > 0 ? Number(cellSizeDeg) : 6;
+    const step = Number(cellSizeDeg) > 0 ? Number(cellSizeDeg) : 1;
     const features = [];
+    const phases = ['day', 'twilight', 'night'];
 
-    for (let lat = -90; lat < 90; lat += step) {
-      const north = Math.min(lat + step, 90);
-      const centerLat = Math.max(-89.5, Math.min(89.5, lat + step / 2));
+    for (let south = -90; south < 90; south += step) {
+      const north = Math.min(south + step, 90);
+      const centerLat = this.clamp(south + step / 2, -89.999, 89.999);
+      const southPhases = this.getSunPhaseIntervals(this.clamp(south, -89.999, 89.999), context);
+      const centerPhases = this.getSunPhaseIntervals(centerLat, context);
+      const northPhases = this.getSunPhaseIntervals(this.clamp(north, -89.999, 89.999), context);
 
-      for (let lng = -180; lng < 180; lng += step) {
-        const east = Math.min(lng + step, 180);
-        const centerLng = lng + step / 2;
-        const solar = this.getSunAltitude(centerLat, centerLng, context);
-        if (!solar) continue;
+      for (const phase of phases) {
+        centerPhases[phase].forEach((interval) => {
+          const southInterval = this.pickMatchingInterval(southPhases[phase], interval) || interval;
+          const northInterval = this.pickMatchingInterval(northPhases[phase], interval) || interval;
+          const westSouth = southInterval[0];
+          const eastSouth = southInterval[1];
+          const westNorth = northInterval[0];
+          const eastNorth = northInterval[1];
 
-        const phase = solar.altitude <= -6 ? 'night' : solar.altitude < 6 ? 'twilight' : '';
-        if (!phase) continue;
-
-        features.push({
-          type: 'Feature',
-          properties: { phase },
-          geometry: {
-            type: 'Polygon',
-            coordinates: [[
-              [lng, lat],
-              [east, lat],
-              [east, north],
-              [lng, north],
-              [lng, lat]
-            ]]
+          if (
+            eastSouth - westSouth <= 1e-6 &&
+            eastNorth - westNorth <= 1e-6
+          ) {
+            return;
           }
+
+          features.push({
+            type: 'Feature',
+            properties: { phase },
+            geometry: {
+              type: 'Polygon',
+              coordinates: [[
+                [westSouth, south],
+                [eastSouth, south],
+                [eastNorth, north],
+                [westNorth, north],
+                [westSouth, south]
+              ]]
+            }
+          });
         });
       }
     }

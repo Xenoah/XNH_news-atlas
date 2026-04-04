@@ -44,10 +44,10 @@
   - Each article → individual map event (not 1 topic = 1 event)
   - 50 articles/topic (`maxrecords=50`), `sort=HybridRel`, `sourcelang:English` in query string (per official docs)
   - URL deduplication across topics (higher score kept on collision)
-  - Accumulates 7 days of articles; prunes events older than 7 days each run
+  - Accumulates 7 days of articles; prunes by publishedAt and drops the oldest published items first when over cap
   - Stable URL-seeded jitter so same article always maps to same coordinates
   - `data/meta.json` written with generatedAt, eventCount, elapsedSec
-  - Top 600 events output sorted by attention score
+  - Top 2400 events output sorted by attention score
   - Exit 0 (not 1) when 0 events fetched — preserves existing data on rate-limit runs
 - [x] `.github/workflows/fetch-news.yml` — hourly GitHub Actions workflow
   - `cron: '0 * * * *'` + `workflow_dispatch`
@@ -68,10 +68,10 @@ No build tools required. All scripts load via `<script>` tags in dependency orde
 
 ### Per-Article Events (v2 pipeline design)
 v1: 1 GDELT query = 1 aggregated event (max 40 events total).
-v2: each article in a query result = its own map event. 52 topics × 50 articles = up to 2,600 raw per run; after URL dedup and 7-day accumulation the pool grows to 600–1,500 unique events.
+v2: each article in a query result = its own map event. 52 topics × 50 articles = up to 2,600 raw per run; after URL dedup and 7-day accumulation the pool grows to roughly 600–2,400 unique events.
 
 ### 7-Day Rolling Accumulation
-`fetch-news.py` loads existing `world-latest.json` at run start, merges new articles (skips existing URLs), prunes events older than 7 days, then re-sorts and writes. This means a single throttled or failed run doesn't wipe existing data.
+`fetch-news.py` loads existing `world-latest.json` at run start, merges new articles (skips existing URLs), prunes events older than 7 days by `publishedAt`, trims overflow by removing the oldest published items first, then re-sorts and writes. This means a single throttled or failed run doesn't wipe existing data.
 
 ### Attention Score (per-article)
 ```

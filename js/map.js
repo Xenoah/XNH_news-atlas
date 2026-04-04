@@ -13,6 +13,7 @@ NewsAtlas.map = (function() {
   let _initialized = false;
   let _currentBaseTheme = 'dark';
   let _sunlightTimer = null;
+  let _sunlightCanvas = null;
 
   /* ── CartoDB Dark Style Definition ──────────────────────── */
 
@@ -120,20 +121,31 @@ NewsAtlas.map = (function() {
     if (_map.getLayer('carto-light-tiles')) {
       _map.setLayoutProperty('carto-light-tiles', 'visibility', _currentBaseTheme === 'light' ? 'visible' : 'none');
     }
-    if (_map.getLayer('sunlight-night')) {
-      _map.setPaintProperty('sunlight-night', 'fill-color', _currentBaseTheme === 'light' ? 'rgba(15,23,42,0.22)' : 'rgba(2,6,23,0.46)');
-    }
-    if (_map.getLayer('sunlight-twilight')) {
-      _map.setPaintProperty('sunlight-twilight', 'fill-color', _currentBaseTheme === 'light' ? 'rgba(249,115,22,0.12)' : 'rgba(251,146,60,0.24)');
-    }
+    refreshSunlightOverlay(true);
+  }
+
+  function _ensureSunlightCanvas() {
+    if (_sunlightCanvas) return _sunlightCanvas;
+    _sunlightCanvas = document.createElement('canvas');
+    _sunlightCanvas.width = 1024;
+    _sunlightCanvas.height = 512;
+    return _sunlightCanvas;
   }
 
   /* ── Sources ──────────────────────────────────────────────── */
 
   function _setupSources() {
+    const sunlightCanvas = _ensureSunlightCanvas();
+    NewsAtlas.utils.renderSunlightOverlayCanvas(sunlightCanvas, new Date(), _currentBaseTheme);
     _map.addSource('sunlight-overlay', {
-      type: 'geojson',
-      data: { type: 'FeatureCollection', features: [] }
+      type: 'image',
+      url: sunlightCanvas.toDataURL('image/png'),
+      coordinates: [
+        [-180, 90],
+        [180, 90],
+        [180, -90],
+        [-180, -90]
+      ]
     });
 
     // Clustered events source
@@ -191,24 +203,12 @@ NewsAtlas.map = (function() {
 
   function _setupLayers() {
     _map.addLayer({
-      id: 'sunlight-night',
-      type: 'fill',
+      id: 'sunlight-overlay-layer',
+      type: 'raster',
       source: 'sunlight-overlay',
-      filter: ['==', ['get', 'phase'], 'night'],
       paint: {
-        'fill-color': _currentBaseTheme === 'light' ? 'rgba(15,23,42,0.22)' : 'rgba(2,6,23,0.46)',
-        'fill-opacity': 1
-      }
-    });
-
-    _map.addLayer({
-      id: 'sunlight-twilight',
-      type: 'fill',
-      source: 'sunlight-overlay',
-      filter: ['==', ['get', 'phase'], 'twilight'],
-      paint: {
-        'fill-color': _currentBaseTheme === 'light' ? 'rgba(249,115,22,0.12)' : 'rgba(251,146,60,0.24)',
-        'fill-opacity': 1
+        'raster-opacity': 1,
+        'raster-resampling': 'linear'
       }
     });
 
@@ -479,21 +479,29 @@ NewsAtlas.map = (function() {
       : { showSunlight: true };
     const visible = Boolean(settings.showSunlight);
 
-    _setLayerVisibility('sunlight-night', visible);
-    _setLayerVisibility('sunlight-twilight', visible);
+    _setLayerVisibility('sunlight-overlay-layer', visible);
 
     if (!visible) {
-      if (force) {
-        const hiddenSrc = _map.getSource('sunlight-overlay');
-        if (hiddenSrc) hiddenSrc.setData({ type: 'FeatureCollection', features: [] });
-      }
+      if (force && _sunlightCanvas) NewsAtlas.utils.clearCanvas(_sunlightCanvas);
+      _map.triggerRepaint();
       return;
     }
 
+    const sunlightCanvas = _ensureSunlightCanvas();
+    NewsAtlas.utils.renderSunlightOverlayCanvas(sunlightCanvas, new Date(), _currentBaseTheme);
     const src = _map.getSource('sunlight-overlay');
-    if (src) {
-      src.setData(NewsAtlas.utils.getSunlightOverlayGeoJSON(new Date(), 2));
+    if (src && typeof src.updateImage === 'function') {
+      src.updateImage({
+        url: sunlightCanvas.toDataURL('image/png'),
+        coordinates: [
+          [-180, 90],
+          [180, 90],
+          [180, -90],
+          [-180, -90]
+        ]
+      });
     }
+    _map.triggerRepaint();
   }
 
   function _updateBubbleMarkers(bubbleEvents) {

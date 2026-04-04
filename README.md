@@ -49,7 +49,7 @@ XNH_news-atlas/
 │   └── workflows/
 │       └── fetch-news.yml            # Hourly GitHub Actions workflow
 └── data/                             # Pre-fetched static JSON (auto-updated)
-    ├── world-latest.json             # Up to 600 world news events
+    ├── world-latest.json             # Up to 2400 world news events
     ├── top-headlines.json            # Top 10 events by attention score
     ├── trends.json                   # Trend metadata and category statistics
     ├── heatmap-1h.json               # Heatmap GeoJSON for 1-hour window
@@ -68,8 +68,8 @@ The workflow `.github/workflows/fetch-news.yml` runs every hour:
 1. Queries GDELT DOC 2.0 API across **52 topics** (conflict, politics, economy, technology, health, disaster, science, sports)
 2. Each article becomes an individual map event (up to 50 articles per topic)
 3. Deduplicates by URL — new articles are added; existing URLs are skipped
-4. Prunes events older than **7 days**
-5. Sorts the top **600 events** by time-decayed attention score
+4. Prunes events older than **7 days by publishedAt**
+5. If the pool exceeds **2400**, drops the oldest published items first, then ranks the retained set by attention score
 6. Commits updated JSON to the `data/` directory if anything changed
 
 Total runtime: ~2 minutes per run, well within GitHub Actions limits.
@@ -126,6 +126,7 @@ Each event in `world-latest.json` follows this schema:
   "lat": 0.0,
   "lng": 0.0,
   "geoPrecision": "city | country",
+  "fetchedAt": "ISO 8601",
   "publishedAt": "ISO 8601",
   "firstSeenAt": "ISO 8601",
   "lastUpdatedAt": "ISO 8601",
@@ -153,7 +154,7 @@ Each event in `world-latest.json` follows this schema:
 ```json
 {
   "generatedAt": "ISO 8601",
-  "eventCount": 600,
+  "eventCount": 2400,
   "rawUniqueCount": 1200,
   "failedTopics": 2,
   "elapsedSec": 110.4,
