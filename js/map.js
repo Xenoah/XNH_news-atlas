@@ -16,27 +16,53 @@ NewsAtlas.map = (function() {
   let _allEvents = [];
   let _currentMode = 'events';
   const TIMEZONE_BOUNDARIES_URL = 'https://cdn.jsdelivr.net/gh/dejurin/simplified-timezone-boundaries@main/output.geojson';
-  const COUNTRY_BOUNDARIES_URL = 'https://datahub.io/core/geo-boundaries-world-110m/_r/-/countries.geojson';
+  const COUNTRY_BOUNDARY_URLS = [
+    'https://cdn.jsdelivr.net/gh/datasets/geo-boundaries-world-110m@main/countries.geojson',
+    'https://datahub.io/core/geo-boundaries-world-110m/_r/-/countries.geojson'
+  ];
   let _timezoneDataPromise = null;
   let _timezoneDataLoaded = false;
   let _countryDataPromise = null;
   let _countryDataLoaded = false;
 
   function _getTimezoneFillExpression(theme) {
-    const dark = theme !== 'light';
-    return [
-      'interpolate', ['linear'], ['get', 'utcOffsetMinutes'],
-      -720, dark ? 'rgba(111, 78, 55, 0.14)' : 'rgba(194, 120, 78, 0.18)',
-      -540, dark ? 'rgba(125, 96, 62, 0.14)' : 'rgba(209, 143, 91, 0.18)',
-      -360, dark ? 'rgba(140, 116, 72, 0.14)' : 'rgba(223, 170, 108, 0.18)',
-      -180, dark ? 'rgba(126, 128, 84, 0.14)' : 'rgba(198, 194, 126, 0.17)',
-      0, dark ? 'rgba(96, 126, 116, 0.13)' : 'rgba(156, 197, 184, 0.16)',
-      180, dark ? 'rgba(84, 112, 132, 0.14)' : 'rgba(147, 183, 204, 0.17)',
-      360, dark ? 'rgba(101, 103, 145, 0.14)' : 'rgba(163, 171, 214, 0.18)',
-      540, dark ? 'rgba(121, 94, 136, 0.14)' : 'rgba(194, 158, 206, 0.18)',
-      720, dark ? 'rgba(138, 96, 116, 0.14)' : 'rgba(221, 166, 176, 0.18)',
-      840, dark ? 'rgba(153, 108, 92, 0.14)' : 'rgba(234, 179, 145, 0.19)'
-    ];
+    const palette = theme === 'light'
+      ? [
+          'rgba(214, 132, 88, 0.18)',
+          'rgba(120, 176, 204, 0.18)',
+          'rgba(202, 158, 88, 0.18)',
+          'rgba(136, 192, 146, 0.18)',
+          'rgba(181, 144, 209, 0.18)',
+          'rgba(226, 154, 118, 0.18)',
+          'rgba(144, 184, 132, 0.18)',
+          'rgba(120, 164, 219, 0.18)',
+          'rgba(214, 138, 170, 0.18)',
+          'rgba(190, 182, 114, 0.18)',
+          'rgba(112, 190, 186, 0.18)',
+          'rgba(196, 148, 118, 0.18)'
+        ]
+      : [
+          'rgba(170, 101, 72, 0.14)',
+          'rgba(79, 137, 165, 0.14)',
+          'rgba(174, 133, 67, 0.14)',
+          'rgba(86, 148, 101, 0.14)',
+          'rgba(135, 101, 177, 0.14)',
+          'rgba(186, 110, 80, 0.14)',
+          'rgba(104, 140, 82, 0.14)',
+          'rgba(78, 120, 182, 0.14)',
+          'rgba(172, 95, 128, 0.14)',
+          'rgba(154, 145, 71, 0.14)',
+          'rgba(71, 148, 144, 0.14)',
+          'rgba(154, 112, 84, 0.14)'
+        ];
+
+    const expression = ['match', ['get', 'utcOffsetMinutes']];
+    for (let minutes = -720; minutes <= 840; minutes += 15) {
+      const colorIndex = Math.floor((minutes + 720) / 15) % palette.length;
+      expression.push(minutes, palette[colorIndex]);
+    }
+    expression.push(theme === 'light' ? 'rgba(180, 180, 180, 0.14)' : 'rgba(120, 120, 120, 0.12)');
+    return expression;
   }
 
   function _getTimezoneOutlineColor(theme) {
@@ -53,6 +79,10 @@ NewsAtlas.map = (function() {
 
   function _getCountryBoundaryColor(theme) {
     return theme === 'light' ? 'rgba(122,72,42,0.72)' : 'rgba(240,213,176,0.42)';
+  }
+
+  function _getCountryFillColor(theme) {
+    return theme === 'light' ? 'rgba(191, 137, 108, 0.08)' : 'rgba(226, 192, 160, 0.05)';
   }
 
   function _getTaiwanBoundaryColor(theme) {
@@ -164,19 +194,28 @@ NewsAtlas.map = (function() {
   async function _ensureCountryBoundariesLoaded() {
     if (_countryDataLoaded) return true;
     if (_countryDataPromise) return _countryDataPromise;
-    _countryDataPromise = fetch(COUNTRY_BOUNDARIES_URL)
-      .then(response => {
-        if (!response.ok) {
-          throw new Error(`Country boundaries fetch failed: ${response.status}`);
+    _countryDataPromise = (async () => {
+      let lastError = null;
+      for (const url of COUNTRY_BOUNDARY_URLS) {
+        try {
+          const response = await fetch(url);
+          if (!response.ok) {
+            throw new Error(`Country boundaries fetch failed: ${response.status}`);
+          }
+          const data = await response.json();
+          const src = _map && _map.getSource('country-boundaries');
+          if (src) {
+            src.setData(_buildCountryBoundaryData(data));
+            _countryDataLoaded = true;
+          }
+          return true;
+        } catch (err) {
+          lastError = err;
         }
-        return response.json();
-      })
+      }
+      throw lastError || new Error('Country boundaries fetch failed');
+    })()
       .then(data => {
-        const src = _map && _map.getSource('country-boundaries');
-        if (src) {
-          src.setData(_buildCountryBoundaryData(data));
-          _countryDataLoaded = true;
-        }
         return true;
       })
       .catch(err => {
@@ -319,6 +358,9 @@ NewsAtlas.map = (function() {
     }
     if (_map.getLayer('country-boundary-lines')) {
       _map.setPaintProperty('country-boundary-lines', 'line-color', _getCountryBoundaryColor(_currentBaseTheme));
+    }
+    if (_map.getLayer('country-boundary-fills')) {
+      _map.setPaintProperty('country-boundary-fills', 'fill-color', _getCountryFillColor(_currentBaseTheme));
     }
     if (_map.getLayer('country-boundary-taiwan')) {
       _map.setPaintProperty('country-boundary-taiwan', 'line-color', _getTaiwanBoundaryColor(_currentBaseTheme));
@@ -476,6 +518,16 @@ NewsAtlas.map = (function() {
         'text-halo-color': _getTimezoneLabelHaloColor(_currentBaseTheme),
         'text-halo-width': 1.2,
         'text-opacity': 0.95
+      }
+    });
+
+    _map.addLayer({
+      id: 'country-boundary-fills',
+      type: 'fill',
+      source: 'country-boundaries',
+      paint: {
+        'fill-color': _getCountryFillColor(_currentBaseTheme),
+        'fill-opacity': 1
       }
     });
 
@@ -906,6 +958,7 @@ NewsAtlas.map = (function() {
     _setLayerVisibility('timezone-zone-fills', showTimezone);
     _setLayerVisibility('timezone-grid-lines', showTimezone);
     _setLayerVisibility('timezone-grid-labels', showTimezone);
+    _setLayerVisibility('country-boundary-fills', showCountry);
     _setLayerVisibility('country-boundary-lines', showCountry);
     _setLayerVisibility('country-boundary-taiwan', showCountry);
 
