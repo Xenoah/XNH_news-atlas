@@ -66,6 +66,21 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
+          73.3689,
+          33.666
+        ]
+      },
+      "properties": {
+        "intensity": 0.9475,
+        "count": 1,
+        "region": "Pakistan"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
           35.592,
           31.8609
         ]
@@ -89,6 +104,36 @@
         "intensity": 0.9425,
         "count": 1,
         "region": "Iran"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -99.0195,
+          19.2631
+        ]
+      },
+      "properties": {
+        "intensity": 0.925,
+        "count": 1,
+        "region": "Mexico"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          0.0539,
+          51.3017
+        ]
+      },
+      "properties": {
+        "intensity": 0.925,
+        "count": 1,
+        "region": "United Kingdom"
       }
     },
     {
@@ -143,21 +188,6 @@
         "coordinates": [
           -74.1086,
           40.4758
-        ]
-      },
-      "properties": {
-        "intensity": 0.925,
-        "count": 1,
-        "region": "United States"
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          -76.9776,
-          39.2642
         ]
       },
       "properties": {
@@ -246,12 +276,12 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          51.544,
-          35.6436
+          51.4219,
+          36.0053
         ]
       },
       "properties": {
-        "intensity": 0.9075,
+        "intensity": 0.8725,
         "count": 1,
         "region": "Iran"
       }
@@ -291,59 +321,14 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          100.0086,
-          -2.0711
+          51.3932,
+          35.9123
         ]
       },
       "properties": {
         "intensity": 0.82,
         "count": 1,
-        "region": "46 km E of Tuapejat, Indonesia"
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          126.1031,
-          4.8892
-        ]
-      },
-      "properties": {
-        "intensity": 0.82,
-        "count": 1,
-        "region": "90 km SE of Sarangani, Philippines"
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          141.9269,
-          38.4373
-        ]
-      },
-      "properties": {
-        "intensity": 0.82,
-        "count": 1,
-        "region": "41 km E of Onagawa Chō, Japan"
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          147.2957,
-          -6.7879
-        ]
-      },
-      "properties": {
-        "intensity": 0.82,
-        "count": 1,
-        "region": "33 km ESE of Lae, Papua New Guinea"
+        "region": "Iran"
       }
     }
   ]
