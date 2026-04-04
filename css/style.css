@@ -45,6 +45,7 @@ body {
   align-items: center;
   gap: 12px;
   flex-shrink: 0;
+  min-width: 0;
 }
 
 #site-title {
@@ -65,6 +66,42 @@ body {
   font-weight: 700;
   color: var(--text-primary);
   letter-spacing: -0.01em;
+}
+
+#clock-strip {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-width: 0;
+}
+
+.clock-card {
+  min-width: 88px;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding: 6px 10px;
+  border-radius: 12px;
+  border: 1px solid var(--border-color);
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.03), rgba(255, 255, 255, 0.015)),
+    var(--bg-tertiary);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.04);
+}
+
+.clock-card-label {
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+
+.clock-card-value {
+  font-size: 13px;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  color: var(--text-primary);
 }
 
 #header-center {
@@ -2826,6 +2863,19 @@ body {
     display: none;
   }
 
+  #clock-strip {
+    gap: 6px;
+  }
+
+  .clock-card {
+    min-width: 76px;
+    padding: 5px 8px;
+  }
+
+  .clock-card-value {
+    font-size: 12px;
+  }
+
   #header-center {
     max-width: none;
     flex: 1;
@@ -2913,8 +2963,29 @@ body {
 }
 
 @media (max-width: 480px) {
+  #header-left {
+    gap: 8px;
+  }
+
   #header-right {
     gap: 6px;
+  }
+
+  #clock-strip {
+    gap: 4px;
+  }
+
+  .clock-card {
+    min-width: 68px;
+    padding: 5px 7px;
+  }
+
+  .clock-card-label {
+    font-size: 8px;
+  }
+
+  .clock-card-value {
+    font-size: 11px;
   }
 
   .mode-btn {

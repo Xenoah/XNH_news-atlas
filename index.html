@@ -30,6 +30,16 @@
           <span class="title-icon" aria-hidden="true">◉</span>
           <span class="title-text">World News Map</span>
         </div>
+        <div id="clock-strip" aria-label="Reference clocks">
+          <div class="clock-card" aria-label="Coordinated Universal Time">
+            <span class="clock-card-label">UTC</span>
+            <span id="clock-utc-value" class="clock-card-value">--:--:--</span>
+          </div>
+          <div class="clock-card" aria-label="Japan Standard Time">
+            <span class="clock-card-label">JST</span>
+            <span id="clock-jst-value" class="clock-card-value">--:--:--</span>
+          </div>
+        </div>
       </div>
 
       <div id="header-center">
@@ -110,6 +120,18 @@
                 </div>
                 <label class="display-switch" aria-label="Toggle sunlight status">
                   <input id="sunlight-toggle" name="sunlight-overlay" type="checkbox" checked>
+                  <span class="display-switch-track"></span>
+                </label>
+              </div>
+            </div>
+            <div class="display-settings-section">
+              <div class="display-settings-row">
+                <div>
+                  <div class="display-settings-label">Timezone Grid</div>
+                  <div class="display-settings-hint">Show 15° UTC zone boundaries on the map.</div>
+                </div>
+                <label class="display-switch" aria-label="Toggle timezone grid">
+                  <input id="timezone-grid-toggle" name="timezone-grid" type="checkbox" checked>
                   <span class="display-switch-track"></span>
                 </label>
               </div>

@@ -107,6 +107,7 @@ NewsAtlas.map = (function() {
 
       try {
         refreshSunlightOverlay(true);
+        refreshTimezoneGrid();
         window.clearInterval(_sunlightTimer);
         _sunlightTimer = window.setInterval(() => refreshSunlightOverlay(), 300000);
       } catch (err) {
@@ -133,6 +134,18 @@ NewsAtlas.map = (function() {
     if (_map.getLayer('sunlight-night')) {
       _map.setPaintProperty('sunlight-night', 'fill-color', _currentBaseTheme === 'light' ? 'rgba(15,23,42,0.22)' : 'rgba(2,6,23,0.46)');
     }
+    if (_map.getLayer('timezone-grid-lines')) {
+      _map.setPaintProperty('timezone-grid-lines', 'line-color', [
+        'case',
+        ['boolean', ['get', 'emphasized'], false],
+        _currentBaseTheme === 'light' ? 'rgba(37,99,235,0.34)' : 'rgba(147,197,253,0.28)',
+        _currentBaseTheme === 'light' ? 'rgba(15,23,42,0.16)' : 'rgba(226,232,240,0.14)'
+      ]);
+    }
+    if (_map.getLayer('timezone-grid-labels')) {
+      _map.setPaintProperty('timezone-grid-labels', 'text-color', _currentBaseTheme === 'light' ? 'rgba(30,41,59,0.64)' : 'rgba(226,232,240,0.56)');
+      _map.setPaintProperty('timezone-grid-labels', 'text-halo-color', _currentBaseTheme === 'light' ? 'rgba(248,250,252,0.72)' : 'rgba(2,6,23,0.72)');
+    }
   }
 
   /* ── Sources ──────────────────────────────────────────────── */
@@ -141,6 +154,11 @@ NewsAtlas.map = (function() {
     _map.addSource('sunlight-overlay', {
       type: 'geojson',
       data: { type: 'FeatureCollection', features: [] }
+    });
+
+    _map.addSource('timezone-grid', {
+      type: 'geojson',
+      data: NewsAtlas.utils.getTimezoneGridGeoJSON()
     });
 
     // Clustered events source
@@ -222,6 +240,57 @@ NewsAtlas.map = (function() {
     });
 
     // ── Heatmap layer ──────────────────────────────────────────
+    _map.addLayer({
+      id: 'timezone-grid-lines',
+      type: 'line',
+      source: 'timezone-grid',
+      filter: ['==', ['get', 'kind'], 'line'],
+      layout: {
+        'line-join': 'round',
+        'line-cap': 'round'
+      },
+      paint: {
+        'line-color': [
+          'case',
+          ['boolean', ['get', 'emphasized'], false],
+          _currentBaseTheme === 'light' ? 'rgba(37,99,235,0.34)' : 'rgba(147,197,253,0.28)',
+          _currentBaseTheme === 'light' ? 'rgba(15,23,42,0.16)' : 'rgba(226,232,240,0.14)'
+        ],
+        'line-width': [
+          'case',
+          ['boolean', ['get', 'emphasized'], false],
+          1.4,
+          1
+        ],
+        'line-opacity': 1,
+        'line-dasharray': [2, 3]
+      }
+    });
+
+    _map.addLayer({
+      id: 'timezone-grid-labels',
+      type: 'symbol',
+      source: 'timezone-grid',
+      filter: ['==', ['get', 'kind'], 'label'],
+      layout: {
+        'text-field': ['get', 'label'],
+        'text-font': ['Open Sans Semibold', 'Arial Unicode MS Regular'],
+        'text-size': [
+          'interpolate', ['linear'], ['zoom'],
+          1, 9,
+          3, 10,
+          5, 11
+        ],
+        'text-letter-spacing': 0.08,
+        'text-allow-overlap': false
+      },
+      paint: {
+        'text-color': _currentBaseTheme === 'light' ? 'rgba(30,41,59,0.64)' : 'rgba(226,232,240,0.56)',
+        'text-halo-color': _currentBaseTheme === 'light' ? 'rgba(248,250,252,0.72)' : 'rgba(2,6,23,0.72)',
+        'text-halo-width': 1
+      }
+    });
+
     _map.addLayer({
       id: 'heatmap-layer',
       type: 'heatmap',
@@ -591,6 +660,18 @@ NewsAtlas.map = (function() {
     }
   }
 
+  function refreshTimezoneGrid() {
+    if (!_map || !_map.getSource('timezone-grid')) return;
+
+    const settings = NewsAtlas.ui && NewsAtlas.ui.getDisplaySettings
+      ? NewsAtlas.ui.getDisplaySettings()
+      : { showTimezoneGrid: true };
+    const visible = Boolean(settings.showTimezoneGrid);
+
+    _setLayerVisibility('timezone-grid-lines', visible);
+    _setLayerVisibility('timezone-grid-labels', visible);
+  }
+
   function _updateBubbleMarkers(bubbleEvents) {
     // Remove existing markers
     _markers.forEach(m => m.remove());
@@ -718,6 +799,7 @@ NewsAtlas.map = (function() {
     flyTo,
     setTheme,
     refreshSunlightOverlay,
+    refreshTimezoneGrid,
     getZoom,
     getMap
   };

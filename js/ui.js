@@ -13,7 +13,8 @@ NewsAtlas.ui = (function() {
   const DEBUG_LOG_LIMIT = 80;
   const DEFAULT_DISPLAY_SETTINGS = {
     theme: 'dark',
-    showSunlight: true
+    showSunlight: true,
+    showTimezoneGrid: true
   };
   const LICENSE_SECTIONS = [
     {
@@ -92,6 +93,7 @@ NewsAtlas.ui = (function() {
   let _displaySettingsOpen = false;
   let _displaySettings = { ...DEFAULT_DISPLAY_SETTINGS };
   let _debugConsoleOpen = false;
+  let _clockTimer = null;
   let _debugConsoleTimer = null;
   let _debugKonamiIndex = 0;
   let _debugConsoleHooked = false;
@@ -112,6 +114,9 @@ NewsAtlas.ui = (function() {
     el.displaySettingsClose = document.getElementById('display-settings-close');
     el.displayThemeButtons = document.querySelectorAll('.display-theme-btn');
     el.sunlightToggle = document.getElementById('sunlight-toggle');
+    el.timezoneGridToggle = document.getElementById('timezone-grid-toggle');
+    el.clockUtcValue = document.getElementById('clock-utc-value');
+    el.clockJstValue = document.getElementById('clock-jst-value');
     el.modeButtons    = document.querySelectorAll('.mode-btn');
     el.timeButtons    = document.querySelectorAll('.time-btn');
     el.categoryChips  = document.querySelectorAll('.category-chip');
@@ -141,6 +146,7 @@ NewsAtlas.ui = (function() {
 
     renderLicenseMenu();
     initDisplaySettings();
+    initClocks();
     protectInteractiveControlsFromTranslation();
     initDebugConsole();
     initGoogleTranslate();
@@ -225,6 +231,12 @@ NewsAtlas.ui = (function() {
     if (el.sunlightToggle) {
       el.sunlightToggle.addEventListener('change', (e) => {
         updateDisplaySettings({ showSunlight: Boolean(e.target.checked) });
+      });
+    }
+
+    if (el.timezoneGridToggle) {
+      el.timezoneGridToggle.addEventListener('change', (e) => {
+        updateDisplaySettings({ showTimezoneGrid: Boolean(e.target.checked) });
       });
     }
 
@@ -407,6 +419,35 @@ NewsAtlas.ui = (function() {
     syncDisplaySettingsControls();
   }
 
+  function initClocks() {
+    renderClocks();
+    window.clearInterval(_clockTimer);
+    _clockTimer = window.setInterval(renderClocks, 1000);
+  }
+
+  function formatZoneTime(timeZone) {
+    try {
+      return new Intl.DateTimeFormat('en-GB', {
+        timeZone,
+        hour: '2-digit',
+        minute: '2-digit',
+        second: '2-digit',
+        hour12: false
+      }).format(new Date());
+    } catch (_) {
+      return '--:--:--';
+    }
+  }
+
+  function renderClocks() {
+    if (el.clockUtcValue) {
+      el.clockUtcValue.textContent = formatZoneTime('UTC');
+    }
+    if (el.clockJstValue) {
+      el.clockJstValue.textContent = formatZoneTime('Asia/Tokyo');
+    }
+  }
+
   function loadDisplaySettings() {
     try {
       const raw = window.localStorage.getItem(DISPLAY_SETTINGS_STORAGE_KEY);
@@ -416,7 +457,10 @@ NewsAtlas.ui = (function() {
         theme: parsed && parsed.theme === 'light' ? 'light' : 'dark',
         showSunlight: parsed && typeof parsed.showSunlight === 'boolean'
           ? parsed.showSunlight
-          : DEFAULT_DISPLAY_SETTINGS.showSunlight
+          : DEFAULT_DISPLAY_SETTINGS.showSunlight,
+        showTimezoneGrid: parsed && typeof parsed.showTimezoneGrid === 'boolean'
+          ? parsed.showTimezoneGrid
+          : DEFAULT_DISPLAY_SETTINGS.showTimezoneGrid
       };
     } catch (_) {
       return { ...DEFAULT_DISPLAY_SETTINGS };
@@ -443,12 +487,22 @@ NewsAtlas.ui = (function() {
       theme: nextTheme || 'dark',
       showSunlight: nextSettings && typeof nextSettings.showSunlight === 'boolean'
         ? nextSettings.showSunlight
-        : _displaySettings.showSunlight
+        : _displaySettings.showSunlight,
+      showTimezoneGrid: nextSettings && typeof nextSettings.showTimezoneGrid === 'boolean'
+        ? nextSettings.showTimezoneGrid
+        : _displaySettings.showTimezoneGrid
     };
 
     saveDisplaySettings();
     applyTheme(_displaySettings.theme);
     syncDisplaySettingsControls();
+
+    if (NewsAtlas.map && NewsAtlas.map.refreshSunlightOverlay) {
+      NewsAtlas.map.refreshSunlightOverlay();
+    }
+    if (NewsAtlas.map && NewsAtlas.map.refreshTimezoneGrid) {
+      NewsAtlas.map.refreshTimezoneGrid();
+    }
 
     if (NewsAtlas.app && NewsAtlas.app.refreshView) {
       NewsAtlas.app.refreshView();
@@ -473,6 +527,9 @@ NewsAtlas.ui = (function() {
     if (el.sunlightToggle) {
       el.sunlightToggle.checked = Boolean(_displaySettings.showSunlight);
     }
+    if (el.timezoneGridToggle) {
+      el.timezoneGridToggle.checked = Boolean(_displaySettings.showTimezoneGrid);
+    }
   }
 
   function setDisplaySettingsOpen(open) {
@@ -495,6 +552,9 @@ NewsAtlas.ui = (function() {
     }
     if (NewsAtlas.map && NewsAtlas.map.refreshSunlightOverlay) {
       NewsAtlas.map.refreshSunlightOverlay();
+    }
+    if (NewsAtlas.map && NewsAtlas.map.refreshTimezoneGrid) {
+      NewsAtlas.map.refreshTimezoneGrid();
     }
 
     if (!skipRenderSync && _debugConsoleOpen) {
