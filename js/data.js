@@ -272,7 +272,7 @@ NewsAtlas.data = (function() {
     }
 
     // Default: fast static JSON
-    const data = await _fetchJSON(`${STATIC_BASE}/world-latest.json`);
+    const data = await _fetchJSON(`${STATIC_BASE}/world-latest.fixed.json`);
     return Array.isArray(data) ? data : (data.events || []);
   }
 
@@ -325,13 +325,13 @@ NewsAtlas.data = (function() {
       const data = await _fetchJSON(`${LIVE_API_BASE}/headlines`).catch(() => ({}));
       return Array.isArray(data) ? data : (data.headlines || []);
     }
-    const data = await _fetchJSON(`${STATIC_BASE}/top-headlines.json`).catch(() => ({}));
+    const data = await _fetchJSON(`${STATIC_BASE}/top-headlines.fixed.json`).catch(() => ({}));
     return Array.isArray(data) ? data : (data.headlines || data.events || []);
   }
 
   async function getTrends() {
     if (_mode === 'live') return _fetchJSON(`${LIVE_API_BASE}/trends`);
-    return _fetchJSON(`${STATIC_BASE}/trends.json`).catch(() => ({}));
+    return _fetchJSON(`${STATIC_BASE}/trends.fixed.json`).catch(() => ({}));
   }
 
   async function getHeatmap(range) {

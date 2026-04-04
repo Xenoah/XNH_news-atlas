@@ -13,7 +13,8 @@ NewsAtlas.map = (function() {
   let _initialized = false;
   let _currentBaseTheme = 'dark';
   let _sunlightTimer = null;
-  let _sunlightCanvas = null;
+  let _allEvents = [];
+  let _currentMode = 'events';
 
   /* ── CartoDB Dark Style Definition ──────────────────────── */
 
@@ -97,15 +98,20 @@ NewsAtlas.map = (function() {
     _map.on('load', () => {
       _setupSources();
       _setupLayers();
-      refreshSunlightOverlay(true);
       _setupZoomHandler();
       _setupClickHandlers();
       _initialized = true;
-      window.clearInterval(_sunlightTimer);
-      _sunlightTimer = window.setInterval(() => refreshSunlightOverlay(), 300000);
 
       // Dispatch a custom event so app.js knows map is ready
       document.dispatchEvent(new CustomEvent('newsatlas:mapready'));
+
+      try {
+        refreshSunlightOverlay(true);
+        window.clearInterval(_sunlightTimer);
+        _sunlightTimer = window.setInterval(() => refreshSunlightOverlay(), 300000);
+      } catch (err) {
+        console.warn('[map] Sunlight overlay initialization failed:', err);
+      }
     });
 
     return _map;
@@ -121,31 +127,23 @@ NewsAtlas.map = (function() {
     if (_map.getLayer('carto-light-tiles')) {
       _map.setLayoutProperty('carto-light-tiles', 'visibility', _currentBaseTheme === 'light' ? 'visible' : 'none');
     }
-    refreshSunlightOverlay(true);
-  }
-
-  function _ensureSunlightCanvas() {
-    if (_sunlightCanvas) return _sunlightCanvas;
-    _sunlightCanvas = document.createElement('canvas');
-    _sunlightCanvas.width = 1024;
-    _sunlightCanvas.height = 512;
-    return _sunlightCanvas;
+    if (_map.getLayer('sunlight-day')) {
+      _map.setPaintProperty('sunlight-day', 'fill-color', _currentBaseTheme === 'light' ? 'rgba(255,244,214,0.10)' : 'rgba(250,204,21,0.08)');
+    }
+    if (_map.getLayer('sunlight-night')) {
+      _map.setPaintProperty('sunlight-night', 'fill-color', _currentBaseTheme === 'light' ? 'rgba(15,23,42,0.22)' : 'rgba(2,6,23,0.46)');
+    }
+    if (_map.getLayer('sunlight-twilight')) {
+      _map.setPaintProperty('sunlight-twilight', 'fill-color', _currentBaseTheme === 'light' ? 'rgba(249,115,22,0.12)' : 'rgba(251,146,60,0.24)');
+    }
   }
 
   /* ── Sources ──────────────────────────────────────────────── */
 
   function _setupSources() {
-    const sunlightCanvas = _ensureSunlightCanvas();
-    NewsAtlas.utils.renderSunlightOverlayCanvas(sunlightCanvas, new Date(), _currentBaseTheme);
     _map.addSource('sunlight-overlay', {
-      type: 'image',
-      url: sunlightCanvas.toDataURL('image/png'),
-      coordinates: [
-        [-180, 90],
-        [180, 90],
-        [180, -90],
-        [-180, -90]
-      ]
+      type: 'geojson',
+      data: { type: 'FeatureCollection', features: [] }
     });
 
     // Clustered events source
@@ -203,12 +201,35 @@ NewsAtlas.map = (function() {
 
   function _setupLayers() {
     _map.addLayer({
-      id: 'sunlight-overlay-layer',
-      type: 'raster',
+      id: 'sunlight-day',
+      type: 'fill',
       source: 'sunlight-overlay',
+      filter: ['==', ['get', 'phase'], 'day'],
       paint: {
-        'raster-opacity': 1,
-        'raster-resampling': 'linear'
+        'fill-color': _currentBaseTheme === 'light' ? 'rgba(255,244,214,0.10)' : 'rgba(250,204,21,0.08)',
+        'fill-opacity': 1
+      }
+    });
+
+    _map.addLayer({
+      id: 'sunlight-night',
+      type: 'fill',
+      source: 'sunlight-overlay',
+      filter: ['==', ['get', 'phase'], 'night'],
+      paint: {
+        'fill-color': _currentBaseTheme === 'light' ? 'rgba(15,23,42,0.22)' : 'rgba(2,6,23,0.46)',
+        'fill-opacity': 1
+      }
+    });
+
+    _map.addLayer({
+      id: 'sunlight-twilight',
+      type: 'fill',
+      source: 'sunlight-overlay',
+      filter: ['==', ['get', 'phase'], 'twilight'],
+      paint: {
+        'fill-color': _currentBaseTheme === 'light' ? 'rgba(249,115,22,0.12)' : 'rgba(251,146,60,0.24)',
+        'fill-opacity': 1
       }
     });
 
@@ -358,6 +379,7 @@ NewsAtlas.map = (function() {
       const newCategory = zoom < 3 ? 'low' : zoom < 6 ? 'mid' : 'high';
       if (newCategory !== _currentZoomCategory) {
         _currentZoomCategory = newCategory;
+        _refreshEventSources();
         if (NewsAtlas.app && NewsAtlas.app.onZoomChange) {
           NewsAtlas.app.onZoomChange(zoom, newCategory);
         }
@@ -423,8 +445,34 @@ NewsAtlas.map = (function() {
    */
   function updateEvents(events, mode) {
     if (!_map || !_initialized) return;
+    _allEvents = Array.isArray(events) ? events : [];
+    _currentMode = mode || 'events';
+    _refreshEventSources();
+  }
 
-    const features = events.map(e => ({
+  function _getVisibleEventsForZoom(events) {
+    if (!Array.isArray(events) || !events.length) return [];
+
+    if (_currentZoomCategory === 'high') {
+      return events;
+    }
+
+    const ranked = [...events].sort((a, b) => (b.attentionScore || 0) - (a.attentionScore || 0));
+    if (_currentZoomCategory === 'mid') {
+      return ranked
+        .filter(e => NewsAtlas.scoring.shouldBubble(e) || (e.attentionScore || 0) >= 0.45)
+        .slice(0, 1200);
+    }
+
+    return ranked
+      .filter(e => NewsAtlas.scoring.shouldBubble(e) || (e.attentionScore || 0) >= 0.72)
+      .slice(0, 250);
+  }
+
+  function _refreshEventSources() {
+    if (!_map || !_initialized) return;
+    const visibleEvents = _getVisibleEventsForZoom(_allEvents);
+    const features = visibleEvents.map(e => ({
       type: 'Feature',
       geometry: {
         type: 'Point',
@@ -453,10 +501,10 @@ NewsAtlas.map = (function() {
     if (bubblesSrc) bubblesSrc.setData({ type: 'FeatureCollection', features: bubbleFeatures });
 
     // HTML bubble markers
-    _updateBubbleMarkers(events.filter(e => NewsAtlas.scoring.shouldBubble(e)));
+    _updateBubbleMarkers(visibleEvents.filter(e => NewsAtlas.scoring.shouldBubble(e)));
 
     // Layer visibility
-    _setDisplayMode(mode || 'events');
+    _setDisplayMode(_currentMode);
   }
 
   /**
@@ -479,29 +527,30 @@ NewsAtlas.map = (function() {
       : { showSunlight: true };
     const visible = Boolean(settings.showSunlight);
 
-    _setLayerVisibility('sunlight-overlay-layer', visible);
+    _setLayerVisibility('sunlight-day', visible);
+    _setLayerVisibility('sunlight-night', visible);
+    _setLayerVisibility('sunlight-twilight', visible);
 
     if (!visible) {
-      if (force && _sunlightCanvas) NewsAtlas.utils.clearCanvas(_sunlightCanvas);
-      _map.triggerRepaint();
+      if (force) {
+        const hiddenSrc = _map.getSource('sunlight-overlay');
+        if (hiddenSrc) hiddenSrc.setData({ type: 'FeatureCollection', features: [] });
+      }
       return;
     }
 
-    const sunlightCanvas = _ensureSunlightCanvas();
-    NewsAtlas.utils.renderSunlightOverlayCanvas(sunlightCanvas, new Date(), _currentBaseTheme);
-    const src = _map.getSource('sunlight-overlay');
-    if (src && typeof src.updateImage === 'function') {
-      src.updateImage({
-        url: sunlightCanvas.toDataURL('image/png'),
-        coordinates: [
-          [-180, 90],
-          [180, 90],
-          [180, -90],
-          [-180, -90]
-        ]
-      });
+    try {
+      const src = _map.getSource('sunlight-overlay');
+      if (src) {
+        src.setData(NewsAtlas.utils.getSunlightOverlayGeoJSON(new Date(), 1));
+      }
+    } catch (err) {
+      console.warn('[map] Failed to refresh sunlight overlay:', err);
+      if (force) {
+        const src = _map.getSource('sunlight-overlay');
+        if (src) src.setData({ type: 'FeatureCollection', features: [] });
+      }
     }
-    _map.triggerRepaint();
   }
 
   function _updateBubbleMarkers(bubbleEvents) {

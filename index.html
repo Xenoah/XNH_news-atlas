@@ -35,6 +35,7 @@
           <input
             type="text"
             id="search-input"
+            name="search"
             class="search-input"
             placeholder="Search events, countries, topics…"
             autocomplete="off"
@@ -48,7 +49,7 @@
       <div id="header-right">
         <div id="language-menu" class="notranslate" translate="no" aria-label="Language selector">
           <label for="language-select" class="language-label">Lang</label>
-          <select id="language-select" class="language-select" aria-label="Select page language" translate="no">
+          <select id="language-select" name="language" class="language-select" aria-label="Select page language" translate="no">
             <option value="">English</option>
             <option value="ja">Japanese</option>
             <option value="ko">Korean</option>
@@ -105,7 +106,7 @@
                   <div class="display-settings-hint">Show daylight conditions on the map and in event detail.</div>
                 </div>
                 <label class="display-switch" aria-label="Toggle sunlight status">
-                  <input id="sunlight-toggle" type="checkbox" checked>
+                  <input id="sunlight-toggle" name="sunlight-overlay" type="checkbox" checked>
                   <span class="display-switch-track"></span>
                 </label>
               </div>
