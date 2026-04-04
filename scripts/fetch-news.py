@@ -418,20 +418,24 @@ def resolve_existing_non_geotag_event(
     copilot_geo = get_copilot_geo(source_url, copilot_geotags)
     lat = parse_float(event.get("lat"))
     lng = parse_float(event.get("lng"))
-    if lat is None or lng is None:
-        if not copilot_geo:
-            return None
-        lat = copilot_geo["lat"]
-        lng = copilot_geo["lng"]
-
     title = strip_html(event.get("title", ""))
     summary = strip_html(event.get("summary", ""))
     keyword_loc = extract_location(title, summary)
+    if lat is None or lng is None:
+        if copilot_geo:
+            lat = copilot_geo["lat"]
+            lng = copilot_geo["lng"]
+        elif keyword_loc:
+            lat = keyword_loc["lat"]
+            lng = keyword_loc["lng"]
+        else:
+            return None
+
     promoted = dict(event)
     location_label = (
         (copilot_geo or {}).get("label")
-        or promoted.get("locationName")
         or (keyword_loc["country"] if keyword_loc else "")
+        or promoted.get("locationName")
         or "Geotagged event"
     )
     promoted.update({
@@ -441,8 +445,8 @@ def resolve_existing_non_geotag_event(
         "locationName": location_label,
         "lat": round(lat, 4),
         "lng": round(lng, 4),
-        "geoPrecision": ((copilot_geo or {}).get("precision") or promoted.get("geoPrecision") or "point"),
-        "geoSource": ((copilot_geo or {}).get("source") or promoted.get("geoSource") or "keyword"),
+        "geoPrecision": ((copilot_geo or {}).get("precision") or ("country" if keyword_loc else promoted.get("geoPrecision")) or "point"),
+        "geoSource": ((copilot_geo or {}).get("source") or ("keyword" if keyword_loc else promoted.get("geoSource")) or "keyword"),
         "geotagStatus": "resolved",
     })
     return promoted
