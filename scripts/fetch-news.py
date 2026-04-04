@@ -1,19 +1,19 @@
 #!/usr/bin/env python3
 """
-World News Map Viewer — RSS News Data Fetcher v3
+World News Map Viewer — RSS/Geo News Data Fetcher v5
 ------------------------------------------------
 Replaces GDELT DOC API (blocked GitHub Actions IPs) with public RSS feeds.
-Sources: BBC, Al Jazeera, Deutsche Welle, France24, The Guardian, NPR, VOA
+Sources: major RSS publishers plus explicit-geo services such as GDACS, USGS, and NASA EONET
 
 Strategy:
   1. Load existing world-latest.json (accumulation base)
-  2. Fetch all RSS feeds (fast, no rate limits)
-  3. Extract location & category from article title/description
+  2. Fetch broad RSS feeds plus explicit GeoRSS/GeoJSON services
+  3. Prefer explicit coordinates when present; otherwise fall back to keyword geocoding
   4. Merge: add only new URLs — skip duplicates
   5. Prune events 7 days after publication
   6. Sort by attention score → write top MAX_EVENTS_OUTPUT
 
-Runtime: ~30 sources × ~1s each ≈ 30–60 s per run (well under 10 min limit)
+Runtime: ~30-35 sources × ~1s each ≈ 30–90 s per run (well under 10 min limit)
 """
 
 import hashlib
@@ -24,6 +24,7 @@ import random
 import re
 import time
 import urllib.request
+import urllib.parse
 import xml.etree.ElementTree as ET
 from datetime import datetime, timedelta, timezone
 from email.utils import parsedate_to_datetime
@@ -31,6 +32,7 @@ from email.utils import parsedate_to_datetime
 # ── Config ────────────────────────────────────────────────────────────────────
 
 OUTPUT_DIR        = os.path.join(os.path.dirname(__file__), "..", "data")
+COPILOT_GEOTAGS_PATH = os.path.join(os.path.dirname(__file__), "copilot-geotags.json")
 MAX_EVENTS_OUTPUT = 2400   # top N events written to world-latest.json
 PRUNE_DAYS        = 7      # remove events this many days after publication
 FETCH_TIMEOUT_S   = 15     # per-feed HTTP timeout
@@ -44,6 +46,9 @@ THUMBNAIL_WHITELIST = {
 
 MEDIA_NS = "http://search.yahoo.com/mrss/"
 ATOM_NS  = "http://www.w3.org/2005/Atom"
+GEORSS_NS = "http://www.georss.org/georss"
+GML_NS = "http://www.opengis.net/gml"
+WGS84_NS = "http://www.w3.org/2003/01/geo/wgs84_pos#"
 
 # ── RSS Sources ───────────────────────────────────────────────────────────────
 
@@ -86,6 +91,36 @@ RSS_SOURCES = [
     {"url": "https://www.euronews.com/rss",                                  "cat": "politics"},
     # Hacker News (tech)
     {"url": "https://hnrss.org/frontpage",                                   "cat": "technology"},
+]
+
+EXPLICIT_GEO_SOURCES = [
+    {
+        "type": "rss",
+        "service": "gdacs",
+        "url": "https://gdacs.org/Default.aspx/Alerts/xml/xml/rss.xml",
+        "cat": "disaster",
+    },
+    {
+        "type": "json",
+        "service": "usgs",
+        "url": "https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/significant_day.geojson",
+        "cat": "disaster",
+        "parser": "usgs",
+    },
+    {
+        "type": "json",
+        "service": "usgs",
+        "url": "https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/4.5_day.geojson",
+        "cat": "disaster",
+        "parser": "usgs",
+    },
+    {
+        "type": "json",
+        "service": "eonet",
+        "url": "https://eonet.gsfc.nasa.gov/api/v3/events/geojson?status=open&days=7&limit=200",
+        "cat": "disaster",
+        "parser": "eonet",
+    },
 ]
 
 # ── Source reputation weights (for attention scoring) ─────────────────────────
@@ -397,6 +432,40 @@ def normalize_thumbnail_url(url: str | None) -> str:
     return url if url.startswith(("http://", "https://")) else ""
 
 
+def parse_float(value) -> float | None:
+    try:
+        return float(value)
+    except Exception:
+        return None
+
+
+def extract_explicit_geo(node: ET.Element) -> dict | None:
+    point = (node.findtext(f"{{{GEORSS_NS}}}point") or "").strip()
+    if point:
+        parts = re.split(r"[\s,]+", point)
+        if len(parts) >= 2:
+            lat = parse_float(parts[0])
+            lng = parse_float(parts[1])
+            if lat is not None and lng is not None:
+                return {"lat": round(lat, 4), "lng": round(lng, 4), "precision": "point", "source": "feed"}
+
+    pos = (node.findtext(f".//{{{GML_NS}}}pos") or "").strip()
+    if pos:
+        parts = re.split(r"[\s,]+", pos)
+        if len(parts) >= 2:
+            lat = parse_float(parts[0])
+            lng = parse_float(parts[1])
+            if lat is not None and lng is not None:
+                return {"lat": round(lat, 4), "lng": round(lng, 4), "precision": "point", "source": "feed"}
+
+    lat = parse_float(node.findtext(f"{{{WGS84_NS}}}lat"))
+    lng = parse_float(node.findtext(f"{{{WGS84_NS}}}long") or node.findtext(f"{{{WGS84_NS}}}lon"))
+    if lat is not None and lng is not None:
+        return {"lat": round(lat, 4), "lng": round(lng, 4), "precision": "point", "source": "feed"}
+
+    return None
+
+
 def extract_thumbnail_url(node: ET.Element) -> str:
     media_thumb = node.find(f"{{{MEDIA_NS}}}thumbnail")
     if media_thumb is not None:
@@ -459,6 +528,17 @@ def fetch_rss(url: str) -> str:
         return ""
 
 
+def fetch_json(url: str):
+    raw = fetch_rss(url)
+    if not raw:
+        return None
+    try:
+        return json.loads(raw)
+    except json.JSONDecodeError as e:
+        print(f"    [json parse error] {e}")
+        return None
+
+
 def parse_rss(xml_text: str) -> list[dict]:
     """Parse RSS 2.0, Atom, or RDF. Returns list of raw item dicts."""
     if not xml_text:
@@ -490,6 +570,7 @@ def parse_rss(xml_text: str) -> list[dict]:
                     "description": desc,
                     "pubDate": pub,
                     "thumbnailUrl": thumbnail,
+                    "geo": extract_explicit_geo(item),
                 })
 
     # ── Atom ─────────────────────────────────────────────────────────────────
@@ -512,18 +593,213 @@ def parse_rss(xml_text: str) -> list[dict]:
                     "description": desc,
                     "pubDate": pub,
                     "thumbnailUrl": thumbnail,
+                    "geo": extract_explicit_geo(entry),
                 })
 
     return items
 
 
-def rss_item_to_event(item: dict, default_cat: str, feed_domain: str) -> dict | None:
-    """Convert a parsed RSS item to our event schema. Returns None if no location."""
+def usgs_geojson_to_items(payload: dict) -> list[dict]:
+    items: list[dict] = []
+    for feature in payload.get("features", []):
+        props = feature.get("properties", {}) or {}
+        geometry = feature.get("geometry", {}) or {}
+        coords = geometry.get("coordinates") or []
+        if geometry.get("type") != "Point" or len(coords) < 2:
+            continue
+
+        lon = parse_float(coords[0])
+        lat = parse_float(coords[1])
+        if lat is None or lon is None:
+            continue
+
+        place = (props.get("place") or "").strip()
+        time_ms = props.get("time")
+        published_at = ""
+        if isinstance(time_ms, (int, float)):
+            published_at = datetime.fromtimestamp(time_ms / 1000, tz=timezone.utc).isoformat()
+        mag = props.get("mag")
+        title = (props.get("title") or "").strip()
+        if not title:
+            if mag is not None and place:
+                title = f"M{mag} earthquake - {place}"
+            else:
+                title = place or "Earthquake"
+
+        items.append({
+            "title": title,
+            "url": props.get("url") or props.get("detail") or "",
+            "description": place,
+            "pubDate": published_at,
+            "thumbnailUrl": "",
+            "geo": {
+                "lat": round(lat, 4),
+                "lng": round(lon, 4),
+                "precision": "point",
+                "label": place or "Earthquake epicenter",
+                "source": "feed",
+            },
+        })
+    return items
+
+
+def eonet_geojson_to_items(payload: dict) -> list[dict]:
+    items: list[dict] = []
+    for feature in payload.get("features", []):
+        props = feature.get("properties", {}) or {}
+        geometry = feature.get("geometry", {}) or {}
+        coords = geometry.get("coordinates") or []
+        if geometry.get("type") != "Point" or len(coords) < 2:
+            continue
+
+        lon = parse_float(coords[0])
+        lat = parse_float(coords[1])
+        if lat is None or lon is None:
+            continue
+
+        sources = props.get("sources") or []
+        first_source = sources[0] if sources else {}
+        source_url = first_source.get("url") or props.get("link") or ""
+        title = (props.get("title") or "").strip() or "Natural event"
+        description = (props.get("description") or "").strip()
+        categories = props.get("categories") or []
+        category_title = ""
+        if categories and isinstance(categories[0], dict):
+            category_title = (categories[0].get("title") or "").strip()
+
+        published_at = ""
+        date_value = props.get("date") or props.get("openDate")
+        if isinstance(date_value, str):
+            published_at = parse_pub_date(date_value)
+
+        label = category_title or title
+        items.append({
+            "title": title,
+            "url": source_url,
+            "description": description,
+            "pubDate": published_at,
+            "thumbnailUrl": "",
+            "geo": {
+                "lat": round(lat, 4),
+                "lng": round(lon, 4),
+                "precision": "point",
+                "label": label,
+                "source": "feed",
+            },
+        })
+    return items
+
+
+def load_copilot_geotags() -> dict[str, dict]:
+    if not os.path.exists(COPILOT_GEOTAGS_PATH):
+        return {}
+    try:
+        with open(COPILOT_GEOTAGS_PATH, encoding="utf-8") as f:
+            payload = json.load(f)
+        if isinstance(payload, dict):
+            return payload
+    except Exception as ex:
+        print(f"  [warn] Could not load copilot geotags: {ex}")
+    return {}
+
+
+def get_copilot_geo(item_url: str, copilot_geotags: dict[str, dict] | None) -> dict | None:
+    if not item_url or not copilot_geotags:
+        return None
+    entry = copilot_geotags.get(item_url)
+    if not isinstance(entry, dict):
+        return None
+    lat = parse_float(entry.get("lat"))
+    lng = parse_float(entry.get("lng"))
+    if lat is None or lng is None:
+        return None
+    return {
+        "lat": round(lat, 4),
+        "lng": round(lng, 4),
+        "precision": entry.get("precision", "point"),
+        "label": (entry.get("locationName") or entry.get("label") or "").strip(),
+        "countryCode": entry.get("countryCode") or "",
+        "countryName": entry.get("countryName") or "",
+        "regionName": entry.get("regionName") or "",
+        "source": "copilot",
+    }
+
+
+def build_location_meta(
+    item: dict,
+    title: str,
+    description: str,
+    require_explicit_geo: bool,
+    copilot_geotags: dict[str, dict] | None = None,
+) -> dict | None:
+    explicit_geo = item.get("geo") if isinstance(item.get("geo"), dict) else None
+    copilot_geo = get_copilot_geo(item.get("url", ""), copilot_geotags)
+    keyword_loc = extract_location(title, description)
+
+    if copilot_geo:
+        location_label = copilot_geo.get("label", "")
+        return {
+            "countryCode": copilot_geo.get("countryCode") or (keyword_loc["code"] if keyword_loc else ""),
+            "countryName": copilot_geo.get("countryName") or (keyword_loc["country"] if keyword_loc else (location_label or "AI geotagged event")),
+            "regionName": copilot_geo.get("regionName") or (keyword_loc["country"] if keyword_loc else (location_label or "AI geotagged event")),
+            "locationName": location_label or (keyword_loc["country"] if keyword_loc else "AI geotagged event"),
+            "lat": copilot_geo["lat"],
+            "lng": copilot_geo["lng"],
+            "geoPrecision": copilot_geo.get("precision", "point"),
+            "explicit": True,
+            "geoSource": "copilot",
+            "geotagStatus": "resolved",
+        }
+
+    if explicit_geo:
+        location_label = (explicit_geo.get("label") or "").strip()
+        return {
+            "countryCode": keyword_loc["code"] if keyword_loc else "",
+            "countryName": keyword_loc["country"] if keyword_loc else (location_label or "Geotagged event"),
+            "regionName": keyword_loc["country"] if keyword_loc else (location_label or "Geotagged event"),
+            "locationName": location_label or (keyword_loc["country"] if keyword_loc else "Geotagged event"),
+            "lat": explicit_geo["lat"],
+            "lng": explicit_geo["lng"],
+            "geoPrecision": explicit_geo.get("precision", "point"),
+            "explicit": True,
+            "geoSource": explicit_geo.get("source", "feed"),
+            "geotagStatus": "resolved",
+        }
+
+    if require_explicit_geo:
+        return None
+
+    if keyword_loc is None:
+        return None
+
+    return {
+        "countryCode": keyword_loc["code"],
+        "countryName": keyword_loc["country"],
+        "regionName": keyword_loc["country"],
+        "locationName": keyword_loc["country"],
+        "lat": None,
+        "lng": None,
+        "geoPrecision": "country",
+        "explicit": False,
+        "geoSource": "keyword",
+        "geotagStatus": "resolved",
+    }
+
+
+def rss_item_to_event(
+    item: dict,
+    default_cat: str,
+    feed_domain: str,
+    require_explicit_geo: bool = False,
+    copilot_geotags: dict[str, dict] | None = None,
+) -> dict | None:
+    """Convert a parsed item to our event schema. Returns None if location requirements are not met."""
     title = strip_html(item["title"])
     if not title or not item["url"]:
         return None
 
-    loc = extract_location(title, item.get("description", ""))
+    summary_raw = strip_html(item.get("description", ""))
+    loc = build_location_meta(item, title, summary_raw, require_explicit_geo, copilot_geotags)
     if loc is None:
         return None
 
@@ -545,9 +821,12 @@ def rss_item_to_event(item: dict, default_cat: str, feed_domain: str) -> dict | 
     )
 
     domain = get_source_domain(art_url)
-    j_lat, j_lng = stable_jitter(art_url, loc["lat"], loc["lng"])
+    if loc["explicit"]:
+        event_lat = loc["lat"]
+        event_lng = loc["lng"]
+    else:
+        event_lat, event_lng = stable_jitter(art_url, loc["lat"], loc["lng"])
 
-    summary_raw = strip_html(item.get("description", ""))
     summary = (summary_raw[:200] + "…") if len(summary_raw) > 200 else summary_raw
     if not summary:
         summary = f"Reported by {domain}."
@@ -560,13 +839,15 @@ def rss_item_to_event(item: dict, default_cat: str, feed_domain: str) -> dict | 
         "title":             title,
         "summary":           summary,
         "category":          cat,
-        "countryCode":       loc["code"],
-        "countryName":       loc["country"],
-        "regionName":        loc["country"],
-        "locationName":      loc["country"],
-        "lat":               j_lat,
-        "lng":               j_lng,
-        "geoPrecision":      "country",
+        "countryCode":       loc["countryCode"],
+        "countryName":       loc["countryName"],
+        "regionName":        loc["regionName"],
+        "locationName":      loc["locationName"],
+        "lat":               event_lat,
+        "lng":               event_lng,
+        "geoPrecision":      loc["geoPrecision"],
+        "geoSource":         loc.get("geoSource", "keyword"),
+        "geotagStatus":      loc.get("geotagStatus", "resolved"),
         "fetchedAt":         fetched_at,
         "publishedAt":       published_at,
         "firstSeenAt":       fetched_at,
@@ -582,6 +863,73 @@ def rss_item_to_event(item: dict, default_cat: str, feed_domain: str) -> dict | 
         "tags":              [w for w in title.split() if len(w) > 4][:6],
         "sources": [{
             "name":        domain,
+            "url":         art_url,
+            "title":       title,
+            "publishedAt": published_at,
+            "thumbnailUrl": thumbnail_url,
+        }],
+    }
+
+
+def build_non_geotag_record(item: dict, default_cat: str, feed_domain: str) -> dict | None:
+    title = strip_html(item.get("title", ""))
+    art_url = item.get("url", "")
+    if not title or not art_url:
+        return None
+
+    published_at = parse_pub_date(item.get("pubDate", ""))
+    freshness = calc_freshness(published_at)
+    if freshness == "archive":
+        return None
+
+    fetched_at = datetime.now(timezone.utc).isoformat()
+    summary_raw = strip_html(item.get("description", ""))
+    summary = (summary_raw[:200] + "…") if len(summary_raw) > 200 else summary_raw
+    if not summary:
+        summary = f"Reported by {feed_domain}."
+
+    cat = extract_category(title, default_cat)
+    cat_w = CATEGORY_WEIGHTS.get(cat, 0.2)
+    rep = reputation(feed_domain)
+    fresh_score = {"fresh": 1.0, "recent": 0.8, "ongoing": 0.5}.get(freshness, 0.3)
+    attention = round(
+        min(0.40 * cat_w + 0.35 * rep + 0.25 * fresh_score, 0.99),
+        4
+    )
+
+    thumbnail_url = normalize_thumbnail_url(item.get("thumbnailUrl", ""))
+    if thumbnail_url and not is_thumbnail_allowed(feed_domain):
+        thumbnail_url = ""
+
+    return {
+        "id":                f"nongeo_{url_hash(art_url)}",
+        "title":             title,
+        "summary":           summary,
+        "category":          cat,
+        "countryCode":       "",
+        "countryName":       "",
+        "regionName":        "",
+        "locationName":      "Location unresolved",
+        "lat":               None,
+        "lng":               None,
+        "geoPrecision":      "none",
+        "geoSource":         "none",
+        "geotagStatus":      "unresolved",
+        "fetchedAt":         fetched_at,
+        "publishedAt":       published_at,
+        "firstSeenAt":       fetched_at,
+        "lastUpdatedAt":     fetched_at,
+        "freshness":         freshness,
+        "articleCount":      1,
+        "sourceCount":       1,
+        "attentionScore":    attention,
+        "velocityScore":     round(fresh_score, 4),
+        "crossBorderFactor": round(rep, 4),
+        "bubble":            False,
+        "thumbnailUrl":      thumbnail_url,
+        "tags":              [w for w in title.split() if len(w) > 4][:6],
+        "sources": [{
+            "name":        feed_domain,
             "url":         art_url,
             "title":       title,
             "publishedAt": published_at,
@@ -656,15 +1004,18 @@ def main() -> int:
     os.makedirs(OUTPUT_DIR, exist_ok=True)
     start_ts = time.time()
     now_str  = datetime.now(timezone.utc).strftime("%Y-%m-%d %H:%M UTC")
+    copilot_geotags = load_copilot_geotags()
 
     print(f"\n{'='*68}")
-    print(f"  World News Map — RSS Fetcher v3")
-    print(f"  {now_str}  |  {len(RSS_SOURCES)} feeds")
+    print(f"  World News Map — RSS/Geo Fetcher v5")
+    print(f"  {now_str}  |  {len(RSS_SOURCES) + len(EXPLICIT_GEO_SOURCES)} sources")
     print(f"{'='*68}\n")
 
     # ── Step 1: Load existing events (7-day accumulation base) ────────────────
     existing_path = os.path.join(OUTPUT_DIR, "world-latest.json")
+    non_geotag_path = os.path.join(OUTPUT_DIR, "non-geotag.json")
     events_by_url: dict[str, dict] = {}
+    non_geotag_by_url: dict[str, dict] = {}
     if os.path.exists(existing_path):
         try:
             with open(existing_path, encoding="utf-8") as f:
@@ -678,10 +1029,25 @@ def main() -> int:
         except Exception as ex:
             print(f"  [warn] Could not load existing data: {ex}\n")
 
+    if os.path.exists(non_geotag_path):
+        try:
+            with open(non_geotag_path, encoding="utf-8") as f:
+                existing_non_geo = json.load(f)
+            for e in (existing_non_geo if isinstance(existing_non_geo, list) else []):
+                if is_within_window(e):
+                    url = e.get("sources", [{}])[0].get("url", e.get("id", ""))
+                    if url and url not in events_by_url:
+                        non_geotag_by_url[url] = e
+            print(f"  Loaded {len(non_geotag_by_url)} existing non-geotag events\n")
+        except Exception as ex:
+            print(f"  [warn] Could not load non-geotag data: {ex}\n")
+
     # ── Step 2: Fetch all RSS feeds ───────────────────────────────────────────
     new_count  = 0
     skip_count = 0
     fail_count = 0
+    geo_new_count = 0
+    non_geo_count = 0
 
     for src in RSS_SOURCES:
         feed_url    = src["url"]
@@ -712,15 +1078,76 @@ def main() -> int:
                 skip_count += 1
                 continue  # duplicate — skip
 
-            event = rss_item_to_event(item, default_cat, feed_domain)
+            event = rss_item_to_event(item, default_cat, feed_domain, copilot_geotags=copilot_geotags)
             if event is None:
+                unresolved = build_non_geotag_record(item, default_cat, feed_domain)
+                if unresolved and art_url not in non_geotag_by_url:
+                    non_geotag_by_url[art_url] = unresolved
+                    non_geo_count += 1
                 continue
 
             events_by_url[art_url] = event
+            non_geotag_by_url.pop(art_url, None)
             new_count += 1
             added += 1
 
         print(f"     {len(items)} items  →  {added} new")
+
+    for src in EXPLICIT_GEO_SOURCES:
+        feed_url    = src["url"]
+        default_cat = src["cat"]
+        feed_domain = get_source_domain(feed_url)
+        print(f"  ↓  {feed_domain:<30} {feed_url[:55]}")
+
+        source_type = src.get("type", "rss")
+        items = []
+        if source_type == "rss":
+            xml_text = fetch_rss(feed_url)
+            items = parse_rss(xml_text)
+        else:
+            payload = fetch_json(feed_url)
+            parser_name = src.get("parser")
+            if payload and parser_name == "usgs":
+                items = usgs_geojson_to_items(payload)
+            elif payload and parser_name == "eonet":
+                items = eonet_geojson_to_items(payload)
+
+        if not items:
+            fail_count += 1
+            continue
+
+        added = 0
+        for item in items:
+            art_url = item.get("url", "")
+            if not art_url:
+                art_url = f"{feed_url}#geo-{url_hash(json.dumps(item, sort_keys=True))}"
+                item["url"] = art_url
+
+            if art_url in events_by_url:
+                skip_count += 1
+                continue
+
+            event = rss_item_to_event(
+                item,
+                default_cat,
+                feed_domain,
+                require_explicit_geo=True,
+                copilot_geotags=copilot_geotags,
+            )
+            if event is None:
+                unresolved = build_non_geotag_record(item, default_cat, feed_domain)
+                if unresolved and art_url not in non_geotag_by_url:
+                    non_geotag_by_url[art_url] = unresolved
+                    non_geo_count += 1
+                continue
+
+            events_by_url[art_url] = event
+            non_geotag_by_url.pop(art_url, None)
+            new_count += 1
+            geo_new_count += 1
+            added += 1
+
+        print(f"     {len(items)} items  →  {added} new (explicit geo only)")
 
     elapsed = round(time.time() - start_ts, 1)
 
@@ -747,14 +1174,22 @@ def main() -> int:
         e["bubble"]    = e.get("attentionScore", 0) >= BUBBLE_THRESHOLD
         e["freshness"] = calc_freshness(e.get("publishedAt", ""))
 
+    non_geotag_events = sorted(
+        non_geotag_by_url.values(),
+        key=lambda e: get_published_at(e) or datetime.min.replace(tzinfo=timezone.utc),
+        reverse=True,
+    )[:MAX_EVENTS_OUTPUT]
+
     bubble_count = sum(1 for e in all_events if e["bubble"])
 
     print(f"\n{'─'*68}")
     print(f"  Pool after merge+prune : {len(events_by_url)}")
     print(f"  Dropped oldest first   : {dropped_count}")
     print(f"  New this run           : {new_count}")
+    print(f"    Explicit geo added   : {geo_new_count}")
+    print(f"    Non-geotag queued    : {len(non_geotag_events)}")
     print(f"  Skipped (duplicate)    : {skip_count}")
-    print(f"  Failed feeds           : {fail_count}/{len(RSS_SOURCES)}")
+    print(f"  Failed feeds           : {fail_count}/{len(RSS_SOURCES) + len(EXPLICIT_GEO_SOURCES)}")
     print(f"  Output (top {MAX_EVENTS_OUTPUT})        : {len(all_events)}")
     print(f"  Bubble markers         : {bubble_count}")
     print(f"  Elapsed                : {elapsed}s")
@@ -776,14 +1211,16 @@ def main() -> int:
     fresh_ev = [e for e in all_events if e.get("freshness") == "fresh"]
     write_json(os.path.join(OUTPUT_DIR, "heatmap-1h.json"),
                build_heatmap(fresh_ev or all_events[:20]))
+    write_json(os.path.join(OUTPUT_DIR, "non-geotag.json"), non_geotag_events)
     write_json(os.path.join(OUTPUT_DIR, "meta.json"), {
         "generatedAt":    datetime.now(timezone.utc).isoformat(),
         "eventCount":     len(all_events),
+        "nonGeotagCount": len(non_geotag_events),
         "newThisRun":     new_count,
         "failedFeeds":    fail_count,
         "elapsedSec":     elapsed,
-        "source":         "rss",
-        "version":        3,
+        "source":         "rss+geo",
+        "version":        5,
     })
 
     print(f"\n{'='*68}")

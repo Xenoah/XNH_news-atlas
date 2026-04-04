@@ -276,6 +276,15 @@ NewsAtlas.data = (function() {
     return Array.isArray(data) ? data : (data.events || []);
   }
 
+  async function getNonGeotag() {
+    if (_mode === 'live') {
+      const data = await _fetchJSON(`${LIVE_API_BASE}/events/non-geotag`).catch(() => []);
+      return Array.isArray(data) ? data : (data.events || []);
+    }
+    const data = await _fetchJSON(`${STATIC_BASE}/non-geotag.json`).catch(() => []);
+    return Array.isArray(data) ? data : (data.events || []);
+  }
+
   /* ── Public: refreshFromGDELT ─────────────────────────────── */
   // Called when user clicks the Refresh button.
 
@@ -345,7 +354,7 @@ NewsAtlas.data = (function() {
 
   return {
     init, getEvents, getHeadlines, getTrends, getHeatmap,
-    refreshFromGDELT, fetchCountryEvents, getMeta,
+    refreshFromGDELT, fetchCountryEvents, getMeta, getNonGeotag,
     getMode, clearCache
   };
 })();

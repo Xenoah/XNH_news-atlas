@@ -4,7 +4,7 @@
 
 **Repository:** `XNH_news-atlas`
 **Started:** 2026-03-28
-**Status:** Active — GDELT pipeline operational
+**Status:** Active — RSS + explicit-geo pipeline operational
 
 ---
 
@@ -20,10 +20,10 @@
 - [x] `js/scoring.js` — CATEGORY_WEIGHTS, getFreshness, calcAttentionScore, shouldBubble, rankEvents, getTrending, countByCategory, countByCountry
 - [x] `js/filters.js` — byTime, byCategory, bySearch, apply
 - [x] `js/data.js` — 3-tier data priority (live → static → GDELT); init, getEvents, getHeadlines, getTrends, getHeatmap, getMode, getMeta, clearCache, refreshFromGDELT, fetchCountryEvents
-- [x] `js/renderers.js` — HTML string generators; rankItem (compact hover-expand), sourceItem (clickable links), eventDetail (reordered: badges→title→meta→summary→sources→tags), legendCatsHTML
-- [x] `js/ui.js` — DOM management; setRefreshing, setStatusBadge (live/gdelt/static), legend toggle binding, refresh button binding
+- [x] `js/renderers.js` — HTML string generators; rankItem (compact hover-expand), sourceItem (clickable links), eventDetail (reordered: badges→title→meta→summary→sources→tags), legendCatsHTML, non-geotag views
+- [x] `js/ui.js` — DOM management; setRefreshing, setStatusBadge (live/gdelt/static), legend toggle binding, refresh button binding, left-panel non-geotag toggle
 - [x] `js/map.js` — MapLibre integration; bubble markers, heatmap, selected-event glow+ring layers, highlightEvent()
-- [x] `js/app.js` — state management; onRefresh, _autoRefreshStatic (5 min), reads meta.json for "updated X ago"
+- [x] `js/app.js` — state management; onRefresh, _autoRefreshStatic (5 min), reads meta.json for "updated X ago", separates mapped vs non-geotag articles
 - [x] `js/main.js` — DOMContentLoaded entry point
 
 ### Phase 3: Initial Data Files
@@ -32,6 +32,7 @@
 - [x] `data/trends.json` — trend metadata and category stats
 - [x] `data/heatmap-1h.json` — fresh events GeoJSON
 - [x] `data/heatmap-24h.json` — all events GeoJSON
+- [x] `data/non-geotag.json` — unresolved-location articles excluded from the map
 
 ### Phase 4: Entry Point & Initial Documentation
 - [x] `index.html` — semantic HTML; refresh button, status-info wrapper, map-legend with legend-cats
@@ -39,16 +40,16 @@
 - [x] `CLAUDE.md` — this file
 
 ### Phase 5: GDELT Real-Time Pipeline
-- [x] `scripts/fetch-news.py` — GDELT DOC 2.0 fetcher
-  - 52 topics across conflict/politics/economy/technology/health/disaster/science/sports
-  - Each article → individual map event (not 1 topic = 1 event)
-  - 50 articles/topic (`maxrecords=50`), `sort=HybridRel`, `sourcelang:English` in query string (per official docs)
-  - URL deduplication across topics (higher score kept on collision)
-  - Accumulates 7 days of articles; prunes by publishedAt and drops the oldest published items first when over cap
-  - Stable URL-seeded jitter so same article always maps to same coordinates
+- [x] `scripts/fetch-news.py` — RSS / GeoRSS / GeoJSON fetcher
+  - Broad publisher RSS for general coverage plus GDACS, USGS, NASA EONET for explicit-coordinate resilience
+  - Events with explicit coordinates keep their feed-provided point; non-geo publisher RSS still falls back to keyword geocoding
+  - Optional `scripts/copilot-geotags.json` overrides allow AI-reviewed coordinates; UI marks these with a robot indicator
+  - Articles that still cannot be reliably placed are written to `data/non-geotag.json` and excluded from map markers
+  - URL deduplication across runs, 7-day accumulation by publishedAt, oldest-first overflow trimming at 2400
+  - Stable URL-seeded jitter only for inferred country-level coordinates
   - `data/meta.json` written with generatedAt, eventCount, elapsedSec
   - Top 2400 events output sorted by attention score
-  - Exit 0 (not 1) when 0 events fetched — preserves existing data on rate-limit runs
+  - Exit 0 (not 1) when 0 events fetched — preserves existing data on failed or degraded runs
 - [x] `.github/workflows/fetch-news.yml` — hourly GitHub Actions workflow
   - `cron: '0 * * * *'` + `workflow_dispatch`
   - `permissions: contents: write`
@@ -66,9 +67,8 @@ No build tools required. All scripts load via `<script>` tags in dependency orde
 ### 3-Tier Data Priority
 `data.js` probes `localhost:8787/status` with a 2s timeout on init. If reachable → `live` mode. Otherwise → `static` (pre-fetched GitHub Actions JSON). User clicking ↻ sets `_gdeltActive = true` → `gdelt` mode (browser-side GDELT fetch). Static JSON silently auto-refreshes every 5 minutes.
 
-### Per-Article Events (v2 pipeline design)
-v1: 1 GDELT query = 1 aggregated event (max 40 events total).
-v2: each article in a query result = its own map event. 52 topics × 50 articles = up to 2,600 raw per run; after URL dedup and 7-day accumulation the pool grows to roughly 600–2,400 unique events.
+### Multi-Source Event Ingestion
+General world coverage comes from publisher RSS. Disaster / natural-event resilience comes from explicit-coordinate GeoRSS / GeoJSON services so markers stay accurate even when one upstream service degrades.
 
 ### 7-Day Rolling Accumulation
 `fetch-news.py` loads existing `world-latest.json` at run start, merges new articles (skips existing URLs), prunes events older than 7 days by `publishedAt`, trims overflow by removing the oldest published items first, then re-sorts and writes. This means a single throttled or failed run doesn't wipe existing data.
@@ -84,11 +84,11 @@ attentionScore = 0.35×positionRatio + 0.40×categoryWeight + 0.25×coverage
 ### Stable Coordinate Jitter
 `stable_jitter(url, lat, lng)` seeds `random.Random` with the URL's MD5 hash. Same article always appears at the same map position across refreshes. Prevents piling of same-country articles on one point.
 
-### GDELT DOC 2.0 API Usage (per official docs)
-- Valid URL params: `query`, `mode`, `maxrecords`, `format`, `timespan`, `sort`
-- `sourcelang` and `sourcecountry` are query **operators** embedded in the `query` string, not URL parameters
-- `mode=ArtList`, `sort=HybridRel`, `maxrecords` max 250
-- `mode=artgeo` does not exist in DOC 2.0 (separate GEO 2.0 API)
+### Explicit Coordinate Preference
+When a feed item contains `GeoRSS`, `GML`, `geo:lat/geo:long`, or GeoJSON point coordinates, those coordinates are used directly and stored as `geoPrecision: point`. This keeps map markers tied to feed-provided locations rather than country centroids.
+
+### Non-Geotag Review Queue
+If a story still lacks a reliable location after explicit-geo parsing and optional Copilot overrides, it is not accepted into `world-latest.json`. Instead it is written to `data/non-geotag.json` and exposed in the UI through the left-panel footer button.
 
 ### Map-Ready Event Coordination
 `data.init()` may complete before MapLibre fires `load`. Solution: `app.js` sets `_pendingRender = true` on map errors and listens for `newsatlas:mapready` dispatched by `map.js` after the `load` handler completes.
@@ -119,15 +119,15 @@ On ≤ 768px, side panels are hidden. Event detail opens `#mobile-drawer` via CS
 
 1. **CORS on file://** — Must serve from HTTP server (`python -m http.server`, `npx serve`). `file://` loading fails.
 
-2. **GDELT Rate Limiting** — GitHub Actions IP ranges can be rate limited by GDELT during high-traffic news events. When all topics return empty, the script exits 0 and preserves existing data. The next hourly run retries.
+2. **Upstream Availability** — Any single RSS / geo service can fail during a run. The script preserves existing data and merges from the remaining sources on the next hourly retry.
 
-3. **Location Accuracy** — Articles without a topic-fixed lat/lng use `sourcecountry` (the publishing outlet's country, not the story's country). A Reuters article about an earthquake in Japan may be placed at `US` if sourcecountry=US. Topics with hard-coded coords (most conflict/politics topics) are not affected.
+3. **Location Accuracy** — General publisher RSS still relies on keyword geocoding for many stories. Explicit-geo services are accurate, but non-geo publisher feeds can still fall back to country-level placement.
 
 4. **MapLibre Glyphs** — Cluster count labels use `https://demotiles.maplibre.org/font/` — not guaranteed uptime for production. Self-host for reliability.
 
-5. **No Pagination** — GDELT DOC 2.0 has no pagination; max 250 articles per query. For broader coverage, multiple queries with different timespans would be needed.
+5. **Mixed Source Shapes** — GeoJSON services can publish points or polygons. The current pipeline only ingests explicit point geometries for marker accuracy.
 
-6. **summary Field** — GDELT artlist mode returns no article body text. Summary is generated as `"Breaking via {domain}. Covered by N sources in {category}."` — not actual article content.
+6. **summary Field** — Some RSS / GeoJSON services provide only short summaries or place names. In those cases the summary is concise and source-derived rather than full article text.
 
 ---
 
@@ -140,5 +140,5 @@ On ≤ 768px, side panels are hidden. Event detail opens `#mobile-drawer` via CS
 - [ ] Region-level aggregation (click country → see all its events)
 - [ ] Self-host MapLibre GL JS and CartoDB fonts for offline capability
 - [ ] Add event timeline view (horizontal scroll by publishedAt)
-- [ ] Upgrade to GDELT GEO 2.0 API for per-article coordinates (better location accuracy)
+- [ ] Add more official explicit-geo services with stable machine-readable feeds
 - [ ] WebSocket support for true real-time streaming from a live backend

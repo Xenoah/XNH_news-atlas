@@ -23,6 +23,21 @@ NewsAtlas.renderers = {
     return `<span class="freshness-badge ${NewsAtlas.utils.escapeHtml(freshness || 'archive')}">${NewsAtlas.utils.escapeHtml(label)}</span>`;
   },
 
+  isAIGeotag(event) {
+    const geoSource = String((event && event.geoSource) || '').toLowerCase();
+    return geoSource === 'copilot' || geoSource === 'ai' || geoSource === 'github-copilot';
+  },
+
+  locationLabel(event) {
+    if (!event) return 'Unknown location';
+    return event.locationName || event.countryName || 'Location unresolved';
+  },
+
+  locationWithMarker(event) {
+    const label = NewsAtlas.utils.escapeHtml(this.locationLabel(event));
+    return `${label}${this.isAIGeotag(event) ? ' 🤖' : ''}`;
+  },
+
   /* ── Score Bar ───────────────────────────────────────────── */
 
   scoreBar(score) {
@@ -49,7 +64,7 @@ NewsAtlas.renderers = {
           ${this.categoryBadge(event.category)}
         </div>
         <div class="event-card-meta">
-          <span class="event-card-location">📍 ${u.escapeHtml(event.locationName || event.countryName)}</span>
+          <span class="event-card-location">📍 ${this.locationWithMarker(event)}</span>
           <span class="event-card-time">${u.timeAgo(event.publishedAt)}</span>
           ${this.freshnessBadge(freshness)}
         </div>
@@ -74,7 +89,7 @@ NewsAtlas.renderers = {
           <div class="rank-title">${u.escapeHtml(event.title)}</div>
           <div class="rank-meta">
             ${this.categoryBadge(event.category)}
-            <span class="rank-country">${u.escapeHtml(event.countryName)}</span>
+            <span class="rank-country">${u.escapeHtml(this.locationLabel(event))}</span>
             <span class="rank-score ${scoreClass}">${pct}%</span>
           </div>
           <div class="rank-expand">
@@ -237,7 +252,7 @@ NewsAtlas.renderers = {
           ${this.freshnessBadge(freshness)}
         </div>
         <div class="popup-title">${u.escapeHtml(event.title)}</div>
-        <div class="popup-location">📍 ${u.escapeHtml(event.locationName || event.countryName)}</div>
+        <div class="popup-location">📍 ${this.locationWithMarker(event)}</div>
         <div class="popup-stats">
           <div class="popup-stat">
             <span class="popup-stat-label">Articles</span>
@@ -292,6 +307,10 @@ NewsAtlas.renderers = {
       ? NewsAtlas.ui.getDisplaySettings()
       : { showSunlight: true };
     const sources = allSrcs.slice(0, 8).map(s => this.sourceItem(s)).join('');
+    const locationText = this.locationWithMarker(event);
+    const geoPrecisionLabel = event.geotagStatus === 'unresolved'
+      ? 'unresolved'
+      : (event.geoPrecision || '');
 
     return `
       <div class="detail-card">
@@ -305,10 +324,10 @@ NewsAtlas.renderers = {
           </div>
           <div class="detail-title">${u.escapeHtml(event.title)}</div>
           <div class="detail-meta-row">
-            <span>📍 ${u.escapeHtml(event.locationName || event.countryName || '')}</span>
+            <span>📍 ${locationText}</span>
             <span class="detail-meta-sep">·</span>
             <span>${u.timeAgo(event.publishedAt)}</span>
-            ${event.geoPrecision ? `<span class="detail-meta-sep">·</span><span>${u.escapeHtml(event.geoPrecision)}</span>` : ''}
+            ${geoPrecisionLabel ? `<span class="detail-meta-sep">·</span><span>${u.escapeHtml(geoPrecisionLabel)}</span>` : ''}
           </div>
         </div>
 
@@ -393,6 +412,66 @@ NewsAtlas.renderers = {
           <span>First seen: ${u.formatDate(event.firstSeenAt)}</span>
           <span>Updated: ${u.formatDate(event.lastUpdatedAt)}</span>
           ${event.regionName ? `<span>Region: ${u.escapeHtml(event.regionName)}</span>` : ''}
+          ${event.geoSource ? `<span>Geo source: ${u.escapeHtml(event.geoSource)}</span>` : ''}
+        </div>
+      </div>`;
+  },
+
+  nonGeotagPanel(events) {
+    const sorted = (events || []).slice().sort((a, b) =>
+      new Date(b.publishedAt || 0).getTime() - new Date(a.publishedAt || 0).getTime()
+    );
+    const items = sorted.slice(0, 40).map((event, index) => this.eventCard(event, index + 1)).join('');
+
+    return `
+      <div class="panel-section">
+        <div class="panel-section-header">
+          <span class="panel-section-title">Non Geotag Articles</span>
+          <span class="panel-section-count">${sorted.length}</span>
+        </div>
+        <div class="panel-section-body">
+          ${items || this.emptyState('No unresolved articles')}
+        </div>
+      </div>`;
+  },
+
+  nonGeotagOverview(events) {
+    const total = (events || []).length;
+    const byCategory = NewsAtlas.scoring.countByCategory(events || []);
+    const latest = (events || []).slice().sort((a, b) =>
+      new Date(b.publishedAt || 0).getTime() - new Date(a.publishedAt || 0).getTime()
+    ).slice(0, 5);
+    const latestItems = latest.map((event, index) => this.rankItem(event, index + 1)).join('');
+
+    return `
+      <div class="detail-card">
+        <div class="detail-header">
+          <div class="detail-badges">
+            <span class="freshness-badge recent">Non Geotag</span>
+          </div>
+          <div class="detail-title">Articles Pending Reliable Location</div>
+          <div class="detail-meta-row">
+            <span>${total} articles are excluded from the map until a reliable geotag is available.</span>
+          </div>
+        </div>
+
+        <div class="panel-section">
+          <div class="panel-section-header">
+            <span class="panel-section-title">By Category</span>
+          </div>
+          <div class="panel-section-body">
+            ${this.categoryBreakdown(byCategory, Math.max(total, 1))}
+          </div>
+        </div>
+
+        <div class="panel-section">
+          <div class="panel-section-header">
+            <span class="panel-section-title">Latest Unresolved</span>
+            <span class="panel-section-count">${latest.length}</span>
+          </div>
+          <div class="panel-section-body">
+            ${latestItems || this.emptyState('No unresolved articles')}
+          </div>
         </div>
       </div>`;
   },

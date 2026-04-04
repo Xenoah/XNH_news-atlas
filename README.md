@@ -3,7 +3,7 @@ Preview → https://xenoah.github.io/XNH_news-atlas/
 
 # World News Map Viewer
 
-A production-quality static web application that visualizes global news events on an interactive dark-themed world map. Data is pre-fetched hourly from GDELT via GitHub Actions and served as static JSON — no backend required.
+A production-quality static web application that visualizes global news events on an interactive dark-themed world map. Data is pre-fetched hourly from RSS, GeoRSS, and GeoJSON services via GitHub Actions and served as static JSON — no backend required.
 
 ---
 
@@ -15,7 +15,8 @@ A production-quality static web application that visualizes global news events o
 - **Category Filters** — 10 categories with color-coded chips; multi-select supported
 - **Full-text Search** — Filters across title, summary, country, location, and tags in real-time
 - **Source Links** — Each event links to original article sources with domain, title, and timestamp
-- **GDELT Integration** — Real news data pre-fetched hourly via GitHub Actions; browser-side GDELT refresh also available
+- **Multi-Source Ingestion** — Real news data pre-fetched hourly from publisher RSS plus explicit-geo services such as GDACS, USGS, and NASA EONET
+- **Non-Geotag Queue** — Articles without a reliable location are stored separately so they can still be reviewed without polluting the map
 - **3-Tier Data Priority** — Live API (`localhost:8787`) → Static JSON (GitHub Actions) → Browser GDELT fetch
 - **7-Day Accumulation** — Hourly runs accumulate non-duplicate articles for up to 7 days; events decay in score as they age
 - **Map Legend** — Collapsible category legend with color reference
@@ -54,6 +55,7 @@ XNH_news-atlas/
     ├── trends.json                   # Trend metadata and category statistics
     ├── heatmap-1h.json               # Heatmap GeoJSON for 1-hour window
     ├── heatmap-24h.json              # Heatmap GeoJSON for 24-hour window
+    ├── non-geotag.json              # Articles excluded from the map due to unresolved location
     └── meta.json                     # Generation metadata (timestamp, event count)
 ```
 
@@ -65,12 +67,15 @@ XNH_news-atlas/
 
 The workflow `.github/workflows/fetch-news.yml` runs every hour:
 
-1. Queries GDELT DOC 2.0 API across **52 topics** (conflict, politics, economy, technology, health, disaster, science, sports)
-2. Each article becomes an individual map event (up to 50 articles per topic)
-3. Deduplicates by URL — new articles are added; existing URLs are skipped
-4. Prunes events older than **7 days by publishedAt**
-5. If the pool exceeds **2400**, drops the oldest published items first, then ranks the retained set by attention score
-6. Commits updated JSON to the `data/` directory if anything changed
+1. Fetches broad publisher RSS feeds for world coverage
+2. Supplements them with explicit-coordinate GeoRSS / GeoJSON services for infrastructure resilience
+3. Uses feed-provided coordinates when available; explicit-geo sources are accepted only when coordinates are present
+4. Optional Copilot-reviewed coordinates in `scripts/copilot-geotags.json` are accepted and marked as AI-derived in the UI
+5. Articles that still lack a reliable geotag are excluded from the map and written to `data/non-geotag.json`
+6. Deduplicates by URL — new articles are added; existing URLs are skipped
+7. Prunes events older than **7 days by publishedAt**
+8. If the pool exceeds **2400**, drops the oldest published items first, then ranks the retained set by attention score
+9. Commits updated JSON to the `data/` directory if anything changed
 
 Total runtime: ~2 minutes per run, well within GitHub Actions limits.
 
@@ -125,7 +130,9 @@ Each event in `world-latest.json` follows this schema:
   "locationName": "string",
   "lat": 0.0,
   "lng": 0.0,
-  "geoPrecision": "city | country",
+  "geoPrecision": "point | country | none",
+  "geoSource": "feed | keyword | copilot | none",
+  "geotagStatus": "resolved | unresolved",
   "fetchedAt": "ISO 8601",
   "publishedAt": "ISO 8601",
   "firstSeenAt": "ISO 8601",
@@ -155,11 +162,12 @@ Each event in `world-latest.json` follows this schema:
 {
   "generatedAt": "ISO 8601",
   "eventCount": 2400,
+  "nonGeotagCount": 85,
   "rawUniqueCount": 1200,
   "failedTopics": 2,
   "elapsedSec": 110.4,
-  "source": "gdelt",
-  "version": 2
+  "source": "rss+geo",
+  "version": 5
 }
 ```
 

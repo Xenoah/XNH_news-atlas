@@ -682,6 +682,13 @@ NewsAtlas.map = (function() {
       .addTo(_map);
   }
 
+  function clearPopup() {
+    if (_popup) {
+      _popup.remove();
+      _popup = null;
+    }
+  }
+
   /* ── Camera ───────────────────────────────────────────────── */
 
   function flyTo(lng, lat, zoom) {
@@ -707,6 +714,7 @@ NewsAtlas.map = (function() {
     updateHeatmap,
     highlightEvent,
     showPopup,
+    clearPopup,
     flyTo,
     setTheme,
     refreshSunlightOverlay,

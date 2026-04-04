@@ -20,6 +20,8 @@ NewsAtlas.app = (function() {
     lastUpdated: null,
     allEvents: [],
     filteredEvents: [],
+    nonGeotagEvents: [],
+    filteredNonGeotag: [],
     headlines: [],
     trends: {},
     heatmapData: null
@@ -42,14 +44,16 @@ NewsAtlas.app = (function() {
     NewsAtlas.ui.setStatusBadge(state.dataMode);
 
     // Load all initial data in parallel
-    const [events, headlines, trends, heatmap] = await Promise.all([
+    const [events, nonGeotag, headlines, trends, heatmap] = await Promise.all([
       NewsAtlas.data.getEvents().catch(err    => { console.warn('[data] getEvents failed:', err);    return []; }),
+      NewsAtlas.data.getNonGeotag().catch(err => { console.warn('[data] getNonGeotag failed:', err); return []; }),
       NewsAtlas.data.getHeadlines().catch(err => { console.warn('[data] getHeadlines failed:', err); return []; }),
       NewsAtlas.data.getTrends().catch(err    => { console.warn('[data] getTrends failed:', err);    return {}; }),
       NewsAtlas.data.getHeatmap('24h').catch(err => { console.warn('[data] getHeatmap failed:', err); return null; })
     ]);
 
     state.allEvents  = events;
+    state.nonGeotagEvents = nonGeotag;
     state.headlines  = headlines;
     state.trends     = trends;
     state.heatmapData = heatmap;
@@ -84,11 +88,13 @@ NewsAtlas.app = (function() {
   async function _autoRefreshStatic() {
     NewsAtlas.data.clearCache();
     try {
-      const [events, trends] = await Promise.all([
+      const [events, nonGeotag, trends] = await Promise.all([
         NewsAtlas.data.getEvents(),
+        NewsAtlas.data.getNonGeotag().catch(() => state.nonGeotagEvents),
         NewsAtlas.data.getTrends().catch(() => state.trends)
       ]);
       state.allEvents = events;
+      state.nonGeotagEvents = nonGeotag;
       state.trends    = trends;
       state.lastUpdated = new Date();
       _applyFiltersAndRender();
@@ -105,11 +111,13 @@ NewsAtlas.app = (function() {
 
   async function _refresh() {
     NewsAtlas.data.clearCache();
-    const [events, trends] = await Promise.all([
+    const [events, nonGeotag, trends] = await Promise.all([
       NewsAtlas.data.getEvents().catch(() => state.allEvents),
+      NewsAtlas.data.getNonGeotag().catch(() => state.nonGeotagEvents),
       NewsAtlas.data.getTrends().catch(() => state.trends)
     ]);
     state.allEvents   = events;
+    state.nonGeotagEvents = nonGeotag;
     state.trends      = trends;
     state.lastUpdated = new Date();
     NewsAtlas.ui.setUpdateTime(NewsAtlas.utils.formatDate(state.lastUpdated.toISOString()));
@@ -123,6 +131,7 @@ NewsAtlas.app = (function() {
     try {
       const events = await NewsAtlas.data.refreshFromGDELT();
       state.allEvents   = events;
+      state.nonGeotagEvents = await NewsAtlas.data.getNonGeotag().catch(() => state.nonGeotagEvents);
       state.lastUpdated = new Date();
       state.dataMode    = NewsAtlas.data.getMode();
       NewsAtlas.ui.setStatusBadge(state.dataMode);
@@ -140,6 +149,7 @@ NewsAtlas.app = (function() {
 
   function _applyFiltersAndRender() {
     state.filteredEvents = NewsAtlas.filters.apply(state.allEvents, state);
+    state.filteredNonGeotag = NewsAtlas.filters.apply(state.nonGeotagEvents, state);
     _renderAll();
   }
 
@@ -147,7 +157,9 @@ NewsAtlas.app = (function() {
     // ── Map update ─────────────────────────────────────────────
     // Guard: map may not be ready yet (if data loads before map)
     try {
-      NewsAtlas.map.updateEvents(state.filteredEvents, state.mode);
+      const mapEvents = state.mode === 'non-geotag' ? [] : state.filteredEvents;
+      const mapMode = state.mode === 'non-geotag' ? 'events' : state.mode;
+      NewsAtlas.map.updateEvents(mapEvents, mapMode);
       if (state.heatmapData) NewsAtlas.map.updateHeatmap(state.heatmapData);
     } catch (e) {
       // Map not yet initialized; will be pushed on mapready event
@@ -157,8 +169,10 @@ NewsAtlas.app = (function() {
     // ── Left panel ─────────────────────────────────────────────
     let leftHtml = '';
     const ranked       = NewsAtlas.scoring.rankEvents(state.filteredEvents);
+    const unresolvedRanked = NewsAtlas.scoring.rankEvents(state.filteredNonGeotag);
     const catCounts    = NewsAtlas.scoring.countByCategory(state.filteredEvents);
     const countryCounts = NewsAtlas.scoring.countByCountry(state.filteredEvents);
+    NewsAtlas.ui.setNonGeotagCount(state.nonGeotagEvents.length);
 
     if (state.mode === 'events') {
       leftHtml =
@@ -171,6 +185,8 @@ NewsAtlas.app = (function() {
       leftHtml = NewsAtlas.renderers.analysisPanel(state.filteredEvents);
     } else if (state.mode === 'density') {
       leftHtml = NewsAtlas.renderers.leftPanelStats(state.filteredEvents, catCounts, countryCounts);
+    } else if (state.mode === 'non-geotag') {
+      leftHtml = NewsAtlas.renderers.nonGeotagPanel(unresolvedRanked);
     }
 
     NewsAtlas.ui.updateLeftPanel(leftHtml || NewsAtlas.renderers.emptyState('No events match your filters'));
@@ -180,6 +196,10 @@ NewsAtlas.app = (function() {
       if (state.mode === 'analysis') {
         NewsAtlas.ui.updateRightPanel(
           NewsAtlas.renderers.analysisRightPanel(state.filteredEvents)
+        );
+      } else if (state.mode === 'non-geotag') {
+        NewsAtlas.ui.updateRightPanel(
+          NewsAtlas.renderers.nonGeotagOverview(state.filteredNonGeotag)
         );
       } else {
         const topEvent = ranked[0];
@@ -200,6 +220,8 @@ NewsAtlas.app = (function() {
     state.mode = mode;
     state.selectedEvent  = null;
     state.selectedRegion = null;
+    try { NewsAtlas.map.highlightEvent(null); } catch (_) {}
+    try { if (NewsAtlas.map.clearPopup) NewsAtlas.map.clearPopup(); } catch (_) {}
     _applyFiltersAndRender();
 
     // Load appropriate heatmap data for density mode
@@ -243,10 +265,15 @@ NewsAtlas.app = (function() {
     state.selectedRegion = null;
     NewsAtlas.ui.showEventDetail(event);
     try {
-      NewsAtlas.map.highlightEvent(event);
-      NewsAtlas.map.showPopup(event);
-      const currentZoom = NewsAtlas.map.getZoom();
-      NewsAtlas.map.flyTo(event.lng, event.lat, Math.max(currentZoom, 6));
+      if (Number.isFinite(event.lat) && Number.isFinite(event.lng)) {
+        NewsAtlas.map.highlightEvent(event);
+        NewsAtlas.map.showPopup(event);
+        const currentZoom = NewsAtlas.map.getZoom();
+        NewsAtlas.map.flyTo(event.lng, event.lat, Math.max(currentZoom, 6));
+      } else {
+        NewsAtlas.map.highlightEvent(null);
+        if (NewsAtlas.map.clearPopup) NewsAtlas.map.clearPopup();
+      }
     } catch (_) {}
   }
 
@@ -260,7 +287,9 @@ NewsAtlas.app = (function() {
 
   function getEventById(id) {
     if (!id) return null;
-    return state.allEvents.find(e => e.id === id) || null;
+    return state.allEvents.find(e => e.id === id) ||
+      state.nonGeotagEvents.find(e => e.id === id) ||
+      null;
   }
 
   function refreshView() {
@@ -279,7 +308,9 @@ NewsAtlas.app = (function() {
     if (_pendingRender) {
       _pendingRender = false;
       try {
-        NewsAtlas.map.updateEvents(state.filteredEvents, state.mode);
+        const mapEvents = state.mode === 'non-geotag' ? [] : state.filteredEvents;
+        const mapMode = state.mode === 'non-geotag' ? 'events' : state.mode;
+        NewsAtlas.map.updateEvents(mapEvents, mapMode);
         if (state.heatmapData) NewsAtlas.map.updateHeatmap(state.heatmapData);
       } catch (e) {
         console.warn('[app] Map render after ready failed:', e);

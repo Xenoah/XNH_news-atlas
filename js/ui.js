@@ -118,6 +118,8 @@ NewsAtlas.ui = (function() {
     el.statusBadge    = document.getElementById('status-badge');
     el.updateTime     = document.getElementById('update-time');
     el.leftContent    = document.getElementById('left-content');
+    el.nonGeotagButton = document.getElementById('non-geotag-btn');
+    el.nonGeotagCount = document.getElementById('non-geotag-count');
     el.rightContent   = document.getElementById('right-content');
     el.mobileDrawer   = document.getElementById('mobile-drawer');
     el.drawerContent  = document.getElementById('drawer-content');
@@ -156,6 +158,13 @@ NewsAtlas.ui = (function() {
         NewsAtlas.app.onModeChange(mode);
       });
     });
+
+    if (el.nonGeotagButton) {
+      el.nonGeotagButton.addEventListener('click', () => {
+        setActiveMode('non-geotag');
+        NewsAtlas.app.onModeChange('non-geotag');
+      });
+    }
 
     // Time filter buttons
     el.timeButtons.forEach(btn => {
@@ -1177,6 +1186,15 @@ NewsAtlas.ui = (function() {
     el.modeButtons.forEach(btn => {
       btn.classList.toggle('active', btn.dataset.mode === mode);
     });
+    if (el.nonGeotagButton) {
+      el.nonGeotagButton.classList.toggle('active', mode === 'non-geotag');
+    }
+  }
+
+  function setNonGeotagCount(count) {
+    if (el.nonGeotagCount) {
+      el.nonGeotagCount.textContent = String(Math.max(0, Number(count) || 0));
+    }
   }
 
   function setActiveTime(time) {
@@ -1318,6 +1336,7 @@ NewsAtlas.ui = (function() {
     closeDrawer,
     setActiveMode,
     setActiveTime,
+    setNonGeotagCount,
     showLoading,
     setLicenseMenuOpen,
     registerLicenseControl,
