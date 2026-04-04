@@ -1,7 +1,14 @@
 {
-  "generatedAt": "2026-04-04T17:48:10.060463+00:00",
+  "generatedAt": "2026-04-04T18:39:26.135627+00:00",
   "timeRange": "24h",
   "risingEvents": [
+    {
+      "id": "rss_ea576222047c",
+      "title": "Italy’s Meloni meets Qatar emir to discuss energy issues amid Iran war",
+      "velocityScore": 1.0,
+      "category": "conflict",
+      "countryName": "Iran"
+    },
     {
       "id": "rss_940af67e7ce4",
       "title": "What the Iran-Iraq war can tell us about the US-Israeli war on Iran",
@@ -50,25 +57,18 @@
       "velocityScore": 1.0,
       "category": "politics",
       "countryName": "Iran"
-    },
-    {
-      "id": "rss_b16ee156170e",
-      "title": "Three suspects ordered to stay in UK custody over Jewish charity attack",
-      "velocityScore": 1.0,
-      "category": "politics",
-      "countryName": "United Kingdom"
     }
   ],
   "risingRegions": [],
   "categoryTrends": {
     "politics": {
-      "count": 765,
-      "change": "+765",
+      "count": 767,
+      "change": "+767",
       "changePercent": 100
     },
     "conflict": {
-      "count": 353,
-      "change": "+353",
+      "count": 354,
+      "change": "+354",
       "changePercent": 100
     },
     "disaster": {
@@ -86,14 +86,14 @@
       "change": "+21",
       "changePercent": 100
     },
+    "sports": {
+      "count": 19,
+      "change": "+19",
+      "changePercent": 100
+    },
     "economy": {
       "count": 18,
       "change": "+18",
-      "changePercent": 100
-    },
-    "sports": {
-      "count": 16,
-      "change": "+16",
       "changePercent": 100
     },
     "technology": {
@@ -102,11 +102,11 @@
       "changePercent": 100
     }
   },
-  "totalEvents": 1284,
-  "totalSources": 1284,
+  "totalEvents": 1290,
+  "totalSources": 1290,
   "globalStats": {
-    "avgAttentionScore": 0.893,
-    "totalArticles": 1284,
-    "bubbleCount": 1135
+    "avgAttentionScore": 0.892,
+    "totalArticles": 1290,
+    "bubbleCount": 1139
   }
 }
