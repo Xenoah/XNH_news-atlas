@@ -45,10 +45,10 @@
   - Events with explicit coordinates keep their feed-provided point; non-geo publisher RSS still falls back to keyword geocoding
   - Optional `scripts/copilot-geotags.json` overrides allow AI-reviewed coordinates; UI marks these with a robot indicator
   - Articles that still cannot be reliably placed are written to `data/non-geotag.json` and excluded from map markers
-  - URL deduplication across runs, 7-day accumulation by publishedAt, oldest-first overflow trimming at 2400
+  - URL deduplication across runs, 7-day accumulation by publishedAt, oldest-first overflow trimming at 5000
   - Stable URL-seeded jitter only for inferred country-level coordinates
   - `data/meta.json` written with generatedAt, eventCount, elapsedSec
-  - Top 2400 events output sorted by attention score
+  - Top 5000 events output sorted by attention score
   - Exit 0 (not 1) when 0 events fetched — preserves existing data on failed or degraded runs
 - [x] `.github/workflows/fetch-news.yml` — hourly GitHub Actions workflow
   - `cron: '0 * * * *'` + `workflow_dispatch`

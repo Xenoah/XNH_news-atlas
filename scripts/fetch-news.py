@@ -33,7 +33,7 @@ from email.utils import parsedate_to_datetime
 
 OUTPUT_DIR        = os.path.join(os.path.dirname(__file__), "..", "data")
 COPILOT_GEOTAGS_PATH = os.path.join(os.path.dirname(__file__), "copilot-geotags.json")
-MAX_EVENTS_OUTPUT = 2400   # top N events written to world-latest.json
+MAX_EVENTS_OUTPUT = 5000   # top N events written to world-latest.json
 PRUNE_DAYS        = 7      # remove events this many days after publication
 FETCH_TIMEOUT_S   = 15     # per-feed HTTP timeout
 BUBBLE_THRESHOLD  = 0.82   # attentionScore above which bubble:true is set
@@ -391,6 +391,22 @@ def is_within_window(event: dict, days: int = PRUNE_DAYS) -> bool:
     cutoff = datetime.now(timezone.utc) - timedelta(days=days)
     published_at = get_published_at(event)
     return True if published_at is None else published_at >= cutoff
+
+
+def load_json_list_with_fallback(*paths: str) -> list[dict]:
+    last_error = None
+    for path in paths:
+        if not path or not os.path.exists(path):
+            continue
+        try:
+            with open(path, encoding="utf-8") as f:
+                payload = json.load(f)
+            return payload if isinstance(payload, list) else []
+        except Exception as ex:
+            last_error = ex
+    if last_error:
+        raise last_error
+    return []
 
 
 def extract_location(title: str, description: str) -> dict | None:
@@ -777,8 +793,8 @@ def build_location_meta(
         "countryName": keyword_loc["country"],
         "regionName": keyword_loc["country"],
         "locationName": keyword_loc["country"],
-        "lat": None,
-        "lng": None,
+        "lat": keyword_loc["lat"],
+        "lng": keyword_loc["lng"],
         "geoPrecision": "country",
         "explicit": False,
         "geoSource": "keyword",
@@ -1013,13 +1029,13 @@ def main() -> int:
 
     # ── Step 1: Load existing events (7-day accumulation base) ────────────────
     existing_path = os.path.join(OUTPUT_DIR, "world-latest.json")
+    existing_fallback_path = os.path.join(OUTPUT_DIR, "world-latest.fixed.json")
     non_geotag_path = os.path.join(OUTPUT_DIR, "non-geotag.json")
     events_by_url: dict[str, dict] = {}
     non_geotag_by_url: dict[str, dict] = {}
     if os.path.exists(existing_path):
         try:
-            with open(existing_path, encoding="utf-8") as f:
-                existing = json.load(f)
+            existing = load_json_list_with_fallback(existing_path, existing_fallback_path)
             for e in (existing if isinstance(existing, list) else []):
                 if is_within_window(e):
                     url = e.get("sources", [{}])[0].get("url", e.get("id", ""))

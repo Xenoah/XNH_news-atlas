@@ -50,7 +50,7 @@ XNH_news-atlas/
 │   └── workflows/
 │       └── fetch-news.yml            # Hourly GitHub Actions workflow
 └── data/                             # Pre-fetched static JSON (auto-updated)
-    ├── world-latest.json             # Up to 2400 world news events
+    ├── world-latest.json             # Up to 5000 world news events
     ├── top-headlines.json            # Top 10 events by attention score
     ├── trends.json                   # Trend metadata and category statistics
     ├── heatmap-1h.json               # Heatmap GeoJSON for 1-hour window
@@ -74,7 +74,7 @@ The workflow `.github/workflows/fetch-news.yml` runs every hour:
 5. Articles that still lack a reliable geotag are excluded from the map and written to `data/non-geotag.json`
 6. Deduplicates by URL — new articles are added; existing URLs are skipped
 7. Prunes events older than **7 days by publishedAt**
-8. If the pool exceeds **2400**, drops the oldest published items first, then ranks the retained set by attention score
+8. If the pool exceeds **5000**, drops the oldest published items first, then ranks the retained set by attention score
 9. Commits updated JSON to the `data/` directory if anything changed
 
 Total runtime: ~2 minutes per run, well within GitHub Actions limits.
@@ -161,7 +161,7 @@ Each event in `world-latest.json` follows this schema:
 ```json
 {
   "generatedAt": "ISO 8601",
-  "eventCount": 2400,
+  "eventCount": 5000,
   "nonGeotagCount": 85,
   "rawUniqueCount": 1200,
   "failedTopics": 2,
