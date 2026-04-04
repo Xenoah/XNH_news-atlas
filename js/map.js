@@ -133,9 +133,6 @@ NewsAtlas.map = (function() {
     if (_map.getLayer('sunlight-night')) {
       _map.setPaintProperty('sunlight-night', 'fill-color', _currentBaseTheme === 'light' ? 'rgba(15,23,42,0.22)' : 'rgba(2,6,23,0.46)');
     }
-    if (_map.getLayer('sunlight-twilight')) {
-      _map.setPaintProperty('sunlight-twilight', 'fill-color', _currentBaseTheme === 'light' ? 'rgba(249,115,22,0.12)' : 'rgba(251,146,60,0.24)');
-    }
   }
 
   /* ── Sources ──────────────────────────────────────────────── */
@@ -206,6 +203,7 @@ NewsAtlas.map = (function() {
       source: 'sunlight-overlay',
       filter: ['==', ['get', 'phase'], 'day'],
       paint: {
+        'fill-antialias': false,
         'fill-color': _currentBaseTheme === 'light' ? 'rgba(255,244,214,0.10)' : 'rgba(250,204,21,0.08)',
         'fill-opacity': 1
       }
@@ -217,18 +215,8 @@ NewsAtlas.map = (function() {
       source: 'sunlight-overlay',
       filter: ['==', ['get', 'phase'], 'night'],
       paint: {
+        'fill-antialias': false,
         'fill-color': _currentBaseTheme === 'light' ? 'rgba(15,23,42,0.22)' : 'rgba(2,6,23,0.46)',
-        'fill-opacity': 1
-      }
-    });
-
-    _map.addLayer({
-      id: 'sunlight-twilight',
-      type: 'fill',
-      source: 'sunlight-overlay',
-      filter: ['==', ['get', 'phase'], 'twilight'],
-      paint: {
-        'fill-color': _currentBaseTheme === 'light' ? 'rgba(249,115,22,0.12)' : 'rgba(251,146,60,0.24)',
         'fill-opacity': 1
       }
     });
@@ -529,7 +517,6 @@ NewsAtlas.map = (function() {
 
     _setLayerVisibility('sunlight-day', visible);
     _setLayerVisibility('sunlight-night', visible);
-    _setLayerVisibility('sunlight-twilight', visible);
 
     if (!visible) {
       if (force) {
@@ -542,7 +529,7 @@ NewsAtlas.map = (function() {
     try {
       const src = _map.getSource('sunlight-overlay');
       if (src) {
-        src.setData(NewsAtlas.utils.getSunlightOverlayGeoJSON(new Date(), 1));
+        src.setData(NewsAtlas.utils.getSunlightOverlayGeoJSON(new Date(), 0.5));
       }
     } catch (err) {
       console.warn('[map] Failed to refresh sunlight overlay:', err);

@@ -287,12 +287,11 @@ NewsAtlas.utils = {
   },
 
   getSunPhaseIntervals(lat, context) {
-    const day = this.getAboveAltitudeIntervals(lat, 6, context);
-    const lit = this.getAboveAltitudeIntervals(lat, -6, context);
+    const above0 = this.getAboveAltitudeIntervals(lat, 0, context);
+
     return {
-      day,
-      twilight: this.subtractIntervals(lit, day),
-      night: this.complementIntervals(lit)
+      day: above0,
+      night: this.complementIntervals(above0)
     };
   },
 
@@ -321,7 +320,7 @@ NewsAtlas.utils = {
 
     const step = Number(cellSizeDeg) > 0 ? Number(cellSizeDeg) : 1;
     const features = [];
-    const phases = ['day', 'twilight', 'night'];
+    const phases = ['day', 'night'];
 
     for (let south = -90; south < 90; south += step) {
       const north = Math.min(south + step, 90);
