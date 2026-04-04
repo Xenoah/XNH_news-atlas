@@ -441,20 +441,71 @@ NewsAtlas.map = (function() {
   function _getVisibleEventsForZoom(events) {
     if (!Array.isArray(events) || !events.length) return [];
 
+    const ranked = [...events].sort((a, b) => (b.attentionScore || 0) - (a.attentionScore || 0));
     if (_currentZoomCategory === 'high') {
-      return events;
+      return ranked;
     }
 
-    const ranked = [...events].sort((a, b) => (b.attentionScore || 0) - (a.attentionScore || 0));
     if (_currentZoomCategory === 'mid') {
       return ranked
         .filter(e => NewsAtlas.scoring.shouldBubble(e) || (e.attentionScore || 0) >= 0.45)
         .slice(0, 1200);
     }
 
-    return ranked
+    const highPriority = ranked
       .filter(e => NewsAtlas.scoring.shouldBubble(e) || (e.attentionScore || 0) >= 0.72)
       .slice(0, 250);
+    const regionalRepresentatives = _pickRegionalRepresentatives(ranked);
+    return _mergeVisibleEvents(regionalRepresentatives, highPriority, 250);
+  }
+
+  function _pickRegionalRepresentatives(rankedEvents) {
+    const regions = new Map();
+
+    rankedEvents.forEach((event) => {
+      const key = _getRegionKey(event);
+      if (!key) return;
+      if (!regions.has(key)) regions.set(key, []);
+      regions.get(key).push(event);
+    });
+
+    return Array.from(regions.values())
+      .map((regionEvents) => {
+        const bubbleEvent = regionEvents.find(e => NewsAtlas.scoring.shouldBubble(e));
+        return bubbleEvent || regionEvents[0];
+      })
+      .filter(Boolean)
+      .sort((a, b) => (b.attentionScore || 0) - (a.attentionScore || 0));
+  }
+
+  function _getRegionKey(event) {
+    const lat = Number(event && event.lat);
+    const lng = Number(event && event.lng);
+    if (!Number.isFinite(lat) || !Number.isFinite(lng)) return null;
+
+    const latBand = Math.max(0, Math.min(5, Math.floor((lat + 90) / 30)));
+    const lngBand = Math.max(0, Math.min(7, Math.floor((lng + 180) / 45)));
+    return `${latBand}:${lngBand}`;
+  }
+
+  function _mergeVisibleEvents(primaryEvents, supplementalEvents, limit) {
+    const merged = [];
+    const seenIds = new Set();
+
+    [...primaryEvents, ...supplementalEvents].forEach((event) => {
+      const eventKey = _getEventIdentity(event);
+      if (!event || seenIds.has(eventKey)) return;
+      seenIds.add(eventKey);
+      merged.push(event);
+    });
+
+    return merged.slice(0, limit);
+  }
+
+  function _getEventIdentity(event) {
+    if (!event) return null;
+    if (event.id) return `id:${event.id}`;
+    return `fallback:${event.title || ''}:${event.lat || ''}:${event.lng || ''}:${event.publishedAt || ''}`;
   }
 
   function _refreshEventSources() {
