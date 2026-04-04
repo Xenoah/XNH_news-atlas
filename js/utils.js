@@ -124,46 +124,6 @@ NewsAtlas.utils = {
     return map[category] || map.other;
   },
 
-  getTimezoneGridGeoJSON() {
-    const features = [];
-    for (let lng = -180; lng <= 180; lng += 15) {
-      features.push({
-        type: 'Feature',
-        properties: {
-          kind: 'line',
-          offsetHours: Math.round(lng / 15),
-          emphasized: lng === 0 || Math.abs(lng) === 180
-        },
-        geometry: {
-          type: 'LineString',
-          coordinates: [[lng, -85], [lng, 85]]
-        }
-      });
-    }
-
-    for (let centerLng = -172.5; centerLng <= 172.5; centerLng += 15) {
-      const offsetHours = Math.round(centerLng / 15);
-      const sign = offsetHours > 0 ? '+' : '';
-      features.push({
-        type: 'Feature',
-        properties: {
-          kind: 'label',
-          offsetHours,
-          label: `UTC${sign}${offsetHours}`
-        },
-        geometry: {
-          type: 'Point',
-          coordinates: [centerLng, 76]
-        }
-      });
-    }
-
-    return {
-      type: 'FeatureCollection',
-      features
-    };
-  },
-
   getSolarContext(atDate) {
     const date = atDate instanceof Date ? atDate : new Date(atDate || Date.now());
     if (isNaN(date.getTime())) return null;

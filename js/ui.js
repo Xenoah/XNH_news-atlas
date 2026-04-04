@@ -8,6 +8,7 @@ window.NewsAtlas = window.NewsAtlas || {};
 NewsAtlas.ui = (function() {
   const TRANSLATE_STORAGE_KEY = 'newsatlas:translate-language';
   const DISPLAY_SETTINGS_STORAGE_KEY = 'newsatlas:display-settings';
+  const COOKIE_CONSENT_STORAGE_KEY = 'newsatlas:translation-cookie-consent';
   const TRANSLATE_LANGUAGES = ['ja', 'ko', 'zh-CN', 'zh-TW', 'es', 'fr', 'de', 'pt', 'ar', 'hi', 'ru'];
   const DEBUG_KONAMI_CODE = ['up', 'up', 'down', 'down', 'left', 'right', 'left', 'right', 'b', 'a'];
   const DEBUG_LOG_LIMIT = 80;
@@ -92,6 +93,7 @@ NewsAtlas.ui = (function() {
   let _translateChromeObserver = null;
   let _displaySettingsOpen = false;
   let _displaySettings = { ...DEFAULT_DISPLAY_SETTINGS };
+  let _cookieConsent = 'unknown';
   let _debugConsoleOpen = false;
   let _clockTimer = null;
   let _debugConsoleTimer = null;
@@ -116,7 +118,9 @@ NewsAtlas.ui = (function() {
     el.sunlightToggle = document.getElementById('sunlight-toggle');
     el.timezoneGridToggle = document.getElementById('timezone-grid-toggle');
     el.clockUtcValue = document.getElementById('clock-utc-value');
+    el.clockUtcDate = document.getElementById('clock-utc-date');
     el.clockJstValue = document.getElementById('clock-jst-value');
+    el.clockJstDate = document.getElementById('clock-jst-date');
     el.modeButtons    = document.querySelectorAll('.mode-btn');
     el.timeButtons    = document.querySelectorAll('.time-btn');
     el.categoryChips  = document.querySelectorAll('.category-chip');
@@ -136,6 +140,9 @@ NewsAtlas.ui = (function() {
     el.translateFallbackText = document.getElementById('translate-fallback-text');
     el.translateFallbackOpen = document.getElementById('translate-fallback-open');
     el.translateFallbackClose = document.getElementById('translate-fallback-close');
+    el.cookieConsent = document.getElementById('cookie-consent');
+    el.cookieConsentAccept = document.getElementById('cookie-consent-accept');
+    el.cookieConsentDecline = document.getElementById('cookie-consent-decline');
     el.debugConsole = document.getElementById('debug-console');
     el.debugSummary = document.getElementById('debug-summary');
     el.debugJson = document.getElementById('debug-json');
@@ -146,10 +153,15 @@ NewsAtlas.ui = (function() {
 
     renderLicenseMenu();
     initDisplaySettings();
+    initCookieConsent();
     initClocks();
     protectInteractiveControlsFromTranslation();
     initDebugConsole();
-    initGoogleTranslate();
+    if (_cookieConsent === 'accepted') {
+      initGoogleTranslate();
+    } else {
+      syncTranslationAvailability();
+    }
     bindEvents();
   }
 
@@ -201,7 +213,17 @@ NewsAtlas.ui = (function() {
 
     if (el.languageSelect) {
       el.languageSelect.addEventListener('change', (e) => {
-        applyTranslationLanguage(e.target.value);
+        const nextLanguage = e.target.value;
+        if (nextLanguage && _cookieConsent !== 'accepted') {
+          e.target.value = getStoredLanguage();
+          if (_cookieConsent === 'unknown') {
+            syncCookieConsentUI(true);
+          } else {
+            showTranslateFallback('Inline translation is disabled because translation cookie consent was declined.', nextLanguage);
+          }
+          return;
+        }
+        applyTranslationLanguage(nextLanguage);
       });
     }
 
@@ -248,6 +270,14 @@ NewsAtlas.ui = (function() {
 
     if (el.translateFallbackClose) {
       el.translateFallbackClose.addEventListener('click', hideTranslateFallback);
+    }
+
+    if (el.cookieConsentAccept) {
+      el.cookieConsentAccept.addEventListener('click', () => setCookieConsent('accepted'));
+    }
+
+    if (el.cookieConsentDecline) {
+      el.cookieConsentDecline.addEventListener('click', () => setCookieConsent('declined'));
     }
 
     if (el.debugCopy) {
@@ -439,13 +469,91 @@ NewsAtlas.ui = (function() {
     }
   }
 
+  function formatZoneDate(timeZone) {
+    try {
+      return new Intl.DateTimeFormat('en-CA', {
+        timeZone,
+        year: 'numeric',
+        month: '2-digit',
+        day: '2-digit',
+        weekday: 'short'
+      }).format(new Date());
+    } catch (_) {
+      return '----/--/-- ---';
+    }
+  }
+
   function renderClocks() {
     if (el.clockUtcValue) {
       el.clockUtcValue.textContent = formatZoneTime('UTC');
     }
+    if (el.clockUtcDate) {
+      el.clockUtcDate.textContent = formatZoneDate('UTC');
+    }
     if (el.clockJstValue) {
       el.clockJstValue.textContent = formatZoneTime('Asia/Tokyo');
     }
+    if (el.clockJstDate) {
+      el.clockJstDate.textContent = formatZoneDate('Asia/Tokyo');
+    }
+  }
+
+  function initCookieConsent() {
+    _cookieConsent = loadCookieConsent();
+    syncCookieConsentUI(_cookieConsent === 'unknown');
+  }
+
+  function loadCookieConsent() {
+    try {
+      const raw = window.localStorage.getItem(COOKIE_CONSENT_STORAGE_KEY);
+      return raw === 'accepted' || raw === 'declined' ? raw : 'unknown';
+    } catch (_) {
+      return 'unknown';
+    }
+  }
+
+  function saveCookieConsent() {
+    try {
+      if (_cookieConsent === 'unknown') {
+        window.localStorage.removeItem(COOKIE_CONSENT_STORAGE_KEY);
+      } else {
+        window.localStorage.setItem(COOKIE_CONSENT_STORAGE_KEY, _cookieConsent);
+      }
+    } catch (_) {}
+  }
+
+  function syncCookieConsentUI(forceOpen) {
+    if (el.cookieConsent) {
+      const shouldOpen = Boolean(forceOpen) || _cookieConsent === 'unknown';
+      el.cookieConsent.hidden = !shouldOpen;
+    }
+    syncTranslationAvailability();
+  }
+
+  function syncTranslationAvailability() {
+    if (!el.languageSelect) return;
+    const enabled = _cookieConsent === 'accepted';
+    el.languageSelect.disabled = false;
+    el.languageSelect.dataset.cookieConsent = _cookieConsent;
+    el.languageSelect.title = enabled
+      ? ''
+      : 'In-page translation is disabled until translation-cookie permission is granted.';
+  }
+
+  function setCookieConsent(value) {
+    _cookieConsent = value === 'accepted' ? 'accepted' : 'declined';
+    saveCookieConsent();
+    syncCookieConsentUI(false);
+    if (_cookieConsent === 'accepted') {
+      initGoogleTranslate();
+      return;
+    }
+    storeLanguage('');
+    if (el.languageSelect) {
+      el.languageSelect.value = '';
+    }
+    clearTranslateState();
+    hideTranslateFallback();
   }
 
   function loadDisplaySettings() {

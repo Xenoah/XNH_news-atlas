@@ -34,10 +34,12 @@
           <div class="clock-card" aria-label="Coordinated Universal Time">
             <span class="clock-card-label">UTC</span>
             <span id="clock-utc-value" class="clock-card-value">--:--:--</span>
+            <span id="clock-utc-date" class="clock-card-date">----/--/-- ---</span>
           </div>
           <div class="clock-card" aria-label="Japan Standard Time">
             <span class="clock-card-label">JST</span>
             <span id="clock-jst-value" class="clock-card-value">--:--:--</span>
+            <span id="clock-jst-date" class="clock-card-date">----/--/-- ---</span>
           </div>
         </div>
       </div>
@@ -127,10 +129,10 @@
             <div class="display-settings-section">
               <div class="display-settings-row">
                 <div>
-                  <div class="display-settings-label">Timezone Grid</div>
-                  <div class="display-settings-hint">Show 15° UTC zone boundaries on the map.</div>
+                  <div class="display-settings-label">Timezone Boundaries</div>
+                  <div class="display-settings-hint">Show researched civil timezone boundaries on the map.</div>
                 </div>
-                <label class="display-switch" aria-label="Toggle timezone grid">
+                <label class="display-switch" aria-label="Toggle timezone boundaries">
                   <input id="timezone-grid-toggle" name="timezone-grid" type="checkbox" checked>
                   <span class="display-switch-track"></span>
                 </label>
@@ -337,6 +339,18 @@
   <script src="js/main.js"></script>
 
   <div id="google_translate_element" class="google-translate-host" aria-hidden="true"></div>
+  <div id="cookie-consent" class="cookie-consent" hidden>
+    <div class="cookie-consent-card">
+      <div class="cookie-consent-title">Translation Cookie Permission</div>
+      <div class="cookie-consent-text">
+        This site uses local storage for settings. In-page Google Translate may also set a cookie for translation state. Allow it?
+      </div>
+      <div class="cookie-consent-actions">
+        <button id="cookie-consent-accept" class="translate-fallback-btn primary" type="button">Allow</button>
+        <button id="cookie-consent-decline" class="translate-fallback-btn" type="button">Not now</button>
+      </div>
+    </div>
+  </div>
   <div id="translate-fallback" class="translate-fallback" hidden>
     <div class="translate-fallback-card">
       <div class="translate-fallback-title">Translation fallback</div>

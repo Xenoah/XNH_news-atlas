@@ -15,6 +15,112 @@ NewsAtlas.map = (function() {
   let _sunlightTimer = null;
   let _allEvents = [];
   let _currentMode = 'events';
+  const TIMEZONE_BOUNDARIES_URL = 'https://cdn.jsdelivr.net/gh/dejurin/simplified-timezone-boundaries@main/output.geojson';
+  let _timezoneDataPromise = null;
+  let _timezoneDataLoaded = false;
+
+  function _getTimezoneFillExpression(theme) {
+    const dark = theme !== 'light';
+    return [
+      'interpolate', ['linear'], ['get', 'utcOffsetMinutes'],
+      -720, dark ? 'rgba(111, 78, 55, 0.14)' : 'rgba(194, 120, 78, 0.18)',
+      -540, dark ? 'rgba(125, 96, 62, 0.14)' : 'rgba(209, 143, 91, 0.18)',
+      -360, dark ? 'rgba(140, 116, 72, 0.14)' : 'rgba(223, 170, 108, 0.18)',
+      -180, dark ? 'rgba(126, 128, 84, 0.14)' : 'rgba(198, 194, 126, 0.17)',
+      0, dark ? 'rgba(96, 126, 116, 0.13)' : 'rgba(156, 197, 184, 0.16)',
+      180, dark ? 'rgba(84, 112, 132, 0.14)' : 'rgba(147, 183, 204, 0.17)',
+      360, dark ? 'rgba(101, 103, 145, 0.14)' : 'rgba(163, 171, 214, 0.18)',
+      540, dark ? 'rgba(121, 94, 136, 0.14)' : 'rgba(194, 158, 206, 0.18)',
+      720, dark ? 'rgba(138, 96, 116, 0.14)' : 'rgba(221, 166, 176, 0.18)',
+      840, dark ? 'rgba(153, 108, 92, 0.14)' : 'rgba(234, 179, 145, 0.19)'
+    ];
+  }
+
+  function _getTimezoneOutlineColor(theme) {
+    return theme === 'light' ? 'rgba(138,88,58,0.55)' : 'rgba(232,196,154,0.36)';
+  }
+
+  function _getTimezoneLabelColor(theme) {
+    return theme === 'light' ? 'rgba(102,51,22,0.82)' : 'rgba(245,222,189,0.74)';
+  }
+
+  function _getTimezoneLabelHaloColor(theme) {
+    return theme === 'light' ? 'rgba(252,248,238,0.86)' : 'rgba(8,12,18,0.82)';
+  }
+
+  function _parseTimeZoneOffset(tzid, atDate = new Date()) {
+    if (!tzid) return null;
+    try {
+      const formatter = new Intl.DateTimeFormat('en-US', {
+        timeZone: tzid,
+        timeZoneName: 'shortOffset',
+        hour: '2-digit'
+      });
+      const parts = formatter.formatToParts(atDate);
+      const zoneName = parts.find(part => part.type === 'timeZoneName')?.value || '';
+      if (zoneName === 'GMT' || zoneName === 'UTC') {
+        return { minutes: 0, label: 'UTC+0' };
+      }
+      const match = zoneName.match(/GMT([+-])(\d{1,2})(?::?(\d{2}))?/i);
+      if (!match) return null;
+      const sign = match[1] === '-' ? -1 : 1;
+      const hours = Number(match[2] || 0);
+      const mins = Number(match[3] || 0);
+      const totalMinutes = sign * (hours * 60 + mins);
+      const offsetLabel = mins
+        ? `UTC${sign > 0 ? '+' : '-'}${hours}:${String(mins).padStart(2, '0')}`
+        : `UTC${sign > 0 ? '+' : '-'}${hours}`;
+      return { minutes: totalMinutes, label: offsetLabel };
+    } catch (_) {
+      return null;
+    }
+  }
+
+  function _buildTimezoneBoundaryData(rawData) {
+    const base = rawData && rawData.type === 'FeatureCollection' ? rawData : { type: 'FeatureCollection', features: [] };
+    const now = new Date();
+    return {
+      type: 'FeatureCollection',
+      features: (base.features || []).map(feature => {
+        const props = feature && feature.properties ? { ...feature.properties } : {};
+        const offset = _parseTimeZoneOffset(props.tzid, now);
+        props.utcOffsetMinutes = offset ? offset.minutes : 0;
+        props.utcOffsetLabel = offset ? offset.label : 'UTC';
+        return {
+          ...feature,
+          properties: props
+        };
+      })
+    };
+  }
+
+  async function _ensureTimezoneBoundariesLoaded() {
+    if (_timezoneDataLoaded) return true;
+    if (_timezoneDataPromise) return _timezoneDataPromise;
+    _timezoneDataPromise = fetch(TIMEZONE_BOUNDARIES_URL)
+      .then(response => {
+        if (!response.ok) {
+          throw new Error(`Timezone boundaries fetch failed: ${response.status}`);
+        }
+        return response.json();
+      })
+      .then(data => {
+        const src = _map && _map.getSource('timezone-grid');
+        if (src) {
+          src.setData(_buildTimezoneBoundaryData(data));
+          _timezoneDataLoaded = true;
+        }
+        return true;
+      })
+      .catch(err => {
+        console.warn('[map] Failed to load timezone boundaries:', err);
+        return false;
+      })
+      .finally(() => {
+        _timezoneDataPromise = null;
+      });
+    return _timezoneDataPromise;
+  }
 
   /* ── CartoDB Dark Style Definition ──────────────────────── */
 
@@ -134,17 +240,15 @@ NewsAtlas.map = (function() {
     if (_map.getLayer('sunlight-night')) {
       _map.setPaintProperty('sunlight-night', 'fill-color', _currentBaseTheme === 'light' ? 'rgba(15,23,42,0.22)' : 'rgba(2,6,23,0.46)');
     }
+    if (_map.getLayer('timezone-zone-fills')) {
+      _map.setPaintProperty('timezone-zone-fills', 'fill-color', _getTimezoneFillExpression(_currentBaseTheme));
+    }
     if (_map.getLayer('timezone-grid-lines')) {
-      _map.setPaintProperty('timezone-grid-lines', 'line-color', [
-        'case',
-        ['boolean', ['get', 'emphasized'], false],
-        _currentBaseTheme === 'light' ? 'rgba(37,99,235,0.34)' : 'rgba(147,197,253,0.28)',
-        _currentBaseTheme === 'light' ? 'rgba(15,23,42,0.16)' : 'rgba(226,232,240,0.14)'
-      ]);
+      _map.setPaintProperty('timezone-grid-lines', 'line-color', _getTimezoneOutlineColor(_currentBaseTheme));
     }
     if (_map.getLayer('timezone-grid-labels')) {
-      _map.setPaintProperty('timezone-grid-labels', 'text-color', _currentBaseTheme === 'light' ? 'rgba(30,41,59,0.64)' : 'rgba(226,232,240,0.56)');
-      _map.setPaintProperty('timezone-grid-labels', 'text-halo-color', _currentBaseTheme === 'light' ? 'rgba(248,250,252,0.72)' : 'rgba(2,6,23,0.72)');
+      _map.setPaintProperty('timezone-grid-labels', 'text-color', _getTimezoneLabelColor(_currentBaseTheme));
+      _map.setPaintProperty('timezone-grid-labels', 'text-halo-color', _getTimezoneLabelHaloColor(_currentBaseTheme));
     }
   }
 
@@ -158,7 +262,7 @@ NewsAtlas.map = (function() {
 
     _map.addSource('timezone-grid', {
       type: 'geojson',
-      data: NewsAtlas.utils.getTimezoneGridGeoJSON()
+      data: { type: 'FeatureCollection', features: [] }
     });
 
     // Clustered events source
@@ -241,29 +345,32 @@ NewsAtlas.map = (function() {
 
     // ── Heatmap layer ──────────────────────────────────────────
     _map.addLayer({
+      id: 'timezone-zone-fills',
+      type: 'fill',
+      source: 'timezone-grid',
+      paint: {
+        'fill-color': _getTimezoneFillExpression(_currentBaseTheme),
+        'fill-opacity': 1
+      }
+    });
+
+    _map.addLayer({
       id: 'timezone-grid-lines',
       type: 'line',
       source: 'timezone-grid',
-      filter: ['==', ['get', 'kind'], 'line'],
       layout: {
         'line-join': 'round',
         'line-cap': 'round'
       },
       paint: {
-        'line-color': [
-          'case',
-          ['boolean', ['get', 'emphasized'], false],
-          _currentBaseTheme === 'light' ? 'rgba(37,99,235,0.34)' : 'rgba(147,197,253,0.28)',
-          _currentBaseTheme === 'light' ? 'rgba(15,23,42,0.16)' : 'rgba(226,232,240,0.14)'
-        ],
+        'line-color': _getTimezoneOutlineColor(_currentBaseTheme),
         'line-width': [
-          'case',
-          ['boolean', ['get', 'emphasized'], false],
-          1.4,
-          1
+          'interpolate', ['linear'], ['zoom'],
+          1, 0.7,
+          3, 1,
+          6, 1.6
         ],
-        'line-opacity': 1,
-        'line-dasharray': [2, 3]
+        'line-opacity': 0.92
       }
     });
 
@@ -271,23 +378,26 @@ NewsAtlas.map = (function() {
       id: 'timezone-grid-labels',
       type: 'symbol',
       source: 'timezone-grid',
-      filter: ['==', ['get', 'kind'], 'label'],
+      minzoom: 1.5,
       layout: {
-        'text-field': ['get', 'label'],
+        'text-field': ['get', 'utcOffsetLabel'],
         'text-font': ['Open Sans Semibold', 'Arial Unicode MS Regular'],
         'text-size': [
           'interpolate', ['linear'], ['zoom'],
-          1, 9,
-          3, 10,
-          5, 11
+          1.5, 10,
+          3, 12,
+          5, 14
         ],
         'text-letter-spacing': 0.08,
+        'text-max-width': 4,
+        'symbol-placement': 'point',
         'text-allow-overlap': false
       },
       paint: {
-        'text-color': _currentBaseTheme === 'light' ? 'rgba(30,41,59,0.64)' : 'rgba(226,232,240,0.56)',
-        'text-halo-color': _currentBaseTheme === 'light' ? 'rgba(248,250,252,0.72)' : 'rgba(2,6,23,0.72)',
-        'text-halo-width': 1
+        'text-color': _getTimezoneLabelColor(_currentBaseTheme),
+        'text-halo-color': _getTimezoneLabelHaloColor(_currentBaseTheme),
+        'text-halo-width': 1.2,
+        'text-opacity': 0.95
       }
     });
 
@@ -668,8 +778,12 @@ NewsAtlas.map = (function() {
       : { showTimezoneGrid: true };
     const visible = Boolean(settings.showTimezoneGrid);
 
+    _setLayerVisibility('timezone-zone-fills', visible);
     _setLayerVisibility('timezone-grid-lines', visible);
     _setLayerVisibility('timezone-grid-labels', visible);
+    if (visible) {
+      _ensureTimezoneBoundariesLoaded();
+    }
   }
 
   function _updateBubbleMarkers(bubbleEvents) {

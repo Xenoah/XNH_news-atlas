@@ -104,6 +104,13 @@ body {
   color: var(--text-primary);
 }
 
+.clock-card-date {
+  font-size: 10px;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+  color: var(--text-muted);
+}
+
 #header-center {
   flex: 1;
   max-width: 480px;
@@ -2465,6 +2472,51 @@ body {
   backdrop-filter: blur(10px);
 }
 
+.cookie-consent {
+  position: fixed;
+  left: 20px;
+  right: 20px;
+  bottom: 20px;
+  z-index: 360;
+  display: flex;
+  justify-content: center;
+  pointer-events: none;
+}
+
+.cookie-consent-card {
+  width: min(520px, 100%);
+  padding: 16px 18px;
+  border: 1px solid rgba(88, 166, 255, 0.24);
+  border-radius: 18px;
+  background:
+    linear-gradient(180deg, rgba(17, 24, 34, 0.98), rgba(10, 14, 20, 0.96)),
+    radial-gradient(circle at top right, rgba(88, 166, 255, 0.12), transparent 52%);
+  box-shadow:
+    0 24px 48px rgba(0, 0, 0, 0.45),
+    inset 0 1px 0 rgba(255, 255, 255, 0.05);
+  pointer-events: auto;
+}
+
+.cookie-consent-title {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+.cookie-consent-text {
+  margin-top: 8px;
+  font-size: 13px;
+  line-height: 1.6;
+  color: var(--text-secondary);
+}
+
+.cookie-consent-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-top: 14px;
+}
+
 .translate-fallback-card {
   width: min(420px, calc(100vw - 32px));
   padding: 18px;
@@ -2918,6 +2970,20 @@ body {
     display: none;
   }
 
+  .cookie-consent {
+    left: 12px;
+    right: 12px;
+    bottom: 12px;
+  }
+
+  .cookie-consent-card {
+    padding: 14px 15px;
+  }
+
+  .cookie-consent-actions {
+    flex-wrap: wrap;
+  }
+
   #category-bar {
     gap: 5px;
     padding: 5px 8px;
@@ -2986,6 +3052,10 @@ body {
 
   .clock-card-value {
     font-size: 11px;
+  }
+
+  .clock-card-date {
+    font-size: 9px;
   }
 
   .mode-btn {
