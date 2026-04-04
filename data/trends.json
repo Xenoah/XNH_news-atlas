@@ -1,14 +1,7 @@
 {
-  "generatedAt": "2026-04-04T06:39:56.773984+00:00",
+  "generatedAt": "2026-04-04T07:37:02.081918+00:00",
   "timeRange": "24h",
   "risingEvents": [
-    {
-      "id": "rss_1039b908faf8",
-      "title": "Iran war: What is happening on day 36 of US-Israeli attacks?",
-      "velocityScore": 1.0,
-      "category": "conflict",
-      "countryName": "Iran"
-    },
     {
       "id": "rss_de28f5ad9204",
       "title": "‘The frontline is like Terminator’: fighting robots give Ukraine hope in war with Russia",
@@ -22,6 +15,13 @@
       "velocityScore": 1.0,
       "category": "conflict",
       "countryName": "United States"
+    },
+    {
+      "id": "rss_25f98b7307d3",
+      "title": "Afghanistan earthquake kills eight members of same family",
+      "velocityScore": 1.0,
+      "category": "disaster",
+      "countryName": "Afghanistan"
     },
     {
       "id": "rss_3dde4198979d",
@@ -52,18 +52,18 @@
       "countryName": "United Kingdom"
     },
     {
-      "id": "rss_00530fc37a36",
-      "title": "Live: Several blasts heard coming from northern Tehran",
+      "id": "rss_b55f0112aeb1",
+      "title": "Is opposing Israel 'anti-Semitism'? France’s latest attempt to fight hate risks inflaming it",
       "velocityScore": 1.0,
       "category": "politics",
-      "countryName": "Iran"
+      "countryName": "France"
     }
   ],
   "risingRegions": [],
   "categoryTrends": {
     "politics": {
-      "count": 698,
-      "change": "+698",
+      "count": 701,
+      "change": "+701",
       "changePercent": 100
     },
     "conflict": {
@@ -72,8 +72,8 @@
       "changePercent": 100
     },
     "disaster": {
-      "count": 57,
-      "change": "+57",
+      "count": 58,
+      "change": "+58",
       "changePercent": 100
     },
     "health": {
@@ -102,11 +102,11 @@
       "changePercent": 100
     }
   },
-  "totalEvents": 1181,
-  "totalSources": 1181,
+  "totalEvents": 1185,
+  "totalSources": 1185,
   "globalStats": {
     "avgAttentionScore": 0.892,
-    "totalArticles": 1181,
-    "bubbleCount": 1033
+    "totalArticles": 1185,
+    "bubbleCount": 1037
   }
 }
