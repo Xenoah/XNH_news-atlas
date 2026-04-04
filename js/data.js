@@ -23,6 +23,19 @@ NewsAtlas.data = (function() {
   let _cache       = {};
   let _gdeltActive = false;   // true only when user triggered a browser GDELT refresh
 
+  async function _fetchStaticWithFallback(files, fallbackValue) {
+    let lastError = null;
+    for (const file of files) {
+      try {
+        return await _fetchJSON(`${STATIC_BASE}/${file}`);
+      } catch (err) {
+        lastError = err;
+      }
+    }
+    if (typeof fallbackValue !== 'undefined') return fallbackValue;
+    throw lastError || new Error('Static JSON not available');
+  }
+
   /* ── Country Coordinates ──────────────────────────────────── */
 
   const CC = {
@@ -272,7 +285,10 @@ NewsAtlas.data = (function() {
     }
 
     // Default: fast static JSON
-    const data = await _fetchJSON(`${STATIC_BASE}/world-latest.fixed.json`);
+    const data = await _fetchStaticWithFallback(
+      ['world-latest.json', 'world-latest.fixed.json'],
+      []
+    );
     return Array.isArray(data) ? data : (data.events || []);
   }
 
@@ -334,13 +350,16 @@ NewsAtlas.data = (function() {
       const data = await _fetchJSON(`${LIVE_API_BASE}/headlines`).catch(() => ({}));
       return Array.isArray(data) ? data : (data.headlines || []);
     }
-    const data = await _fetchJSON(`${STATIC_BASE}/top-headlines.fixed.json`).catch(() => ({}));
+    const data = await _fetchStaticWithFallback(
+      ['top-headlines.json', 'top-headlines.fixed.json'],
+      {}
+    );
     return Array.isArray(data) ? data : (data.headlines || data.events || []);
   }
 
   async function getTrends() {
     if (_mode === 'live') return _fetchJSON(`${LIVE_API_BASE}/trends`);
-    return _fetchJSON(`${STATIC_BASE}/trends.fixed.json`).catch(() => ({}));
+    return _fetchStaticWithFallback(['trends.json', 'trends.fixed.json'], {});
   }
 
   async function getHeatmap(range) {

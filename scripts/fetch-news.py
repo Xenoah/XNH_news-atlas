@@ -409,6 +409,45 @@ def load_json_list_with_fallback(*paths: str) -> list[dict]:
     return []
 
 
+def resolve_existing_non_geotag_event(
+    event: dict,
+    copilot_geotags: dict[str, dict] | None = None,
+) -> dict | None:
+    sources = event.get("sources") or [{}]
+    source_url = sources[0].get("url", event.get("id", ""))
+    copilot_geo = get_copilot_geo(source_url, copilot_geotags)
+    lat = parse_float(event.get("lat"))
+    lng = parse_float(event.get("lng"))
+    if lat is None or lng is None:
+        if not copilot_geo:
+            return None
+        lat = copilot_geo["lat"]
+        lng = copilot_geo["lng"]
+
+    title = strip_html(event.get("title", ""))
+    summary = strip_html(event.get("summary", ""))
+    keyword_loc = extract_location(title, summary)
+    promoted = dict(event)
+    location_label = (
+        (copilot_geo or {}).get("label")
+        or promoted.get("locationName")
+        or (keyword_loc["country"] if keyword_loc else "")
+        or "Geotagged event"
+    )
+    promoted.update({
+        "countryCode": ((copilot_geo or {}).get("countryCode") or promoted.get("countryCode") or (keyword_loc["code"] if keyword_loc else "")),
+        "countryName": ((copilot_geo or {}).get("countryName") or promoted.get("countryName") or (keyword_loc["country"] if keyword_loc else location_label)),
+        "regionName": ((copilot_geo or {}).get("regionName") or promoted.get("regionName") or (keyword_loc["country"] if keyword_loc else location_label)),
+        "locationName": location_label,
+        "lat": round(lat, 4),
+        "lng": round(lng, 4),
+        "geoPrecision": ((copilot_geo or {}).get("precision") or promoted.get("geoPrecision") or "point"),
+        "geoSource": ((copilot_geo or {}).get("source") or promoted.get("geoSource") or "keyword"),
+        "geotagStatus": "resolved",
+    })
+    return promoted
+
+
 def extract_location(title: str, description: str) -> dict | None:
     """Scan title then description for known location keywords. Return first match."""
     text = f"{title} {strip_html(description)}"
@@ -1047,14 +1086,24 @@ def main() -> int:
 
     if os.path.exists(non_geotag_path):
         try:
-            with open(non_geotag_path, encoding="utf-8") as f:
-                existing_non_geo = json.load(f)
+            existing_non_geo = load_json_list_with_fallback(non_geotag_path)
+            promoted_non_geo_count = 0
             for e in (existing_non_geo if isinstance(existing_non_geo, list) else []):
-                if is_within_window(e):
-                    url = e.get("sources", [{}])[0].get("url", e.get("id", ""))
-                    if url and url not in events_by_url:
-                        non_geotag_by_url[url] = e
-            print(f"  Loaded {len(non_geotag_by_url)} existing non-geotag events\n")
+                if not is_within_window(e):
+                    continue
+                url = e.get("sources", [{}])[0].get("url", e.get("id", ""))
+                if not url or url in events_by_url:
+                    continue
+                promoted = resolve_existing_non_geotag_event(e, copilot_geotags)
+                if promoted is not None:
+                    events_by_url[url] = promoted
+                    promoted_non_geo_count += 1
+                    continue
+                non_geotag_by_url[url] = e
+            print(
+                f"  Loaded {len(non_geotag_by_url)} existing non-geotag events"
+                f"  ({promoted_non_geo_count} promoted to map output)\n"
+            )
         except Exception as ex:
             print(f"  [warn] Could not load non-geotag data: {ex}\n")
 
