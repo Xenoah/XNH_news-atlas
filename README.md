@@ -1,5 +1,8 @@
 Preview → https://xenoah.github.io/XNH_news-atlas/
 
+<img width="1917" height="937" alt="image" src="https://github.com/user-attachments/assets/85fc8865-6402-46fe-8b0c-17b4b000acf8" />
+
+
 
 # World News Map Viewer
 
