@@ -1,7 +1,14 @@
 {
-  "generatedAt": "2026-04-05T17:06:36.128871+00:00",
+  "generatedAt": "2026-04-05T17:49:48.692475+00:00",
   "timeRange": "24h",
   "risingEvents": [
+    {
+      "id": "rss_00e9df7bb1dc",
+      "title": "OPEC+ agrees to hike oil output, warns of slow recovery after attacks",
+      "velocityScore": 1.0,
+      "category": "conflict",
+      "countryName": "Iran"
+    },
     {
       "id": "rss_3b07051fff46",
       "title": "At least 14 people killed in Israeli strikes across Lebanon",
@@ -22,13 +29,6 @@
       "velocityScore": 1.0,
       "category": "conflict",
       "countryName": "Iran"
-    },
-    {
-      "id": "rss_24b481e393a5",
-      "title": "Nepal announces two-day weekends as fuel crisis caused by Iran war deepens",
-      "velocityScore": 1.0,
-      "category": "conflict",
-      "countryName": "India"
     },
     {
       "id": "rss_eaa65edda29a",
@@ -52,18 +52,18 @@
       "countryName": "United States"
     },
     {
-      "id": "rss_4218cc54ff2d",
-      "title": "The week in pictures: Mideast war, a lunar mission and Holy Week processions",
+      "id": "rss_30c67c3587fb",
+      "title": "Israel’s Ben-Gvir details plans for Palestinian ‘death row’",
       "velocityScore": 1.0,
-      "category": "conflict",
-      "countryName": "United States"
+      "category": "politics",
+      "countryName": "Israel"
     }
   ],
   "risingRegions": [],
   "categoryTrends": {
     "politics": {
-      "count": 834,
-      "change": "+834",
+      "count": 835,
+      "change": "+835",
       "changePercent": 100
     },
     "conflict": {
@@ -72,13 +72,13 @@
       "changePercent": 100
     },
     "disaster": {
-      "count": 90,
-      "change": "+90",
+      "count": 92,
+      "change": "+92",
       "changePercent": 100
     },
     "sports": {
-      "count": 31,
-      "change": "+31",
+      "count": 32,
+      "change": "+32",
       "changePercent": 100
     },
     "health": {
@@ -102,11 +102,11 @@
       "changePercent": 100
     }
   },
-  "totalEvents": 1394,
-  "totalSources": 1394,
+  "totalEvents": 1398,
+  "totalSources": 1398,
   "globalStats": {
-    "avgAttentionScore": 0.891,
-    "totalArticles": 1394,
-    "bubbleCount": 1231
+    "avgAttentionScore": 0.89,
+    "totalArticles": 1398,
+    "bubbleCount": 1234
   }
 }
