@@ -1,7 +1,14 @@
 {
-  "generatedAt": "2026-04-05T10:33:27.395550+00:00",
+  "generatedAt": "2026-04-05T11:06:01.645827+00:00",
   "timeRange": "24h",
   "risingEvents": [
+    {
+      "id": "rss_10842409c836",
+      "title": "Footage shows Israeli military dog attacking Palestinian man inside mosque",
+      "velocityScore": 1.0,
+      "category": "conflict",
+      "countryName": "Israel"
+    },
     {
       "id": "rss_42e01c5e168b",
       "title": "Thousands rally in Iraq against ‘senseless’ US-Israel war on Iran",
@@ -10,15 +17,22 @@
       "countryName": "Iran"
     },
     {
-      "id": "rss_de126e960d3f",
-      "title": "Trump seeks to end the war without it becoming ‘an abject failure’",
+      "id": "rss_d40846f77928",
+      "title": "Worker for US defense contractor killed in Iraq as colleagues say they are pressured to stay",
       "velocityScore": 1.0,
       "category": "conflict",
-      "countryName": "United States"
+      "countryName": "India"
     },
     {
-      "id": "rss_486b8798316f",
-      "title": "Iran war: What is happening on day 37 of US-Israeli attacks?",
+      "id": "rss_953b015b3673",
+      "title": "Iran war driving up funeral costs in the UK",
+      "velocityScore": 1.0,
+      "category": "conflict",
+      "countryName": "United Kingdom"
+    },
+    {
+      "id": "rss_b4d432ae2ff4",
+      "title": "Higher energy costs from Iran war could threaten fragile economics of AI boom | Heather Stewart",
       "velocityScore": 1.0,
       "category": "conflict",
       "countryName": "United States"
@@ -43,32 +57,18 @@
       "velocityScore": 1.0,
       "category": "conflict",
       "countryName": "Ukraine"
-    },
-    {
-      "id": "rss_ac9f80c472cf",
-      "title": "War in Lebanon: Art to provide psychological support to children",
-      "velocityScore": 1.0,
-      "category": "conflict",
-      "countryName": "Lebanon"
-    },
-    {
-      "id": "rss_c7b14b464f8e",
-      "title": "War in the Middle East: US rescues pilot from downed fighter jet",
-      "velocityScore": 1.0,
-      "category": "conflict",
-      "countryName": "Iran"
     }
   ],
   "risingRegions": [],
   "categoryTrends": {
     "politics": {
-      "count": 828,
-      "change": "+828",
+      "count": 831,
+      "change": "+831",
       "changePercent": 100
     },
     "conflict": {
-      "count": 352,
-      "change": "+352",
+      "count": 356,
+      "change": "+356",
       "changePercent": 100
     },
     "disaster": {
@@ -102,11 +102,11 @@
       "changePercent": 100
     }
   },
-  "totalEvents": 1372,
-  "totalSources": 1372,
+  "totalEvents": 1379,
+  "totalSources": 1379,
   "globalStats": {
     "avgAttentionScore": 0.892,
-    "totalArticles": 1372,
-    "bubbleCount": 1217
+    "totalArticles": 1379,
+    "bubbleCount": 1224
   }
 }
