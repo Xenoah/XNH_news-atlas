@@ -1,7 +1,21 @@
 {
-  "generatedAt": "2026-04-05T16:34:19.015657+00:00",
+  "generatedAt": "2026-04-05T17:06:36.128871+00:00",
   "timeRange": "24h",
   "risingEvents": [
+    {
+      "id": "rss_3b07051fff46",
+      "title": "At least 14 people killed in Israeli strikes across Lebanon",
+      "velocityScore": 1.0,
+      "category": "conflict",
+      "countryName": "Israel"
+    },
+    {
+      "id": "rss_b624af5fa9c9",
+      "title": "Iranian missile strikes industrial area in southern Israel",
+      "velocityScore": 1.0,
+      "category": "conflict",
+      "countryName": "Iran"
+    },
     {
       "id": "rss_b78807318ae5",
       "title": "Mearsheimer: No signs of quick end to US-Israel war on Iran",
@@ -43,32 +57,18 @@
       "velocityScore": 1.0,
       "category": "conflict",
       "countryName": "United States"
-    },
-    {
-      "id": "rss_30c67c3587fb",
-      "title": "Israel’s Ben-Gvir details plans for Palestinian ‘death row’",
-      "velocityScore": 1.0,
-      "category": "politics",
-      "countryName": "Israel"
-    },
-    {
-      "id": "rss_8d9efde925d0",
-      "title": "Trump threatens ‘hell’ for Iran over Hormuz Strait as deadline approaches",
-      "velocityScore": 1.0,
-      "category": "politics",
-      "countryName": "United States"
     }
   ],
   "risingRegions": [],
   "categoryTrends": {
     "politics": {
-      "count": 835,
-      "change": "+835",
+      "count": 834,
+      "change": "+834",
       "changePercent": 100
     },
     "conflict": {
-      "count": 352,
-      "change": "+352",
+      "count": 354,
+      "change": "+354",
       "changePercent": 100
     },
     "disaster": {
@@ -102,11 +102,11 @@
       "changePercent": 100
     }
   },
-  "totalEvents": 1393,
-  "totalSources": 1393,
+  "totalEvents": 1394,
+  "totalSources": 1394,
   "globalStats": {
-    "avgAttentionScore": 0.89,
-    "totalArticles": 1393,
-    "bubbleCount": 1230
+    "avgAttentionScore": 0.891,
+    "totalArticles": 1394,
+    "bubbleCount": 1231
   }
 }
