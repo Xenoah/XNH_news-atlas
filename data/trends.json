@@ -1,7 +1,14 @@
 {
-  "generatedAt": "2026-04-06T11:59:21.957657+00:00",
+  "generatedAt": "2026-04-06T13:39:50.683786+00:00",
   "timeRange": "24h",
   "risingEvents": [
+    {
+      "id": "rss_3ee06f54d569",
+      "title": "‘Smell’ of war comes to St Petersburg as Ukraine hammers Russian refineries",
+      "velocityScore": 1.0,
+      "category": "conflict",
+      "countryName": "Ukraine"
+    },
     {
       "id": "rss_fa51fc08616a",
       "title": "Pakistan offers two-stage truce plan to end US-Israel war: Report",
@@ -17,11 +24,18 @@
       "countryName": "United States"
     },
     {
-      "id": "rss_9a6146e3594c",
-      "title": "Yemen’s civilians fear fallout after Houthis enter Iran war",
+      "id": "rss_5ffb2f3c7fe9",
+      "title": "Proposals for immediate ceasefire to halt war circulated to US and Iran",
       "velocityScore": 1.0,
       "category": "conflict",
-      "countryName": "Yemen"
+      "countryName": "United States"
+    },
+    {
+      "id": "rss_6699d4bd16af",
+      "title": "Trump to hold press conference on Iran war after profanity-laden threats on social media – US politics live",
+      "velocityScore": 1.0,
+      "category": "conflict",
+      "countryName": "United States"
     },
     {
       "id": "rss_330aebc6b566",
@@ -43,32 +57,18 @@
       "velocityScore": 1.0,
       "category": "conflict",
       "countryName": "United States"
-    },
-    {
-      "id": "rss_08f05c6b1f96",
-      "title": "Was Trump ignorant to the realities of Netanyahu’s promised ‘easy’ war on Iran?",
-      "velocityScore": 1.0,
-      "category": "conflict",
-      "countryName": "Iran"
-    },
-    {
-      "id": "rss_b4fd24ea4baa",
-      "title": "Small UK firms’ energy bills set to more than double due to Iran war",
-      "velocityScore": 1.0,
-      "category": "conflict",
-      "countryName": "United Kingdom"
     }
   ],
   "risingRegions": [],
   "categoryTrends": {
     "politics": {
-      "count": 819,
-      "change": "+819",
+      "count": 822,
+      "change": "+822",
       "changePercent": 100
     },
     "conflict": {
-      "count": 346,
-      "change": "+346",
+      "count": 339,
+      "change": "+339",
       "changePercent": 100
     },
     "disaster": {
@@ -91,22 +91,22 @@
       "change": "+24",
       "changePercent": 100
     },
-    "science": {
-      "count": 22,
-      "change": "+22",
+    "technology": {
+      "count": 20,
+      "change": "+20",
       "changePercent": 100
     },
-    "technology": {
+    "science": {
       "count": 20,
       "change": "+20",
       "changePercent": 100
     }
   },
-  "totalEvents": 1409,
-  "totalSources": 1409,
+  "totalEvents": 1403,
+  "totalSources": 1403,
   "globalStats": {
     "avgAttentionScore": 0.885,
-    "totalArticles": 1409,
-    "bubbleCount": 1224
+    "totalArticles": 1403,
+    "bubbleCount": 1222
   }
 }
