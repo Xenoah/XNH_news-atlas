@@ -6,6 +6,36 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
+          51.8096,
+          35.4625
+        ]
+      },
+      "properties": {
+        "intensity": 0.9825,
+        "count": 1,
+        "region": "Iran"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          51.3809,
+          35.7235
+        ]
+      },
+      "properties": {
+        "intensity": 0.9825,
+        "count": 1,
+        "region": "Iran"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
           35.3213,
           31.4893
         ]
@@ -36,36 +66,6 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          51.259,
-          35.8107
-        ]
-      },
-      "properties": {
-        "intensity": 0.9825,
-        "count": 1,
-        "region": "Iran"
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          37.4513,
-          55.7624
-        ]
-      },
-      "properties": {
-        "intensity": 0.965,
-        "count": 1,
-        "region": "Russia"
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
           51.3527,
           35.4509
         ]
@@ -89,6 +89,21 @@
         "intensity": 0.9475,
         "count": 1,
         "region": "Iran"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -66.7545,
+          10.8164
+        ]
+      },
+      "properties": {
+        "intensity": 0.9425,
+        "count": 1,
+        "region": "Venezuela"
       }
     },
     {
@@ -186,36 +201,6 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          51.1533,
-          35.3847
-        ]
-      },
-      "properties": {
-        "intensity": 0.9425,
-        "count": 1,
-        "region": "Iran"
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          46.6551,
-          24.7158
-        ]
-      },
-      "properties": {
-        "intensity": 0.9425,
-        "count": 1,
-        "region": "Saudi Arabia"
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
           30.7283,
           50.4342
         ]
@@ -231,14 +216,29 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          51.376,
-          36.1702
+          -74.077,
+          40.774
         ]
       },
       "properties": {
-        "intensity": 0.93,
+        "intensity": 0.925,
         "count": 1,
-        "region": "Iran"
+        "region": "United States"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -74.1241,
+          40.9628
+        ]
+      },
+      "properties": {
+        "intensity": 0.925,
+        "count": 1,
+        "region": "United States"
       }
     },
     {
@@ -284,36 +284,6 @@
         "intensity": 0.925,
         "count": 1,
         "region": "United States"
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          -76.6483,
-          38.9791
-        ]
-      },
-      "properties": {
-        "intensity": 0.925,
-        "count": 1,
-        "region": "United States"
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          35.2612,
-          31.6799
-        ]
-      },
-      "properties": {
-        "intensity": 0.925,
-        "count": 1,
-        "region": "Israel"
       }
     },
     {
@@ -381,21 +351,6 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          -74.2265,
-          40.4484
-        ]
-      },
-      "properties": {
-        "intensity": 0.9075,
-        "count": 1,
-        "region": "United States"
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
           151.3098,
           -33.6592
         ]
@@ -441,21 +396,6 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          -76.9122,
-          38.5066
-        ]
-      },
-      "properties": {
-        "intensity": 0.89,
-        "count": 1,
-        "region": "United States"
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
           -74.0515,
           40.2931
         ]
@@ -479,6 +419,21 @@
         "intensity": 0.82,
         "count": 1,
         "region": "South Shetland Islands"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          30.512,
+          50.3968
+        ]
+      },
+      "properties": {
+        "intensity": 0.82,
+        "count": 1,
+        "region": "Ukraine"
       }
     },
     {
@@ -531,44 +486,14 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          141.9379,
-          30.8731
+          0.1365,
+          51.5013
         ]
       },
       "properties": {
-        "intensity": 0.82,
+        "intensity": 0.78,
         "count": 1,
-        "region": "Izu Islands, Japan region"
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          35.0533,
-          31.6512
-        ]
-      },
-      "properties": {
-        "intensity": 0.82,
-        "count": 1,
-        "region": "Israel"
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          -77.1787,
-          38.7872
-        ]
-      },
-      "properties": {
-        "intensity": 0.82,
-        "count": 1,
-        "region": "United States"
+        "region": "United Kingdom"
       }
     },
     {
