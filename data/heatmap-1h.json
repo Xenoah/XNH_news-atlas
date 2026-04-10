@@ -6,6 +6,21 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
+          35.2723,
+          31.9506
+        ]
+      },
+      "properties": {
+        "intensity": 0.9425,
+        "count": 1,
+        "region": "Israel"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
           72.7786,
           33.6234
         ]
@@ -81,27 +96,12 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          -77.2943,
-          39.1963
+          73.1239,
+          33.7271
         ]
       },
       "properties": {
-        "intensity": 0.9425,
-        "count": 1,
-        "region": "United States"
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          73.0057,
-          33.7438
-        ]
-      },
-      "properties": {
-        "intensity": 0.9425,
+        "intensity": 0.925,
         "count": 1,
         "region": "Pakistan"
       }
@@ -126,12 +126,12 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          -76.8561,
-          38.5479
+          -76.9705,
+          38.9532
         ]
       },
       "properties": {
-        "intensity": 0.925,
+        "intensity": 0.9075,
         "count": 1,
         "region": "United States"
       }
@@ -141,14 +141,44 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          -76.9615,
-          38.7635
+          151.0075,
+          -33.6232
         ]
       },
       "properties": {
-        "intensity": 0.9075,
+        "intensity": 0.89,
         "count": 1,
-        "region": "United States"
+        "region": "Australia"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          151.2813,
+          -33.885
+        ]
+      },
+      "properties": {
+        "intensity": 0.89,
+        "count": 1,
+        "region": "Australia"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          151.0665,
+          -33.529
+        ]
+      },
+      "properties": {
+        "intensity": 0.89,
+        "count": 1,
+        "region": "Australia"
       }
     },
     {
@@ -201,21 +231,6 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          151.1201,
-          -33.9035
-        ]
-      },
-      "properties": {
-        "intensity": 0.89,
-        "count": 1,
-        "region": "Australia"
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
           -122.225,
           37.8904
         ]
@@ -224,6 +239,21 @@
         "intensity": 0.8225,
         "count": 1,
         "region": "United States"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          151.5,
+          8.3
+        ]
+      },
+      "properties": {
+        "intensity": 0.82,
+        "count": 1,
+        "region": "Severe Storms"
       }
     },
     {
@@ -291,21 +321,6 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          69.215,
-          34.4588
-        ]
-      },
-      "properties": {
-        "intensity": 0.82,
-        "count": 1,
-        "region": "Afghanistan"
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
           -122.2006,
           37.3556
         ]
@@ -329,21 +344,6 @@
         "intensity": 0.62,
         "count": 1,
         "region": "China"
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          -0.1493,
-          51.9108
-        ]
-      },
-      "properties": {
-        "intensity": 0.62,
-        "count": 1,
-        "region": "United Kingdom"
       }
     }
   ]
