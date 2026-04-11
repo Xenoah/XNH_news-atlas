@@ -1,7 +1,14 @@
 {
-  "generatedAt": "2026-04-11T17:56:49.967873+00:00",
+  "generatedAt": "2026-04-11T18:50:24.407613+00:00",
   "timeRange": "24h",
   "risingEvents": [
+    {
+      "id": "rss_ea39ed63d18e",
+      "title": "Gaza families mourn loved ones killed in overnight Israeli air strikes",
+      "velocityScore": 1.0,
+      "category": "conflict",
+      "countryName": "Israel"
+    },
     {
       "id": "rss_fa757cc1c998",
       "title": "Ceasefire brings some relief for Iranians but economic outlook remains grim",
@@ -17,18 +24,18 @@
       "countryName": "Ukraine"
     },
     {
+      "id": "rss_76e6167d24bb",
+      "title": "Pope Leo says 'delusion of omnipotence' is fueling U.S.-Israeli war in Iran",
+      "velocityScore": 1.0,
+      "category": "conflict",
+      "countryName": "Iran"
+    },
+    {
       "id": "rss_956241e3383a",
       "title": "'The Last Cedar of Lebanon': A play exploring war’s lasting scars",
       "velocityScore": 1.0,
       "category": "conflict",
       "countryName": "France"
-    },
-    {
-      "id": "rss_dab6eb05921c",
-      "title": "Russia and Ukraine trade strikes before temporary ceasefire",
-      "velocityScore": 1.0,
-      "category": "conflict",
-      "countryName": "Ukraine"
     },
     {
       "id": "rss_3df8cd818aa7",
@@ -50,25 +57,18 @@
       "velocityScore": 1.0,
       "category": "politics",
       "countryName": "Pakistan"
-    },
-    {
-      "id": "rss_d7f8cb1f1d3c",
-      "title": "Machete-wielding man shot by police in New York City Grand Central station",
-      "velocityScore": 1.0,
-      "category": "politics",
-      "countryName": "United States"
     }
   ],
   "risingRegions": [],
   "categoryTrends": {
     "politics": {
-      "count": 1203,
-      "change": "+1203",
+      "count": 1200,
+      "change": "+1200",
       "changePercent": 100
     },
     "conflict": {
-      "count": 526,
-      "change": "+526",
+      "count": 527,
+      "change": "+527",
       "changePercent": 100
     },
     "disaster": {
@@ -77,8 +77,8 @@
       "changePercent": 100
     },
     "sports": {
-      "count": 65,
-      "change": "+65",
+      "count": 63,
+      "change": "+63",
       "changePercent": 100
     },
     "economy": {
@@ -87,8 +87,8 @@
       "changePercent": 100
     },
     "technology": {
-      "count": 35,
-      "change": "+35",
+      "count": 34,
+      "change": "+34",
       "changePercent": 100
     },
     "health": {
@@ -102,11 +102,11 @@
       "changePercent": 100
     }
   },
-  "totalEvents": 2071,
-  "totalSources": 2071,
+  "totalEvents": 2066,
+  "totalSources": 2066,
   "globalStats": {
-    "avgAttentionScore": 0.893,
-    "totalArticles": 2071,
-    "bubbleCount": 1913
+    "avgAttentionScore": 0.894,
+    "totalArticles": 2066,
+    "bubbleCount": 1911
   }
 }
