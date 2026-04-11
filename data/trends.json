@@ -1,7 +1,14 @@
 {
-  "generatedAt": "2026-04-11T15:55:05.777860+00:00",
+  "generatedAt": "2026-04-11T16:35:15.016419+00:00",
   "timeRange": "24h",
   "risingEvents": [
+    {
+      "id": "rss_5f07e75ddfba",
+      "title": "Russia-Ukraine Orthodox Easter ceasefire begins",
+      "velocityScore": 1.0,
+      "category": "conflict",
+      "countryName": "Ukraine"
+    },
     {
       "id": "rss_a1ac1b5890b9",
       "title": "US-Iran ceasefire: Can pressure, incentives, and risks deliver a final deal",
@@ -17,18 +24,18 @@
       "countryName": "Israel"
     },
     {
-      "id": "rss_c3cbda7e5353",
-      "title": "US-Iran talks on ending war begin in Pakistan",
-      "velocityScore": 1.0,
-      "category": "conflict",
-      "countryName": "Pakistan"
-    },
-    {
       "id": "rss_dab6eb05921c",
       "title": "Russia and Ukraine trade strikes before temporary ceasefire",
       "velocityScore": 1.0,
       "category": "conflict",
       "countryName": "Ukraine"
+    },
+    {
+      "id": "rss_d7f8cb1f1d3c",
+      "title": "Machete-wielding man shot by police in New York City Grand Central station",
+      "velocityScore": 1.0,
+      "category": "politics",
+      "countryName": "United States"
     },
     {
       "id": "rss_5c1880ea6061",
@@ -45,30 +52,23 @@
       "countryName": "United Kingdom"
     },
     {
-      "id": "rss_1e7d3cd9f342",
-      "title": "Al Jazeera’s Diplomatic Editor outlines key issues in US-Iran talks",
+      "id": "rss_4ed3c63f12ba",
+      "title": "US and Iran hold talks in Islamabad as Pakistan seeks to broker peace deal",
       "velocityScore": 1.0,
       "category": "politics",
-      "countryName": "Pakistan"
-    },
-    {
-      "id": "rss_f158592ba1da",
-      "title": "Libya approves first unified budget in more than a decade",
-      "velocityScore": 1.0,
-      "category": "politics",
-      "countryName": "Libya"
+      "countryName": "United States"
     }
   ],
   "risingRegions": [],
   "categoryTrends": {
     "politics": {
-      "count": 1210,
-      "change": "+1210",
+      "count": 1206,
+      "change": "+1206",
       "changePercent": 100
     },
     "conflict": {
-      "count": 526,
-      "change": "+526",
+      "count": 525,
+      "change": "+525",
       "changePercent": 100
     },
     "disaster": {
@@ -102,11 +102,11 @@
       "changePercent": 100
     }
   },
-  "totalEvents": 2083,
-  "totalSources": 2083,
+  "totalEvents": 2078,
+  "totalSources": 2078,
   "globalStats": {
     "avgAttentionScore": 0.893,
-    "totalArticles": 2083,
-    "bubbleCount": 1924
+    "totalArticles": 2078,
+    "bubbleCount": 1919
   }
 }
