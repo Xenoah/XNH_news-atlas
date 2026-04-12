@@ -36,6 +36,66 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
+          -76.8695,
+          39.1766
+        ]
+      },
+      "properties": {
+        "intensity": 0.965,
+        "count": 1,
+        "region": "United States"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.1278,
+          51.7199
+        ]
+      },
+      "properties": {
+        "intensity": 0.965,
+        "count": 1,
+        "region": "United Kingdom"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          73.0431,
+          33.5954
+        ]
+      },
+      "properties": {
+        "intensity": 0.9475,
+        "count": 1,
+        "region": "Pakistan"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -77.348,
+          38.9214
+        ]
+      },
+      "properties": {
+        "intensity": 0.9425,
+        "count": 1,
+        "region": "United States"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
           73.1124,
           33.6583
         ]
@@ -66,44 +126,14 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          51.4126,
-          35.9289
+          37.6669,
+          55.6691
         ]
       },
       "properties": {
-        "intensity": 0.9425,
+        "intensity": 0.925,
         "count": 1,
-        "region": "Iran"
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          73.0983,
-          34.1411
-        ]
-      },
-      "properties": {
-        "intensity": 0.9425,
-        "count": 1,
-        "region": "Pakistan"
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          51.2376,
-          35.7453
-        ]
-      },
-      "properties": {
-        "intensity": 0.9425,
-        "count": 1,
-        "region": "Iran"
+        "region": "Russia"
       }
     },
     {
@@ -171,12 +201,12 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          -76.7312,
-          38.8564
+          -77.0328,
+          38.6334
         ]
       },
       "properties": {
-        "intensity": 0.9075,
+        "intensity": 0.9125,
         "count": 1,
         "region": "United States"
       }
@@ -186,14 +216,29 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          -76.75,
-          39.2184
+          -0.1601,
+          51.2769
         ]
       },
       "properties": {
         "intensity": 0.9075,
         "count": 1,
-        "region": "United States"
+        "region": "United Kingdom"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          72.9463,
+          33.9114
+        ]
+      },
+      "properties": {
+        "intensity": 0.89,
+        "count": 1,
+        "region": "Pakistan"
       }
     },
     {
@@ -246,14 +291,14 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          155.1,
-          -9.1
+          151.2442,
+          -33.9263
         ]
       },
       "properties": {
-        "intensity": 0.82,
+        "intensity": 0.81,
         "count": 1,
-        "region": "Severe Storms"
+        "region": "Australia"
       }
     },
     {
@@ -261,59 +306,14 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          99.8194,
-          26.1139
+          -47.6107,
+          -15.7625
         ]
       },
       "properties": {
-        "intensity": 0.82,
+        "intensity": 0.7425,
         "count": 1,
-        "region": "13 km W of Zibihu, China"
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          76.2361,
-          33.0866
-        ]
-      },
-      "properties": {
-        "intensity": 0.82,
-        "count": 1,
-        "region": "49 km ENE of Bhadarwāh, India"
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          145.5867,
-          18.5002
-        ]
-      },
-      "properties": {
-        "intensity": 0.82,
-        "count": 1,
-        "region": "Pagan region, Northern Mariana Islands"
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          94.7702,
-          1.9632
-        ]
-      },
-      "properties": {
-        "intensity": 0.82,
-        "count": 1,
-        "region": "187 km WSW of Sinabang, Indonesia"
+        "region": "Brazil"
       }
     },
     {
@@ -329,6 +329,36 @@
         "intensity": 0.7,
         "count": 1,
         "region": "Iran"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.1781,
+          51.456
+        ]
+      },
+      "properties": {
+        "intensity": 0.62,
+        "count": 1,
+        "region": "United Kingdom"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -77.1525,
+          38.8259
+        ]
+      },
+      "properties": {
+        "intensity": 0.62,
+        "count": 1,
+        "region": "United States"
       }
     }
   ]
