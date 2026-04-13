@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-04-13T22:41:13.718351+00:00",
+  "generatedAt": "2026-04-13T23:29:18.623579+00:00",
   "timeRange": "24h",
   "risingEvents": [
     {
@@ -21,6 +21,13 @@
       "title": "War in Iran could accelerate global energy transition",
       "velocityScore": 1.0,
       "category": "conflict",
+      "countryName": "United States"
+    },
+    {
+      "id": "rss_3fa4947bd6c2",
+      "title": "Hezbollah leader urges Lebanon’s government to pull out of Israel talks",
+      "velocityScore": 1.0,
+      "category": "politics",
       "countryName": "United States"
     },
     {
@@ -50,25 +57,18 @@
       "velocityScore": 1.0,
       "category": "politics",
       "countryName": "Syria"
-    },
-    {
-      "id": "rss_541164184f88",
-      "title": "Israel kills three Palestinians in separate Gaza strikes",
-      "velocityScore": 1.0,
-      "category": "politics",
-      "countryName": "Israel"
     }
   ],
   "risingRegions": [],
   "categoryTrends": {
     "politics": {
-      "count": 1308,
-      "change": "+1308",
+      "count": 1309,
+      "change": "+1309",
       "changePercent": 100
     },
     "conflict": {
-      "count": 533,
-      "change": "+533",
+      "count": 532,
+      "change": "+532",
       "changePercent": 100
     },
     "disaster": {
@@ -107,6 +107,6 @@
   "globalStats": {
     "avgAttentionScore": 0.896,
     "totalArticles": 2165,
-    "bubbleCount": 2021
+    "bubbleCount": 2022
   }
 }
