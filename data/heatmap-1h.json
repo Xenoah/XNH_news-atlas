@@ -6,6 +6,21 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
+          51.533,
+          35.2211
+        ]
+      },
+      "properties": {
+        "intensity": 0.9825,
+        "count": 1,
+        "region": "Iran"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
           -99.1595,
           19.5114
         ]
@@ -119,6 +134,21 @@
         "intensity": 0.9075,
         "count": 1,
         "region": "Belgium"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.2923,
+          28.741
+        ]
+      },
+      "properties": {
+        "intensity": 0.89,
+        "count": 1,
+        "region": "India"
       }
     },
     {
@@ -276,6 +306,36 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
+          20.8016,
+          52.5181
+        ]
+      },
+      "properties": {
+        "intensity": 0.86,
+        "count": 1,
+        "region": "Poland"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          151.233,
+          -33.8672
+        ]
+      },
+      "properties": {
+        "intensity": 0.845,
+        "count": 1,
+        "region": "Australia"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
           -178.0587,
           -32.4116
         ]
@@ -351,27 +411,12 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          -178.1403,
-          -32.0646
+          -74.2668,
+          40.6847
         ]
       },
       "properties": {
-        "intensity": 0.82,
-        "count": 1,
-        "region": "south of the Kermadec Islands"
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          -76.9992,
-          39.2814
-        ]
-      },
-      "properties": {
-        "intensity": 0.82,
+        "intensity": 0.7,
         "count": 1,
         "region": "United States"
       }
@@ -404,21 +449,6 @@
         "intensity": 0.62,
         "count": 1,
         "region": "South Africa"
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          2.0506,
-          49.0276
-        ]
-      },
-      "properties": {
-        "intensity": 0.62,
-        "count": 1,
-        "region": "France"
       }
     }
   ]
