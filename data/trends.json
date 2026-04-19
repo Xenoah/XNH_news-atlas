@@ -1,7 +1,14 @@
 {
-  "generatedAt": "2026-04-19T20:53:57.181992+00:00",
+  "generatedAt": "2026-04-19T21:33:39.756874+00:00",
   "timeRange": "24h",
   "risingEvents": [
+    {
+      "id": "rss_70e9632893dc",
+      "title": "Protesters defy Berlin rain to call for end to global wars",
+      "velocityScore": 1.0,
+      "category": "conflict",
+      "countryName": "Israel"
+    },
     {
       "id": "rss_5963d3ff150b",
       "title": "Did the US misjudge Iran? A military strategist answers",
@@ -10,10 +17,31 @@
       "countryName": "Iran"
     },
     {
+      "id": "rss_f24befc6f892",
+      "title": "US military seized Iranian-flagged container ship, Trump says",
+      "velocityScore": 1.0,
+      "category": "conflict",
+      "countryName": "United States"
+    },
+    {
       "id": "rss_e63daa566eba",
       "title": "Republican senator criticizes Trump’s ‘holy war’ with Pope Leo",
       "velocityScore": 1.0,
       "category": "conflict",
+      "countryName": "United States"
+    },
+    {
+      "id": "rss_0569939b30d8",
+      "title": "U.S. says it seized an Iranian cargo ship, ceasefire expires soon",
+      "velocityScore": 1.0,
+      "category": "conflict",
+      "countryName": "United States"
+    },
+    {
+      "id": "rss_3722a8811a46",
+      "title": "Canadian PM says close economic ties with US have become a ‘weakness’",
+      "velocityScore": 1.0,
+      "category": "politics",
       "countryName": "United States"
     },
     {
@@ -29,56 +57,28 @@
       "velocityScore": 1.0,
       "category": "politics",
       "countryName": "Israel"
-    },
-    {
-      "id": "rss_b7c58b91612d",
-      "title": "Iran and Israel: From friends to enemies",
-      "velocityScore": 1.0,
-      "category": "politics",
-      "countryName": "Iran"
-    },
-    {
-      "id": "rss_08e776165ec3",
-      "title": "Starmer will not be swayed by Trump’s ‘small and petty’ insults, says Lammy",
-      "velocityScore": 1.0,
-      "category": "politics",
-      "countryName": "United States"
-    },
-    {
-      "id": "rss_7e33410804ab",
-      "title": "Starmer faces Commons showdown over Mandelson vetting scandal",
-      "velocityScore": 1.0,
-      "category": "politics",
-      "countryName": "United Kingdom"
-    },
-    {
-      "id": "rss_712459bbf17c",
-      "title": "Intemperate Trump brings chaos and confusion to Iran talks",
-      "velocityScore": 1.0,
-      "category": "politics",
-      "countryName": "Pakistan"
     }
   ],
   "risingRegions": [],
   "categoryTrends": {
     "politics": {
-      "count": 1402,
-      "change": "+1402",
+      "count": 1405,
+      "change": "+1405",
       "changePercent": 100
     },
     "conflict": {
-      "count": 413,
-      "change": "+413",
+      "count": 417,
+      "change": "+417",
       "changePercent": 100
     },
     "disaster": {
-      "count": 151,
-      "change": "+151",
+      "count": 148,
+      "change": "+148",
       "changePercent": 100
     },
     "sports": {
-      "count": 82,
-      "change": "+82",
+      "count": 83,
+      "change": "+83",
       "changePercent": 100
     },
     "economy": {
@@ -102,11 +102,11 @@
       "changePercent": 100
     }
   },
-  "totalEvents": 2184,
-  "totalSources": 2184,
+  "totalEvents": 2189,
+  "totalSources": 2189,
   "globalStats": {
     "avgAttentionScore": 0.888,
-    "totalArticles": 2184,
-    "bubbleCount": 2006
+    "totalArticles": 2189,
+    "bubbleCount": 2010
   }
 }
