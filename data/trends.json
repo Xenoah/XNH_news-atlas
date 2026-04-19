@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-04-19T19:40:22.605985+00:00",
+  "generatedAt": "2026-04-19T20:06:04.099297+00:00",
   "timeRange": "24h",
   "risingEvents": [
     {
@@ -22,6 +22,13 @@
       "velocityScore": 1.0,
       "category": "conflict",
       "countryName": "Pakistan"
+    },
+    {
+      "id": "rss_ea9ae762da48",
+      "title": "Trump says US seized Iran-flagged ship trying to get past Hormuz blockade",
+      "velocityScore": 1.0,
+      "category": "politics",
+      "countryName": "United States"
     },
     {
       "id": "rss_a689b9973921",
@@ -50,25 +57,18 @@
       "velocityScore": 1.0,
       "category": "politics",
       "countryName": "United States"
-    },
-    {
-      "id": "rss_23838b2fc48b",
-      "title": "Met Police investigate potential Iran links to London arson attacks",
-      "velocityScore": 1.0,
-      "category": "politics",
-      "countryName": "United Kingdom"
     }
   ],
   "risingRegions": [],
   "categoryTrends": {
     "politics": {
-      "count": 1406,
-      "change": "+1406",
+      "count": 1405,
+      "change": "+1405",
       "changePercent": 100
     },
     "conflict": {
-      "count": 416,
-      "change": "+416",
+      "count": 415,
+      "change": "+415",
       "changePercent": 100
     },
     "disaster": {
@@ -102,11 +102,11 @@
       "changePercent": 100
     }
   },
-  "totalEvents": 2193,
-  "totalSources": 2193,
+  "totalEvents": 2191,
+  "totalSources": 2191,
   "globalStats": {
     "avgAttentionScore": 0.888,
-    "totalArticles": 2193,
-    "bubbleCount": 2015
+    "totalArticles": 2191,
+    "bubbleCount": 2013
   }
 }
