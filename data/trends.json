@@ -1,7 +1,21 @@
 {
-  "generatedAt": "2026-04-19T21:33:39.756874+00:00",
+  "generatedAt": "2026-04-19T22:05:00.042730+00:00",
   "timeRange": "24h",
   "risingEvents": [
+    {
+      "id": "rss_498d07b13dc7",
+      "title": "Argentina’s Milei backs US-Israel war on Iran in Jerusalem visit",
+      "velocityScore": 1.0,
+      "category": "conflict",
+      "countryName": "Iran"
+    },
+    {
+      "id": "rss_5a44e3eb6101",
+      "title": "Schools, shops shut in northern Israel to protest the Lebanon ceasefire",
+      "velocityScore": 1.0,
+      "category": "conflict",
+      "countryName": "Israel"
+    },
     {
       "id": "rss_70e9632893dc",
       "title": "Protesters defy Berlin rain to call for end to global wars",
@@ -19,13 +33,6 @@
     {
       "id": "rss_f24befc6f892",
       "title": "US military seized Iranian-flagged container ship, Trump says",
-      "velocityScore": 1.0,
-      "category": "conflict",
-      "countryName": "United States"
-    },
-    {
-      "id": "rss_e63daa566eba",
-      "title": "Republican senator criticizes Trump’s ‘holy war’ with Pope Leo",
       "velocityScore": 1.0,
       "category": "conflict",
       "countryName": "United States"
@@ -50,35 +57,28 @@
       "velocityScore": 1.0,
       "category": "politics",
       "countryName": "United States"
-    },
-    {
-      "id": "rss_a689b9973921",
-      "title": "Israeli ministers celebrate re-establishment of Sa-Nur West Bank settlement",
-      "velocityScore": 1.0,
-      "category": "politics",
-      "countryName": "Israel"
     }
   ],
   "risingRegions": [],
   "categoryTrends": {
     "politics": {
-      "count": 1405,
-      "change": "+1405",
+      "count": 1404,
+      "change": "+1404",
       "changePercent": 100
     },
     "conflict": {
-      "count": 417,
-      "change": "+417",
+      "count": 415,
+      "change": "+415",
       "changePercent": 100
     },
     "disaster": {
-      "count": 148,
-      "change": "+148",
+      "count": 147,
+      "change": "+147",
       "changePercent": 100
     },
     "sports": {
-      "count": 83,
-      "change": "+83",
+      "count": 84,
+      "change": "+84",
       "changePercent": 100
     },
     "economy": {
@@ -102,11 +102,11 @@
       "changePercent": 100
     }
   },
-  "totalEvents": 2189,
-  "totalSources": 2189,
+  "totalEvents": 2186,
+  "totalSources": 2186,
   "globalStats": {
     "avgAttentionScore": 0.888,
-    "totalArticles": 2189,
-    "bubbleCount": 2010
+    "totalArticles": 2186,
+    "bubbleCount": 2006
   }
 }
