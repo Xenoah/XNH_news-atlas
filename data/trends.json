@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-04-24T16:53:15.475203+00:00",
+  "generatedAt": "2026-04-24T17:48:34.884162+00:00",
   "timeRange": "24h",
   "risingEvents": [
     {
@@ -8,6 +8,13 @@
       "velocityScore": 1.0,
       "category": "conflict",
       "countryName": "Iran"
+    },
+    {
+      "id": "rss_5134d7083310",
+      "title": "The Guardian view on Germany, Japan and the end of the postwar order: as US alliances crumble, a new world emerges | Editorial",
+      "velocityScore": 1.0,
+      "category": "conflict",
+      "countryName": "Germany"
     },
     {
       "id": "rss_f1c96625226c",
@@ -24,11 +31,18 @@
       "countryName": "United Kingdom"
     },
     {
-      "id": "rss_67b18aa20e29",
-      "title": "Florida officials investigate planned ‘Sloth World’ attraction after 31 sloths die in warehouse",
+      "id": "rss_d0e2b09c77f6",
+      "title": "How Israel targeted and killed Lebanese journalist Amal Khalil",
       "velocityScore": 1.0,
-      "category": "conflict",
-      "countryName": "United States"
+      "category": "politics",
+      "countryName": "Israel"
+    },
+    {
+      "id": "rss_0ec351db9406",
+      "title": "Russian oil exports slump as Ukraine hammers ports and refineries",
+      "velocityScore": 1.0,
+      "category": "politics",
+      "countryName": "Ukraine"
     },
     {
       "id": "rss_fb44bff4f615",
@@ -43,32 +57,18 @@
       "velocityScore": 1.0,
       "category": "politics",
       "countryName": "Spain"
-    },
-    {
-      "id": "rss_536d5cfe43b5",
-      "title": "Chornobyl at 40: Settlers and horses survive Russian drones, contamination",
-      "velocityScore": 1.0,
-      "category": "politics",
-      "countryName": "Russia"
-    },
-    {
-      "id": "rss_30093b6598d2",
-      "title": "LIVE: Real Betis vs Real Madrid – La Liga",
-      "velocityScore": 1.0,
-      "category": "politics",
-      "countryName": "Spain"
     }
   ],
   "risingRegions": [],
   "categoryTrends": {
     "politics": {
-      "count": 1330,
-      "change": "+1330",
+      "count": 1331,
+      "change": "+1331",
       "changePercent": 100
     },
     "conflict": {
-      "count": 383,
-      "change": "+383",
+      "count": 384,
+      "change": "+384",
       "changePercent": 100
     },
     "disaster": {
@@ -77,18 +77,18 @@
       "changePercent": 100
     },
     "sports": {
-      "count": 91,
-      "change": "+91",
+      "count": 92,
+      "change": "+92",
       "changePercent": 100
     },
     "health": {
-      "count": 61,
-      "change": "+61",
+      "count": 60,
+      "change": "+60",
       "changePercent": 100
     },
     "economy": {
-      "count": 51,
-      "change": "+51",
+      "count": 49,
+      "change": "+49",
       "changePercent": 100
     },
     "technology": {
@@ -107,6 +107,6 @@
   "globalStats": {
     "avgAttentionScore": 0.884,
     "totalArticles": 2132,
-    "bubbleCount": 1937
+    "bubbleCount": 1936
   }
 }
