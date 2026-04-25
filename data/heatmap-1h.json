@@ -81,14 +81,14 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          35.0868,
-          31.8353
+          -77.1311,
+          38.9792
         ]
       },
       "properties": {
-        "intensity": 0.9425,
+        "intensity": 0.925,
         "count": 1,
-        "region": "Israel"
+        "region": "United States"
       }
     },
     {
@@ -306,6 +306,21 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
+          30.493,
+          50.5137
+        ]
+      },
+      "properties": {
+        "intensity": 0.8725,
+        "count": 1,
+        "region": "Ukraine"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
           51.3432,
           35.9127
         ]
@@ -314,21 +329,6 @@
         "intensity": 0.8725,
         "count": 1,
         "region": "Iran"
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          151.2085,
-          -33.8473
-        ]
-      },
-      "properties": {
-        "intensity": 0.845,
-        "count": 1,
-        "region": "Australia"
       }
     },
     {
@@ -434,21 +434,6 @@
         "intensity": 0.82,
         "count": 1,
         "region": "83 km SE of Akutan, Alaska"
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          176.5528,
-          52.2239
-        ]
-      },
-      "properties": {
-        "intensity": 0.82,
-        "count": 1,
-        "region": "238 km ESE of Attu Station, Alaska"
       }
     }
   ]
