@@ -6,8 +6,8 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          34.4865,
-          31.5214
+          34.4183,
+          31.2216
         ]
       },
       "properties": {
@@ -21,27 +21,12 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          31.0902,
-          30.0557
+          -77.1248,
+          38.8968
         ]
       },
       "properties": {
-        "intensity": 0.9475,
-        "count": 1,
-        "region": "Egypt"
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          -76.9312,
-          38.9668
-        ]
-      },
-      "properties": {
-        "intensity": 0.9475,
+        "intensity": 0.93,
         "count": 1,
         "region": "United States"
       }
@@ -51,14 +36,14 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          -3.7271,
-          40.5095
+          36.299,
+          33.6232
         ]
       },
       "properties": {
-        "intensity": 0.9425,
+        "intensity": 0.925,
         "count": 1,
-        "region": "Spain"
+        "region": "Syria"
       }
     },
     {
@@ -66,14 +51,14 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          -76.9899,
-          38.9582
+          4.6865,
+          50.8826
         ]
       },
       "properties": {
         "intensity": 0.925,
         "count": 1,
-        "region": "United States"
+        "region": "Belgium"
       }
     },
     {
@@ -81,12 +66,12 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          150.8506,
-          -33.8224
+          151.0336,
+          -33.448
         ]
       },
       "properties": {
-        "intensity": 0.925,
+        "intensity": 0.89,
         "count": 1,
         "region": "Australia"
       }
@@ -96,14 +81,14 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          69.2357,
-          34.4796
+          -77.2026,
+          38.9705
         ]
       },
       "properties": {
-        "intensity": 0.925,
+        "intensity": 0.89,
         "count": 1,
-        "region": "Afghanistan"
+        "region": "United States"
       }
     },
     {
@@ -111,12 +96,27 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          -77.0075,
-          38.8761
+          151.5065,
+          -33.5956
         ]
       },
       "properties": {
-        "intensity": 0.9075,
+        "intensity": 0.89,
+        "count": 1,
+        "region": "Australia"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -76.9258,
+          38.8664
+        ]
+      },
+      "properties": {
+        "intensity": 0.89,
         "count": 1,
         "region": "United States"
       }
@@ -141,12 +141,12 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          151.2632,
-          -33.8432
+          151.2185,
+          -33.8335
         ]
       },
       "properties": {
-        "intensity": 0.89,
+        "intensity": 0.845,
         "count": 1,
         "region": "Australia"
       }
@@ -156,27 +156,12 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          -3.8304,
-          40.077
+          151.4451,
+          -34.2885
         ]
       },
       "properties": {
-        "intensity": 0.89,
-        "count": 1,
-        "region": "Spain"
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          151.2834,
-          -33.7369
-        ]
-      },
-      "properties": {
-        "intensity": 0.89,
+        "intensity": 0.845,
         "count": 1,
         "region": "Australia"
       }
@@ -186,74 +171,59 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          -76.9572,
-          39.3182
+          151.5,
+          8.3
+        ]
+      },
+      "properties": {
+        "intensity": 0.82,
+        "count": 1,
+        "region": "Severe Storms"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          51.6612,
+          14.0519
+        ]
+      },
+      "properties": {
+        "intensity": 0.82,
+        "count": 1,
+        "region": "215 km NNW of Kilmia, Yemen"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.5438,
+          51.3298
+        ]
+      },
+      "properties": {
+        "intensity": 0.82,
+        "count": 1,
+        "region": "United Kingdom"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -76.9845,
+          38.396
         ]
       },
       "properties": {
         "intensity": 0.82,
         "count": 1,
         "region": "United States"
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          116.33,
-          39.9328
-        ]
-      },
-      "properties": {
-        "intensity": 0.78,
-        "count": 1,
-        "region": "China"
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          -75.5232,
-          45.8171
-        ]
-      },
-      "properties": {
-        "intensity": 0.7,
-        "count": 1,
-        "region": "Canada"
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          13.6365,
-          52.9362
-        ]
-      },
-      "properties": {
-        "intensity": 0.62,
-        "count": 1,
-        "region": "Germany"
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          -3.3614,
-          40.1903
-        ]
-      },
-      "properties": {
-        "intensity": 0.62,
-        "count": 1,
-        "region": "Spain"
       }
     }
   ]
