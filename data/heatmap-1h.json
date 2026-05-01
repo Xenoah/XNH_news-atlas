@@ -51,6 +51,36 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
+          37.9571,
+          55.3818
+        ]
+      },
+      "properties": {
+        "intensity": 0.9475,
+        "count": 1,
+        "region": "Russia"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -76.7962,
+          38.4979
+        ]
+      },
+      "properties": {
+        "intensity": 0.9425,
+        "count": 1,
+        "region": "United States"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
           51.3568,
           35.7013
         ]
@@ -111,21 +141,6 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          -77.0355,
-          38.8418
-        ]
-      },
-      "properties": {
-        "intensity": 0.9425,
-        "count": 1,
-        "region": "United States"
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
           -76.8527,
           39.184
         ]
@@ -171,21 +186,6 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          -77.2531,
-          38.848
-        ]
-      },
-      "properties": {
-        "intensity": 0.925,
-        "count": 1,
-        "region": "United States"
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
           13.7141,
           52.4072
         ]
@@ -224,6 +224,21 @@
         "intensity": 0.9075,
         "count": 1,
         "region": "United States"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          148.8587,
+          -35.6493
+        ]
+      },
+      "properties": {
+        "intensity": 0.89,
+        "count": 1,
+        "region": "Australia"
       }
     },
     {
@@ -291,12 +306,12 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          -76.8082,
-          39.0291
+          -77.2604,
+          38.6066
         ]
       },
       "properties": {
-        "intensity": 0.89,
+        "intensity": 0.845,
         "count": 1,
         "region": "United States"
       }
@@ -306,14 +321,14 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          36.1603,
-          33.484
+          -75.8894,
+          45.8549
         ]
       },
       "properties": {
-        "intensity": 0.89,
+        "intensity": 0.82,
         "count": 1,
-        "region": "Syria"
+        "region": "Canada"
       }
     },
     {
@@ -321,29 +336,14 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          2.199,
-          48.6326
+          76.9652,
+          28.7214
         ]
       },
       "properties": {
-        "intensity": 0.8725,
+        "intensity": 0.82,
         "count": 1,
-        "region": "France"
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          -77.0978,
-          38.6947
-        ]
-      },
-      "properties": {
-        "intensity": 0.86,
-        "count": 1,
-        "region": "United States"
+        "region": "India"
       }
     },
     {
@@ -359,36 +359,6 @@
         "intensity": 0.82,
         "count": 1,
         "region": "United States"
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          128.3922,
-          -7.3789
-        ]
-      },
-      "properties": {
-        "intensity": 0.82,
-        "count": 1,
-        "region": "198 km NE of Lospalos, Timor Leste"
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          -66.8479,
-          10.4796
-        ]
-      },
-      "properties": {
-        "intensity": 0.82,
-        "count": 1,
-        "region": "Venezuela"
       }
     },
     {
@@ -449,6 +419,21 @@
         "intensity": 0.69,
         "count": 1,
         "region": "United States"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          2.2012,
+          49.1711
+        ]
+      },
+      "properties": {
+        "intensity": 0.62,
+        "count": 1,
+        "region": "France"
       }
     }
   ]
