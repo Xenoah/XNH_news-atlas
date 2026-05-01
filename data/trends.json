@@ -1,10 +1,17 @@
 {
-  "generatedAt": "2026-05-01T14:07:09.660615+00:00",
+  "generatedAt": "2026-05-01T15:15:18.136966+00:00",
   "timeRange": "24h",
   "risingEvents": [
     {
       "id": "rss_d8e6c9085e36",
       "title": "Trump’s threat: Why cutting US troops in Europe won’t be easy",
+      "velocityScore": 1.0,
+      "category": "conflict",
+      "countryName": "United States"
+    },
+    {
+      "id": "rss_27f28ed534d8",
+      "title": "Trump urges PGA Tour to welcome back LIV rebels after Saudi funding dries up",
       "velocityScore": 1.0,
       "category": "conflict",
       "countryName": "United States"
@@ -17,22 +24,8 @@
       "countryName": "United States"
     },
     {
-      "id": "rss_0e6561441eea",
-      "title": "First Thing: Trump doubles down on rift with Germany, Italy and Spain amid war on Iran",
-      "velocityScore": 1.0,
-      "category": "conflict",
-      "countryName": "United States"
-    },
-    {
-      "id": "rss_61dfda9a5f27",
-      "title": "Trump threatens to withdraw troops from Italy and Spain",
-      "velocityScore": 1.0,
-      "category": "conflict",
-      "countryName": "United States"
-    },
-    {
-      "id": "rss_aff79be14416",
-      "title": "Trump administration rejects need for Iran war Congressional approval despite deadline – US politics live",
+      "id": "rss_d6465370208f",
+      "title": "60-day deadline for Congress' Iran war extension approval",
       "velocityScore": 1.0,
       "category": "conflict",
       "countryName": "United States"
@@ -43,6 +36,13 @@
       "velocityScore": 1.0,
       "category": "conflict",
       "countryName": "United States"
+    },
+    {
+      "id": "rss_0f5722a07298",
+      "title": "Benfica’s Mourinho says no contact with Real Madrid about manager’s job",
+      "velocityScore": 1.0,
+      "category": "politics",
+      "countryName": "Spain"
     },
     {
       "id": "rss_51b319dffcef",
@@ -62,18 +62,18 @@
   "risingRegions": [],
   "categoryTrends": {
     "politics": {
-      "count": 1468,
-      "change": "+1468",
+      "count": 1458,
+      "change": "+1458",
       "changePercent": 100
     },
     "conflict": {
-      "count": 345,
-      "change": "+345",
+      "count": 342,
+      "change": "+342",
       "changePercent": 100
     },
     "disaster": {
-      "count": 128,
-      "change": "+128",
+      "count": 103,
+      "change": "+103",
       "changePercent": 100
     },
     "sports": {
@@ -82,8 +82,8 @@
       "changePercent": 100
     },
     "health": {
-      "count": 71,
-      "change": "+71",
+      "count": 69,
+      "change": "+69",
       "changePercent": 100
     },
     "economy": {
@@ -92,21 +92,21 @@
       "changePercent": 100
     },
     "technology": {
-      "count": 33,
-      "change": "+33",
+      "count": 35,
+      "change": "+35",
       "changePercent": 100
     },
     "science": {
-      "count": 15,
-      "change": "+15",
+      "count": 14,
+      "change": "+14",
       "changePercent": 100
     }
   },
-  "totalEvents": 2199,
-  "totalSources": 2199,
+  "totalEvents": 2160,
+  "totalSources": 2160,
   "globalStats": {
-    "avgAttentionScore": 0.884,
-    "totalArticles": 2199,
-    "bubbleCount": 1973
+    "avgAttentionScore": 0.885,
+    "totalArticles": 2160,
+    "bubbleCount": 1933
   }
 }
