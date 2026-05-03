@@ -6,6 +6,21 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
+          -77.0957,
+          38.8767
+        ]
+      },
+      "properties": {
+        "intensity": 0.9825,
+        "count": 1,
+        "region": "United States"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
           34.5774,
           31.8136
         ]
@@ -36,21 +51,6 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          51.3967,
-          35.921
-        ]
-      },
-      "properties": {
-        "intensity": 0.9475,
-        "count": 1,
-        "region": "Iran"
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
           35.0427,
           31.7714
         ]
@@ -74,21 +74,6 @@
         "intensity": 0.9425,
         "count": 1,
         "region": "Ukraine"
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          35.4067,
-          31.9263
-        ]
-      },
-      "properties": {
-        "intensity": 0.9425,
-        "count": 1,
-        "region": "Israel"
       }
     },
     {
@@ -231,21 +216,6 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          0.1173,
-          51.3778
-        ]
-      },
-      "properties": {
-        "intensity": 0.925,
-        "count": 1,
-        "region": "United Kingdom"
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
           34.9766,
           31.5062
         ]
@@ -291,66 +261,6 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          37.6695,
-          55.6033
-        ]
-      },
-      "properties": {
-        "intensity": 0.9075,
-        "count": 1,
-        "region": "Russia"
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          30.2971,
-          50.2951
-        ]
-      },
-      "properties": {
-        "intensity": 0.9075,
-        "count": 1,
-        "region": "Ukraine"
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          51.7934,
-          35.7183
-        ]
-      },
-      "properties": {
-        "intensity": 0.9075,
-        "count": 1,
-        "region": "Iran"
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          34.5958,
-          31.14
-        ]
-      },
-      "properties": {
-        "intensity": 0.9075,
-        "count": 1,
-        "region": "Israel"
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
           -77.3751,
           38.9481
         ]
@@ -374,21 +284,6 @@
         "intensity": 0.8675,
         "count": 1,
         "region": "United States"
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          51.573,
-          35.5816
-        ]
-      },
-      "properties": {
-        "intensity": 0.8675,
-        "count": 1,
-        "region": "Iran"
       }
     },
     {
@@ -479,21 +374,6 @@
         "intensity": 0.82,
         "count": 1,
         "region": "Bonin Islands, Japan region"
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          37.9722,
-          55.8857
-        ]
-      },
-      "properties": {
-        "intensity": 0.82,
-        "count": 1,
-        "region": "Russia"
       }
     }
   ]
