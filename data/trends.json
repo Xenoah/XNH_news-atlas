@@ -1,7 +1,14 @@
 {
-  "generatedAt": "2026-05-06T09:12:06.659407+00:00",
+  "generatedAt": "2026-05-06T11:20:38.812568+00:00",
   "timeRange": "24h",
   "risingEvents": [
+    {
+      "id": "rss_6894a6880e67",
+      "title": "US petrol prices 50 percent higher than before war on Iran",
+      "velocityScore": 1.0,
+      "category": "conflict",
+      "countryName": "United States"
+    },
     {
       "id": "rss_7f33d7491455",
       "title": "‘A stress test’: US-Germany rift widens as Iran war drags on",
@@ -10,32 +17,18 @@
       "countryName": "Germany"
     },
     {
-      "id": "rss_170d63e8259d",
-      "title": "Iran war day 68: Trump talks about progress in talks; Rubio says war ‘over’",
-      "velocityScore": 1.0,
-      "category": "conflict",
-      "countryName": "United States"
-    },
-    {
-      "id": "rss_3064d860a78b",
-      "title": "Airlines hike fares, cut millions of seats as Iran war drives up fuel costs",
-      "velocityScore": 1.0,
-      "category": "conflict",
-      "countryName": "Iran"
-    },
-    {
-      "id": "rss_aea7418d76b7",
-      "title": "Oil prices ease and markets rally as Trump works towards deal with Iran",
-      "velocityScore": 1.0,
-      "category": "conflict",
-      "countryName": "United States"
-    },
-    {
-      "id": "rss_09143246b9fa",
-      "title": "Middle East crisis live: Trump changes strait of Hormuz plan again as Rubio says US offensive is ‘over’",
+      "id": "rss_df87f6be1a2f",
+      "title": "Iranian and Chinese FMS meet as Beijing urges countries to maintain ceasefire",
       "velocityScore": 1.0,
       "category": "conflict",
       "countryName": "China"
+    },
+    {
+      "id": "rss_aa539f022b3b",
+      "title": "Kyiv says Russia broke unilateral ceasefire with drone and missile attacks",
+      "velocityScore": 1.0,
+      "category": "conflict",
+      "countryName": "Ukraine"
     },
     {
       "id": "rss_b547c0091352",
@@ -52,11 +45,18 @@
       "countryName": "China"
     },
     {
-      "id": "rss_e6ccea7495a2",
-      "title": "Zelenskyy slams Russia as strikes kill 22 in Ukraine before announced ceasefire",
+      "id": "rss_97c67b584842",
+      "title": "Saudi Arabia posts $33.5bn budget deficit amid drop in oil sales",
       "velocityScore": 1.0,
-      "category": "conflict",
-      "countryName": "Russia"
+      "category": "politics",
+      "countryName": "Saudi Arabia"
+    },
+    {
+      "id": "rss_8f979c1d1b1c",
+      "title": "Israeli attacks on southern, eastern Lebanon kill at least six people",
+      "velocityScore": 1.0,
+      "category": "politics",
+      "countryName": "Israel"
     }
   ],
   "risingRegions": [],
@@ -67,18 +67,23 @@
       "changePercent": 100
     },
     "conflict": {
-      "count": 359,
-      "change": "+359",
+      "count": 355,
+      "change": "+355",
       "changePercent": 100
     },
     "disaster": {
-      "count": 109,
-      "change": "+109",
+      "count": 110,
+      "change": "+110",
+      "changePercent": 100
+    },
+    "health": {
+      "count": 69,
+      "change": "+69",
       "changePercent": 100
     },
     "sports": {
-      "count": 71,
-      "change": "+71",
+      "count": 68,
+      "change": "+68",
       "changePercent": 100
     },
     "economy": {
@@ -86,27 +91,22 @@
       "change": "+67",
       "changePercent": 100
     },
-    "health": {
-      "count": 67,
-      "change": "+67",
-      "changePercent": 100
-    },
     "technology": {
-      "count": 26,
-      "change": "+26",
+      "count": 27,
+      "change": "+27",
       "changePercent": 100
     },
     "science": {
-      "count": 19,
-      "change": "+19",
+      "count": 20,
+      "change": "+20",
       "changePercent": 100
     }
   },
-  "totalEvents": 2039,
-  "totalSources": 2039,
+  "totalEvents": 2037,
+  "totalSources": 2037,
   "globalStats": {
     "avgAttentionScore": 0.887,
-    "totalArticles": 2039,
-    "bubbleCount": 1849
+    "totalArticles": 2037,
+    "bubbleCount": 1848
   }
 }
