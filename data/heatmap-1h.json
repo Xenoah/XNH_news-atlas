@@ -6,6 +6,21 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
+          116.3795,
+          39.9787
+        ]
+      },
+      "properties": {
+        "intensity": 0.9825,
+        "count": 1,
+        "region": "China"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
           -0.1233,
           51.6837
         ]
@@ -29,6 +44,21 @@
         "intensity": 0.9475,
         "count": 1,
         "region": "Ukraine"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          34.4407,
+          31.528
+        ]
+      },
+      "properties": {
+        "intensity": 0.9425,
+        "count": 1,
+        "region": "Israel"
       }
     },
     {
@@ -111,21 +141,6 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          37.6251,
-          55.8377
-        ]
-      },
-      "properties": {
-        "intensity": 0.9425,
-        "count": 1,
-        "region": "Russia"
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
           151.2955,
           -34.0085
         ]
@@ -134,6 +149,21 @@
         "intensity": 0.93,
         "count": 1,
         "region": "Australia"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -73.8856,
+          40.7162
+        ]
+      },
+      "properties": {
+        "intensity": 0.925,
+        "count": 1,
+        "region": "United States"
       }
     },
     {
@@ -171,14 +201,14 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          -47.9999,
-          -16.0035
+          106.8175,
+          -6.1861
         ]
       },
       "properties": {
-        "intensity": 0.925,
+        "intensity": 0.89,
         "count": 1,
-        "region": "Brazil"
+        "region": "Indonesia"
       }
     },
     {
@@ -186,14 +216,14 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          116.2226,
-          40.164
+          151.4341,
+          -34.2516
         ]
       },
       "properties": {
-        "intensity": 0.9075,
+        "intensity": 0.89,
         "count": 1,
-        "region": "China"
+        "region": "Australia"
       }
     },
     {
@@ -201,29 +231,14 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          0.1316,
-          51.3346
+          151.4398,
+          -33.4469
         ]
       },
       "properties": {
-        "intensity": 0.9075,
+        "intensity": 0.89,
         "count": 1,
-        "region": "United Kingdom"
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          37.5848,
-          56.141
-        ]
-      },
-      "properties": {
-        "intensity": 0.9075,
-        "count": 1,
-        "region": "Russia"
+        "region": "Australia"
       }
     },
     {
@@ -321,6 +336,21 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
+          150.8042,
+          -33.9199
+        ]
+      },
+      "properties": {
+        "intensity": 0.89,
+        "count": 1,
+        "region": "Australia"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
           151.3117,
           -33.7879
         ]
@@ -338,36 +368,6 @@
         "coordinates": [
           151.2376,
           -33.8548
-        ]
-      },
-      "properties": {
-        "intensity": 0.89,
-        "count": 1,
-        "region": "Australia"
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          139.6755,
-          35.5522
-        ]
-      },
-      "properties": {
-        "intensity": 0.89,
-        "count": 1,
-        "region": "Japan"
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          150.7523,
-          -33.7301
         ]
       },
       "properties": {
@@ -441,21 +441,6 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          34.7294,
-          31.7987
-        ]
-      },
-      "properties": {
-        "intensity": 0.86,
-        "count": 1,
-        "region": "Israel"
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
           -79.1407,
           -2.2513
         ]
@@ -501,12 +486,42 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          -76.6862,
-          38.8161
+          51.6164,
+          35.7619
         ]
       },
       "properties": {
-        "intensity": 0.82,
+        "intensity": 0.78,
+        "count": 1,
+        "region": "Iran"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.3851,
+          51.8929
+        ]
+      },
+      "properties": {
+        "intensity": 0.78,
+        "count": 1,
+        "region": "United Kingdom"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -77.0318,
+          38.8523
+        ]
+      },
+      "properties": {
+        "intensity": 0.7,
         "count": 1,
         "region": "United States"
       }
@@ -516,29 +531,14 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          -24.0873,
-          -59.5634
+          -4.0743,
+          40.4829
         ]
       },
       "properties": {
-        "intensity": 0.82,
+        "intensity": 0.62,
         "count": 1,
-        "region": "South Sandwich Islands region"
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          -0.1816,
-          51.4481
-        ]
-      },
-      "properties": {
-        "intensity": 0.74,
-        "count": 1,
-        "region": "United Kingdom"
+        "region": "Spain"
       }
     },
     {
@@ -653,36 +653,6 @@
         "coordinates": [
           2.6762,
           49.0283
-        ]
-      },
-      "properties": {
-        "intensity": 0.62,
-        "count": 1,
-        "region": "France"
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          -3.958,
-          40.5934
-        ]
-      },
-      "properties": {
-        "intensity": 0.62,
-        "count": 1,
-        "region": "Spain"
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          2.4416,
-          49.2453
         ]
       },
       "properties": {

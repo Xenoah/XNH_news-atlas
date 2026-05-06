@@ -1,7 +1,14 @@
 {
-  "generatedAt": "2026-05-06T22:51:19.056732+00:00",
+  "generatedAt": "2026-05-06T23:49:43.999785+00:00",
   "timeRange": "24h",
   "risingEvents": [
+    {
+      "id": "rss_e3668a88245f",
+      "title": "What are China’s surprise gains in the war on Iran?",
+      "velocityScore": 1.0,
+      "category": "conflict",
+      "countryName": "China"
+    },
     {
       "id": "rss_388ae1dd84ec",
       "title": "Fertiliser shortages will have ‘dramatic’ effect on global food prices, warns farming boss",
@@ -15,6 +22,13 @@
       "velocityScore": 1.0,
       "category": "conflict",
       "countryName": "Ukraine"
+    },
+    {
+      "id": "rss_5fd8c4c9220f",
+      "title": "Israeli strikes kill five Palestinians across Gaza in one day",
+      "velocityScore": 1.0,
+      "category": "politics",
+      "countryName": "Israel"
     },
     {
       "id": "rss_c3c9e8911cc8",
@@ -43,32 +57,18 @@
       "velocityScore": 1.0,
       "category": "politics",
       "countryName": "France"
-    },
-    {
-      "id": "rss_d657cc1576e1",
-      "title": "Israel bombs Beirut’s southern suburbs",
-      "velocityScore": 1.0,
-      "category": "politics",
-      "countryName": "Israel"
-    },
-    {
-      "id": "rss_ed370ea648b8",
-      "title": "Russia cuts mobile internet in Moscow citing drone security concerns",
-      "velocityScore": 1.0,
-      "category": "politics",
-      "countryName": "Russia"
     }
   ],
   "risingRegions": [],
   "categoryTrends": {
     "politics": {
-      "count": 1289,
-      "change": "+1289",
+      "count": 1291,
+      "change": "+1291",
       "changePercent": 100
     },
     "conflict": {
-      "count": 336,
-      "change": "+336",
+      "count": 335,
+      "change": "+335",
       "changePercent": 100
     },
     "disaster": {
@@ -77,23 +77,23 @@
       "changePercent": 100
     },
     "health": {
-      "count": 78,
-      "change": "+78",
-      "changePercent": 100
-    },
-    "sports": {
       "count": 77,
       "change": "+77",
       "changePercent": 100
     },
+    "sports": {
+      "count": 76,
+      "change": "+76",
+      "changePercent": 100
+    },
     "economy": {
-      "count": 61,
-      "change": "+61",
+      "count": 62,
+      "change": "+62",
       "changePercent": 100
     },
     "technology": {
-      "count": 26,
-      "change": "+26",
+      "count": 27,
+      "change": "+27",
       "changePercent": 100
     },
     "science": {
@@ -102,11 +102,11 @@
       "changePercent": 100
     }
   },
-  "totalEvents": 1996,
-  "totalSources": 1996,
+  "totalEvents": 1997,
+  "totalSources": 1997,
   "globalStats": {
     "avgAttentionScore": 0.885,
-    "totalArticles": 1996,
-    "bubbleCount": 1798
+    "totalArticles": 1997,
+    "bubbleCount": 1799
   }
 }
