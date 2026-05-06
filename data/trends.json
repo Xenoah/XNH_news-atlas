@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-05-06T21:54:31.600829+00:00",
+  "generatedAt": "2026-05-06T22:51:19.056732+00:00",
   "timeRange": "24h",
   "risingEvents": [
     {
@@ -8,6 +8,20 @@
       "velocityScore": 1.0,
       "category": "conflict",
       "countryName": "United Kingdom"
+    },
+    {
+      "id": "rss_26eaa1250e6e",
+      "title": "Russia warns foreign diplomats to leave Kyiv in case of strike",
+      "velocityScore": 1.0,
+      "category": "conflict",
+      "countryName": "Ukraine"
+    },
+    {
+      "id": "rss_c3c9e8911cc8",
+      "title": "In rare push, US lawmakers demand transparency on Israel nuclear capability",
+      "velocityScore": 1.0,
+      "category": "politics",
+      "countryName": "Iran"
     },
     {
       "id": "rss_ea337df73070",
@@ -43,32 +57,18 @@
       "velocityScore": 1.0,
       "category": "politics",
       "countryName": "Russia"
-    },
-    {
-      "id": "rss_6d96581e6a54",
-      "title": "What does the BJP’s victory in West Bengal mean for India’s democracy?",
-      "velocityScore": 1.0,
-      "category": "politics",
-      "countryName": "India"
-    },
-    {
-      "id": "rss_45545d107581",
-      "title": "Israeli strike kills colonel in Gaza police force, say Palestinian medics",
-      "velocityScore": 1.0,
-      "category": "politics",
-      "countryName": "Israel"
     }
   ],
   "risingRegions": [],
   "categoryTrends": {
     "politics": {
-      "count": 1286,
-      "change": "+1286",
+      "count": 1289,
+      "change": "+1289",
       "changePercent": 100
     },
     "conflict": {
-      "count": 335,
-      "change": "+335",
+      "count": 336,
+      "change": "+336",
       "changePercent": 100
     },
     "disaster": {
@@ -77,36 +77,36 @@
       "changePercent": 100
     },
     "health": {
+      "count": 78,
+      "change": "+78",
+      "changePercent": 100
+    },
+    "sports": {
       "count": 77,
       "change": "+77",
       "changePercent": 100
     },
-    "sports": {
-      "count": 76,
-      "change": "+76",
-      "changePercent": 100
-    },
     "economy": {
-      "count": 62,
-      "change": "+62",
+      "count": 61,
+      "change": "+61",
       "changePercent": 100
     },
     "technology": {
-      "count": 27,
-      "change": "+27",
+      "count": 26,
+      "change": "+26",
       "changePercent": 100
     },
     "science": {
-      "count": 18,
-      "change": "+18",
+      "count": 16,
+      "change": "+16",
       "changePercent": 100
     }
   },
-  "totalEvents": 1994,
-  "totalSources": 1994,
+  "totalEvents": 1996,
+  "totalSources": 1996,
   "globalStats": {
     "avgAttentionScore": 0.885,
-    "totalArticles": 1994,
-    "bubbleCount": 1794
+    "totalArticles": 1996,
+    "bubbleCount": 1798
   }
 }
