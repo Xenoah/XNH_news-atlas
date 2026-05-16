@@ -1,7 +1,14 @@
 {
-  "generatedAt": "2026-05-16T21:34:29.952502+00:00",
+  "generatedAt": "2026-05-16T22:28:57.364400+00:00",
   "timeRange": "24h",
   "risingEvents": [
+    {
+      "id": "rss_c59f041302e3",
+      "title": "Two presidential campaign staffers killed in Colombia as elections near",
+      "velocityScore": 1.0,
+      "category": "conflict",
+      "countryName": "Colombia"
+    },
     {
       "id": "rss_3d61946ade9e",
       "title": "Iranian man barely survives bombing, but wants war to go on",
@@ -50,25 +57,18 @@
       "velocityScore": 1.0,
       "category": "politics",
       "countryName": "United Kingdom"
-    },
-    {
-      "id": "rss_430dadedafc1",
-      "title": "Accident kills eight people in Thailand raising questions of rail safety",
-      "velocityScore": 1.0,
-      "category": "politics",
-      "countryName": "Thailand"
     }
   ],
   "risingRegions": [],
   "categoryTrends": {
     "politics": {
-      "count": 1372,
-      "change": "+1372",
+      "count": 1371,
+      "change": "+1371",
       "changePercent": 100
     },
     "conflict": {
-      "count": 295,
-      "change": "+295",
+      "count": 296,
+      "change": "+296",
       "changePercent": 100
     },
     "health": {
@@ -77,8 +77,8 @@
       "changePercent": 100
     },
     "disaster": {
-      "count": 108,
-      "change": "+108",
+      "count": 105,
+      "change": "+105",
       "changePercent": 100
     },
     "sports": {
@@ -92,8 +92,8 @@
       "changePercent": 100
     },
     "technology": {
-      "count": 29,
-      "change": "+29",
+      "count": 27,
+      "change": "+27",
       "changePercent": 100
     },
     "science": {
@@ -102,11 +102,11 @@
       "changePercent": 100
     }
   },
-  "totalEvents": 2103,
-  "totalSources": 2103,
+  "totalEvents": 2098,
+  "totalSources": 2098,
   "globalStats": {
     "avgAttentionScore": 0.881,
-    "totalArticles": 2103,
-    "bubbleCount": 1865
+    "totalArticles": 2098,
+    "bubbleCount": 1862
   }
 }
