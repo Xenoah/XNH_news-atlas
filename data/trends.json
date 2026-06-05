@@ -1,20 +1,27 @@
 {
-  "generatedAt": "2026-06-05T18:27:46.444054+00:00",
+  "generatedAt": "2026-06-05T20:27:28.446825+00:00",
   "timeRange": "24h",
   "risingEvents": [
+    {
+      "id": "rss_c5ba9678a89a",
+      "title": "France opens ‘war crimes’ probe into Israel’s treatment of Gaza activists",
+      "velocityScore": 1.0,
+      "category": "conflict",
+      "countryName": "Israel"
+    },
+    {
+      "id": "rss_f1392a064ec6",
+      "title": "Is the latest US ceasefire deal for Lebanon meaningless?",
+      "velocityScore": 1.0,
+      "category": "conflict",
+      "countryName": "Israel"
+    },
     {
       "id": "rss_3b42386abaf6",
       "title": "Ukraine and Russia exchange 185 prisoners of war each",
       "velocityScore": 1.0,
       "category": "conflict",
       "countryName": "Ukraine"
-    },
-    {
-      "id": "rss_17f1115db25b",
-      "title": "‘Red meat is a dream’: Iran inflation hits highest level since World War II",
-      "velocityScore": 1.0,
-      "category": "conflict",
-      "countryName": "Iran"
     },
     {
       "id": "rss_d988aff2b3ce",
@@ -31,10 +38,17 @@
       "countryName": "Ukraine"
     },
     {
-      "id": "rss_6003934f551b",
-      "title": "‘Pick a side coward’: even-handed Elmo enrages New York Knicks fans",
+      "id": "rss_eb56eaebd910",
+      "title": "Families clear rubble after overnight Israeli strikes in Gaza",
       "velocityScore": 1.0,
-      "category": "conflict",
+      "category": "politics",
+      "countryName": "Israel"
+    },
+    {
+      "id": "rss_ccf4b27e6d15",
+      "title": "Judge strikes down Trump bar on asylum, visa processing for 39 countries",
+      "velocityScore": 1.0,
+      "category": "politics",
       "countryName": "United States"
     },
     {
@@ -43,32 +57,18 @@
       "velocityScore": 1.0,
       "category": "politics",
       "countryName": "United States"
-    },
-    {
-      "id": "rss_6af50f43e4c9",
-      "title": "Russia’s Putin says ‘no point’ meeting Ukraine’s Zelenskyy for now",
-      "velocityScore": 1.0,
-      "category": "politics",
-      "countryName": "Russia"
-    },
-    {
-      "id": "rss_8be7caf27824",
-      "title": "Video shows moment Israeli air strike hits car in southern Lebanon",
-      "velocityScore": 1.0,
-      "category": "politics",
-      "countryName": "Israel"
     }
   ],
   "risingRegions": [],
   "categoryTrends": {
     "politics": {
-      "count": 1396,
-      "change": "+1396",
+      "count": 1389,
+      "change": "+1389",
       "changePercent": 100
     },
     "conflict": {
-      "count": 258,
-      "change": "+258",
+      "count": 260,
+      "change": "+260",
       "changePercent": 100
     },
     "sports": {
@@ -82,8 +82,8 @@
       "changePercent": 100
     },
     "health": {
-      "count": 69,
-      "change": "+69",
+      "count": 70,
+      "change": "+70",
       "changePercent": 100
     },
     "economy": {
@@ -102,11 +102,11 @@
       "changePercent": 100
     }
   },
-  "totalEvents": 2092,
-  "totalSources": 2092,
+  "totalEvents": 2088,
+  "totalSources": 2088,
   "globalStats": {
     "avgAttentionScore": 0.868,
-    "totalArticles": 2092,
-    "bubbleCount": 1799
+    "totalArticles": 2088,
+    "bubbleCount": 1795
   }
 }
