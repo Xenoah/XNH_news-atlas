@@ -1,7 +1,14 @@
 {
-  "generatedAt": "2026-06-14T20:46:37.719127+00:00",
+  "generatedAt": "2026-06-14T22:07:06.033421+00:00",
   "timeRange": "24h",
   "risingEvents": [
+    {
+      "id": "rss_0738e0f955b0",
+      "title": "Gaza mourns four killed in Israeli strike",
+      "velocityScore": 1.0,
+      "category": "conflict",
+      "countryName": "Israel"
+    },
     {
       "id": "rss_c4a815697b73",
       "title": "Israel expands military control in Gaza, Lebanon and Syria by 1,000sq km",
@@ -17,18 +24,25 @@
       "countryName": "United States"
     },
     {
-      "id": "rss_b86c16f67b35",
-      "title": "Trump reportedly tells Putin he is prepared to help end war in Ukraine",
+      "id": "rss_542bf5fee42f",
+      "title": "G7 leaders face wars abroad and divisions at home",
       "velocityScore": 1.0,
       "category": "conflict",
-      "countryName": "Ukraine"
+      "countryName": "United States"
     },
     {
-      "id": "rss_8540aee31ae4",
-      "title": "New defence secretary to ‘reprioritise’ UK plan for military spending, say sources",
+      "id": "rss_10afffd8b8d0",
+      "title": "LIVE: Ilia Topuria vs Justin Gaethje title fight at UFC Freedom 250",
       "velocityScore": 1.0,
-      "category": "conflict",
-      "countryName": "United Kingdom"
+      "category": "politics",
+      "countryName": "United States"
+    },
+    {
+      "id": "rss_42497656598f",
+      "title": "Medical teams in Goma face mistrust from relatives of Ebola victims",
+      "velocityScore": 1.0,
+      "category": "politics",
+      "countryName": "DR Congo"
     },
     {
       "id": "rss_ee623b08d56d",
@@ -43,37 +57,23 @@
       "velocityScore": 1.0,
       "category": "politics",
       "countryName": "Israel"
-    },
-    {
-      "id": "rss_8f5ec7f919df",
-      "title": "Trump says Israeli attacks on Beirut unjustified, puts Iran deal at risk",
-      "velocityScore": 1.0,
-      "category": "politics",
-      "countryName": "United States"
-    },
-    {
-      "id": "rss_5e98f9904a0f",
-      "title": "Is the G7 still relevant?",
-      "velocityScore": 1.0,
-      "category": "politics",
-      "countryName": "France"
     }
   ],
   "risingRegions": [],
   "categoryTrends": {
     "politics": {
-      "count": 1327,
-      "change": "+1327",
+      "count": 1331,
+      "change": "+1331",
       "changePercent": 100
     },
     "sports": {
-      "count": 353,
-      "change": "+353",
+      "count": 357,
+      "change": "+357",
       "changePercent": 100
     },
     "conflict": {
-      "count": 266,
-      "change": "+266",
+      "count": 264,
+      "change": "+264",
       "changePercent": 100
     },
     "disaster": {
@@ -82,8 +82,8 @@
       "changePercent": 100
     },
     "health": {
-      "count": 56,
-      "change": "+56",
+      "count": 55,
+      "change": "+55",
       "changePercent": 100
     },
     "economy": {
@@ -102,11 +102,11 @@
       "changePercent": 100
     }
   },
-  "totalEvents": 2284,
-  "totalSources": 2284,
+  "totalEvents": 2289,
+  "totalSources": 2289,
   "globalStats": {
-    "avgAttentionScore": 0.854,
-    "totalArticles": 2284,
-    "bubbleCount": 1818
+    "avgAttentionScore": 0.853,
+    "totalArticles": 2289,
+    "bubbleCount": 1821
   }
 }
