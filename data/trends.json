@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-15T21:30:19.508051+00:00",
+  "generatedAt": "2026-06-15T23:20:38.904219+00:00",
   "timeRange": "24h",
   "risingEvents": [
     {
@@ -15,6 +15,13 @@
       "velocityScore": 1.0,
       "category": "conflict",
       "countryName": "United States"
+    },
+    {
+      "id": "rss_3fafc2014ed1",
+      "title": "Journalist hit by Israeli strike while reporting in Lebanon",
+      "velocityScore": 1.0,
+      "category": "politics",
+      "countryName": "Israel"
     },
     {
       "id": "rss_cdfeeabcce39",
@@ -50,35 +57,28 @@
       "velocityScore": 1.0,
       "category": "politics",
       "countryName": "Iran"
-    },
-    {
-      "id": "rss_27ae5258bf78",
-      "title": "What Israeli leaders are saying about US-Iran ‘peace deal’",
-      "velocityScore": 1.0,
-      "category": "politics",
-      "countryName": "Iran"
     }
   ],
   "risingRegions": [],
   "categoryTrends": {
     "politics": {
-      "count": 1348,
-      "change": "+1348",
+      "count": 1341,
+      "change": "+1341",
       "changePercent": 100
     },
     "sports": {
-      "count": 376,
-      "change": "+376",
+      "count": 377,
+      "change": "+377",
       "changePercent": 100
     },
     "conflict": {
-      "count": 266,
-      "change": "+266",
+      "count": 264,
+      "change": "+264",
       "changePercent": 100
     },
     "disaster": {
-      "count": 141,
-      "change": "+141",
+      "count": 135,
+      "change": "+135",
       "changePercent": 100
     },
     "economy": {
@@ -87,8 +87,8 @@
       "changePercent": 100
     },
     "health": {
-      "count": 51,
-      "change": "+51",
+      "count": 52,
+      "change": "+52",
       "changePercent": 100
     },
     "technology": {
@@ -102,11 +102,11 @@
       "changePercent": 100
     }
   },
-  "totalEvents": 2281,
-  "totalSources": 2281,
+  "totalEvents": 2268,
+  "totalSources": 2268,
   "globalStats": {
     "avgAttentionScore": 0.851,
-    "totalArticles": 2281,
-    "bubbleCount": 1783
+    "totalArticles": 2268,
+    "bubbleCount": 1770
   }
 }
