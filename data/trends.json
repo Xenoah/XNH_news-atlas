@@ -1,20 +1,27 @@
 {
-  "generatedAt": "2026-06-28T15:41:47.488486+00:00",
+  "generatedAt": "2026-06-28T16:48:03.244965+00:00",
   "timeRange": "24h",
   "risingEvents": [
-    {
-      "id": "rss_ddf0c3e39fb8",
-      "title": "Paradise lost: How Israel is making war on West Bank farmers",
-      "velocityScore": 1.0,
-      "category": "conflict",
-      "countryName": "Israel"
-    },
     {
       "id": "rss_52218c854a15",
       "title": "Burnham may have to boost defence spending to pass ‘Moscow test’, says ex-military chief",
       "velocityScore": 1.0,
       "category": "conflict",
       "countryName": "Russia"
+    },
+    {
+      "id": "rss_ad178b5e6a3e",
+      "title": "Drone captures ongoing rescue efforts after Venezuela earthquakes",
+      "velocityScore": 1.0,
+      "category": "disaster",
+      "countryName": "Venezuela"
+    },
+    {
+      "id": "rss_1641b0fcaaf8",
+      "title": "Israel strikes Lebanon, testing days-old peace deal",
+      "velocityScore": 1.0,
+      "category": "politics",
+      "countryName": "Israel"
     },
     {
       "id": "rss_f90edb4d02b9",
@@ -50,13 +57,6 @@
       "velocityScore": 1.0,
       "category": "politics",
       "countryName": "Iran"
-    },
-    {
-      "id": "rss_3c70ea4e1e2c",
-      "title": "The US-Iran MoU: A mirage of an agreement",
-      "velocityScore": 1.0,
-      "category": "politics",
-      "countryName": "United States"
     }
   ],
   "risingRegions": [],
@@ -67,8 +67,13 @@
       "changePercent": 100
     },
     "sports": {
-      "count": 388,
-      "change": "+388",
+      "count": 387,
+      "change": "+387",
+      "changePercent": 100
+    },
+    "disaster": {
+      "count": 221,
+      "change": "+221",
       "changePercent": 100
     },
     "conflict": {
@@ -76,14 +81,9 @@
       "change": "+219",
       "changePercent": 100
     },
-    "disaster": {
-      "count": 219,
-      "change": "+219",
-      "changePercent": 100
-    },
     "health": {
-      "count": 75,
-      "change": "+75",
+      "count": 79,
+      "change": "+79",
       "changePercent": 100
     },
     "economy": {
@@ -92,8 +92,8 @@
       "changePercent": 100
     },
     "technology": {
-      "count": 26,
-      "change": "+26",
+      "count": 27,
+      "change": "+27",
       "changePercent": 100
     },
     "science": {
@@ -102,11 +102,11 @@
       "changePercent": 100
     }
   },
-  "totalEvents": 2376,
-  "totalSources": 2376,
+  "totalEvents": 2382,
+  "totalSources": 2382,
   "globalStats": {
     "avgAttentionScore": 0.85,
-    "totalArticles": 2376,
-    "bubbleCount": 1820
+    "totalArticles": 2382,
+    "bubbleCount": 1826
   }
 }
