@@ -6,29 +6,14 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          51.5416,
-          35.856
-        ]
-      },
-      "properties": {
-        "intensity": 0.9825,
-        "count": 1,
-        "region": "Iran"
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          -66.6645,
-          10.4392
+          -99.2985,
+          19.7375
         ]
       },
       "properties": {
         "intensity": 0.9425,
         "count": 1,
-        "region": "Venezuela"
+        "region": "Mexico"
       }
     },
     {
@@ -36,14 +21,14 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          -66.649,
-          10.4937
+          37.6601,
+          56.2441
         ]
       },
       "properties": {
         "intensity": 0.9425,
         "count": 1,
-        "region": "Venezuela"
+        "region": "Russia"
       }
     },
     {
@@ -51,8 +36,23 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          -77.1455,
-          38.9263
+          150.9714,
+          -34.1245
+        ]
+      },
+      "properties": {
+        "intensity": 0.925,
+        "count": 1,
+        "region": "Australia"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -77.3555,
+          38.9
         ]
       },
       "properties": {
@@ -66,14 +66,14 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          -0.0488,
-          51.5082
+          30.4341,
+          50.3626
         ]
       },
       "properties": {
         "intensity": 0.925,
         "count": 1,
-        "region": "United Kingdom"
+        "region": "Ukraine"
       }
     },
     {
@@ -81,53 +81,8 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          -0.4299,
-          51.4212
-        ]
-      },
-      "properties": {
-        "intensity": 0.925,
-        "count": 1,
-        "region": "United Kingdom"
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          -0.2153,
-          51.4129
-        ]
-      },
-      "properties": {
-        "intensity": 0.925,
-        "count": 1,
-        "region": "United Kingdom"
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          0.2719,
-          51.6602
-        ]
-      },
-      "properties": {
-        "intensity": 0.925,
-        "count": 1,
-        "region": "United Kingdom"
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          150.8132,
-          -33.9554
+          151.2786,
+          -33.8898
         ]
       },
       "properties": {
@@ -141,14 +96,14 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          2.4992,
-          48.8914
+          30.802,
+          50.1414
         ]
       },
       "properties": {
-        "intensity": 0.89,
+        "intensity": 0.925,
         "count": 1,
-        "region": "France"
+        "region": "Ukraine"
       }
     },
     {
@@ -156,8 +111,53 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          151.0164,
-          -33.8488
+          151.3406,
+          -33.9677
+        ]
+      },
+      "properties": {
+        "intensity": 0.925,
+        "count": 1,
+        "region": "Australia"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          30.5221,
+          50.3782
+        ]
+      },
+      "properties": {
+        "intensity": 0.9125,
+        "count": 1,
+        "region": "Ukraine"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          30.4949,
+          50.3627
+        ]
+      },
+      "properties": {
+        "intensity": 0.9075,
+        "count": 1,
+        "region": "Ukraine"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          151.2004,
+          -33.7767
         ]
       },
       "properties": {
@@ -171,14 +171,74 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          151.4299,
-          -33.7968
+          116.2712,
+          40.0767
+        ]
+      },
+      "properties": {
+        "intensity": 0.89,
+        "count": 1,
+        "region": "China"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -99.3797,
+          19.7603
+        ]
+      },
+      "properties": {
+        "intensity": 0.89,
+        "count": 1,
+        "region": "Mexico"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          151.2044,
+          -33.8268
         ]
       },
       "properties": {
         "intensity": 0.89,
         "count": 1,
         "region": "Australia"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          151.045,
+          -34.0727
+        ]
+      },
+      "properties": {
+        "intensity": 0.89,
+        "count": 1,
+        "region": "Australia"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          51.5416,
+          35.856
+        ]
+      },
+      "properties": {
+        "intensity": 0.9825,
+        "count": 1,
+        "region": "Iran"
       }
     },
     {
@@ -261,14 +321,59 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          0.1631,
-          51.6174
+          4.3679,
+          51.0137
+        ]
+      },
+      "properties": {
+        "intensity": 0.8725,
+        "count": 1,
+        "region": "Belgium"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.0283,
+          52.8356
+        ]
+      },
+      "properties": {
+        "intensity": 0.8725,
+        "count": 1,
+        "region": "Germany"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          139.7633,
+          35.6383
+        ]
+      },
+      "properties": {
+        "intensity": 0.8725,
+        "count": 1,
+        "region": "Japan"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          30.6851,
+          50.3893
         ]
       },
       "properties": {
         "intensity": 0.86,
         "count": 1,
-        "region": "United Kingdom"
+        "region": "Ukraine"
       }
     },
     {
@@ -299,6 +404,36 @@
         "intensity": 0.9475,
         "count": 1,
         "region": "United States"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -66.6645,
+          10.4392
+        ]
+      },
+      "properties": {
+        "intensity": 0.9425,
+        "count": 1,
+        "region": "Venezuela"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -66.649,
+          10.4937
+        ]
+      },
+      "properties": {
+        "intensity": 0.9425,
+        "count": 1,
+        "region": "Venezuela"
       }
     },
     {
@@ -636,44 +771,14 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          -77.1944,
-          38.7162
+          15.1884,
+          -4.5005
         ]
       },
       "properties": {
-        "intensity": 0.9425,
+        "intensity": 0.9325,
         "count": 1,
-        "region": "United States"
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          -73.9301,
-          40.404
-        ]
-      },
-      "properties": {
-        "intensity": 0.9425,
-        "count": 1,
-        "region": "United States"
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          -77.0506,
-          38.8284
-        ]
-      },
-      "properties": {
-        "intensity": 0.9425,
-        "count": 1,
-        "region": "United States"
+        "region": "DR Congo"
       }
     },
     {
@@ -704,6 +809,96 @@
         "intensity": 0.93,
         "count": 1,
         "region": "United Kingdom"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -77.1455,
+          38.9263
+        ]
+      },
+      "properties": {
+        "intensity": 0.925,
+        "count": 1,
+        "region": "United States"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.0488,
+          51.5082
+        ]
+      },
+      "properties": {
+        "intensity": 0.925,
+        "count": 1,
+        "region": "United Kingdom"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.4299,
+          51.4212
+        ]
+      },
+      "properties": {
+        "intensity": 0.925,
+        "count": 1,
+        "region": "United Kingdom"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.2153,
+          51.4129
+        ]
+      },
+      "properties": {
+        "intensity": 0.925,
+        "count": 1,
+        "region": "United Kingdom"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          0.2719,
+          51.6602
+        ]
+      },
+      "properties": {
+        "intensity": 0.925,
+        "count": 1,
+        "region": "United Kingdom"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          150.8132,
+          -33.9554
+        ]
+      },
+      "properties": {
+        "intensity": 0.925,
+        "count": 1,
+        "region": "Australia"
       }
     },
     {
@@ -1131,66 +1326,6 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          -0.6189,
-          51.6073
-        ]
-      },
-      "properties": {
-        "intensity": 0.925,
-        "count": 1,
-        "region": "United Kingdom"
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          -76.9734,
-          38.864
-        ]
-      },
-      "properties": {
-        "intensity": 0.925,
-        "count": 1,
-        "region": "United States"
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          -0.4931,
-          51.5127
-        ]
-      },
-      "properties": {
-        "intensity": 0.925,
-        "count": 1,
-        "region": "United Kingdom"
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          116.6217,
-          40.1066
-        ]
-      },
-      "properties": {
-        "intensity": 0.925,
-        "count": 1,
-        "region": "China"
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
           -77.19,
           38.8337
         ]
@@ -1221,14 +1356,14 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          116.6902,
-          39.7489
+          -86.5428,
+          10.7504
         ]
       },
       "properties": {
         "intensity": 0.82,
         "count": 1,
-        "region": "China"
+        "region": "91 km WNW of Tamarindo, Costa Rica"
       }
     },
     {
@@ -1236,14 +1371,29 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          2.0602,
-          48.8155
+          -66.7274,
+          10.4426
         ]
       },
       "properties": {
         "intensity": 0.82,
         "count": 1,
-        "region": "France"
+        "region": "Venezuela"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          149.1862,
+          -35.3491
+        ]
+      },
+      "properties": {
+        "intensity": 0.82,
+        "count": 1,
+        "region": "Australia"
       }
     },
     {
@@ -1611,14 +1761,14 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          -77.0374,
-          38.7716
+          -67.0134,
+          10.4028
         ]
       },
       "properties": {
-        "intensity": 0.9075,
+        "intensity": 0.8925,
         "count": 1,
-        "region": "United States"
+        "region": "Venezuela"
       }
     },
     {
@@ -1626,14 +1776,59 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          116.2077,
-          39.8519
+          37.5121,
+          55.4925
         ]
       },
       "properties": {
-        "intensity": 0.805,
+        "intensity": 0.8925,
         "count": 1,
-        "region": "China"
+        "region": "Russia"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          2.4992,
+          48.8914
+        ]
+      },
+      "properties": {
+        "intensity": 0.89,
+        "count": 1,
+        "region": "France"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          151.0164,
+          -33.8488
+        ]
+      },
+      "properties": {
+        "intensity": 0.89,
+        "count": 1,
+        "region": "Australia"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          151.4299,
+          -33.7968
+        ]
+      },
+      "properties": {
+        "intensity": 0.89,
+        "count": 1,
+        "region": "Australia"
       }
     },
     {
@@ -1836,29 +2031,14 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          -66.6572,
-          10.5055
+          -77.2634,
+          38.8823
         ]
       },
       "properties": {
-        "intensity": 0.89,
+        "intensity": 0.875,
         "count": 1,
-        "region": "Venezuela"
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          151.2839,
-          -34.0848
-        ]
-      },
-      "properties": {
-        "intensity": 0.89,
-        "count": 1,
-        "region": "Australia"
+        "region": "United States"
       }
     },
     {
@@ -1971,36 +2151,6 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          0.0167,
-          51.9257
-        ]
-      },
-      "properties": {
-        "intensity": 0.78,
-        "count": 1,
-        "region": "United Kingdom"
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          4.4904,
-          50.88
-        ]
-      },
-      "properties": {
-        "intensity": 0.78,
-        "count": 1,
-        "region": "Belgium"
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
           -77.0143,
           38.935
         ]
@@ -2009,6 +2159,21 @@
         "intensity": 0.8625,
         "count": 1,
         "region": "United States"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          0.1631,
+          51.6174
+        ]
+      },
+      "properties": {
+        "intensity": 0.86,
+        "count": 1,
+        "region": "United Kingdom"
       }
     },
     {
@@ -2061,21 +2226,6 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          2.2605,
-          48.9783
-        ]
-      },
-      "properties": {
-        "intensity": 0.8575,
-        "count": 1,
-        "region": "France"
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
           0.1122,
           51.6833
         ]
@@ -2121,6 +2271,21 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
+          34.527,
+          31.4024
+        ]
+      },
+      "properties": {
+        "intensity": 0.84,
+        "count": 1,
+        "region": "Israel"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
           151.0387,
           -33.8518
         ]
@@ -2136,14 +2301,14 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          -76.8272,
-          39.1825
+          -99.4909,
+          19.6981
         ]
       },
       "properties": {
-        "intensity": 0.84,
+        "intensity": 0.74,
         "count": 1,
-        "region": "United States"
+        "region": "Mexico"
       }
     },
     {
@@ -2151,14 +2316,29 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          -47.8014,
-          -15.8041
+          116.6902,
+          39.7489
         ]
       },
       "properties": {
-        "intensity": 0.7425,
+        "intensity": 0.82,
         "count": 1,
-        "region": "Brazil"
+        "region": "China"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          2.0602,
+          48.8155
+        ]
+      },
+      "properties": {
+        "intensity": 0.82,
+        "count": 1,
+        "region": "France"
       }
     },
     {
@@ -2466,21 +2646,6 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          179.3801,
-          -24.9821
-        ]
-      },
-      "properties": {
-        "intensity": 0.82,
-        "count": 1,
-        "region": "south of the Fiji Islands"
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
           15.2776,
           -4.1684
         ]
@@ -2511,14 +2676,14 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          -77.1445,
-          38.9995
+          116.2077,
+          39.8519
         ]
       },
       "properties": {
-        "intensity": 0.725,
+        "intensity": 0.805,
         "count": 1,
-        "region": "United States"
+        "region": "China"
       }
     },
     {
@@ -2526,8 +2691,8 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          -99.1052,
-          19.5916
+          -98.9427,
+          19.2021
         ]
       },
       "properties": {
@@ -2541,14 +2706,89 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          -75.9637,
-          45.0637
+          -47.7997,
+          -15.7416
         ]
       },
       "properties": {
-        "intensity": 0.7,
+        "intensity": 0.7075,
         "count": 1,
-        "region": "Canada"
+        "region": "Brazil"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -98.986,
+          19.3117
+        ]
+      },
+      "properties": {
+        "intensity": 0.7075,
+        "count": 1,
+        "region": "Mexico"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          0.0167,
+          51.9257
+        ]
+      },
+      "properties": {
+        "intensity": 0.78,
+        "count": 1,
+        "region": "United Kingdom"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          4.4904,
+          50.88
+        ]
+      },
+      "properties": {
+        "intensity": 0.78,
+        "count": 1,
+        "region": "Belgium"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          116.8599,
+          39.828
+        ]
+      },
+      "properties": {
+        "intensity": 0.77,
+        "count": 1,
+        "region": "China"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          151.1411,
+          -33.4365
+        ]
+      },
+      "properties": {
+        "intensity": 0.77,
+        "count": 1,
+        "region": "Australia"
       }
     },
     {
@@ -2571,14 +2811,14 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          -77.0735,
-          39.3437
+          151.2672,
+          -33.8967
         ]
       },
       "properties": {
-        "intensity": 0.77,
+        "intensity": 0.69,
         "count": 1,
-        "region": "United States"
+        "region": "Australia"
       }
     },
     {
@@ -2586,14 +2826,14 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          100.1989,
-          13.8802
+          -48.2284,
+          -15.9188
         ]
       },
       "properties": {
-        "intensity": 0.765,
+        "intensity": 0.69,
         "count": 1,
-        "region": "Thailand"
+        "region": "Brazil"
       }
     },
     {
@@ -3486,14 +3726,59 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          72.7406,
-          33.9927
+          -77.0692,
+          38.7986
         ]
       },
       "properties": {
-        "intensity": 0.965,
+        "intensity": 0.6725,
         "count": 1,
-        "region": "Pakistan"
+        "region": "United States"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -47.6082,
+          -15.4774
+        ]
+      },
+      "properties": {
+        "intensity": 0.6725,
+        "count": 1,
+        "region": "Brazil"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -98.9556,
+          19.2981
+        ]
+      },
+      "properties": {
+        "intensity": 0.6725,
+        "count": 1,
+        "region": "Mexico"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -47.8014,
+          -15.8041
+        ]
+      },
+      "properties": {
+        "intensity": 0.7425,
+        "count": 1,
+        "region": "Brazil"
       }
     },
     {
@@ -4266,14 +4551,44 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          73.4622,
-          33.6885
+          -77.1944,
+          38.7162
         ]
       },
       "properties": {
-        "intensity": 0.9475,
+        "intensity": 0.9425,
         "count": 1,
-        "region": "Pakistan"
+        "region": "United States"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -73.9301,
+          40.404
+        ]
+      },
+      "properties": {
+        "intensity": 0.9425,
+        "count": 1,
+        "region": "United States"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -77.0506,
+          38.8284
+        ]
+      },
+      "properties": {
+        "intensity": 0.9425,
+        "count": 1,
+        "region": "United States"
       }
     },
     {
@@ -7506,66 +7821,6 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          151.4827,
-          -33.7296
-        ]
-      },
-      "properties": {
-        "intensity": 0.9425,
-        "count": 1,
-        "region": "Australia"
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          -67.0276,
-          10.4326
-        ]
-      },
-      "properties": {
-        "intensity": 0.9425,
-        "count": 1,
-        "region": "Venezuela"
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          30.5311,
-          50.2584
-        ]
-      },
-      "properties": {
-        "intensity": 0.9425,
-        "count": 1,
-        "region": "Ukraine"
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          -67.0309,
-          10.5697
-        ]
-      },
-      "properties": {
-        "intensity": 0.9425,
-        "count": 1,
-        "region": "Venezuela"
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
           44.3767,
           33.4797
         ]
@@ -7694,6 +7949,21 @@
         "intensity": 0.9325,
         "count": 1,
         "region": "Ukraine"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -77.1445,
+          38.9995
+        ]
+      },
+      "properties": {
+        "intensity": 0.725,
+        "count": 1,
+        "region": "United States"
       }
     },
     {
@@ -7844,6 +8114,66 @@
         "intensity": 0.93,
         "count": 1,
         "region": "Australia"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.6189,
+          51.6073
+        ]
+      },
+      "properties": {
+        "intensity": 0.925,
+        "count": 1,
+        "region": "United Kingdom"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -76.9734,
+          38.864
+        ]
+      },
+      "properties": {
+        "intensity": 0.925,
+        "count": 1,
+        "region": "United States"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.4931,
+          51.5127
+        ]
+      },
+      "properties": {
+        "intensity": 0.925,
+        "count": 1,
+        "region": "United Kingdom"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          116.6217,
+          40.1066
+        ]
+      },
+      "properties": {
+        "intensity": 0.925,
+        "count": 1,
+        "region": "China"
       }
     },
     {
@@ -12336,51 +12666,6 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          -0.1321,
-          51.5339
-        ]
-      },
-      "properties": {
-        "intensity": 0.925,
-        "count": 1,
-        "region": "United Kingdom"
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          -0.0861,
-          51.3723
-        ]
-      },
-      "properties": {
-        "intensity": 0.925,
-        "count": 1,
-        "region": "United Kingdom"
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          151.2268,
-          -33.5235
-        ]
-      },
-      "properties": {
-        "intensity": 0.925,
-        "count": 1,
-        "region": "Australia"
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
           151.3572,
           -33.8681
         ]
@@ -12666,6 +12951,21 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
+          -99.1052,
+          19.5916
+        ]
+      },
+      "properties": {
+        "intensity": 0.7075,
+        "count": 1,
+        "region": "Mexico"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
           -47.6719,
           -15.3671
         ]
@@ -12749,6 +13049,21 @@
         "intensity": 0.7075,
         "count": 1,
         "region": "France"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -77.0374,
+          38.7716
+        ]
+      },
+      "properties": {
+        "intensity": 0.9075,
+        "count": 1,
+        "region": "United States"
       }
     },
     {
@@ -16251,21 +16566,6 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          51.5431,
-          35.7937
-        ]
-      },
-      "properties": {
-        "intensity": 0.9075,
-        "count": 1,
-        "region": "Iran"
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
           -77.0136,
           38.8778
         ]
@@ -16281,14 +16581,14 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          51.4223,
-          35.6807
+          -75.9637,
+          45.0637
         ]
       },
       "properties": {
-        "intensity": 0.9025,
+        "intensity": 0.7,
         "count": 1,
-        "region": "Iran"
+        "region": "Canada"
       }
     },
     {
@@ -16319,21 +16619,6 @@
         "intensity": 0.8975,
         "count": 1,
         "region": "Syria"
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          72.9701,
-          33.2392
-        ]
-      },
-      "properties": {
-        "intensity": 0.8975,
-        "count": 1,
-        "region": "Pakistan"
       }
     },
     {
@@ -16731,14 +17016,44 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          2.3819,
-          49.0284
+          -47.8899,
+          -15.8388
         ]
       },
       "properties": {
-        "intensity": 0.8925,
+        "intensity": 0.6925,
         "count": 1,
-        "region": "France"
+        "region": "Brazil"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -66.6572,
+          10.5055
+        ]
+      },
+      "properties": {
+        "intensity": 0.89,
+        "count": 1,
+        "region": "Venezuela"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          151.2839,
+          -34.0848
+        ]
+      },
+      "properties": {
+        "intensity": 0.89,
+        "count": 1,
+        "region": "Australia"
       }
     },
     {
@@ -19191,66 +19506,6 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          149.3805,
-          -35.5812
-        ]
-      },
-      "properties": {
-        "intensity": 0.89,
-        "count": 1,
-        "region": "Australia"
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          150.7911,
-          -33.7411
-        ]
-      },
-      "properties": {
-        "intensity": 0.89,
-        "count": 1,
-        "region": "Australia"
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          151.0131,
-          -33.9439
-        ]
-      },
-      "properties": {
-        "intensity": 0.89,
-        "count": 1,
-        "region": "Australia"
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          151.232,
-          -34.0799
-        ]
-      },
-      "properties": {
-        "intensity": 0.89,
-        "count": 1,
-        "region": "Australia"
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
           151.6273,
           -33.9179
         ]
@@ -19266,53 +19521,8 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          -47.937,
-          -15.9572
-        ]
-      },
-      "properties": {
-        "intensity": 0.62,
-        "count": 1,
-        "region": "Brazil"
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          -47.9063,
-          -15.869
-        ]
-      },
-      "properties": {
-        "intensity": 0.62,
-        "count": 1,
-        "region": "Brazil"
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          -77.2067,
-          39.0485
-        ]
-      },
-      "properties": {
-        "intensity": 0.62,
-        "count": 1,
-        "region": "United States"
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          -98.925,
-          19.5595
+          -99.2317,
+          19.7683
         ]
       },
       "properties": {
@@ -19326,23 +19536,8 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          -74.3807,
-          40.7655
-        ]
-      },
-      "properties": {
-        "intensity": 0.62,
-        "count": 1,
-        "region": "United States"
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          -99.2395,
-          19.8824
+          -98.9342,
+          19.2151
         ]
       },
       "properties": {
@@ -19356,14 +19551,14 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          -47.934,
-          -15.4529
+          -98.8272,
+          19.7661
         ]
       },
       "properties": {
         "intensity": 0.62,
         "count": 1,
-        "region": "Brazil"
+        "region": "Mexico"
       }
     },
     {
@@ -19371,14 +19566,104 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          -0.0925,
-          51.5031
+          -99.1654,
+          19.3994
         ]
       },
       "properties": {
         "intensity": 0.62,
         "count": 1,
-        "region": "United Kingdom"
+        "region": "Mexico"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -99.2598,
+          19.6475
+        ]
+      },
+      "properties": {
+        "intensity": 0.62,
+        "count": 1,
+        "region": "Mexico"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -98.7006,
+          19.5612
+        ]
+      },
+      "properties": {
+        "intensity": 0.62,
+        "count": 1,
+        "region": "Mexico"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -99.1393,
+          18.9708
+        ]
+      },
+      "properties": {
+        "intensity": 0.62,
+        "count": 1,
+        "region": "Mexico"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.1422,
+          -34.5836
+        ]
+      },
+      "properties": {
+        "intensity": 0.62,
+        "count": 1,
+        "region": "Argentina"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -99.0478,
+          19.4658
+        ]
+      },
+      "properties": {
+        "intensity": 0.62,
+        "count": 1,
+        "region": "Mexico"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -99.3377,
+          19.167
+        ]
+      },
+      "properties": {
+        "intensity": 0.62,
+        "count": 1,
+        "region": "Mexico"
       }
     },
     {
@@ -19454,21 +19739,6 @@
         "intensity": 0.885,
         "count": 1,
         "region": "United Kingdom"
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          151.157,
-          -33.6215
-        ]
-      },
-      "properties": {
-        "intensity": 0.885,
-        "count": 1,
-        "region": "Australia"
       }
     },
     {
@@ -19754,21 +20024,6 @@
         "intensity": 0.875,
         "count": 1,
         "region": "Germany"
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          -76.8728,
-          38.4753
-        ]
-      },
-      "properties": {
-        "intensity": 0.875,
-        "count": 1,
-        "region": "United States"
       }
     },
     {
@@ -21981,51 +22236,6 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          4.3084,
-          50.8985
-        ]
-      },
-      "properties": {
-        "intensity": 0.8725,
-        "count": 1,
-        "region": "Belgium"
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          73.1703,
-          33.5131
-        ]
-      },
-      "properties": {
-        "intensity": 0.8725,
-        "count": 1,
-        "region": "Pakistan"
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          51.4732,
-          35.8372
-        ]
-      },
-      "properties": {
-        "intensity": 0.8725,
-        "count": 1,
-        "region": "Iran"
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
           116.1455,
           39.7493
         ]
@@ -22446,6 +22656,21 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
+          2.2605,
+          48.9783
+        ]
+      },
+      "properties": {
+        "intensity": 0.8575,
+        "count": 1,
+        "region": "France"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
           -66.8475,
           10.5872
         ]
@@ -22784,6 +23009,21 @@
         "intensity": 0.8575,
         "count": 1,
         "region": "Venezuela"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -47.9578,
+          -15.8462
+        ]
+      },
+      "properties": {
+        "intensity": 0.6575,
+        "count": 1,
+        "region": "Brazil"
       }
     },
     {
@@ -23241,6 +23481,21 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
+          -76.8272,
+          39.1825
+        ]
+      },
+      "properties": {
+        "intensity": 0.84,
+        "count": 1,
+        "region": "United States"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
           2.5593,
           48.6443
         ]
@@ -23414,6 +23669,21 @@
         "intensity": 0.84,
         "count": 1,
         "region": "Australia"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          72.7406,
+          33.9927
+        ]
+      },
+      "properties": {
+        "intensity": 0.84,
+        "count": 1,
+        "region": "Pakistan"
       }
     },
     {
@@ -24291,29 +24561,14 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          116.8042,
-          40.1294
+          179.3801,
+          -24.9821
         ]
       },
       "properties": {
-        "intensity": 0.8225,
+        "intensity": 0.82,
         "count": 1,
-        "region": "China"
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          37.605,
-          55.732
-        ]
-      },
-      "properties": {
-        "intensity": 0.8225,
-        "count": 1,
-        "region": "Russia"
+        "region": "south of the Fiji Islands"
       }
     },
     {
@@ -27081,96 +27336,6 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          -177.6455,
-          -31.2186
-        ]
-      },
-      "properties": {
-        "intensity": 0.82,
-        "count": 1,
-        "region": "Kermadec Islands region"
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          -145.91,
-          60.237
-        ]
-      },
-      "properties": {
-        "intensity": 0.82,
-        "count": 1,
-        "region": "35 km SSW of Cordova, Alaska"
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          125.4036,
-          4.5908
-        ]
-      },
-      "properties": {
-        "intensity": 0.82,
-        "count": 1,
-        "region": "90 km S of Sarangani, Philippines"
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          125.1893,
-          4.4724
-        ]
-      },
-      "properties": {
-        "intensity": 0.82,
-        "count": 1,
-        "region": "107 km SSW of Sarangani, Philippines"
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          73.2464,
-          34.0102
-        ]
-      },
-      "properties": {
-        "intensity": 0.82,
-        "count": 1,
-        "region": "Pakistan"
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          -66.924,
-          10.556
-        ]
-      },
-      "properties": {
-        "intensity": 0.82,
-        "count": 1,
-        "region": "Venezuela"
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
           7.3694,
           9.0258
         ]
@@ -27321,36 +27486,6 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          151.3343,
-          -33.9353
-        ]
-      },
-      "properties": {
-        "intensity": 0.81,
-        "count": 1,
-        "region": "Australia"
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          148.9406,
-          -34.9847
-        ]
-      },
-      "properties": {
-        "intensity": 0.81,
-        "count": 1,
-        "region": "Australia"
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
           -0.2883,
           51.7741
         ]
@@ -27464,6 +27599,126 @@
         "intensity": 0.805,
         "count": 1,
         "region": "United States"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -47.937,
+          -15.9572
+        ]
+      },
+      "properties": {
+        "intensity": 0.62,
+        "count": 1,
+        "region": "Brazil"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -47.9063,
+          -15.869
+        ]
+      },
+      "properties": {
+        "intensity": 0.62,
+        "count": 1,
+        "region": "Brazil"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -77.2067,
+          39.0485
+        ]
+      },
+      "properties": {
+        "intensity": 0.62,
+        "count": 1,
+        "region": "United States"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -98.925,
+          19.5595
+        ]
+      },
+      "properties": {
+        "intensity": 0.62,
+        "count": 1,
+        "region": "Mexico"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -74.3807,
+          40.7655
+        ]
+      },
+      "properties": {
+        "intensity": 0.62,
+        "count": 1,
+        "region": "United States"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -99.2395,
+          19.8824
+        ]
+      },
+      "properties": {
+        "intensity": 0.62,
+        "count": 1,
+        "region": "Mexico"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -47.934,
+          -15.4529
+        ]
+      },
+      "properties": {
+        "intensity": 0.62,
+        "count": 1,
+        "region": "Brazil"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.0925,
+          51.5031
+        ]
+      },
+      "properties": {
+        "intensity": 0.62,
+        "count": 1,
+        "region": "United Kingdom"
       }
     },
     {
@@ -27876,36 +28131,6 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          -98.9139,
-          19.6234
-        ]
-      },
-      "properties": {
-        "intensity": 0.62,
-        "count": 1,
-        "region": "Mexico"
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          2.3778,
-          48.8937
-        ]
-      },
-      "properties": {
-        "intensity": 0.62,
-        "count": 1,
-        "region": "France"
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
           0.3035,
           51.4976
         ]
@@ -27944,21 +28169,6 @@
         "intensity": 0.795,
         "count": 1,
         "region": "Australia"
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          0.2303,
-          51.651
-        ]
-      },
-      "properties": {
-        "intensity": 0.795,
-        "count": 1,
-        "region": "United Kingdom"
       }
     },
     {
@@ -28152,6 +28362,21 @@
       },
       "properties": {
         "intensity": 0.78,
+        "count": 1,
+        "region": "United States"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -77.0735,
+          39.3437
+        ]
+      },
+      "properties": {
+        "intensity": 0.77,
         "count": 1,
         "region": "United States"
       }
@@ -28566,29 +28791,14 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          51.5849,
-          35.5632
+          100.1989,
+          13.8802
         ]
       },
       "properties": {
-        "intensity": 0.77,
+        "intensity": 0.765,
         "count": 1,
-        "region": "Iran"
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          13.4489,
-          52.8051
-        ]
-      },
-      "properties": {
-        "intensity": 0.77,
-        "count": 1,
-        "region": "Germany"
+        "region": "Thailand"
       }
     },
     {
@@ -29661,6 +29871,21 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
+          -98.8418,
+          19.3104
+        ]
+      },
+      "properties": {
+        "intensity": 0.57,
+        "count": 1,
+        "region": "Mexico"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
           0.1967,
           51.2179
         ]
@@ -30059,21 +30284,6 @@
         "intensity": 0.715,
         "count": 1,
         "region": "United States"
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          -0.2872,
-          51.9442
-        ]
-      },
-      "properties": {
-        "intensity": 0.715,
-        "count": 1,
-        "region": "United Kingdom"
       }
     },
     {
@@ -31041,21 +31251,6 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          28.2201,
-          -26.2352
-        ]
-      },
-      "properties": {
-        "intensity": 0.6925,
-        "count": 1,
-        "region": "South Africa"
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
           151.2006,
           -33.7793
         ]
@@ -31431,21 +31626,6 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          28.2424,
-          -25.5648
-        ]
-      },
-      "properties": {
-        "intensity": 0.6575,
-        "count": 1,
-        "region": "South Africa"
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
           51.3457,
           35.7017
         ]
@@ -31514,6 +31694,36 @@
         "intensity": 0.6225,
         "count": 1,
         "region": "Japan"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -98.9139,
+          19.6234
+        ]
+      },
+      "properties": {
+        "intensity": 0.62,
+        "count": 1,
+        "region": "Mexico"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          2.3778,
+          48.8937
+        ]
+      },
+      "properties": {
+        "intensity": 0.62,
+        "count": 1,
+        "region": "France"
       }
     },
     {
@@ -34326,21 +34536,6 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          127.0819,
-          37.1551
-        ]
-      },
-      "properties": {
-        "intensity": 0.62,
-        "count": 1,
-        "region": "South Korea"
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
           2.0577,
           48.8863
         ]
@@ -34508,21 +34703,6 @@
         "coordinates": [
           0.1324,
           51.5026
-        ]
-      },
-      "properties": {
-        "intensity": 0.57,
-        "count": 1,
-        "region": "United Kingdom"
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          -0.0552,
-          51.6137
         ]
       },
       "properties": {
