@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-07T20:57:05.961739+00:00",
+  "generatedAt": "2026-07-07T22:11:48.275817+00:00",
   "timeRange": "24h",
   "risingEvents": [
     {
@@ -8,6 +8,13 @@
       "velocityScore": 1.0,
       "category": "conflict",
       "countryName": "Ukraine"
+    },
+    {
+      "id": "rss_f9c05138ccc1",
+      "title": "US says strikes launched as explosions heard in southern Iran",
+      "velocityScore": 1.0,
+      "category": "politics",
+      "countryName": "Iran"
     },
     {
       "id": "rss_36185e5474ae",
@@ -50,30 +57,23 @@
       "velocityScore": 1.0,
       "category": "politics",
       "countryName": "United States"
-    },
-    {
-      "id": "rss_0661334be641",
-      "title": "‘They brought me here to kill me’ says Gaza doctor in Israeli prison",
-      "velocityScore": 1.0,
-      "category": "politics",
-      "countryName": "Israel"
     }
   ],
   "risingRegions": [],
   "categoryTrends": {
     "politics": {
-      "count": 1367,
-      "change": "+1367",
+      "count": 1370,
+      "change": "+1370",
       "changePercent": 100
     },
     "sports": {
-      "count": 447,
-      "change": "+447",
+      "count": 450,
+      "change": "+450",
       "changePercent": 100
     },
     "disaster": {
-      "count": 188,
-      "change": "+188",
+      "count": 186,
+      "change": "+186",
       "changePercent": 100
     },
     "conflict": {
@@ -87,13 +87,13 @@
       "changePercent": 100
     },
     "economy": {
-      "count": 26,
-      "change": "+26",
+      "count": 27,
+      "change": "+27",
       "changePercent": 100
     },
     "technology": {
-      "count": 25,
-      "change": "+25",
+      "count": 26,
+      "change": "+26",
       "changePercent": 100
     },
     "science": {
@@ -102,11 +102,11 @@
       "changePercent": 100
     }
   },
-  "totalEvents": 2319,
-  "totalSources": 2319,
+  "totalEvents": 2325,
+  "totalSources": 2325,
   "globalStats": {
     "avgAttentionScore": 0.843,
-    "totalArticles": 2319,
-    "bubbleCount": 1746
+    "totalArticles": 2325,
+    "bubbleCount": 1748
   }
 }
