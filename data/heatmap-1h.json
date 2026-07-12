@@ -6,6 +6,21 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
+          51.5949,
+          35.6035
+        ]
+      },
+      "properties": {
+        "intensity": 0.9825,
+        "count": 1,
+        "region": "Iran"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
           -76.8766,
           39.1963
         ]
@@ -126,14 +141,14 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          13.8471,
-          52.7119
+          -74.0782,
+          40.8768
         ]
       },
       "properties": {
-        "intensity": 0.9425,
+        "intensity": 0.93,
         "count": 1,
-        "region": "Germany"
+        "region": "United States"
       }
     },
     {
@@ -141,12 +156,27 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          51.584,
-          35.661
+          -77.0443,
+          38.8165
         ]
       },
       "properties": {
-        "intensity": 0.9425,
+        "intensity": 0.925,
+        "count": 1,
+        "region": "United States"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          51.4866,
+          35.3976
+        ]
+      },
+      "properties": {
+        "intensity": 0.925,
         "count": 1,
         "region": "Iran"
       }
@@ -156,44 +186,14 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          30.4156,
-          50.1406
+          34.3882,
+          31.4169
         ]
       },
       "properties": {
-        "intensity": 0.9425,
+        "intensity": 0.925,
         "count": 1,
-        "region": "Ukraine"
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          -76.8469,
-          38.9579
-        ]
-      },
-      "properties": {
-        "intensity": 0.9425,
-        "count": 1,
-        "region": "United States"
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          -74.0782,
-          40.8768
-        ]
-      },
-      "properties": {
-        "intensity": 0.93,
-        "count": 1,
-        "region": "United States"
+        "region": "Israel"
       }
     },
     {
@@ -231,44 +231,29 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          35.4428,
-          31.8732
+          -76.9241,
+          39.0694
         ]
       },
       "properties": {
-        "intensity": 0.925,
-        "count": 1,
-        "region": "Israel"
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          -0.2134,
-          51.6615
-        ]
-      },
-      "properties": {
-        "intensity": 0.925,
-        "count": 1,
-        "region": "United Kingdom"
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          -77.155,
-          38.7749
-        ]
-      },
-      "properties": {
-        "intensity": 0.925,
+        "intensity": 0.9075,
         "count": 1,
         "region": "United States"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          100.4852,
+          13.5607
+        ]
+      },
+      "properties": {
+        "intensity": 0.9075,
+        "count": 1,
+        "region": "Thailand"
       }
     },
     {
@@ -336,21 +321,6 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          100.5631,
-          13.7981
-        ]
-      },
-      "properties": {
-        "intensity": 0.9075,
-        "count": 1,
-        "region": "Thailand"
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
           -77.1378,
           39.1505
         ]
@@ -411,14 +381,14 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          100.5178,
-          13.8049
+          -0.2546,
+          51.3352
         ]
       },
       "properties": {
-        "intensity": 0.89,
+        "intensity": 0.845,
         "count": 1,
-        "region": "Thailand"
+        "region": "United Kingdom"
       }
     },
     {
@@ -426,74 +396,14 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          151.3695,
-          -34.2493
-        ]
-      },
-      "properties": {
-        "intensity": 0.89,
-        "count": 1,
-        "region": "Australia"
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          100.7332,
-          13.7157
-        ]
-      },
-      "properties": {
-        "intensity": 0.86,
-        "count": 1,
-        "region": "Thailand"
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          -77.1879,
-          38.9076
+          104.7797,
+          28.6112
         ]
       },
       "properties": {
         "intensity": 0.82,
         "count": 1,
-        "region": "United States"
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          -58.4642,
-          -34.474
-        ]
-      },
-      "properties": {
-        "intensity": 0.7425,
-        "count": 1,
-        "region": "Argentina"
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          -4.0255,
-          40.4713
-        ]
-      },
-      "properties": {
-        "intensity": 0.62,
-        "count": 1,
-        "region": "Spain"
+        "region": "14 km WNW of Changning, China"
       }
     }
   ]
