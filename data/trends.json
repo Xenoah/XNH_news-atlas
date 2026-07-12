@@ -1,7 +1,14 @@
 {
-  "generatedAt": "2026-07-12T20:42:13.610689+00:00",
+  "generatedAt": "2026-07-12T21:32:57.191030+00:00",
   "timeRange": "24h",
   "risingEvents": [
+    {
+      "id": "rss_3aed1f7bc812",
+      "title": "Lindsey Graham, hardline backer of US-Israeli wars, dies aged 71",
+      "velocityScore": 1.0,
+      "category": "conflict",
+      "countryName": "United States"
+    },
     {
       "id": "rss_d44c73439d8c",
       "title": "Why the Iran-US ceasefire is falling apart",
@@ -10,11 +17,18 @@
       "countryName": "Iran"
     },
     {
-      "id": "rss_f62a19c9e91f",
-      "title": "Concern for renewed war in Iran as US attacks military, civilian targets",
+      "id": "rss_016fb75caa51",
+      "title": "Fire engulfs popular Bangkok pub, killing 27 people and injuring 63",
       "velocityScore": 1.0,
-      "category": "conflict",
-      "countryName": "Iran"
+      "category": "politics",
+      "countryName": "Thailand"
+    },
+    {
+      "id": "rss_31f4b0356f70",
+      "title": "Sinner beats Zverev to defend Wimbledon men’s singles tennis title",
+      "velocityScore": 1.0,
+      "category": "politics",
+      "countryName": "Germany"
     },
     {
       "id": "rss_e98d5d9fe1c0",
@@ -43,47 +57,33 @@
       "velocityScore": 1.0,
       "category": "politics",
       "countryName": "Syria"
-    },
-    {
-      "id": "rss_ab8c4972e4cd",
-      "title": "US congressman says ‘IDF is lying’ about his detention by settlers and soldiers",
-      "velocityScore": 1.0,
-      "category": "politics",
-      "countryName": "Israel"
-    },
-    {
-      "id": "rss_ad27bde67a6c",
-      "title": "More than 100 firefighters tackle railway embankment blaze in east London",
-      "velocityScore": 1.0,
-      "category": "politics",
-      "countryName": "United Kingdom"
     }
   ],
   "risingRegions": [],
   "categoryTrends": {
     "politics": {
-      "count": 1375,
-      "change": "+1375",
+      "count": 1380,
+      "change": "+1380",
       "changePercent": 100
     },
     "sports": {
-      "count": 438,
-      "change": "+438",
+      "count": 433,
+      "change": "+433",
       "changePercent": 100
     },
     "conflict": {
-      "count": 186,
-      "change": "+186",
+      "count": 187,
+      "change": "+187",
       "changePercent": 100
     },
     "disaster": {
-      "count": 183,
-      "change": "+183",
+      "count": 181,
+      "change": "+181",
       "changePercent": 100
     },
     "health": {
-      "count": 51,
-      "change": "+51",
+      "count": 50,
+      "change": "+50",
       "changePercent": 100
     },
     "economy": {
@@ -102,11 +102,11 @@
       "changePercent": 100
     }
   },
-  "totalEvents": 2308,
-  "totalSources": 2308,
+  "totalEvents": 2306,
+  "totalSources": 2306,
   "globalStats": {
     "avgAttentionScore": 0.847,
-    "totalArticles": 2308,
-    "bubbleCount": 1752
+    "totalArticles": 2306,
+    "bubbleCount": 1755
   }
 }
