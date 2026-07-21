@@ -1,7 +1,14 @@
 {
-  "generatedAt": "2026-07-21T22:11:53.261202+00:00",
+  "generatedAt": "2026-07-21T23:11:41.201417+00:00",
   "timeRange": "24h",
   "risingEvents": [
+    {
+      "id": "rss_dcdfffafa5d9",
+      "title": "Zelenskyy replaces Ukraine military chief after protests",
+      "velocityScore": 1.0,
+      "category": "conflict",
+      "countryName": "Ukraine"
+    },
     {
       "id": "rss_83966535f099",
       "title": "US defence chief Hegseth puts Iran war cost at $37.5bn so far",
@@ -50,45 +57,38 @@
       "velocityScore": 1.0,
       "category": "politics",
       "countryName": "United States"
-    },
-    {
-      "id": "rss_31a452054ea2",
-      "title": "Spain battles latest in series of major wildfires near Madrid",
-      "velocityScore": 1.0,
-      "category": "disaster",
-      "countryName": "Spain"
     }
   ],
   "risingRegions": [],
   "categoryTrends": {
     "politics": {
-      "count": 1313,
-      "change": "+1313",
+      "count": 1310,
+      "change": "+1310",
       "changePercent": 100
     },
     "sports": {
-      "count": 393,
-      "change": "+393",
+      "count": 391,
+      "change": "+391",
       "changePercent": 100
     },
     "disaster": {
-      "count": 270,
-      "change": "+270",
+      "count": 271,
+      "change": "+271",
       "changePercent": 100
     },
     "conflict": {
-      "count": 188,
-      "change": "+188",
+      "count": 190,
+      "change": "+190",
       "changePercent": 100
     },
     "health": {
-      "count": 65,
-      "change": "+65",
+      "count": 64,
+      "change": "+64",
       "changePercent": 100
     },
     "economy": {
-      "count": 55,
-      "change": "+55",
+      "count": 54,
+      "change": "+54",
       "changePercent": 100
     },
     "technology": {
@@ -102,11 +102,11 @@
       "changePercent": 100
     }
   },
-  "totalEvents": 2337,
-  "totalSources": 2337,
+  "totalEvents": 2333,
+  "totalSources": 2333,
   "globalStats": {
-    "avgAttentionScore": 0.852,
-    "totalArticles": 2337,
-    "bubbleCount": 1841
+    "avgAttentionScore": 0.853,
+    "totalArticles": 2333,
+    "bubbleCount": 1840
   }
 }
