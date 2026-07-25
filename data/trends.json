@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-25T17:41:52.759241+00:00",
+  "generatedAt": "2026-07-25T18:40:18.296561+00:00",
   "timeRange": "24h",
   "risingEvents": [
     {
@@ -8,6 +8,20 @@
       "velocityScore": 1.0,
       "category": "conflict",
       "countryName": "United Kingdom"
+    },
+    {
+      "id": "rss_d86c6333d467",
+      "title": "War in the Middle East: Deadly violence mounts in the West Bank",
+      "velocityScore": 1.0,
+      "category": "conflict",
+      "countryName": "Israel"
+    },
+    {
+      "id": "rss_ca6ad187d9a3",
+      "title": "How Netanyahu gov’t media reforms risk deepening Israeli press bias",
+      "velocityScore": 1.0,
+      "category": "politics",
+      "countryName": "Israel"
     },
     {
       "id": "rss_d98930c4e1e4",
@@ -43,20 +57,6 @@
       "velocityScore": 1.0,
       "category": "politics",
       "countryName": "Israel"
-    },
-    {
-      "id": "rss_28987be7ba42",
-      "title": "New North Sea oil drilling faces delay after gear accidentally dropped in sea",
-      "velocityScore": 1.0,
-      "category": "politics",
-      "countryName": "United Kingdom"
-    },
-    {
-      "id": "rss_720e32fd99fa",
-      "title": "Eight family members found dead in Michigan fire, some with gunshot wounds",
-      "velocityScore": 1.0,
-      "category": "politics",
-      "countryName": "Canada"
     }
   ],
   "risingRegions": [],
@@ -67,18 +67,18 @@
       "changePercent": 100
     },
     "disaster": {
-      "count": 263,
-      "change": "+263",
+      "count": 261,
+      "change": "+261",
       "changePercent": 100
     },
     "conflict": {
-      "count": 250,
-      "change": "+250",
+      "count": 248,
+      "change": "+248",
       "changePercent": 100
     },
     "sports": {
-      "count": 244,
-      "change": "+244",
+      "count": 242,
+      "change": "+242",
       "changePercent": 100
     },
     "economy": {
@@ -97,16 +97,16 @@
       "changePercent": 100
     },
     "science": {
-      "count": 21,
-      "change": "+21",
+      "count": 22,
+      "change": "+22",
       "changePercent": 100
     }
   },
-  "totalEvents": 2169,
-  "totalSources": 2169,
+  "totalEvents": 2164,
+  "totalSources": 2164,
   "globalStats": {
-    "avgAttentionScore": 0.865,
-    "totalArticles": 2169,
-    "bubbleCount": 1812
+    "avgAttentionScore": 0.866,
+    "totalArticles": 2164,
+    "bubbleCount": 1808
   }
 }
