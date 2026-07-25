@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-25T10:24:37.476491+00:00",
+  "generatedAt": "2026-07-25T11:42:45.678233+00:00",
   "timeRange": "24h",
   "risingEvents": [
     {
@@ -15,6 +15,20 @@
       "velocityScore": 1.0,
       "category": "conflict",
       "countryName": "Israel"
+    },
+    {
+      "id": "rss_d3c871bec2ab",
+      "title": "Two buses collide in Syria, killing at least 35 people",
+      "velocityScore": 1.0,
+      "category": "politics",
+      "countryName": "Syria"
+    },
+    {
+      "id": "rss_fb4474f15fa1",
+      "title": "India’s youth protesters are fighting Modi with irreverent humour and memes",
+      "velocityScore": 1.0,
+      "category": "politics",
+      "countryName": "India"
     },
     {
       "id": "rss_94beeb927192",
@@ -38,47 +52,33 @@
       "countryName": "India"
     },
     {
-      "id": "rss_18774b963393",
-      "title": "Dodging snipers, housing crisis forces Yemenis to live on front line",
+      "id": "rss_99ca9b045f6e",
+      "title": "‘I’m over the moon’: New York’s small business owners rejoice as Mamdani cuts red tape",
       "velocityScore": 1.0,
       "category": "politics",
-      "countryName": "Yemen"
-    },
-    {
-      "id": "rss_bb6563da2a7e",
-      "title": "Wildfires in Spain and France force evacuation of 200,000 people",
-      "velocityScore": 1.0,
-      "category": "disaster",
-      "countryName": "France"
-    },
-    {
-      "id": "rss_4294663fa56d",
-      "title": "Born too soon: Premature babies fight for survival in Gaza",
-      "velocityScore": 1.0,
-      "category": "politics",
-      "countryName": "Israel"
+      "countryName": "United States"
     }
   ],
   "risingRegions": [],
   "categoryTrends": {
     "politics": {
-      "count": 1201,
-      "change": "+1201",
+      "count": 1200,
+      "change": "+1200",
       "changePercent": 100
     },
     "disaster": {
-      "count": 262,
-      "change": "+262",
-      "changePercent": 100
-    },
-    "sports": {
-      "count": 252,
-      "change": "+252",
+      "count": 261,
+      "change": "+261",
       "changePercent": 100
     },
     "conflict": {
       "count": 250,
       "change": "+250",
+      "changePercent": 100
+    },
+    "sports": {
+      "count": 248,
+      "change": "+248",
       "changePercent": 100
     },
     "economy": {
@@ -87,8 +87,8 @@
       "changePercent": 100
     },
     "health": {
-      "count": 54,
-      "change": "+54",
+      "count": 53,
+      "change": "+53",
       "changePercent": 100
     },
     "technology": {
@@ -102,11 +102,11 @@
       "changePercent": 100
     }
   },
-  "totalEvents": 2167,
-  "totalSources": 2167,
+  "totalEvents": 2160,
+  "totalSources": 2160,
   "globalStats": {
     "avgAttentionScore": 0.865,
-    "totalArticles": 2167,
-    "bubbleCount": 1805
+    "totalArticles": 2160,
+    "bubbleCount": 1802
   }
 }
