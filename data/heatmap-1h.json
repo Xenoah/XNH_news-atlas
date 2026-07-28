@@ -6,6 +6,21 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
+          34.1394,
+          31.2762
+        ]
+      },
+      "properties": {
+        "intensity": 0.9825,
+        "count": 1,
+        "region": "Israel"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
           30.7142,
           50.5271
         ]
@@ -36,21 +51,6 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          34.364,
-          31.5179
-        ]
-      },
-      "properties": {
-        "intensity": 0.9825,
-        "count": 1,
-        "region": "Israel"
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
           -76.7735,
           39.1085
         ]
@@ -59,6 +59,21 @@
         "intensity": 0.965,
         "count": 1,
         "region": "United States"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          139.6674,
+          35.8279
+        ]
+      },
+      "properties": {
+        "intensity": 0.9425,
+        "count": 1,
+        "region": "Japan"
       }
     },
     {
@@ -156,29 +171,14 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          32.5073,
-          15.5522
+          -76.7751,
+          39.0025
         ]
       },
       "properties": {
-        "intensity": 0.9425,
+        "intensity": 0.93,
         "count": 1,
-        "region": "Sudan"
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          35.2345,
-          32.118
-        ]
-      },
-      "properties": {
-        "intensity": 0.9425,
-        "count": 1,
-        "region": "Israel"
+        "region": "United States"
       }
     },
     {
@@ -233,21 +233,6 @@
         "coordinates": [
           -122.4655,
           37.7843
-        ]
-      },
-      "properties": {
-        "intensity": 0.925,
-        "count": 1,
-        "region": "United States"
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          -76.9975,
-          38.8656
         ]
       },
       "properties": {
@@ -321,14 +306,14 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          77.3788,
-          28.71
+          151.1299,
+          -34.1019
         ]
       },
       "properties": {
-        "intensity": 0.9075,
+        "intensity": 0.89,
         "count": 1,
-        "region": "India"
+        "region": "Australia"
       }
     },
     {
@@ -336,14 +321,14 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          2.584,
-          48.9648
+          150.8755,
+          -33.5838
         ]
       },
       "properties": {
-        "intensity": 0.9075,
+        "intensity": 0.89,
         "count": 1,
-        "region": "France"
+        "region": "Australia"
       }
     },
     {
@@ -351,14 +336,44 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          2.3927,
-          49.0014
+          151.1953,
+          -33.8863
         ]
       },
       "properties": {
-        "intensity": 0.9075,
+        "intensity": 0.89,
         "count": 1,
-        "region": "France"
+        "region": "Australia"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          150.9567,
+          -33.8087
+        ]
+      },
+      "properties": {
+        "intensity": 0.89,
+        "count": 1,
+        "region": "Australia"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          151.5226,
+          -34.0638
+        ]
+      },
+      "properties": {
+        "intensity": 0.89,
+        "count": 1,
+        "region": "Australia"
       }
     },
     {
@@ -396,51 +411,6 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          -77.2408,
-          38.9165
-        ]
-      },
-      "properties": {
-        "intensity": 0.89,
-        "count": 1,
-        "region": "United States"
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          151.0378,
-          -33.6398
-        ]
-      },
-      "properties": {
-        "intensity": 0.89,
-        "count": 1,
-        "region": "Australia"
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          151.4111,
-          -33.7453
-        ]
-      },
-      "properties": {
-        "intensity": 0.89,
-        "count": 1,
-        "region": "Australia"
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
           -77.1233,
           38.9608
         ]
@@ -456,14 +426,29 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          -77.1495,
-          39.0781
+          -74.1313,
+          40.5473
         ]
       },
       "properties": {
-        "intensity": 0.845,
+        "intensity": 0.85,
         "count": 1,
         "region": "United States"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -23.7231,
+          -58.8824
+        ]
+      },
+      "properties": {
+        "intensity": 0.82,
+        "count": 1,
+        "region": "South Sandwich Islands region"
       }
     },
     {
@@ -584,6 +569,21 @@
         "intensity": 0.81,
         "count": 1,
         "region": "Australia"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          73.3961,
+          33.7189
+        ]
+      },
+      "properties": {
+        "intensity": 0.62,
+        "count": 1,
+        "region": "Pakistan"
       }
     },
     {
