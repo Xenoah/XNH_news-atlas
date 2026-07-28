@@ -21,14 +21,14 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          30.7142,
-          50.5271
+          51.1793,
+          35.9706
         ]
       },
       "properties": {
-        "intensity": 0.9825,
+        "intensity": 0.965,
         "count": 1,
-        "region": "Ukraine"
+        "region": "Iran"
       }
     },
     {
@@ -36,14 +36,14 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          35.2254,
-          31.5093
+          51.4323,
+          35.4387
         ]
       },
       "properties": {
-        "intensity": 0.9825,
+        "intensity": 0.965,
         "count": 1,
-        "region": "Israel"
+        "region": "Iran"
       }
     },
     {
@@ -59,6 +59,21 @@
         "intensity": 0.965,
         "count": 1,
         "region": "United States"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          46.4572,
+          24.3284
+        ]
+      },
+      "properties": {
+        "intensity": 0.9425,
+        "count": 1,
+        "region": "Saudi Arabia"
       }
     },
     {
@@ -111,66 +126,6 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          12.6811,
-          41.8732
-        ]
-      },
-      "properties": {
-        "intensity": 0.9425,
-        "count": 1,
-        "region": "Italy"
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          139.7851,
-          35.231
-        ]
-      },
-      "properties": {
-        "intensity": 0.9425,
-        "count": 1,
-        "region": "Japan"
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          -76.6391,
-          38.8688
-        ]
-      },
-      "properties": {
-        "intensity": 0.9425,
-        "count": 1,
-        "region": "United States"
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          -77.0792,
-          38.7087
-        ]
-      },
-      "properties": {
-        "intensity": 0.9425,
-        "count": 1,
-        "region": "United States"
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
           -76.7751,
           39.0025
         ]
@@ -179,6 +134,51 @@
         "intensity": 0.93,
         "count": 1,
         "region": "United States"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -77.0289,
+          38.997
+        ]
+      },
+      "properties": {
+        "intensity": 0.925,
+        "count": 1,
+        "region": "United States"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -76.7874,
+          38.92
+        ]
+      },
+      "properties": {
+        "intensity": 0.925,
+        "count": 1,
+        "region": "United States"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          116.6043,
+          39.9545
+        ]
+      },
+      "properties": {
+        "intensity": 0.925,
+        "count": 1,
+        "region": "China"
       }
     },
     {
@@ -246,14 +246,14 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          -76.9782,
-          38.9645
+          -3.5108,
+          40.4356
         ]
       },
       "properties": {
         "intensity": 0.9075,
         "count": 1,
-        "region": "United States"
+        "region": "Spain"
       }
     },
     {
@@ -261,14 +261,14 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          30.9028,
-          50.4038
+          151.2734,
+          -33.8667
         ]
       },
       "properties": {
-        "intensity": 0.9075,
+        "intensity": 0.89,
         "count": 1,
-        "region": "Ukraine"
+        "region": "Australia"
       }
     },
     {
@@ -276,29 +276,14 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          51.7069,
-          35.971
+          150.8771,
+          -33.6741
         ]
       },
       "properties": {
-        "intensity": 0.9075,
+        "intensity": 0.89,
         "count": 1,
-        "region": "Iran"
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          2.4561,
-          48.87
-        ]
-      },
-      "properties": {
-        "intensity": 0.9075,
-        "count": 1,
-        "region": "France"
+        "region": "Australia"
       }
     },
     {
@@ -396,14 +381,29 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          139.5018,
-          36.1089
+          30.7142,
+          50.5271
         ]
       },
       "properties": {
-        "intensity": 0.89,
+        "intensity": 0.9825,
         "count": 1,
-        "region": "Japan"
+        "region": "Ukraine"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          35.2254,
+          31.5093
+        ]
+      },
+      "properties": {
+        "intensity": 0.9825,
+        "count": 1,
+        "region": "Israel"
       }
     },
     {
@@ -807,6 +807,66 @@
       },
       "properties": {
         "intensity": 0.85,
+        "count": 1,
+        "region": "United States"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          12.6811,
+          41.8732
+        ]
+      },
+      "properties": {
+        "intensity": 0.9425,
+        "count": 1,
+        "region": "Italy"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          139.7851,
+          35.231
+        ]
+      },
+      "properties": {
+        "intensity": 0.9425,
+        "count": 1,
+        "region": "Japan"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -76.6391,
+          38.8688
+        ]
+      },
+      "properties": {
+        "intensity": 0.9425,
+        "count": 1,
+        "region": "United States"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -77.0792,
+          38.7087
+        ]
+      },
+      "properties": {
+        "intensity": 0.9425,
         "count": 1,
         "region": "United States"
       }
@@ -1319,21 +1379,6 @@
         "intensity": 0.9425,
         "count": 1,
         "region": "Turkey"
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          2.3765,
-          48.8355
-        ]
-      },
-      "properties": {
-        "intensity": 0.9425,
-        "count": 1,
-        "region": "France"
       }
     },
     {
@@ -1971,21 +2016,6 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          151.4989,
-          -33.7566
-        ]
-      },
-      "properties": {
-        "intensity": 0.925,
-        "count": 1,
-        "region": "Australia"
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
           -77.0117,
           39.1304
         ]
@@ -2091,14 +2121,14 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          -86.0,
-          28.5
+          -76.9782,
+          38.9645
         ]
       },
       "properties": {
-        "intensity": 0.82,
+        "intensity": 0.9075,
         "count": 1,
-        "region": "Severe Storms"
+        "region": "United States"
       }
     },
     {
@@ -2106,14 +2136,14 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          -173.6421,
-          -16.7774
+          30.9028,
+          50.4038
         ]
       },
       "properties": {
-        "intensity": 0.82,
+        "intensity": 0.9075,
         "count": 1,
-        "region": "92 km S of Hihifo, Tonga"
+        "region": "Ukraine"
       }
     },
     {
@@ -2121,14 +2151,14 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          161.3309,
-          -10.9261
+          51.7069,
+          35.971
         ]
       },
       "properties": {
-        "intensity": 0.82,
+        "intensity": 0.9075,
         "count": 1,
-        "region": "82 km SW of Kirakira, Solomon Islands"
+        "region": "Iran"
       }
     },
     {
@@ -2136,14 +2166,14 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          179.5638,
-          -22.1845
+          2.4561,
+          48.87
         ]
       },
       "properties": {
-        "intensity": 0.82,
+        "intensity": 0.9075,
         "count": 1,
-        "region": "south of the Fiji Islands"
+        "region": "France"
       }
     },
     {
@@ -2676,21 +2706,6 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          151.4777,
-          -34.2669
-        ]
-      },
-      "properties": {
-        "intensity": 0.81,
-        "count": 1,
-        "region": "Australia"
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
           -0.0998,
           51.4634
         ]
@@ -2729,6 +2744,21 @@
         "intensity": 0.8925,
         "count": 1,
         "region": "Saudi Arabia"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          139.5018,
+          36.1089
+        ]
+      },
+      "properties": {
+        "intensity": 0.89,
+        "count": 1,
+        "region": "Japan"
       }
     },
     {
@@ -3029,36 +3059,6 @@
         "intensity": 0.89,
         "count": 1,
         "region": "Iran"
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          151.3991,
-          -33.7988
-        ]
-      },
-      "properties": {
-        "intensity": 0.89,
-        "count": 1,
-        "region": "Australia"
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          150.9518,
-          -33.522
-        ]
-      },
-      "properties": {
-        "intensity": 0.89,
-        "count": 1,
-        "region": "Australia"
       }
     },
     {
@@ -3531,21 +3531,6 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          -0.2439,
-          51.4202
-        ]
-      },
-      "properties": {
-        "intensity": 0.845,
-        "count": 1,
-        "region": "United Kingdom"
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
           151.4567,
           -34.0354
         ]
@@ -3674,6 +3659,66 @@
         "intensity": 0.8225,
         "count": 1,
         "region": "China"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -86.0,
+          28.5
+        ]
+      },
+      "properties": {
+        "intensity": 0.82,
+        "count": 1,
+        "region": "Severe Storms"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -173.6421,
+          -16.7774
+        ]
+      },
+      "properties": {
+        "intensity": 0.82,
+        "count": 1,
+        "region": "92 km S of Hihifo, Tonga"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          161.3309,
+          -10.9261
+        ]
+      },
+      "properties": {
+        "intensity": 0.82,
+        "count": 1,
+        "region": "82 km SW of Kirakira, Solomon Islands"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          179.5638,
+          -22.1845
+        ]
+      },
+      "properties": {
+        "intensity": 0.82,
+        "count": 1,
+        "region": "south of the Fiji Islands"
       }
     },
     {
@@ -4221,629 +4266,14 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          -122.5633,
-          43.114
+          151.4777,
+          -34.2669
         ]
       },
       "properties": {
-        "intensity": 0.82,
+        "intensity": 0.81,
         "count": 1,
-        "region": "Wildfires"
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          -118.8034,
-          43.12
-        ]
-      },
-      "properties": {
-        "intensity": 0.82,
-        "count": 1,
-        "region": "Wildfires"
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          -120.4264,
-          45.4534
-        ]
-      },
-      "properties": {
-        "intensity": 0.82,
-        "count": 1,
-        "region": "Wildfires"
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          -117.3033,
-          42.6498
-        ]
-      },
-      "properties": {
-        "intensity": 0.82,
-        "count": 1,
-        "region": "Wildfires"
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          -120.4297,
-          37.528
-        ]
-      },
-      "properties": {
-        "intensity": 0.82,
-        "count": 1,
-        "region": "Wildfires"
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          -119.8976,
-          44.4687
-        ]
-      },
-      "properties": {
-        "intensity": 0.82,
-        "count": 1,
-        "region": "Wildfires"
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          -121.3502,
-          44.6318
-        ]
-      },
-      "properties": {
-        "intensity": 0.82,
-        "count": 1,
-        "region": "Wildfires"
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          -118.92,
-          43.18
-        ]
-      },
-      "properties": {
-        "intensity": 0.82,
-        "count": 1,
-        "region": "Wildfires"
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          -118.4743,
-          42.9956
-        ]
-      },
-      "properties": {
-        "intensity": 0.82,
-        "count": 1,
-        "region": "Wildfires"
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          -120.6469,
-          45.0403
-        ]
-      },
-      "properties": {
-        "intensity": 0.82,
-        "count": 1,
-        "region": "Wildfires"
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          -121.4044,
-          44.6953
-        ]
-      },
-      "properties": {
-        "intensity": 0.82,
-        "count": 1,
-        "region": "Wildfires"
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          -116.0878,
-          42.5793
-        ]
-      },
-      "properties": {
-        "intensity": 0.82,
-        "count": 1,
-        "region": "Wildfires"
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          -117.213,
-          44.5239
-        ]
-      },
-      "properties": {
-        "intensity": 0.82,
-        "count": 1,
-        "region": "Wildfires"
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          -121.5101,
-          45.253
-        ]
-      },
-      "properties": {
-        "intensity": 0.82,
-        "count": 1,
-        "region": "Wildfires"
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          -117.093,
-          44.5413
-        ]
-      },
-      "properties": {
-        "intensity": 0.82,
-        "count": 1,
-        "region": "Wildfires"
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          -120.6919,
-          44.442
-        ]
-      },
-      "properties": {
-        "intensity": 0.82,
-        "count": 1,
-        "region": "Wildfires"
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          -121.2459,
-          45.4626
-        ]
-      },
-      "properties": {
-        "intensity": 0.82,
-        "count": 1,
-        "region": "Wildfires"
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          -118.1498,
-          43.2747
-        ]
-      },
-      "properties": {
-        "intensity": 0.82,
-        "count": 1,
-        "region": "Wildfires"
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          -120.7322,
-          46.3623
-        ]
-      },
-      "properties": {
-        "intensity": 0.82,
-        "count": 1,
-        "region": "Wildfires"
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          -119.4392,
-          43.6087
-        ]
-      },
-      "properties": {
-        "intensity": 0.82,
-        "count": 1,
-        "region": "Wildfires"
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          -119.1411,
-          46.1497
-        ]
-      },
-      "properties": {
-        "intensity": 0.82,
-        "count": 1,
-        "region": "Wildfires"
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          -118.9557,
-          43.045
-        ]
-      },
-      "properties": {
-        "intensity": 0.82,
-        "count": 1,
-        "region": "Wildfires"
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          -118.284,
-          36.9962
-        ]
-      },
-      "properties": {
-        "intensity": 0.82,
-        "count": 1,
-        "region": "Wildfires"
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          -118.258,
-          37.0158
-        ]
-      },
-      "properties": {
-        "intensity": 0.82,
-        "count": 1,
-        "region": "Wildfires"
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          -116.9163,
-          42.5184
-        ]
-      },
-      "properties": {
-        "intensity": 0.82,
-        "count": 1,
-        "region": "Wildfires"
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          -118.3039,
-          43.5897
-        ]
-      },
-      "properties": {
-        "intensity": 0.82,
-        "count": 1,
-        "region": "Wildfires"
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          -118.2569,
-          36.9983
-        ]
-      },
-      "properties": {
-        "intensity": 0.82,
-        "count": 1,
-        "region": "Wildfires"
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          -118.1144,
-          48.3126
-        ]
-      },
-      "properties": {
-        "intensity": 0.82,
-        "count": 1,
-        "region": "Wildfires"
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          -115.71,
-          37.4123
-        ]
-      },
-      "properties": {
-        "intensity": 0.82,
-        "count": 1,
-        "region": "Wildfires"
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          -119.6132,
-          47.9835
-        ]
-      },
-      "properties": {
-        "intensity": 0.82,
-        "count": 1,
-        "region": "Wildfires"
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          -116.8869,
-          44.9956
-        ]
-      },
-      "properties": {
-        "intensity": 0.82,
-        "count": 1,
-        "region": "Wildfires"
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          -115.26,
-          40.8965
-        ]
-      },
-      "properties": {
-        "intensity": 0.82,
-        "count": 1,
-        "region": "Wildfires"
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          -114.6815,
-          33.2797
-        ]
-      },
-      "properties": {
-        "intensity": 0.82,
-        "count": 1,
-        "region": "Wildfires"
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          -106.3202,
-          44.7927
-        ]
-      },
-      "properties": {
-        "intensity": 0.82,
-        "count": 1,
-        "region": "Wildfires"
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          -117.487,
-          39.6988
-        ]
-      },
-      "properties": {
-        "intensity": 0.82,
-        "count": 1,
-        "region": "Wildfires"
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          -116.9889,
-          41.4418
-        ]
-      },
-      "properties": {
-        "intensity": 0.82,
-        "count": 1,
-        "region": "Wildfires"
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          -155.7925,
-          20.0198
-        ]
-      },
-      "properties": {
-        "intensity": 0.82,
-        "count": 1,
-        "region": "Wildfires"
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          -103.533,
-          45.858
-        ]
-      },
-      "properties": {
-        "intensity": 0.82,
-        "count": 1,
-        "region": "Wildfires"
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          -120.7421,
-          46.3665
-        ]
-      },
-      "properties": {
-        "intensity": 0.82,
-        "count": 1,
-        "region": "Wildfires"
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          -119.6931,
-          48.7046
-        ]
-      },
-      "properties": {
-        "intensity": 0.82,
-        "count": 1,
-        "region": "Wildfires"
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          -101.8206,
-          45.5047
-        ]
-      },
-      "properties": {
-        "intensity": 0.82,
-        "count": 1,
-        "region": "Wildfires"
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          -102.8436,
-          44.7639
-        ]
-      },
-      "properties": {
-        "intensity": 0.82,
-        "count": 1,
-        "region": "Wildfires"
+        "region": "Australia"
       }
     },
     {
@@ -7064,6 +6494,21 @@
         "intensity": 0.9475,
         "count": 1,
         "region": "United States"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          2.3765,
+          48.8355
+        ]
+      },
+      "properties": {
+        "intensity": 0.9425,
+        "count": 1,
+        "region": "France"
       }
     },
     {
@@ -11151,51 +10596,6 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          51.0748,
-          35.8796
-        ]
-      },
-      "properties": {
-        "intensity": 0.9425,
-        "count": 1,
-        "region": "Iran"
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          35.2486,
-          31.7432
-        ]
-      },
-      "properties": {
-        "intensity": 0.9425,
-        "count": 1,
-        "region": "Israel"
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          -77.1224,
-          38.9344
-        ]
-      },
-      "properties": {
-        "intensity": 0.9425,
-        "count": 1,
-        "region": "United States"
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
           51.4247,
           35.7616
         ]
@@ -11414,6 +10814,21 @@
         "intensity": 0.93,
         "count": 1,
         "region": "Iran"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          151.4989,
+          -33.7566
+        ]
+      },
+      "properties": {
+        "intensity": 0.925,
+        "count": 1,
+        "region": "Australia"
       }
     },
     {
@@ -14991,21 +14406,6 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          151.3514,
-          -34.113
-        ]
-      },
-      "properties": {
-        "intensity": 0.925,
-        "count": 1,
-        "region": "Australia"
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
           151.1708,
           -33.8506
         ]
@@ -18321,21 +17721,6 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          51.3836,
-          35.2753
-        ]
-      },
-      "properties": {
-        "intensity": 0.9075,
-        "count": 1,
-        "region": "Iran"
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
           -77.2713,
           38.7503
         ]
@@ -18404,21 +17789,6 @@
         "intensity": 0.7,
         "count": 1,
         "region": "Thailand"
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          -0.2445,
-          51.6344
-        ]
-      },
-      "properties": {
-        "intensity": 0.7,
-        "count": 1,
-        "region": "United Kingdom"
       }
     },
     {
@@ -18704,6 +18074,36 @@
         "intensity": 0.8925,
         "count": 1,
         "region": "France"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          151.3991,
+          -33.7988
+        ]
+      },
+      "properties": {
+        "intensity": 0.89,
+        "count": 1,
+        "region": "Australia"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          150.9518,
+          -33.522
+        ]
+      },
+      "properties": {
+        "intensity": 0.89,
+        "count": 1,
+        "region": "Australia"
       }
     },
     {
@@ -21428,21 +20828,6 @@
         "coordinates": [
           151.2179,
           -33.9514
-        ]
-      },
-      "properties": {
-        "intensity": 0.89,
-        "count": 1,
-        "region": "Australia"
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          151.1415,
-          -33.8213
         ]
       },
       "properties": {
@@ -24591,6 +23976,21 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
+          -0.2439,
+          51.4202
+        ]
+      },
+      "properties": {
+        "intensity": 0.845,
+        "count": 1,
+        "region": "United Kingdom"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
           -76.976,
           38.8549
         ]
@@ -25574,6 +24974,636 @@
         "intensity": 0.8225,
         "count": 1,
         "region": "Belgium"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -122.5633,
+          43.114
+        ]
+      },
+      "properties": {
+        "intensity": 0.82,
+        "count": 1,
+        "region": "Wildfires"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -118.8034,
+          43.12
+        ]
+      },
+      "properties": {
+        "intensity": 0.82,
+        "count": 1,
+        "region": "Wildfires"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -120.4264,
+          45.4534
+        ]
+      },
+      "properties": {
+        "intensity": 0.82,
+        "count": 1,
+        "region": "Wildfires"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -117.3033,
+          42.6498
+        ]
+      },
+      "properties": {
+        "intensity": 0.82,
+        "count": 1,
+        "region": "Wildfires"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -120.4297,
+          37.528
+        ]
+      },
+      "properties": {
+        "intensity": 0.82,
+        "count": 1,
+        "region": "Wildfires"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -119.8976,
+          44.4687
+        ]
+      },
+      "properties": {
+        "intensity": 0.82,
+        "count": 1,
+        "region": "Wildfires"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -121.3502,
+          44.6318
+        ]
+      },
+      "properties": {
+        "intensity": 0.82,
+        "count": 1,
+        "region": "Wildfires"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -118.92,
+          43.18
+        ]
+      },
+      "properties": {
+        "intensity": 0.82,
+        "count": 1,
+        "region": "Wildfires"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -118.4743,
+          42.9956
+        ]
+      },
+      "properties": {
+        "intensity": 0.82,
+        "count": 1,
+        "region": "Wildfires"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -120.6469,
+          45.0403
+        ]
+      },
+      "properties": {
+        "intensity": 0.82,
+        "count": 1,
+        "region": "Wildfires"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -121.4044,
+          44.6953
+        ]
+      },
+      "properties": {
+        "intensity": 0.82,
+        "count": 1,
+        "region": "Wildfires"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -116.0878,
+          42.5793
+        ]
+      },
+      "properties": {
+        "intensity": 0.82,
+        "count": 1,
+        "region": "Wildfires"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -117.213,
+          44.5239
+        ]
+      },
+      "properties": {
+        "intensity": 0.82,
+        "count": 1,
+        "region": "Wildfires"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -121.5101,
+          45.253
+        ]
+      },
+      "properties": {
+        "intensity": 0.82,
+        "count": 1,
+        "region": "Wildfires"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -117.093,
+          44.5413
+        ]
+      },
+      "properties": {
+        "intensity": 0.82,
+        "count": 1,
+        "region": "Wildfires"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -120.6919,
+          44.442
+        ]
+      },
+      "properties": {
+        "intensity": 0.82,
+        "count": 1,
+        "region": "Wildfires"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -121.2459,
+          45.4626
+        ]
+      },
+      "properties": {
+        "intensity": 0.82,
+        "count": 1,
+        "region": "Wildfires"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -118.1498,
+          43.2747
+        ]
+      },
+      "properties": {
+        "intensity": 0.82,
+        "count": 1,
+        "region": "Wildfires"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -120.7322,
+          46.3623
+        ]
+      },
+      "properties": {
+        "intensity": 0.82,
+        "count": 1,
+        "region": "Wildfires"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -119.4392,
+          43.6087
+        ]
+      },
+      "properties": {
+        "intensity": 0.82,
+        "count": 1,
+        "region": "Wildfires"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -119.1411,
+          46.1497
+        ]
+      },
+      "properties": {
+        "intensity": 0.82,
+        "count": 1,
+        "region": "Wildfires"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -118.9557,
+          43.045
+        ]
+      },
+      "properties": {
+        "intensity": 0.82,
+        "count": 1,
+        "region": "Wildfires"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -118.284,
+          36.9962
+        ]
+      },
+      "properties": {
+        "intensity": 0.82,
+        "count": 1,
+        "region": "Wildfires"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -118.258,
+          37.0158
+        ]
+      },
+      "properties": {
+        "intensity": 0.82,
+        "count": 1,
+        "region": "Wildfires"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -116.9163,
+          42.5184
+        ]
+      },
+      "properties": {
+        "intensity": 0.82,
+        "count": 1,
+        "region": "Wildfires"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -118.3039,
+          43.5897
+        ]
+      },
+      "properties": {
+        "intensity": 0.82,
+        "count": 1,
+        "region": "Wildfires"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -118.2569,
+          36.9983
+        ]
+      },
+      "properties": {
+        "intensity": 0.82,
+        "count": 1,
+        "region": "Wildfires"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -118.1144,
+          48.3126
+        ]
+      },
+      "properties": {
+        "intensity": 0.82,
+        "count": 1,
+        "region": "Wildfires"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -115.71,
+          37.4123
+        ]
+      },
+      "properties": {
+        "intensity": 0.82,
+        "count": 1,
+        "region": "Wildfires"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -119.6132,
+          47.9835
+        ]
+      },
+      "properties": {
+        "intensity": 0.82,
+        "count": 1,
+        "region": "Wildfires"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -116.8869,
+          44.9956
+        ]
+      },
+      "properties": {
+        "intensity": 0.82,
+        "count": 1,
+        "region": "Wildfires"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -115.26,
+          40.8965
+        ]
+      },
+      "properties": {
+        "intensity": 0.82,
+        "count": 1,
+        "region": "Wildfires"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -114.6815,
+          33.2797
+        ]
+      },
+      "properties": {
+        "intensity": 0.82,
+        "count": 1,
+        "region": "Wildfires"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -106.3202,
+          44.7927
+        ]
+      },
+      "properties": {
+        "intensity": 0.82,
+        "count": 1,
+        "region": "Wildfires"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -117.487,
+          39.6988
+        ]
+      },
+      "properties": {
+        "intensity": 0.82,
+        "count": 1,
+        "region": "Wildfires"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -116.9889,
+          41.4418
+        ]
+      },
+      "properties": {
+        "intensity": 0.82,
+        "count": 1,
+        "region": "Wildfires"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -155.7925,
+          20.0198
+        ]
+      },
+      "properties": {
+        "intensity": 0.82,
+        "count": 1,
+        "region": "Wildfires"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -103.533,
+          45.858
+        ]
+      },
+      "properties": {
+        "intensity": 0.82,
+        "count": 1,
+        "region": "Wildfires"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -120.7421,
+          46.3665
+        ]
+      },
+      "properties": {
+        "intensity": 0.82,
+        "count": 1,
+        "region": "Wildfires"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -119.6931,
+          48.7046
+        ]
+      },
+      "properties": {
+        "intensity": 0.82,
+        "count": 1,
+        "region": "Wildfires"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -101.8206,
+          45.5047
+        ]
+      },
+      "properties": {
+        "intensity": 0.82,
+        "count": 1,
+        "region": "Wildfires"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -102.8436,
+          44.7639
+        ]
+      },
+      "properties": {
+        "intensity": 0.82,
+        "count": 1,
+        "region": "Wildfires"
       }
     },
     {
@@ -28551,36 +28581,6 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          -76.7355,
-          38.8339
-        ]
-      },
-      "properties": {
-        "intensity": 0.82,
-        "count": 1,
-        "region": "United States"
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          168.6204,
-          -17.9675
-        ]
-      },
-      "properties": {
-        "intensity": 0.82,
-        "count": 1,
-        "region": "41 km SE of Port-Vila, Vanuatu"
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
           -77.1913,
           39.1713
         ]
@@ -28709,21 +28709,6 @@
         "intensity": 0.81,
         "count": 1,
         "region": "United States"
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          45.4502,
-          2.0567
-        ]
-      },
-      "properties": {
-        "intensity": 0.81,
-        "count": 1,
-        "region": "Somalia"
       }
     },
     {
@@ -30074,6 +30059,21 @@
         "intensity": 0.7075,
         "count": 1,
         "region": "France"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.2445,
+          51.6344
+        ]
+      },
+      "properties": {
+        "intensity": 0.7,
+        "count": 1,
+        "region": "United Kingdom"
       }
     },
     {
