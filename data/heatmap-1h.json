@@ -6,12 +6,27 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          37.6213,
-          55.7973
+          -77.2302,
+          38.6815
         ]
       },
       "properties": {
-        "intensity": 0.9475,
+        "intensity": 0.9425,
+        "count": 1,
+        "region": "United States"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          37.6411,
+          56.2222
+        ]
+      },
+      "properties": {
+        "intensity": 0.9125,
         "count": 1,
         "region": "Russia"
       }
@@ -21,113 +36,8 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          34.4729,
-          31.4291
-        ]
-      },
-      "properties": {
-        "intensity": 0.9425,
-        "count": 1,
-        "region": "Israel"
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          37.6406,
-          55.9381
-        ]
-      },
-      "properties": {
-        "intensity": 0.9425,
-        "count": 1,
-        "region": "Russia"
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          4.3333,
-          51.2848
-        ]
-      },
-      "properties": {
-        "intensity": 0.925,
-        "count": 1,
-        "region": "Belgium"
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          -0.0969,
-          51.086
-        ]
-      },
-      "properties": {
-        "intensity": 0.925,
-        "count": 1,
-        "region": "United Kingdom"
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          151.1107,
-          -33.5974
-        ]
-      },
-      "properties": {
-        "intensity": 0.925,
-        "count": 1,
-        "region": "Australia"
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          30.682,
-          50.791
-        ]
-      },
-      "properties": {
-        "intensity": 0.925,
-        "count": 1,
-        "region": "Ukraine"
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          51.174,
-          36.1316
-        ]
-      },
-      "properties": {
-        "intensity": 0.925,
-        "count": 1,
-        "region": "Iran"
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          -77.2737,
-          38.6648
+          -76.9866,
+          39.0807
         ]
       },
       "properties": {
@@ -141,38 +51,8 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          -77.3093,
-          38.7654
-        ]
-      },
-      "properties": {
-        "intensity": 0.89,
-        "count": 1,
-        "region": "United States"
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          -76.8457,
-          39.2141
-        ]
-      },
-      "properties": {
-        "intensity": 0.89,
-        "count": 1,
-        "region": "United States"
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          151.2154,
-          -33.9105
+          151.1901,
+          -33.8378
         ]
       },
       "properties": {
@@ -186,14 +66,14 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          -76.7406,
-          39.2596
+          121.9271,
+          31.1495
         ]
       },
       "properties": {
-        "intensity": 0.8725,
+        "intensity": 0.885,
         "count": 1,
-        "region": "United States"
+        "region": "China"
       }
     },
     {
@@ -201,29 +81,89 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          37.4076,
-          56.0313
-        ]
-      },
-      "properties": {
-        "intensity": 0.8725,
-        "count": 1,
-        "region": "Russia"
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          4.0865,
-          50.8385
+          4.0564,
+          51.088
         ]
       },
       "properties": {
         "intensity": 0.8725,
         "count": 1,
         "region": "Belgium"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.083,
+          51.5113
+        ]
+      },
+      "properties": {
+        "intensity": 0.845,
+        "count": 1,
+        "region": "United Kingdom"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          99.61,
+          -65.68
+        ]
+      },
+      "properties": {
+        "intensity": 0.82,
+        "count": 1,
+        "region": "Sea and Lake Ice"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          156.2005,
+          49.3293
+        ]
+      },
+      "properties": {
+        "intensity": 0.82,
+        "count": 1,
+        "region": "149 km S of Severo-Kuril’sk, Russia"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          178.3287,
+          -37.73
+        ]
+      },
+      "properties": {
+        "intensity": 0.82,
+        "count": 1,
+        "region": "14 km S of Hicks Bay, New Zealand"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -67.0412,
+          -24.2307
+        ]
+      },
+      "properties": {
+        "intensity": 0.82,
+        "count": 1,
+        "region": "73 km W of San Antonio de los Cobres, Argentina"
       }
     },
     {
@@ -261,21 +201,6 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          -68.6899,
-          10.5328
-        ]
-      },
-      "properties": {
-        "intensity": 0.82,
-        "count": 1,
-        "region": "7 km SSW of Yumare, Venezuela"
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
           151.1526,
           -33.3804
         ]
@@ -306,29 +231,14 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          2.2563,
-          48.8748
+          151.3053,
+          -33.6224
         ]
       },
       "properties": {
-        "intensity": 0.62,
+        "intensity": 0.69,
         "count": 1,
-        "region": "France"
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          -76.8519,
-          38.9932
-        ]
-      },
-      "properties": {
-        "intensity": 0.62,
-        "count": 1,
-        "region": "United States"
+        "region": "Australia"
       }
     }
   ]
