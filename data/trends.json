@@ -1,7 +1,14 @@
 {
-  "generatedAt": "2026-08-08T18:40:08.157555+00:00",
+  "generatedAt": "2026-08-08T19:15:46.196931+00:00",
   "timeRange": "24h",
   "risingEvents": [
+    {
+      "id": "rss_17a502d084c7",
+      "title": "Lebanese soldiers injured while Israeli troops intrude on southern town",
+      "velocityScore": 1.0,
+      "category": "conflict",
+      "countryName": "Israel"
+    },
     {
       "id": "rss_3a316113c56b",
       "title": "Ukraine mourns \"collector of souls\" Oleksiy Yukov, killed recovering war dead",
@@ -10,11 +17,18 @@
       "countryName": "Ukraine"
     },
     {
-      "id": "rss_4b6107114bca",
-      "title": "Israeli troops infiltrate Lebanese army-held village and build roadblock, mayor says",
+      "id": "rss_8ae505693814",
+      "title": "US slams Chinese ‘nature reserve’ as effort to claim South China Sea",
       "velocityScore": 1.0,
-      "category": "conflict",
-      "countryName": "Israel"
+      "category": "politics",
+      "countryName": "China"
+    },
+    {
+      "id": "rss_cee5d9afc627",
+      "title": "Yemen’s government forces attack Houthis amid renewed shelling of Marib",
+      "velocityScore": 1.0,
+      "category": "politics",
+      "countryName": "Yemen"
     },
     {
       "id": "rss_4408dc4a705f",
@@ -43,47 +57,33 @@
       "velocityScore": 1.0,
       "category": "politics",
       "countryName": "Ukraine"
-    },
-    {
-      "id": "rss_95a1ae87c443",
-      "title": "Saudi-Pakistan-Turkiye pact: A new shield or strategic signal?",
-      "velocityScore": 1.0,
-      "category": "politics",
-      "countryName": "Pakistan"
-    },
-    {
-      "id": "rss_e0e110418538",
-      "title": "Which stars need to shine this season: Real Madrid, Barcelona, Man Utd, PSG",
-      "velocityScore": 1.0,
-      "category": "politics",
-      "countryName": "Spain"
     }
   ],
   "risingRegions": [],
   "categoryTrends": {
     "politics": {
-      "count": 1219,
-      "change": "+1219",
+      "count": 1221,
+      "change": "+1221",
       "changePercent": 100
     },
     "disaster": {
-      "count": 206,
-      "change": "+206",
+      "count": 207,
+      "change": "+207",
       "changePercent": 100
     },
     "conflict": {
-      "count": 194,
-      "change": "+194",
+      "count": 193,
+      "change": "+193",
       "changePercent": 100
     },
     "sports": {
-      "count": 111,
-      "change": "+111",
+      "count": 110,
+      "change": "+110",
       "changePercent": 100
     },
     "health": {
-      "count": 66,
-      "change": "+66",
+      "count": 68,
+      "change": "+68",
       "changePercent": 100
     },
     "economy": {
@@ -102,11 +102,11 @@
       "changePercent": 100
     }
   },
-  "totalEvents": 1894,
-  "totalSources": 1894,
+  "totalEvents": 1897,
+  "totalSources": 1897,
   "globalStats": {
     "avgAttentionScore": 0.873,
-    "totalArticles": 1894,
-    "bubbleCount": 1652
+    "totalArticles": 1897,
+    "bubbleCount": 1655
   }
 }
