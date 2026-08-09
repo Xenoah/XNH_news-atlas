@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-09T22:59:57.481047+00:00",
+  "generatedAt": "2026-08-09T23:39:21.650070+00:00",
   "timeRange": "24h",
   "risingEvents": [
     {
@@ -15,6 +15,13 @@
       "velocityScore": 1.0,
       "category": "conflict",
       "countryName": "Iran"
+    },
+    {
+      "id": "rss_d00525c902a1",
+      "title": "Union reports 108 attacks on Palestinian journalists in July",
+      "velocityScore": 1.0,
+      "category": "politics",
+      "countryName": "Israel"
     },
     {
       "id": "rss_a701b3f89f19",
@@ -50,25 +57,18 @@
       "velocityScore": 1.0,
       "category": "politics",
       "countryName": "Australia"
-    },
-    {
-      "id": "rss_606010fd40da",
-      "title": "Crews battle wildfires in western U.S. and Canada",
-      "velocityScore": 1.0,
-      "category": "disaster",
-      "countryName": "Canada"
     }
   ],
   "risingRegions": [],
   "categoryTrends": {
     "politics": {
-      "count": 1238,
-      "change": "+1238",
+      "count": 1234,
+      "change": "+1234",
       "changePercent": 100
     },
     "disaster": {
-      "count": 208,
-      "change": "+208",
+      "count": 209,
+      "change": "+209",
       "changePercent": 100
     },
     "conflict": {
@@ -102,11 +102,11 @@
       "changePercent": 100
     }
   },
-  "totalEvents": 1923,
-  "totalSources": 1923,
+  "totalEvents": 1920,
+  "totalSources": 1920,
   "globalStats": {
     "avgAttentionScore": 0.874,
-    "totalArticles": 1923,
-    "bubbleCount": 1675
+    "totalArticles": 1920,
+    "bubbleCount": 1673
   }
 }
