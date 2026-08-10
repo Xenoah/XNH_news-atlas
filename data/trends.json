@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-10T21:57:21.666199+00:00",
+  "generatedAt": "2026-08-10T22:39:34.530010+00:00",
   "timeRange": "24h",
   "risingEvents": [
     {
@@ -15,6 +15,13 @@
       "velocityScore": 1.0,
       "category": "conflict",
       "countryName": "United States"
+    },
+    {
+      "id": "rss_b883973431a0",
+      "title": "Colombia’s Espriella to lead emergency efforts following Bogota earthquake",
+      "velocityScore": 1.0,
+      "category": "disaster",
+      "countryName": "Colombia"
     },
     {
       "id": "rss_f80e278a727e",
@@ -50,20 +57,13 @@
       "velocityScore": 1.0,
       "category": "politics",
       "countryName": "United States"
-    },
-    {
-      "id": "rss_1c14fc9042ee",
-      "title": "Trump demands Iran pay compensation for decades of US soldier deaths",
-      "velocityScore": 1.0,
-      "category": "politics",
-      "countryName": "Israel"
     }
   ],
   "risingRegions": [],
   "categoryTrends": {
     "politics": {
-      "count": 1217,
-      "change": "+1217",
+      "count": 1214,
+      "change": "+1214",
       "changePercent": 100
     },
     "disaster": {
@@ -77,13 +77,13 @@
       "changePercent": 100
     },
     "sports": {
-      "count": 108,
-      "change": "+108",
+      "count": 110,
+      "change": "+110",
       "changePercent": 100
     },
     "health": {
-      "count": 68,
-      "change": "+68",
+      "count": 70,
+      "change": "+70",
       "changePercent": 100
     },
     "economy": {
@@ -102,11 +102,11 @@
       "changePercent": 100
     }
   },
-  "totalEvents": 1929,
-  "totalSources": 1929,
+  "totalEvents": 1930,
+  "totalSources": 1930,
   "globalStats": {
-    "avgAttentionScore": 0.875,
-    "totalArticles": 1929,
-    "bubbleCount": 1679
+    "avgAttentionScore": 0.874,
+    "totalArticles": 1930,
+    "bubbleCount": 1677
   }
 }
