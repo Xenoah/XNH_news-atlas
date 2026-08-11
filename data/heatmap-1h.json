@@ -21,6 +21,21 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
+          31.0196,
+          29.7527
+        ]
+      },
+      "properties": {
+        "intensity": 0.9425,
+        "count": 1,
+        "region": "Egypt"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
           69.3737,
           34.2899
         ]
@@ -141,14 +156,14 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          2.0103,
-          49.1246
+          -77.4692,
+          39.0483
         ]
       },
       "properties": {
-        "intensity": 0.9425,
+        "intensity": 0.925,
         "count": 1,
-        "region": "France"
+        "region": "United States"
       }
     },
     {
@@ -156,12 +171,12 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          -77.3568,
-          38.6192
+          -74.0672,
+          40.5193
         ]
       },
       "properties": {
-        "intensity": 0.9425,
+        "intensity": 0.925,
         "count": 1,
         "region": "United States"
       }
@@ -231,14 +246,29 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          37.4604,
-          55.7971
+          151.0492,
+          -34.1968
         ]
       },
       "properties": {
-        "intensity": 0.9075,
+        "intensity": 0.89,
         "count": 1,
-        "region": "Russia"
+        "region": "Australia"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          30.4687,
+          50.5478
+        ]
+      },
+      "properties": {
+        "intensity": 0.89,
+        "count": 1,
+        "region": "Ukraine"
       }
     },
     {
@@ -366,21 +396,6 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          2.3995,
-          48.4341
-        ]
-      },
-      "properties": {
-        "intensity": 0.8725,
-        "count": 1,
-        "region": "France"
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
           -77.2227,
           39.1098
         ]
@@ -389,6 +404,51 @@
         "intensity": 0.845,
         "count": 1,
         "region": "United States"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          126.5708,
+          -31.5799
+        ]
+      },
+      "properties": {
+        "intensity": 0.82,
+        "count": 1,
+        "region": "Western Australia"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -172.9513,
+          -19.0842
+        ]
+      },
+      "properties": {
+        "intensity": 0.82,
+        "count": 1,
+        "region": "118 km ESE of Neiafu, Tonga"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -73.6394,
+          4.8495
+        ]
+      },
+      "properties": {
+        "intensity": 0.82,
+        "count": 1,
+        "region": "Colombia"
       }
     },
     {
@@ -441,21 +501,6 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          21.0993,
-          52.0263
-        ]
-      },
-      "properties": {
-        "intensity": 0.7425,
-        "count": 1,
-        "region": "Poland"
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
           139.5164,
           35.6981
         ]
@@ -464,6 +509,21 @@
         "intensity": 0.7,
         "count": 1,
         "region": "Japan"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -73.7405,
+          40.5699
+        ]
+      },
+      "properties": {
+        "intensity": 0.62,
+        "count": 1,
+        "region": "United States"
       }
     },
     {
@@ -494,21 +554,6 @@
         "intensity": 0.62,
         "count": 1,
         "region": "France"
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          151.4395,
-          -33.5869
-        ]
-      },
-      "properties": {
-        "intensity": 0.62,
-        "count": 1,
-        "region": "Australia"
       }
     }
   ]

@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-11T19:18:36.330131+00:00",
+  "generatedAt": "2026-08-11T20:09:03.256745+00:00",
   "timeRange": "24h",
   "risingEvents": [
     {
@@ -8,6 +8,13 @@
       "velocityScore": 1.0,
       "category": "conflict",
       "countryName": "Venezuela"
+    },
+    {
+      "id": "rss_c9973091fe60",
+      "title": "Truck crash in Egypt kills 18, many of them child labourers",
+      "velocityScore": 1.0,
+      "category": "politics",
+      "countryName": "Egypt"
     },
     {
       "id": "rss_d3978fff08dc",
@@ -50,25 +57,18 @@
       "velocityScore": 1.0,
       "category": "politics",
       "countryName": "Brazil"
-    },
-    {
-      "id": "rss_411dc1bdb6cf",
-      "title": "Syrian court sentences Bashar al-Assad and Atef Najib to death",
-      "velocityScore": 1.0,
-      "category": "politics",
-      "countryName": "Syria"
     }
   ],
   "risingRegions": [],
   "categoryTrends": {
     "politics": {
-      "count": 1233,
-      "change": "+1233",
+      "count": 1230,
+      "change": "+1230",
       "changePercent": 100
     },
     "disaster": {
-      "count": 228,
-      "change": "+228",
+      "count": 230,
+      "change": "+230",
       "changePercent": 100
     },
     "conflict": {
@@ -102,11 +102,11 @@
       "changePercent": 100
     }
   },
-  "totalEvents": 1953,
-  "totalSources": 1953,
+  "totalEvents": 1952,
+  "totalSources": 1952,
   "globalStats": {
     "avgAttentionScore": 0.875,
-    "totalArticles": 1953,
-    "bubbleCount": 1706
+    "totalArticles": 1952,
+    "bubbleCount": 1705
   }
 }
