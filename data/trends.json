@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-11T22:03:52.516691+00:00",
+  "generatedAt": "2026-08-11T23:02:11.646656+00:00",
   "timeRange": "24h",
   "risingEvents": [
     {
@@ -22,13 +22,6 @@
       "velocityScore": 1.0,
       "category": "conflict",
       "countryName": "United States"
-    },
-    {
-      "id": "rss_3528fee9566a",
-      "title": "US military fires on cargo vessel it said sought to break Iran blockade",
-      "velocityScore": 1.0,
-      "category": "conflict",
-      "countryName": "Iran"
     },
     {
       "id": "rss_67c18905c90e",
@@ -57,23 +50,30 @@
       "velocityScore": 1.0,
       "category": "politics",
       "countryName": "Israel"
+    },
+    {
+      "id": "rss_14af1d766794",
+      "title": "DR Congo Ebola death toll surpasses 2,000",
+      "velocityScore": 1.0,
+      "category": "politics",
+      "countryName": "DR Congo"
     }
   ],
   "risingRegions": [],
   "categoryTrends": {
     "politics": {
-      "count": 1231,
-      "change": "+1231",
+      "count": 1226,
+      "change": "+1226",
       "changePercent": 100
     },
     "disaster": {
-      "count": 231,
-      "change": "+231",
+      "count": 230,
+      "change": "+230",
       "changePercent": 100
     },
     "conflict": {
-      "count": 199,
-      "change": "+199",
+      "count": 198,
+      "change": "+198",
       "changePercent": 100
     },
     "sports": {
@@ -97,16 +97,16 @@
       "changePercent": 100
     },
     "science": {
-      "count": 26,
-      "change": "+26",
+      "count": 27,
+      "change": "+27",
       "changePercent": 100
     }
   },
-  "totalEvents": 1959,
-  "totalSources": 1959,
+  "totalEvents": 1953,
+  "totalSources": 1953,
   "globalStats": {
     "avgAttentionScore": 0.874,
-    "totalArticles": 1959,
-    "bubbleCount": 1712
+    "totalArticles": 1953,
+    "bubbleCount": 1704
   }
 }
