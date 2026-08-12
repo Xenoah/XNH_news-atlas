@@ -1,13 +1,27 @@
 {
-  "generatedAt": "2026-08-12T11:05:30.253909+00:00",
+  "generatedAt": "2026-08-12T11:57:26.694010+00:00",
   "timeRange": "24h",
   "risingEvents": [
+    {
+      "id": "rss_93602771864d",
+      "title": "Putin warns of tit-for-tat seizures of European vessels",
+      "velocityScore": 1.0,
+      "category": "conflict",
+      "countryName": "Russia"
+    },
     {
       "id": "rss_f5488e2b0e3a",
       "title": "‘The hardest mission of my life’: A rescuer’s loss in the Lebanon War",
       "velocityScore": 1.0,
       "category": "conflict",
       "countryName": "Israel"
+    },
+    {
+      "id": "rss_40b66449e456",
+      "title": "Heat, algae and AI: proposed datacenter could damage Everglades, experts warn",
+      "velocityScore": 1.0,
+      "category": "conflict",
+      "countryName": "United States"
     },
     {
       "id": "rss_8b2f4ca88ded",
@@ -17,25 +31,11 @@
       "countryName": "Iran"
     },
     {
-      "id": "rss_7e26686fe4c3",
-      "title": "UK heatwave live: Met Office issues extreme heat warning as government convenes emergency Cobra meeting",
-      "velocityScore": 1.0,
-      "category": "conflict",
-      "countryName": "United Kingdom"
-    },
-    {
       "id": "rss_678570d50e95",
       "title": "Are hacks of U.S. water facilities a new front in the Iran war?",
       "velocityScore": 1.0,
       "category": "conflict",
       "countryName": "Iran"
-    },
-    {
-      "id": "rss_0788e8fc3fb0",
-      "title": "Russia's only anti-war party banned",
-      "velocityScore": 1.0,
-      "category": "conflict",
-      "countryName": "Russia"
     },
     {
       "id": "rss_d8e5f173d002",
@@ -62,8 +62,8 @@
   "risingRegions": [],
   "categoryTrends": {
     "politics": {
-      "count": 1208,
-      "change": "+1208",
+      "count": 1210,
+      "change": "+1210",
       "changePercent": 100
     },
     "disaster": {
@@ -72,8 +72,8 @@
       "changePercent": 100
     },
     "conflict": {
-      "count": 208,
-      "change": "+208",
+      "count": 209,
+      "change": "+209",
       "changePercent": 100
     },
     "sports": {
@@ -102,11 +102,11 @@
       "changePercent": 100
     }
   },
-  "totalEvents": 1942,
-  "totalSources": 1942,
+  "totalEvents": 1945,
+  "totalSources": 1945,
   "globalStats": {
     "avgAttentionScore": 0.875,
-    "totalArticles": 1942,
-    "bubbleCount": 1694
+    "totalArticles": 1945,
+    "bubbleCount": 1698
   }
 }
