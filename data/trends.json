@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-12T22:10:48.159685+00:00",
+  "generatedAt": "2026-08-12T23:00:27.072273+00:00",
   "timeRange": "24h",
   "risingEvents": [
     {
@@ -15,6 +15,13 @@
       "velocityScore": 1.0,
       "category": "conflict",
       "countryName": "United Kingdom"
+    },
+    {
+      "id": "rss_799c8133faa8",
+      "title": "Trump administration plans to give ICE officers electric-shock gloves",
+      "velocityScore": 1.0,
+      "category": "politics",
+      "countryName": "United States"
     },
     {
       "id": "rss_b5649b161509",
@@ -50,25 +57,18 @@
       "velocityScore": 1.0,
       "category": "politics",
       "countryName": "Israel"
-    },
-    {
-      "id": "rss_de59bee04469",
-      "title": "Drone attacks on energy infrastructure deepen Libya’s energy crisis",
-      "velocityScore": 1.0,
-      "category": "politics",
-      "countryName": "Libya"
     }
   ],
   "risingRegions": [],
   "categoryTrends": {
     "politics": {
-      "count": 1226,
-      "change": "+1226",
+      "count": 1232,
+      "change": "+1232",
       "changePercent": 100
     },
     "disaster": {
-      "count": 240,
-      "change": "+240",
+      "count": 239,
+      "change": "+239",
       "changePercent": 100
     },
     "conflict": {
@@ -77,8 +77,8 @@
       "changePercent": 100
     },
     "sports": {
-      "count": 127,
-      "change": "+127",
+      "count": 128,
+      "change": "+128",
       "changePercent": 100
     },
     "health": {
@@ -87,13 +87,13 @@
       "changePercent": 100
     },
     "economy": {
-      "count": 39,
-      "change": "+39",
+      "count": 38,
+      "change": "+38",
       "changePercent": 100
     },
     "science": {
-      "count": 31,
-      "change": "+31",
+      "count": 32,
+      "change": "+32",
       "changePercent": 100
     },
     "technology": {
@@ -102,11 +102,11 @@
       "changePercent": 100
     }
   },
-  "totalEvents": 1984,
-  "totalSources": 1984,
+  "totalEvents": 1990,
+  "totalSources": 1990,
   "globalStats": {
     "avgAttentionScore": 0.873,
-    "totalArticles": 1984,
-    "bubbleCount": 1721
+    "totalArticles": 1990,
+    "bubbleCount": 1726
   }
 }
