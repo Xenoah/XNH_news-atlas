@@ -1,7 +1,14 @@
 {
-  "generatedAt": "2026-08-13T08:49:45.693399+00:00",
+  "generatedAt": "2026-08-13T10:01:21.661073+00:00",
   "timeRange": "24h",
   "risingEvents": [
+    {
+      "id": "rss_8abcce5c993b",
+      "title": "South Korean airport becomes busiest in world for global traffic amid Iran war",
+      "velocityScore": 1.0,
+      "category": "conflict",
+      "countryName": "South Korea"
+    },
     {
       "id": "rss_b380185587a4",
       "title": "Europe heatwave live: Temperatures of 40C expected in Spain, with amber heat health warning in place across large parts of UK",
@@ -10,11 +17,39 @@
       "countryName": "United Kingdom"
     },
     {
-      "id": "rss_3ee4ce47dd45",
-      "title": "UK economic growth slows down as Iran war pushes up energy prices",
+      "id": "rss_6730d6cb21ae",
+      "title": "Yemeni forces say Houthi attack repelled in Taiz amid escalation",
       "velocityScore": 1.0,
-      "category": "conflict",
-      "countryName": "Iran"
+      "category": "politics",
+      "countryName": "Yemen"
+    },
+    {
+      "id": "rss_05af92b487c5",
+      "title": "La Liga: What to know ahead of new 2026-27 football season",
+      "velocityScore": 1.0,
+      "category": "politics",
+      "countryName": "Spain"
+    },
+    {
+      "id": "rss_c91522a5927f",
+      "title": "Bangladesh humble Australia with worst total in contest as Hasan takes 6-55",
+      "velocityScore": 1.0,
+      "category": "politics",
+      "countryName": "Australia"
+    },
+    {
+      "id": "rss_11ecae3d42c4",
+      "title": "Photos: Hope fades in Colombia as teams dig for earthquake survivors",
+      "velocityScore": 1.0,
+      "category": "disaster",
+      "countryName": "Colombia"
+    },
+    {
+      "id": "rss_0093e3013ff2",
+      "title": "US diplomat calls Israeli settler siege of West Bank homes ‘act of terror’",
+      "velocityScore": 1.0,
+      "category": "politics",
+      "countryName": "Israel"
     },
     {
       "id": "rss_9698cbdf1789",
@@ -22,41 +57,6 @@
       "velocityScore": 1.0,
       "category": "disaster",
       "countryName": "Colombia"
-    },
-    {
-      "id": "rss_10ab70cef0c7",
-      "title": "As temperatures soar, ‘exceptionally serious’ drought imperils UK farmers",
-      "velocityScore": 1.0,
-      "category": "disaster",
-      "countryName": "United Kingdom"
-    },
-    {
-      "id": "rss_ad65510ba6e0",
-      "title": "Messi plays in Inter Miami defeat by Leon only hours after retirement hint",
-      "velocityScore": 1.0,
-      "category": "politics",
-      "countryName": "Argentina"
-    },
-    {
-      "id": "rss_73ed22f5db39",
-      "title": "Israeli strikes in south Lebanon a ‘violation of international law’: PM",
-      "velocityScore": 1.0,
-      "category": "politics",
-      "countryName": "Israel"
-    },
-    {
-      "id": "rss_6db0fb957900",
-      "title": "Palestinian women in Gaza face legal hurdles in divorce struggles",
-      "velocityScore": 1.0,
-      "category": "politics",
-      "countryName": "Israel"
-    },
-    {
-      "id": "rss_1a65334aa891",
-      "title": "‘They destroyed us’: Palestinian family sleeps in the open after demolition",
-      "velocityScore": 1.0,
-      "category": "politics",
-      "countryName": "Israel"
     }
   ],
   "risingRegions": [],
@@ -67,28 +67,28 @@
       "changePercent": 100
     },
     "disaster": {
-      "count": 243,
-      "change": "+243",
+      "count": 245,
+      "change": "+245",
       "changePercent": 100
     },
     "conflict": {
-      "count": 208,
-      "change": "+208",
+      "count": 205,
+      "change": "+205",
       "changePercent": 100
     },
     "sports": {
-      "count": 132,
-      "change": "+132",
+      "count": 131,
+      "change": "+131",
       "changePercent": 100
     },
     "health": {
-      "count": 84,
-      "change": "+84",
+      "count": 80,
+      "change": "+80",
       "changePercent": 100
     },
     "economy": {
-      "count": 37,
-      "change": "+37",
+      "count": 36,
+      "change": "+36",
       "changePercent": 100
     },
     "science": {
@@ -102,11 +102,11 @@
       "changePercent": 100
     }
   },
-  "totalEvents": 2016,
-  "totalSources": 2016,
+  "totalEvents": 2009,
+  "totalSources": 2009,
   "globalStats": {
     "avgAttentionScore": 0.873,
-    "totalArticles": 2016,
-    "bubbleCount": 1746
+    "totalArticles": 2009,
+    "bubbleCount": 1744
   }
 }
