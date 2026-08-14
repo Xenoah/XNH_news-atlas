@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-14T23:18:28.521477+00:00",
+  "generatedAt": "2026-08-14T23:46:31.853650+00:00",
   "timeRange": "24h",
   "risingEvents": [
     {
@@ -15,6 +15,20 @@
       "velocityScore": 1.0,
       "category": "conflict",
       "countryName": "Iran"
+    },
+    {
+      "id": "rss_03a045587c46",
+      "title": "Lebanon’s PM urges timetable for Israeli withdrawal as Hezbollah slams deal",
+      "velocityScore": 1.0,
+      "category": "politics",
+      "countryName": "Israel"
+    },
+    {
+      "id": "rss_34656c2f9c9d",
+      "title": "Houthi attack on port kills four eroding truce with Yemen’s government",
+      "velocityScore": 1.0,
+      "category": "politics",
+      "countryName": "Yemen"
     },
     {
       "id": "rss_1ea315db1521",
@@ -43,32 +57,18 @@
       "velocityScore": 1.0,
       "category": "politics",
       "countryName": "United Kingdom"
-    },
-    {
-      "id": "rss_05795576f4b0",
-      "title": "Trump downplays concerns about sailors aboard USS Abraham Lincoln amid record deployment",
-      "velocityScore": 1.0,
-      "category": "politics",
-      "countryName": "United States"
-    },
-    {
-      "id": "rss_7fbcf9969d00",
-      "title": "Burnham announces £65m for drought-hit farmers after Labour pressure",
-      "velocityScore": 1.0,
-      "category": "disaster",
-      "countryName": "United Kingdom"
     }
   ],
   "risingRegions": [],
   "categoryTrends": {
     "politics": {
-      "count": 1302,
-      "change": "+1302",
+      "count": 1301,
+      "change": "+1301",
       "changePercent": 100
     },
     "disaster": {
-      "count": 268,
-      "change": "+268",
+      "count": 271,
+      "change": "+271",
       "changePercent": 100
     },
     "conflict": {
@@ -102,11 +102,11 @@
       "changePercent": 100
     }
   },
-  "totalEvents": 2069,
-  "totalSources": 2069,
+  "totalEvents": 2071,
+  "totalSources": 2071,
   "globalStats": {
     "avgAttentionScore": 0.876,
-    "totalArticles": 2069,
-    "bubbleCount": 1823
+    "totalArticles": 2071,
+    "bubbleCount": 1826
   }
 }
