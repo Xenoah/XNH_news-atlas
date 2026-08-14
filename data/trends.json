@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-14T22:48:38.767964+00:00",
+  "generatedAt": "2026-08-14T23:18:28.521477+00:00",
   "timeRange": "24h",
   "risingEvents": [
     {
@@ -14,6 +14,13 @@
       "title": "Many Iranians are heading to Turkey to escape the ongoing war's heavy toll",
       "velocityScore": 1.0,
       "category": "conflict",
+      "countryName": "Iran"
+    },
+    {
+      "id": "rss_1ea315db1521",
+      "title": "Yemen’s government says Houthi attack on al-Makha kills at least four",
+      "velocityScore": 1.0,
+      "category": "politics",
       "countryName": "Iran"
     },
     {
@@ -50,13 +57,6 @@
       "velocityScore": 1.0,
       "category": "disaster",
       "countryName": "United Kingdom"
-    },
-    {
-      "id": "rss_2f3523974033",
-      "title": "Trump threatens to declare strait of Hormuz ‘territory of the United States’",
-      "velocityScore": 1.0,
-      "category": "politics",
-      "countryName": "United States"
     }
   ],
   "risingRegions": [],
@@ -67,8 +67,8 @@
       "changePercent": 100
     },
     "disaster": {
-      "count": 266,
-      "change": "+266",
+      "count": 268,
+      "change": "+268",
       "changePercent": 100
     },
     "conflict": {
@@ -82,8 +82,8 @@
       "changePercent": 100
     },
     "health": {
-      "count": 78,
-      "change": "+78",
+      "count": 77,
+      "change": "+77",
       "changePercent": 100
     },
     "economy": {
@@ -102,11 +102,11 @@
       "changePercent": 100
     }
   },
-  "totalEvents": 2068,
-  "totalSources": 2068,
+  "totalEvents": 2069,
+  "totalSources": 2069,
   "globalStats": {
     "avgAttentionScore": 0.876,
-    "totalArticles": 2068,
-    "bubbleCount": 1822
+    "totalArticles": 2069,
+    "bubbleCount": 1823
   }
 }
