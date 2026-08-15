@@ -6,6 +6,21 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
+          44.4414,
+          15.5734
+        ]
+      },
+      "properties": {
+        "intensity": 0.9825,
+        "count": 1,
+        "region": "Yemen"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
           151.1781,
           -34.2284
         ]
@@ -59,51 +74,6 @@
         "intensity": 0.9425,
         "count": 1,
         "region": "Afghanistan"
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          30.5779,
-          50.6779
-        ]
-      },
-      "properties": {
-        "intensity": 0.9425,
-        "count": 1,
-        "region": "Ukraine"
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          77.1948,
-          28.5792
-        ]
-      },
-      "properties": {
-        "intensity": 0.9425,
-        "count": 1,
-        "region": "India"
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          106.8083,
-          -6.1471
-        ]
-      },
-      "properties": {
-        "intensity": 0.9425,
-        "count": 1,
-        "region": "Indonesia"
       }
     },
     {
@@ -209,21 +179,6 @@
         "intensity": 0.9075,
         "count": 1,
         "region": "Indonesia"
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          30.4515,
-          50.497
-        ]
-      },
-      "properties": {
-        "intensity": 0.9075,
-        "count": 1,
-        "region": "Ukraine"
       }
     },
     {
@@ -441,21 +396,6 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          35.3275,
-          31.9694
-        ]
-      },
-      "properties": {
-        "intensity": 0.86,
-        "count": 1,
-        "region": "Israel"
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
           51.2847,
           35.7858
         ]
@@ -464,6 +404,51 @@
         "intensity": 0.9475,
         "count": 1,
         "region": "Iran"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          30.5779,
+          50.6779
+        ]
+      },
+      "properties": {
+        "intensity": 0.9425,
+        "count": 1,
+        "region": "Ukraine"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.1948,
+          28.5792
+        ]
+      },
+      "properties": {
+        "intensity": 0.9425,
+        "count": 1,
+        "region": "India"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          106.8083,
+          -6.1471
+        ]
+      },
+      "properties": {
+        "intensity": 0.9425,
+        "count": 1,
+        "region": "Indonesia"
       }
     },
     {
@@ -1026,21 +1011,6 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          73.2223,
-          33.5338
-        ]
-      },
-      "properties": {
-        "intensity": 0.9425,
-        "count": 1,
-        "region": "Pakistan"
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
           151.0546,
           -33.8983
         ]
@@ -1521,21 +1491,6 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          30.6819,
-          50.8704
-        ]
-      },
-      "properties": {
-        "intensity": 0.9125,
-        "count": 1,
-        "region": "Ukraine"
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
           121.4064,
           -8.2926
         ]
@@ -1596,14 +1551,14 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          143.9212,
-          -4.411
+          30.4515,
+          50.497
         ]
       },
       "properties": {
-        "intensity": 0.82,
+        "intensity": 0.9075,
         "count": 1,
-        "region": "41 km SSW of Angoram, Papua New Guinea"
+        "region": "Ukraine"
       }
     },
     {
@@ -1949,21 +1904,6 @@
         "intensity": 0.9075,
         "count": 1,
         "region": "Israel"
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          69.4933,
-          34.5015
-        ]
-      },
-      "properties": {
-        "intensity": 0.9075,
-        "count": 1,
-        "region": "Afghanistan"
       }
     },
     {
@@ -2601,12 +2541,12 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          35.3588,
-          31.7908
+          35.3275,
+          31.9694
         ]
       },
       "properties": {
-        "intensity": 0.8725,
+        "intensity": 0.86,
         "count": 1,
         "region": "Israel"
       }
@@ -2714,6 +2654,21 @@
         "intensity": 0.8325,
         "count": 1,
         "region": "Belgium"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          143.9212,
+          -4.411
+        ]
+      },
+      "properties": {
+        "intensity": 0.82,
+        "count": 1,
+        "region": "41 km SSW of Angoram, Papua New Guinea"
       }
     },
     {
@@ -4851,21 +4806,6 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          -74.0875,
-          41.0379
-        ]
-      },
-      "properties": {
-        "intensity": 0.965,
-        "count": 1,
-        "region": "United States"
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
           2.2752,
           48.8513
         ]
@@ -5324,6 +5264,21 @@
         "intensity": 0.9475,
         "count": 1,
         "region": "Israel"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          73.2223,
+          33.5338
+        ]
+      },
+      "properties": {
+        "intensity": 0.9425,
+        "count": 1,
+        "region": "Pakistan"
       }
     },
     {
@@ -14616,6 +14571,21 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
+          30.6819,
+          50.8704
+        ]
+      },
+      "properties": {
+        "intensity": 0.9125,
+        "count": 1,
+        "region": "Ukraine"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
           37.4783,
           55.7944
         ]
@@ -14909,6 +14879,21 @@
         "intensity": 0.9125,
         "count": 1,
         "region": "Germany"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          69.4933,
+          34.5015
+        ]
+      },
+      "properties": {
+        "intensity": 0.9075,
+        "count": 1,
+        "region": "Afghanistan"
       }
     },
     {
@@ -20736,21 +20721,6 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          116.6186,
-          39.9538
-        ]
-      },
-      "properties": {
-        "intensity": 0.89,
-        "count": 1,
-        "region": "China"
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
           2.0355,
           48.5109
         ]
@@ -20969,6 +20939,21 @@
         "intensity": 0.875,
         "count": 1,
         "region": "United Kingdom"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          35.3588,
+          31.7908
+        ]
+      },
+      "properties": {
+        "intensity": 0.8725,
+        "count": 1,
+        "region": "Israel"
       }
     },
     {
