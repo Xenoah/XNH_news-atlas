@@ -1,20 +1,41 @@
 {
-  "generatedAt": "2026-08-15T23:17:04.771731+00:00",
+  "generatedAt": "2026-08-15T23:43:28.277241+00:00",
   "timeRange": "24h",
   "risingEvents": [
+    {
+      "id": "rss_1dd08e361d3b",
+      "title": "State Department spokesperson on Iran war and U.S. visa revocations",
+      "velocityScore": 1.0,
+      "category": "conflict",
+      "countryName": "Iran"
+    },
+    {
+      "id": "rss_4fe6f76b775e",
+      "title": "Yemen’s government says Houthi strikes hit residential areas in Marib",
+      "velocityScore": 1.0,
+      "category": "politics",
+      "countryName": "Yemen"
+    },
+    {
+      "id": "rss_bfd40108bddf",
+      "title": "At least five reported dead amid flooding in US state of Indiana",
+      "velocityScore": 1.0,
+      "category": "disaster",
+      "countryName": "India"
+    },
+    {
+      "id": "rss_f0a1b8e27cbf",
+      "title": "Colombia asks Trump to suspend tariffs as country reels from earthquake",
+      "velocityScore": 1.0,
+      "category": "disaster",
+      "countryName": "United States"
+    },
     {
       "id": "rss_669cea1dcc5a",
       "title": "Qatar denies it is detaining three Iranian bomber pilots",
       "velocityScore": 1.0,
       "category": "politics",
       "countryName": "Iran"
-    },
-    {
-      "id": "rss_f71b48f7cdfd",
-      "title": "California tackles multiple wildfires as firefighter workforce faces strain",
-      "velocityScore": 1.0,
-      "category": "disaster",
-      "countryName": "United States"
     },
     {
       "id": "rss_61be78ab20c8",
@@ -36,27 +57,6 @@
       "velocityScore": 1.0,
       "category": "politics",
       "countryName": "Italy"
-    },
-    {
-      "id": "rss_cd64d10e3073",
-      "title": "Trump shows off article on lower drug prices that says Biden deserves credit, not him",
-      "velocityScore": 1.0,
-      "category": "politics",
-      "countryName": "United States"
-    },
-    {
-      "id": "rss_015f5dabc351",
-      "title": "Israeli strikes kill 11 in southern Lebanon, Hezbollah threatens to retaliate",
-      "velocityScore": 1.0,
-      "category": "politics",
-      "countryName": "Iran"
-    },
-    {
-      "id": "rss_cbcecf3e3d80",
-      "title": "Blind surfer stuns locals at Queensland beach",
-      "velocityScore": 1.0,
-      "category": "politics",
-      "countryName": "Australia"
     }
   ],
   "risingRegions": [],
@@ -67,8 +67,8 @@
       "changePercent": 100
     },
     "disaster": {
-      "count": 306,
-      "change": "+306",
+      "count": 309,
+      "change": "+309",
       "changePercent": 100
     },
     "conflict": {
@@ -102,11 +102,11 @@
       "changePercent": 100
     }
   },
-  "totalEvents": 2083,
-  "totalSources": 2083,
+  "totalEvents": 2086,
+  "totalSources": 2086,
   "globalStats": {
     "avgAttentionScore": 0.874,
-    "totalArticles": 2083,
-    "bubbleCount": 1829
+    "totalArticles": 2086,
+    "bubbleCount": 1832
   }
 }
