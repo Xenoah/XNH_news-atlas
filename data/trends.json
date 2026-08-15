@@ -1,7 +1,14 @@
 {
-  "generatedAt": "2026-08-15T10:19:02.302336+00:00",
+  "generatedAt": "2026-08-15T10:47:03.968879+00:00",
   "timeRange": "24h",
   "risingEvents": [
+    {
+      "id": "rss_3c4fa5afd5f4",
+      "title": "At scene of deadly Israeli strike on Lebanon home",
+      "velocityScore": 1.0,
+      "category": "politics",
+      "countryName": "Israel"
+    },
     {
       "id": "rss_50e555ccd733",
       "title": "Bangladesh rock Australia as historic Test win in sight",
@@ -15,13 +22,6 @@
       "velocityScore": 1.0,
       "category": "politics",
       "countryName": "India"
-    },
-    {
-      "id": "rss_9c4db87cc936",
-      "title": "A Syrian intervention in Lebanon would be too costly for Damascus",
-      "velocityScore": 1.0,
-      "category": "politics",
-      "countryName": "Syria"
     },
     {
       "id": "rss_82badc09d9db",
@@ -62,8 +62,8 @@
   "risingRegions": [],
   "categoryTrends": {
     "politics": {
-      "count": 1295,
-      "change": "+1295",
+      "count": 1289,
+      "change": "+1289",
       "changePercent": 100
     },
     "disaster": {
@@ -77,8 +77,8 @@
       "changePercent": 100
     },
     "sports": {
-      "count": 136,
-      "change": "+136",
+      "count": 138,
+      "change": "+138",
       "changePercent": 100
     },
     "health": {
@@ -102,11 +102,11 @@
       "changePercent": 100
     }
   },
-  "totalEvents": 2086,
-  "totalSources": 2086,
+  "totalEvents": 2082,
+  "totalSources": 2082,
   "globalStats": {
     "avgAttentionScore": 0.875,
-    "totalArticles": 2086,
-    "bubbleCount": 1837
+    "totalArticles": 2082,
+    "bubbleCount": 1831
   }
 }
