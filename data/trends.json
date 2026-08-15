@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-15T16:30:43.787408+00:00",
+  "generatedAt": "2026-08-15T16:58:51.039232+00:00",
   "timeRange": "24h",
   "risingEvents": [
     {
@@ -22,6 +22,13 @@
       "velocityScore": 1.0,
       "category": "conflict",
       "countryName": "North Korea"
+    },
+    {
+      "id": "rss_841f6d2042ca",
+      "title": "Sudan’s al-Burhan pledges immunity for dialogue, rules out Hemedti return",
+      "velocityScore": 1.0,
+      "category": "politics",
+      "countryName": "Sudan"
     },
     {
       "id": "rss_040c57826289",
@@ -50,13 +57,6 @@
       "velocityScore": 1.0,
       "category": "politics",
       "countryName": "Mexico"
-    },
-    {
-      "id": "rss_cb843209ae07",
-      "title": "Alarmed by the alarm: people react to ‘severe alert’ on phones with message on UK wildfires",
-      "velocityScore": 1.0,
-      "category": "disaster",
-      "countryName": "United Kingdom"
     }
   ],
   "risingRegions": [],
@@ -67,8 +67,8 @@
       "changePercent": 100
     },
     "disaster": {
-      "count": 297,
-      "change": "+297",
+      "count": 298,
+      "change": "+298",
       "changePercent": 100
     },
     "conflict": {
@@ -102,11 +102,11 @@
       "changePercent": 100
     }
   },
-  "totalEvents": 2079,
-  "totalSources": 2079,
+  "totalEvents": 2080,
+  "totalSources": 2080,
   "globalStats": {
     "avgAttentionScore": 0.875,
-    "totalArticles": 2079,
-    "bubbleCount": 1830
+    "totalArticles": 2080,
+    "bubbleCount": 1831
   }
 }
