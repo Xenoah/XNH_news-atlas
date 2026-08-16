@@ -1,7 +1,21 @@
 {
-  "generatedAt": "2026-08-16T19:19:01.664091+00:00",
+  "generatedAt": "2026-08-16T19:43:12.735544+00:00",
   "timeRange": "24h",
   "risingEvents": [
+    {
+      "id": "rss_861cfc9e2b22",
+      "title": "Drone and missile strikes kill 19 in Russia and Ukraine",
+      "velocityScore": 1.0,
+      "category": "conflict",
+      "countryName": "Ukraine"
+    },
+    {
+      "id": "rss_9ade0d7cd62c",
+      "title": "Kushner meets Hamas leaders in Egypt to push Trump’s Gaza plan",
+      "velocityScore": 1.0,
+      "category": "politics",
+      "countryName": "Israel"
+    },
     {
       "id": "rss_71805ff55428",
       "title": "Former Israeli captive asks Ben-Gvir to let him execute Palestinian prisone",
@@ -38,47 +52,33 @@
       "countryName": "Australia"
     },
     {
-      "id": "rss_b3cd2e644f18",
-      "title": "Brazil’s Lula launches historic fourth term bid – but son of jailed Bolsonaro stands in his way",
+      "id": "rss_8effc53aae76",
+      "title": "At least six people dead from days of storms and record flooding in Indiana",
       "velocityScore": 1.0,
-      "category": "politics",
-      "countryName": "Brazil"
-    },
-    {
-      "id": "rss_41c6e8e51fbd",
-      "title": "Tommy John, pitcher whose surgery changed baseball, dies at age of 83",
-      "velocityScore": 1.0,
-      "category": "politics",
-      "countryName": "United States"
-    },
-    {
-      "id": "rss_2259b0f0c487",
-      "title": "Democrats demand answers from Trump on USS Abraham Lincoln conditions",
-      "velocityScore": 1.0,
-      "category": "politics",
-      "countryName": "United States"
+      "category": "disaster",
+      "countryName": "India"
     }
   ],
   "risingRegions": [],
   "categoryTrends": {
     "politics": {
-      "count": 1241,
-      "change": "+1241",
+      "count": 1243,
+      "change": "+1243",
       "changePercent": 100
     },
     "disaster": {
-      "count": 311,
-      "change": "+311",
+      "count": 310,
+      "change": "+310",
       "changePercent": 100
     },
     "conflict": {
-      "count": 187,
-      "change": "+187",
+      "count": 188,
+      "change": "+188",
       "changePercent": 100
     },
     "sports": {
-      "count": 139,
-      "change": "+139",
+      "count": 138,
+      "change": "+138",
       "changePercent": 100
     },
     "health": {
@@ -102,11 +102,11 @@
       "changePercent": 100
     }
   },
-  "totalEvents": 2046,
-  "totalSources": 2046,
+  "totalEvents": 2047,
+  "totalSources": 2047,
   "globalStats": {
     "avgAttentionScore": 0.874,
-    "totalArticles": 2046,
-    "bubbleCount": 1795
+    "totalArticles": 2047,
+    "bubbleCount": 1797
   }
 }
