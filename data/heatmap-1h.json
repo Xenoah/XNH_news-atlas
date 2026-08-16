@@ -21,6 +21,36 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
+          37.5553,
+          55.7684
+        ]
+      },
+      "properties": {
+        "intensity": 0.9425,
+        "count": 1,
+        "region": "Russia"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          35.5621,
+          31.6617
+        ]
+      },
+      "properties": {
+        "intensity": 0.9425,
+        "count": 1,
+        "region": "Israel"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
           151.0608,
           -33.4172
         ]
@@ -36,12 +66,12 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          34.5746,
-          31.5684
+          34.5831,
+          31.5632
         ]
       },
       "properties": {
-        "intensity": 0.9425,
+        "intensity": 0.925,
         "count": 1,
         "region": "Israel"
       }
@@ -96,6 +126,21 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
+          2.3172,
+          48.8972
+        ]
+      },
+      "properties": {
+        "intensity": 0.9075,
+        "count": 1,
+        "region": "France"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
           30.5435,
           50.3159
         ]
@@ -126,6 +171,21 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
+          -0.1203,
+          51.4812
+        ]
+      },
+      "properties": {
+        "intensity": 0.885,
+        "count": 1,
+        "region": "United Kingdom"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
           121.5082,
           -8.4615
         ]
@@ -149,36 +209,6 @@
         "intensity": 0.82,
         "count": 1,
         "region": "56 km NNE of Port-Olry, Vanuatu"
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          15.4859,
-          -4.4921
-        ]
-      },
-      "properties": {
-        "intensity": 0.81,
-        "count": 1,
-        "region": "DR Congo"
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          151.2936,
-          -33.8963
-        ]
-      },
-      "properties": {
-        "intensity": 0.81,
-        "count": 1,
-        "region": "Australia"
       }
     }
   ]
