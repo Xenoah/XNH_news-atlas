@@ -21,6 +21,36 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
+          34.4458,
+          31.4794
+        ]
+      },
+      "properties": {
+        "intensity": 0.9425,
+        "count": 1,
+        "region": "Israel"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          34.7243,
+          31.7704
+        ]
+      },
+      "properties": {
+        "intensity": 0.9425,
+        "count": 1,
+        "region": "Israel"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
           106.8717,
           -6.1027
         ]
@@ -141,14 +171,44 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          106.8869,
-          -6.1719
+          106.551,
+          -6.2289
         ]
       },
       "properties": {
-        "intensity": 0.925,
+        "intensity": 0.9075,
         "count": 1,
         "region": "Indonesia"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          4.5304,
+          50.7926
+        ]
+      },
+      "properties": {
+        "intensity": 0.9075,
+        "count": 1,
+        "region": "Belgium"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -77.0617,
+          38.8861
+        ]
+      },
+      "properties": {
+        "intensity": 0.9075,
+        "count": 1,
+        "region": "United States"
       }
     },
     {
@@ -186,8 +246,8 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          151.5575,
-          -34.1114
+          151.1563,
+          -33.4819
         ]
       },
       "properties": {
@@ -201,14 +261,14 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          -74.2284,
-          40.5734
+          151.5575,
+          -34.1114
         ]
       },
       "properties": {
         "intensity": 0.89,
         "count": 1,
-        "region": "United States"
+        "region": "Australia"
       }
     },
     {
@@ -239,21 +299,6 @@
         "intensity": 0.82,
         "count": 1,
         "region": "45 km NNW of Ende, Indonesia"
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          167.1934,
-          -14.5474
-        ]
-      },
-      "properties": {
-        "intensity": 0.82,
-        "count": 1,
-        "region": "56 km NNE of Port-Olry, Vanuatu"
       }
     }
   ]
