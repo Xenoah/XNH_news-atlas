@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-16T10:30:34.805999+00:00",
+  "generatedAt": "2026-08-16T10:58:21.915328+00:00",
   "timeRange": "24h",
   "risingEvents": [
     {
@@ -15,6 +15,13 @@
       "velocityScore": 1.0,
       "category": "conflict",
       "countryName": "Ukraine"
+    },
+    {
+      "id": "rss_68d8a7456bd3",
+      "title": "Doctor describes amputating girl’s leg in Gaza without anaesthesia",
+      "velocityScore": 1.0,
+      "category": "politics",
+      "countryName": "Israel"
     },
     {
       "id": "rss_75ed983fed20",
@@ -50,35 +57,28 @@
       "velocityScore": 1.0,
       "category": "politics",
       "countryName": "Libya"
-    },
-    {
-      "id": "rss_5ded59bfbc3f",
-      "title": "Block export of ‘national treasure’ UK fossils, says MP",
-      "velocityScore": 1.0,
-      "category": "politics",
-      "countryName": "United Kingdom"
     }
   ],
   "risingRegions": [],
   "categoryTrends": {
     "politics": {
-      "count": 1262,
-      "change": "+1262",
+      "count": 1260,
+      "change": "+1260",
       "changePercent": 100
     },
     "disaster": {
-      "count": 312,
-      "change": "+312",
+      "count": 314,
+      "change": "+314",
       "changePercent": 100
     },
     "conflict": {
-      "count": 187,
-      "change": "+187",
+      "count": 186,
+      "change": "+186",
       "changePercent": 100
     },
     "sports": {
-      "count": 136,
-      "change": "+136",
+      "count": 137,
+      "change": "+137",
       "changePercent": 100
     },
     "health": {
@@ -105,8 +105,8 @@
   "totalEvents": 2071,
   "totalSources": 2071,
   "globalStats": {
-    "avgAttentionScore": 0.875,
+    "avgAttentionScore": 0.874,
     "totalArticles": 2071,
-    "bubbleCount": 1819
+    "bubbleCount": 1818
   }
 }
