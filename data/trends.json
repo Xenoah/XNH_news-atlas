@@ -1,13 +1,27 @@
 {
-  "generatedAt": "2026-08-16T21:16:34.267162+00:00",
+  "generatedAt": "2026-08-16T21:43:14.840457+00:00",
   "timeRange": "24h",
   "risingEvents": [
+    {
+      "id": "rss_314c2612329f",
+      "title": "Australia politics live: Labor warned against changing work rights for visa holders amid ‘scapegoating’ of immigrants",
+      "velocityScore": 1.0,
+      "category": "conflict",
+      "countryName": "Australia"
+    },
     {
       "id": "rss_861cfc9e2b22",
       "title": "Drone and missile strikes kill 19 in Russia and Ukraine",
       "velocityScore": 1.0,
       "category": "conflict",
       "countryName": "Ukraine"
+    },
+    {
+      "id": "rss_621416987e52",
+      "title": "Israelis harass Palestinian-owned cafe in Iceland, tear down Palestine map",
+      "velocityScore": 1.0,
+      "category": "politics",
+      "countryName": "Israel"
     },
     {
       "id": "rss_67055b47d2df",
@@ -43,32 +57,18 @@
       "velocityScore": 1.0,
       "category": "politics",
       "countryName": "Israel"
-    },
-    {
-      "id": "rss_9ade0d7cd62c",
-      "title": "Kushner meets Hamas leaders in Egypt to push Trump’s Gaza plan",
-      "velocityScore": 1.0,
-      "category": "politics",
-      "countryName": "Israel"
-    },
-    {
-      "id": "rss_4a99ab4dce2a",
-      "title": "Ukraine targets Moscow and Wildberries warehouse in aerial assault",
-      "velocityScore": 1.0,
-      "category": "conflict",
-      "countryName": "Russia"
     }
   ],
   "risingRegions": [],
   "categoryTrends": {
     "politics": {
-      "count": 1250,
-      "change": "+1250",
+      "count": 1249,
+      "change": "+1249",
       "changePercent": 100
     },
     "disaster": {
-      "count": 311,
-      "change": "+311",
+      "count": 313,
+      "change": "+313",
       "changePercent": 100
     },
     "conflict": {
@@ -77,8 +77,8 @@
       "changePercent": 100
     },
     "sports": {
-      "count": 140,
-      "change": "+140",
+      "count": 141,
+      "change": "+141",
       "changePercent": 100
     },
     "health": {
@@ -102,11 +102,11 @@
       "changePercent": 100
     }
   },
-  "totalEvents": 2058,
-  "totalSources": 2058,
+  "totalEvents": 2060,
+  "totalSources": 2060,
   "globalStats": {
     "avgAttentionScore": 0.874,
-    "totalArticles": 2058,
-    "bubbleCount": 1806
+    "totalArticles": 2060,
+    "bubbleCount": 1808
   }
 }
