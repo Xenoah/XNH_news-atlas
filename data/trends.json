@@ -1,27 +1,13 @@
 {
-  "generatedAt": "2026-08-17T15:37:49.743850+00:00",
+  "generatedAt": "2026-08-17T15:58:20.803560+00:00",
   "timeRange": "24h",
   "risingEvents": [
-    {
-      "id": "rss_e341597dbabe",
-      "title": "Yemen’s drone war: Rivals flex growing aerial muscle",
-      "velocityScore": 1.0,
-      "category": "conflict",
-      "countryName": "Yemen"
-    },
     {
       "id": "rss_f276287297f7",
       "title": "Finland halts deportation of Russian family who ‘risked everything’ to oppose Ukraine invasion",
       "velocityScore": 1.0,
       "category": "conflict",
       "countryName": "Ukraine"
-    },
-    {
-      "id": "rss_d9fbd13f1fca",
-      "title": "Donald Trump threatens to bomb Oman if it ‘gets in the way’ of ending Iran war",
-      "velocityScore": 1.0,
-      "category": "conflict",
-      "countryName": "United States"
     },
     {
       "id": "rss_c6943cbbb762",
@@ -57,23 +43,37 @@
       "velocityScore": 1.0,
       "category": "politics",
       "countryName": "Brazil"
+    },
+    {
+      "id": "rss_b6f204e6a83b",
+      "title": "Global condemnation of Israeli settler violence against Palestinians",
+      "velocityScore": 1.0,
+      "category": "politics",
+      "countryName": "Israel"
+    },
+    {
+      "id": "rss_ef65455d3f63",
+      "title": "Trump hails Mecca pact: Can it replace the region’s US security umbrella?",
+      "velocityScore": 1.0,
+      "category": "politics",
+      "countryName": "United States"
     }
   ],
   "risingRegions": [],
   "categoryTrends": {
     "politics": {
-      "count": 1239,
-      "change": "+1239",
+      "count": 1238,
+      "change": "+1238",
       "changePercent": 100
     },
     "disaster": {
-      "count": 308,
-      "change": "+308",
+      "count": 306,
+      "change": "+306",
       "changePercent": 100
     },
     "conflict": {
-      "count": 205,
-      "change": "+205",
+      "count": 204,
+      "change": "+204",
       "changePercent": 100
     },
     "sports": {
@@ -102,11 +102,11 @@
       "changePercent": 100
     }
   },
-  "totalEvents": 2059,
-  "totalSources": 2059,
+  "totalEvents": 2055,
+  "totalSources": 2055,
   "globalStats": {
     "avgAttentionScore": 0.874,
-    "totalArticles": 2059,
-    "bubbleCount": 1811
+    "totalArticles": 2055,
+    "bubbleCount": 1807
   }
 }
