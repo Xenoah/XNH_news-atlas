@@ -1,7 +1,14 @@
 {
-  "generatedAt": "2026-08-17T19:28:19.364406+00:00",
+  "generatedAt": "2026-08-17T19:52:20.471915+00:00",
   "timeRange": "24h",
   "risingEvents": [
+    {
+      "id": "rss_6b24f01c097e",
+      "title": "Why did Trump scale back war games with South Korea?",
+      "velocityScore": 1.0,
+      "category": "conflict",
+      "countryName": "United States"
+    },
     {
       "id": "rss_7471f1c6cdf1",
       "title": "Russian politician sentenced to 11 years for opposing war in Ukraine",
@@ -24,11 +31,18 @@
       "countryName": "United States"
     },
     {
-      "id": "rss_1cb2eccd869c",
-      "title": "Jon Ossoff calls Trump’s handling of Iran war ‘uniquely despicable’ in excoriating speech",
+      "id": "rss_b260c3c40787",
+      "title": "Gaza flotilla sets sail from the UK in bid to break Israeli siege",
       "velocityScore": 1.0,
-      "category": "conflict",
-      "countryName": "United States"
+      "category": "politics",
+      "countryName": "Israel"
+    },
+    {
+      "id": "rss_5e198ad537ba",
+      "title": "Photos: Search for Indonesia earthquake victims continues",
+      "velocityScore": 1.0,
+      "category": "disaster",
+      "countryName": "Indonesia"
     },
     {
       "id": "rss_d5e0d159a248",
@@ -43,32 +57,18 @@
       "velocityScore": 1.0,
       "category": "politics",
       "countryName": "Somalia"
-    },
-    {
-      "id": "rss_20c609e73aa8",
-      "title": "Syria launches probe into death of ‘White Helmet’ rescuer in police custody",
-      "velocityScore": 1.0,
-      "category": "politics",
-      "countryName": "Syria"
-    },
-    {
-      "id": "rss_0a982a9b7415",
-      "title": "Explosion reported at school in Afghan capital Kabul",
-      "velocityScore": 1.0,
-      "category": "politics",
-      "countryName": "Afghanistan"
     }
   ],
   "risingRegions": [],
   "categoryTrends": {
     "politics": {
-      "count": 1240,
-      "change": "+1240",
+      "count": 1238,
+      "change": "+1238",
       "changePercent": 100
     },
     "disaster": {
-      "count": 306,
-      "change": "+306",
+      "count": 307,
+      "change": "+307",
       "changePercent": 100
     },
     "conflict": {
@@ -102,11 +102,11 @@
       "changePercent": 100
     }
   },
-  "totalEvents": 2070,
-  "totalSources": 2070,
+  "totalEvents": 2069,
+  "totalSources": 2069,
   "globalStats": {
     "avgAttentionScore": 0.874,
-    "totalArticles": 2070,
-    "bubbleCount": 1817
+    "totalArticles": 2069,
+    "bubbleCount": 1816
   }
 }
