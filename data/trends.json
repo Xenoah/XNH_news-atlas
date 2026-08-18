@@ -1,10 +1,17 @@
 {
-  "generatedAt": "2026-08-18T22:19:07.505712+00:00",
+  "generatedAt": "2026-08-18T22:49:36.358432+00:00",
   "timeRange": "24h",
   "risingEvents": [
     {
       "id": "rss_8d294c114671",
       "title": "Russian missile strike kills 10 civilians in Kharkiv",
+      "velocityScore": 1.0,
+      "category": "conflict",
+      "countryName": "Ukraine"
+    },
+    {
+      "id": "rss_8de108076c0f",
+      "title": "Ukraine’s dismissed defence minister calls for wartime presidential election",
       "velocityScore": 1.0,
       "category": "conflict",
       "countryName": "Ukraine"
@@ -50,20 +57,13 @@
       "velocityScore": 1.0,
       "category": "politics",
       "countryName": "DR Congo"
-    },
-    {
-      "id": "rss_19460312a3da",
-      "title": "Russia reports Ukrainian drone strike near Zaporizhzhia nuclear plant",
-      "velocityScore": 1.0,
-      "category": "politics",
-      "countryName": "Ukraine"
     }
   ],
   "risingRegions": [],
   "categoryTrends": {
     "politics": {
-      "count": 1232,
-      "change": "+1232",
+      "count": 1235,
+      "change": "+1235",
       "changePercent": 100
     },
     "disaster": {
@@ -72,8 +72,8 @@
       "changePercent": 100
     },
     "conflict": {
-      "count": 203,
-      "change": "+203",
+      "count": 204,
+      "change": "+204",
       "changePercent": 100
     },
     "sports": {
@@ -97,16 +97,16 @@
       "changePercent": 100
     },
     "science": {
-      "count": 27,
-      "change": "+27",
+      "count": 28,
+      "change": "+28",
       "changePercent": 100
     }
   },
-  "totalEvents": 1998,
-  "totalSources": 1998,
+  "totalEvents": 2003,
+  "totalSources": 2003,
   "globalStats": {
     "avgAttentionScore": 0.877,
-    "totalArticles": 1998,
-    "bubbleCount": 1770
+    "totalArticles": 2003,
+    "bubbleCount": 1774
   }
 }
