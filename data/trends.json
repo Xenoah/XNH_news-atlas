@@ -1,7 +1,28 @@
 {
-  "generatedAt": "2026-08-18T20:48:29.850034+00:00",
+  "generatedAt": "2026-08-18T21:20:14.945045+00:00",
   "timeRange": "24h",
   "risingEvents": [
+    {
+      "id": "rss_8d294c114671",
+      "title": "Russian missile strike kills 10 civilians in Kharkiv",
+      "velocityScore": 1.0,
+      "category": "conflict",
+      "countryName": "Ukraine"
+    },
+    {
+      "id": "rss_19460312a3da",
+      "title": "Russia reports Ukrainian drone strike near Zaporizhzhia nuclear plant",
+      "velocityScore": 1.0,
+      "category": "politics",
+      "countryName": "Ukraine"
+    },
+    {
+      "id": "rss_f7be839d59a7",
+      "title": "Jose Mourinho returns to Real Madrid in closed-door ceremony",
+      "velocityScore": 1.0,
+      "category": "politics",
+      "countryName": "Spain"
+    },
     {
       "id": "rss_60f990c84e09",
       "title": "US judge says government can revoke deportation protections for Ethiopians",
@@ -15,27 +36,6 @@
       "velocityScore": 1.0,
       "category": "politics",
       "countryName": "Israel"
-    },
-    {
-      "id": "rss_7c341e7c5394",
-      "title": "Police attack Indonesian student protesters, arresting at least 21",
-      "velocityScore": 1.0,
-      "category": "politics",
-      "countryName": "Indonesia"
-    },
-    {
-      "id": "rss_eb63db69116b",
-      "title": "Nigeria hospital collapses after rain washed away its foundations",
-      "velocityScore": 1.0,
-      "category": "politics",
-      "countryName": "Nigeria"
-    },
-    {
-      "id": "rss_cf8bda9aaace",
-      "title": "Analysis: Syrian airbase attack is an Israeli message to Damascus, Ankara",
-      "velocityScore": 1.0,
-      "category": "politics",
-      "countryName": "Syria"
     },
     {
       "id": "rss_44a5ceb5a6d7",
@@ -62,33 +62,33 @@
   "risingRegions": [],
   "categoryTrends": {
     "politics": {
-      "count": 1237,
-      "change": "+1237",
+      "count": 1234,
+      "change": "+1234",
       "changePercent": 100
     },
     "disaster": {
-      "count": 285,
-      "change": "+285",
+      "count": 281,
+      "change": "+281",
       "changePercent": 100
     },
     "conflict": {
-      "count": 202,
-      "change": "+202",
+      "count": 203,
+      "change": "+203",
       "changePercent": 100
     },
     "sports": {
-      "count": 121,
-      "change": "+121",
+      "count": 119,
+      "change": "+119",
       "changePercent": 100
     },
     "health": {
-      "count": 60,
-      "change": "+60",
+      "count": 61,
+      "change": "+61",
       "changePercent": 100
     },
     "economy": {
-      "count": 43,
-      "change": "+43",
+      "count": 46,
+      "change": "+46",
       "changePercent": 100
     },
     "technology": {
@@ -102,11 +102,11 @@
       "changePercent": 100
     }
   },
-  "totalEvents": 2006,
-  "totalSources": 2006,
+  "totalEvents": 2002,
+  "totalSources": 2002,
   "globalStats": {
-    "avgAttentionScore": 0.876,
-    "totalArticles": 2006,
-    "bubbleCount": 1773
+    "avgAttentionScore": 0.877,
+    "totalArticles": 2002,
+    "bubbleCount": 1769
   }
 }
