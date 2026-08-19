@@ -1,7 +1,14 @@
 {
-  "generatedAt": "2026-08-19T19:58:30.906656+00:00",
+  "generatedAt": "2026-08-19T20:34:13.925062+00:00",
   "timeRange": "24h",
   "risingEvents": [
+    {
+      "id": "rss_8ff86a81f81a",
+      "title": "Seven people, mostly foreign tourists, killed in helicopter crash in Kenya",
+      "velocityScore": 1.0,
+      "category": "conflict",
+      "countryName": "Kenya"
+    },
     {
       "id": "rss_d1839c45c673",
       "title": "Canada pledges $50m aid to Lebanon and condemns Israeli ‘unlawful invasion’",
@@ -10,11 +17,18 @@
       "countryName": "Canada"
     },
     {
-      "id": "rss_7a729f24a4fc",
-      "title": "Hamas condemns ‘new war crime’ as Israel kills 10 in crowded Gaza hubs",
+      "id": "rss_eb2c17f78509",
+      "title": "Amid the Iran war, the U.S. has pivoted it's geopolitical attention away from Asia",
       "velocityScore": 1.0,
       "category": "conflict",
-      "countryName": "Israel"
+      "countryName": "United States"
+    },
+    {
+      "id": "rss_72ad51023456",
+      "title": "What’s behind Israel’s latest attack on Syria?",
+      "velocityScore": 1.0,
+      "category": "politics",
+      "countryName": "Syria"
     },
     {
       "id": "rss_b36a7edead41",
@@ -43,27 +57,13 @@
       "velocityScore": 1.0,
       "category": "politics",
       "countryName": "Iran"
-    },
-    {
-      "id": "rss_df611ecb1548",
-      "title": "Kennedy Center board says it won’t try to immediately restore Trump’s name",
-      "velocityScore": 1.0,
-      "category": "politics",
-      "countryName": "United States"
-    },
-    {
-      "id": "rss_1eaeccb05df9",
-      "title": "Brazil bus crash kills at least 23 and injures five in Parana state",
-      "velocityScore": 1.0,
-      "category": "politics",
-      "countryName": "Brazil"
     }
   ],
   "risingRegions": [],
   "categoryTrends": {
     "politics": {
-      "count": 1233,
-      "change": "+1233",
+      "count": 1224,
+      "change": "+1224",
       "changePercent": 100
     },
     "disaster": {
@@ -77,8 +77,8 @@
       "changePercent": 100
     },
     "sports": {
-      "count": 109,
-      "change": "+109",
+      "count": 107,
+      "change": "+107",
       "changePercent": 100
     },
     "health": {
@@ -97,16 +97,16 @@
       "changePercent": 100
     },
     "science": {
-      "count": 26,
-      "change": "+26",
+      "count": 25,
+      "change": "+25",
       "changePercent": 100
     }
   },
-  "totalEvents": 2015,
-  "totalSources": 2015,
+  "totalEvents": 2003,
+  "totalSources": 2003,
   "globalStats": {
     "avgAttentionScore": 0.878,
-    "totalArticles": 2015,
-    "bubbleCount": 1793
+    "totalArticles": 2003,
+    "bubbleCount": 1784
   }
 }
