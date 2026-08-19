@@ -1,13 +1,27 @@
 {
-  "generatedAt": "2026-08-19T16:11:37.932446+00:00",
+  "generatedAt": "2026-08-19T16:46:33.853726+00:00",
   "timeRange": "24h",
   "risingEvents": [
+    {
+      "id": "rss_8a9a66507817",
+      "title": "Swimmers warned of toxic algae at newly designated Thames bathing site",
+      "velocityScore": 1.0,
+      "category": "conflict",
+      "countryName": "United Kingdom"
+    },
     {
       "id": "rss_0c20e4f036b1",
       "title": "Ukrainian diver arrested in Croatia over Nord Stream pipeline bombings",
       "velocityScore": 1.0,
       "category": "conflict",
       "countryName": "Germany"
+    },
+    {
+      "id": "rss_2659cb158664",
+      "title": "Why does the U.S. military seem stymied in the war with Iran?",
+      "velocityScore": 1.0,
+      "category": "conflict",
+      "countryName": "Iran"
     },
     {
       "id": "rss_c89918885c25",
@@ -43,42 +57,28 @@
       "velocityScore": 1.0,
       "category": "politics",
       "countryName": "Israel"
-    },
-    {
-      "id": "rss_d13b0c02b7f4",
-      "title": "Second Ukrainian national arrested over 2022 Nord Stream pipeline blast",
-      "velocityScore": 1.0,
-      "category": "politics",
-      "countryName": "Germany"
-    },
-    {
-      "id": "rss_11ee5b595228",
-      "title": "Mourinho fires Real Madrid shot at Barcelona saying he ‘didn’t need’ Rodri",
-      "velocityScore": 1.0,
-      "category": "politics",
-      "countryName": "Spain"
     }
   ],
   "risingRegions": [],
   "categoryTrends": {
     "politics": {
-      "count": 1224,
-      "change": "+1224",
+      "count": 1226,
+      "change": "+1226",
       "changePercent": 100
     },
     "disaster": {
-      "count": 271,
-      "change": "+271",
+      "count": 272,
+      "change": "+272",
       "changePercent": 100
     },
     "conflict": {
-      "count": 208,
-      "change": "+208",
+      "count": 209,
+      "change": "+209",
       "changePercent": 100
     },
     "sports": {
-      "count": 115,
-      "change": "+115",
+      "count": 116,
+      "change": "+116",
       "changePercent": 100
     },
     "health": {
@@ -102,11 +102,11 @@
       "changePercent": 100
     }
   },
-  "totalEvents": 2004,
-  "totalSources": 2004,
+  "totalEvents": 2009,
+  "totalSources": 2009,
   "globalStats": {
     "avgAttentionScore": 0.877,
-    "totalArticles": 2004,
-    "bubbleCount": 1774
+    "totalArticles": 2009,
+    "bubbleCount": 1779
   }
 }
