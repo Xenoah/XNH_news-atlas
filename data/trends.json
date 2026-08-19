@@ -1,7 +1,14 @@
 {
-  "generatedAt": "2026-08-19T09:30:16.183212+00:00",
+  "generatedAt": "2026-08-19T10:00:49.209832+00:00",
   "timeRange": "24h",
   "risingEvents": [
+    {
+      "id": "rss_75edf7feed5e",
+      "title": "At least five killed in Russian air attacks on Ukraine",
+      "velocityScore": 1.0,
+      "category": "conflict",
+      "countryName": "Ukraine"
+    },
     {
       "id": "rss_c694ac47f6a2",
       "title": "Ukraine’s sacked defence minister calls for wartime elections",
@@ -15,6 +22,20 @@
       "velocityScore": 1.0,
       "category": "conflict",
       "countryName": "Syria"
+    },
+    {
+      "id": "rss_e8b97cb1cf55",
+      "title": "Nick Kyrgios provisionally suspended after positive test for cocaine",
+      "velocityScore": 1.0,
+      "category": "politics",
+      "countryName": "Australia"
+    },
+    {
+      "id": "rss_c88e181a23ba",
+      "title": "Diego Maradona’s doctors missed renal red flag, Argentinian court told",
+      "velocityScore": 1.0,
+      "category": "politics",
+      "countryName": "Argentina"
     },
     {
       "id": "rss_b4944bdda6bd",
@@ -36,34 +57,13 @@
       "velocityScore": 1.0,
       "category": "politics",
       "countryName": "Israel"
-    },
-    {
-      "id": "rss_cdae52fe0fc8",
-      "title": "Feud escalates as artist puts warning on 'racist' statue",
-      "velocityScore": 1.0,
-      "category": "conflict",
-      "countryName": "United States"
-    },
-    {
-      "id": "rss_dd8a93f8bb2e",
-      "title": "Activist forced out of US after criticising Trump-aligned Colombian politician",
-      "velocityScore": 1.0,
-      "category": "politics",
-      "countryName": "United States"
-    },
-    {
-      "id": "rss_01efae031a75",
-      "title": "Trainline, Virgin Atlantic and Red Driving School investigated over hidden ticket fees",
-      "velocityScore": 1.0,
-      "category": "politics",
-      "countryName": "United Kingdom"
     }
   ],
   "risingRegions": [],
   "categoryTrends": {
     "politics": {
-      "count": 1237,
-      "change": "+1237",
+      "count": 1240,
+      "change": "+1240",
       "changePercent": 100
     },
     "disaster": {
@@ -72,8 +72,8 @@
       "changePercent": 100
     },
     "conflict": {
-      "count": 201,
-      "change": "+201",
+      "count": 202,
+      "change": "+202",
       "changePercent": 100
     },
     "sports": {
@@ -82,13 +82,13 @@
       "changePercent": 100
     },
     "health": {
-      "count": 62,
-      "change": "+62",
+      "count": 63,
+      "change": "+63",
       "changePercent": 100
     },
     "economy": {
-      "count": 58,
-      "change": "+58",
+      "count": 59,
+      "change": "+59",
       "changePercent": 100
     },
     "technology": {
@@ -102,11 +102,11 @@
       "changePercent": 100
     }
   },
-  "totalEvents": 2009,
-  "totalSources": 2009,
+  "totalEvents": 2015,
+  "totalSources": 2015,
   "globalStats": {
     "avgAttentionScore": 0.876,
-    "totalArticles": 2009,
-    "bubbleCount": 1778
+    "totalArticles": 2015,
+    "bubbleCount": 1783
   }
 }
