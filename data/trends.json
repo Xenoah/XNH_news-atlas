@@ -1,7 +1,14 @@
 {
-  "generatedAt": "2026-08-20T13:33:11.867017+00:00",
+  "generatedAt": "2026-08-20T14:19:54.180410+00:00",
   "timeRange": "24h",
   "risingEvents": [
+    {
+      "id": "rss_bae1ba220ffa",
+      "title": "Ex-defence chief’s call for wartime election raises pressure on Zelenskyy",
+      "velocityScore": 1.0,
+      "category": "conflict",
+      "countryName": "Russia"
+    },
     {
       "id": "rss_f8ccae20e52f",
       "title": "War on Iran: Trump announces a new campaign to isolate Iran economically",
@@ -24,11 +31,11 @@
       "countryName": "Israel"
     },
     {
-      "id": "rss_d8b5035a75bc",
-      "title": "How Myanmar’s war drives the Rohingya crisis",
+      "id": "rss_f9569c4f0e84",
+      "title": "Funeral for 50 Palestinians recovered from Gaza rubble",
       "velocityScore": 1.0,
-      "category": "conflict",
-      "countryName": "Myanmar"
+      "category": "politics",
+      "countryName": "Israel"
     },
     {
       "id": "rss_577a9bb62224",
@@ -50,40 +57,33 @@
       "velocityScore": 1.0,
       "category": "politics",
       "countryName": "Israel"
-    },
-    {
-      "id": "rss_89bd2e83b125",
-      "title": "PSG forced to move opening league match as heatwave in France damages pitch",
-      "velocityScore": 1.0,
-      "category": "politics",
-      "countryName": "France"
     }
   ],
   "risingRegions": [],
   "categoryTrends": {
     "politics": {
-      "count": 1216,
-      "change": "+1216",
+      "count": 1218,
+      "change": "+1218",
       "changePercent": 100
     },
     "disaster": {
-      "count": 276,
-      "change": "+276",
+      "count": 277,
+      "change": "+277",
       "changePercent": 100
     },
     "conflict": {
-      "count": 231,
-      "change": "+231",
+      "count": 229,
+      "change": "+229",
       "changePercent": 100
     },
     "sports": {
-      "count": 97,
-      "change": "+97",
+      "count": 95,
+      "change": "+95",
       "changePercent": 100
     },
     "economy": {
-      "count": 66,
-      "change": "+66",
+      "count": 67,
+      "change": "+67",
       "changePercent": 100
     },
     "health": {
@@ -97,16 +97,16 @@
       "changePercent": 100
     },
     "science": {
-      "count": 27,
-      "change": "+27",
+      "count": 29,
+      "change": "+29",
       "changePercent": 100
     }
   },
-  "totalEvents": 2013,
-  "totalSources": 2013,
+  "totalEvents": 2015,
+  "totalSources": 2015,
   "globalStats": {
     "avgAttentionScore": 0.879,
-    "totalArticles": 2013,
-    "bubbleCount": 1795
+    "totalArticles": 2015,
+    "bubbleCount": 1796
   }
 }
