@@ -1,13 +1,27 @@
 {
-  "generatedAt": "2026-08-21T08:56:51.886162+00:00",
+  "generatedAt": "2026-08-21T09:37:15.957699+00:00",
   "timeRange": "24h",
   "risingEvents": [
+    {
+      "id": "rss_b2174278c80a",
+      "title": "Australia charges man for passing Ukrainian military intel to Russia",
+      "velocityScore": 1.0,
+      "category": "conflict",
+      "countryName": "Russia"
+    },
     {
       "id": "rss_9673fefc9406",
       "title": "Australian police charge man accused of attempting to share Ukrainian military intel with Russian agents",
       "velocityScore": 1.0,
       "category": "conflict",
       "countryName": "Russia"
+    },
+    {
+      "id": "rss_64f7c71c8188",
+      "title": "Sudan’s displacement crisis deepens as violence escalates",
+      "velocityScore": 1.0,
+      "category": "politics",
+      "countryName": "Sudan"
     },
     {
       "id": "rss_6dd8ae1bc013",
@@ -43,37 +57,23 @@
       "velocityScore": 1.0,
       "category": "politics",
       "countryName": "United Kingdom"
-    },
-    {
-      "id": "rss_ae88fbe693b1",
-      "title": "Burnham to chair growth meeting call at No 10 North – UK politics live",
-      "velocityScore": 1.0,
-      "category": "politics",
-      "countryName": "United Kingdom"
-    },
-    {
-      "id": "rss_8f8be33b858e",
-      "title": "Weather tracker: Extreme rainfall deluges Japan and South Korea",
-      "velocityScore": 1.0,
-      "category": "politics",
-      "countryName": "Japan"
     }
   ],
   "risingRegions": [],
   "categoryTrends": {
     "politics": {
-      "count": 1209,
-      "change": "+1209",
+      "count": 1213,
+      "change": "+1213",
       "changePercent": 100
     },
     "disaster": {
-      "count": 272,
-      "change": "+272",
+      "count": 273,
+      "change": "+273",
       "changePercent": 100
     },
     "conflict": {
-      "count": 227,
-      "change": "+227",
+      "count": 225,
+      "change": "+225",
       "changePercent": 100
     },
     "sports": {
@@ -81,14 +81,14 @@
       "change": "+95",
       "changePercent": 100
     },
-    "economy": {
+    "health": {
       "count": 61,
       "change": "+61",
       "changePercent": 100
     },
-    "health": {
-      "count": 60,
-      "change": "+60",
+    "economy": {
+      "count": 61,
+      "change": "+61",
       "changePercent": 100
     },
     "technology": {
@@ -102,11 +102,11 @@
       "changePercent": 100
     }
   },
-  "totalEvents": 1992,
-  "totalSources": 1992,
+  "totalEvents": 1996,
+  "totalSources": 1996,
   "globalStats": {
     "avgAttentionScore": 0.878,
-    "totalArticles": 1992,
+    "totalArticles": 1996,
     "bubbleCount": 1774
   }
 }
