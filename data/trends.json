@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-21T21:48:05.981626+00:00",
+  "generatedAt": "2026-08-21T22:20:19.096968+00:00",
   "timeRange": "24h",
   "risingEvents": [
     {
@@ -8,13 +8,6 @@
       "velocityScore": 1.0,
       "category": "conflict",
       "countryName": "Libya"
-    },
-    {
-      "id": "rss_5f84af47fc80",
-      "title": "Turkiye accuses Israel’s Netanyahu of ‘genocide’, seeks Interpol warrant",
-      "velocityScore": 1.0,
-      "category": "conflict",
-      "countryName": "Turkey"
     },
     {
       "id": "rss_512e68b23a6c",
@@ -57,13 +50,20 @@
       "velocityScore": 1.0,
       "category": "politics",
       "countryName": "Israel"
+    },
+    {
+      "id": "rss_2fc298fc0640",
+      "title": "US Supreme Court allows Trump’s ballroom project to continue for now",
+      "velocityScore": 1.0,
+      "category": "politics",
+      "countryName": "United States"
     }
   ],
   "risingRegions": [],
   "categoryTrends": {
     "politics": {
-      "count": 1219,
-      "change": "+1219",
+      "count": 1215,
+      "change": "+1215",
       "changePercent": 100
     },
     "disaster": {
@@ -72,13 +72,13 @@
       "changePercent": 100
     },
     "conflict": {
-      "count": 239,
-      "change": "+239",
+      "count": 237,
+      "change": "+237",
       "changePercent": 100
     },
     "sports": {
-      "count": 102,
-      "change": "+102",
+      "count": 103,
+      "change": "+103",
       "changePercent": 100
     },
     "health": {
@@ -102,11 +102,11 @@
       "changePercent": 100
     }
   },
-  "totalEvents": 2036,
-  "totalSources": 2036,
+  "totalEvents": 2031,
+  "totalSources": 2031,
   "globalStats": {
     "avgAttentionScore": 0.877,
-    "totalArticles": 2036,
-    "bubbleCount": 1812
+    "totalArticles": 2031,
+    "bubbleCount": 1806
   }
 }
