@@ -6,6 +6,21 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
+          37.5381,
+          55.7017
+        ]
+      },
+      "properties": {
+        "intensity": 0.9825,
+        "count": 1,
+        "region": "Russia"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
           37.7442,
           56.0557
         ]
@@ -81,14 +96,14 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          35.1983,
-          31.7893
+          -76.8071,
+          38.9198
         ]
       },
       "properties": {
-        "intensity": 0.9425,
+        "intensity": 0.925,
         "count": 1,
-        "region": "Israel"
+        "region": "United States"
       }
     },
     {
@@ -96,14 +111,29 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          35.191,
-          31.8766
+          -77.3058,
+          38.5454
         ]
       },
       "properties": {
-        "intensity": 0.9425,
+        "intensity": 0.925,
         "count": 1,
-        "region": "Israel"
+        "region": "United States"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.096,
+          51.5882
+        ]
+      },
+      "properties": {
+        "intensity": 0.925,
+        "count": 1,
+        "region": "United Kingdom"
       }
     },
     {
@@ -218,36 +248,6 @@
         "coordinates": [
           -0.5116,
           51.5205
-        ]
-      },
-      "properties": {
-        "intensity": 0.925,
-        "count": 1,
-        "region": "United Kingdom"
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          139.9363,
-          35.897
-        ]
-      },
-      "properties": {
-        "intensity": 0.925,
-        "count": 1,
-        "region": "Japan"
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          -0.2863,
-          51.8354
         ]
       },
       "properties": {
@@ -404,36 +404,6 @@
         "intensity": 0.9075,
         "count": 1,
         "region": "Russia"
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          2.1682,
-          48.9146
-        ]
-      },
-      "properties": {
-        "intensity": 0.9075,
-        "count": 1,
-        "region": "France"
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          2.1851,
-          48.7851
-        ]
-      },
-      "properties": {
-        "intensity": 0.9075,
-        "count": 1,
-        "region": "France"
       }
     },
     {
@@ -606,14 +576,14 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          -77.1527,
-          38.734
+          -0.1993,
+          51.9855
         ]
       },
       "properties": {
-        "intensity": 0.8725,
+        "intensity": 0.845,
         "count": 1,
-        "region": "United States"
+        "region": "United Kingdom"
       }
     },
     {
@@ -644,6 +614,21 @@
         "intensity": 0.8325,
         "count": 1,
         "region": "United States"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          146.7826,
+          47.2192
+        ]
+      },
+      "properties": {
+        "intensity": 0.82,
+        "count": 1,
+        "region": "237 km NNW of Kuril’sk, Russia"
       }
     },
     {
@@ -704,21 +689,6 @@
         "intensity": 0.82,
         "count": 1,
         "region": "88 km N of Ruteng, Indonesia"
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          -0.0703,
-          51.9837
-        ]
-      },
-      "properties": {
-        "intensity": 0.765,
-        "count": 1,
-        "region": "United Kingdom"
       }
     },
     {
