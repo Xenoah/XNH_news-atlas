@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-22T19:45:09.571801+00:00",
+  "generatedAt": "2026-08-22T19:59:16.012878+00:00",
   "timeRange": "24h",
   "risingEvents": [
     {
@@ -8,6 +8,13 @@
       "velocityScore": 1.0,
       "category": "conflict",
       "countryName": "Ukraine"
+    },
+    {
+      "id": "rss_83facb8e709a",
+      "title": "Why is Israel building new illegal settlements?",
+      "velocityScore": 1.0,
+      "category": "politics",
+      "countryName": "Israel"
     },
     {
       "id": "rss_8264c7263d41",
@@ -50,13 +57,6 @@
       "velocityScore": 1.0,
       "category": "politics",
       "countryName": "Israel"
-    },
-    {
-      "id": "rss_cd8a2af821e3",
-      "title": "Trump seeks to block the BBC’s attempt to subpoena Ivanka Trump, Trump Jr",
-      "velocityScore": 1.0,
-      "category": "politics",
-      "countryName": "United States"
     }
   ],
   "risingRegions": [],
@@ -66,12 +66,12 @@
       "change": "+1223",
       "changePercent": 100
     },
-    "disaster": {
-      "count": 241,
-      "change": "+241",
+    "conflict": {
+      "count": 240,
+      "change": "+240",
       "changePercent": 100
     },
-    "conflict": {
+    "disaster": {
       "count": 240,
       "change": "+240",
       "changePercent": 100
@@ -102,11 +102,11 @@
       "changePercent": 100
     }
   },
-  "totalEvents": 2027,
-  "totalSources": 2027,
+  "totalEvents": 2026,
+  "totalSources": 2026,
   "globalStats": {
     "avgAttentionScore": 0.877,
-    "totalArticles": 2027,
-    "bubbleCount": 1798
+    "totalArticles": 2026,
+    "bubbleCount": 1797
   }
 }
