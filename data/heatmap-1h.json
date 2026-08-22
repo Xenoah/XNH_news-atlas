@@ -21,6 +21,21 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
+          -77.1655,
+          38.8362
+        ]
+      },
+      "properties": {
+        "intensity": 0.9425,
+        "count": 1,
+        "region": "United States"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
           51.4155,
           35.6676
         ]
@@ -104,6 +119,21 @@
         "intensity": 0.9425,
         "count": 1,
         "region": "Syria"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -77.1219,
+          38.8975
+        ]
+      },
+      "properties": {
+        "intensity": 0.9075,
+        "count": 1,
+        "region": "United States"
       }
     },
     {
@@ -216,36 +246,6 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          120.5992,
-          -7.8936
-        ]
-      },
-      "properties": {
-        "intensity": 0.82,
-        "count": 1,
-        "region": "80 km N of Ruteng, Indonesia"
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          100.8738,
-          -3.0302
-        ]
-      },
-      "properties": {
-        "intensity": 0.82,
-        "count": 1,
-        "region": "122 km SSW of Sungai Penuh, Indonesia"
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
           -3.5635,
           40.206
         ]
@@ -254,21 +254,6 @@
         "intensity": 0.62,
         "count": 1,
         "region": "Spain"
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          0.2875,
-          51.7015
-        ]
-      },
-      "properties": {
-        "intensity": 0.62,
-        "count": 1,
-        "region": "United Kingdom"
       }
     }
   ]
