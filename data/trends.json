@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-22T15:44:55.465939+00:00",
+  "generatedAt": "2026-08-22T15:59:16.440738+00:00",
   "timeRange": "24h",
   "risingEvents": [
     {
@@ -8,6 +8,13 @@
       "velocityScore": 1.0,
       "category": "conflict",
       "countryName": "Iran"
+    },
+    {
+      "id": "rss_e8b921a2506b",
+      "title": "Over 100 ex-diplomats urge France, UK to sanction Israel over Palestine",
+      "velocityScore": 1.0,
+      "category": "politics",
+      "countryName": "United Kingdom"
     },
     {
       "id": "rss_f8a5a24af407",
@@ -38,13 +45,6 @@
       "countryName": "Israel"
     },
     {
-      "id": "rss_3b444bfa4f61",
-      "title": "Jewish activists push back against Israeli settlers",
-      "velocityScore": 1.0,
-      "category": "politics",
-      "countryName": "Israel"
-    },
-    {
       "id": "rss_5d6aa011d050",
       "title": "Seven killed in head-on collision with police car in UK",
       "velocityScore": 1.0,
@@ -66,12 +66,12 @@
       "change": "+1217",
       "changePercent": 100
     },
-    "conflict": {
-      "count": 241,
-      "change": "+241",
+    "disaster": {
+      "count": 243,
+      "change": "+243",
       "changePercent": 100
     },
-    "disaster": {
+    "conflict": {
       "count": 241,
       "change": "+241",
       "changePercent": 100
@@ -82,8 +82,8 @@
       "changePercent": 100
     },
     "economy": {
-      "count": 79,
-      "change": "+79",
+      "count": 80,
+      "change": "+80",
       "changePercent": 100
     },
     "health": {
@@ -102,11 +102,11 @@
       "changePercent": 100
     }
   },
-  "totalEvents": 2023,
-  "totalSources": 2023,
+  "totalEvents": 2026,
+  "totalSources": 2026,
   "globalStats": {
     "avgAttentionScore": 0.876,
-    "totalArticles": 2023,
-    "bubbleCount": 1789
+    "totalArticles": 2026,
+    "bubbleCount": 1791
   }
 }
