@@ -1,7 +1,14 @@
 {
-  "generatedAt": "2026-08-22T23:44:30.026739+00:00",
+  "generatedAt": "2026-08-22T23:59:09.177196+00:00",
   "timeRange": "24h",
   "risingEvents": [
+    {
+      "id": "rss_2ca134c600df",
+      "title": "Iran warns nearby nations against joining US ‘economic war’ efforts",
+      "velocityScore": 1.0,
+      "category": "conflict",
+      "countryName": "United States"
+    },
     {
       "id": "rss_75bf530105c2",
       "title": "Real Madrid beat Espanyol 2-1 in Jose Mourinho’s first game on return",
@@ -24,13 +31,6 @@
       "countryName": "Israel"
     },
     {
-      "id": "rss_03d94a699e8f",
-      "title": "US Postal Service shares mail-in ballot restrictions despite court ruling",
-      "velocityScore": 1.0,
-      "category": "politics",
-      "countryName": "United States"
-    },
-    {
       "id": "rss_05705cf53a96",
       "title": "Australia news live: Victorian Liberals announce plan for new appeals court to ensure tougher sentences",
       "velocityScore": 1.0,
@@ -45,15 +45,15 @@
       "countryName": "United States"
     },
     {
-      "id": "rss_408a9e00ec0d",
-      "title": "Trump administration's 75-country visa ban was illegal, judge rules",
-      "velocityScore": 1.0,
-      "category": "politics",
-      "countryName": "United States"
-    },
-    {
       "id": "rss_4086c588cdac",
       "title": "Live: Green the key as Australia looks to extend lead on day two",
+      "velocityScore": 1.0,
+      "category": "politics",
+      "countryName": "Australia"
+    },
+    {
+      "id": "rss_ee6e75f7f0f1",
+      "title": "$20m avocado packing shed upgrade halves workforce with robots",
       "velocityScore": 1.0,
       "category": "politics",
       "countryName": "Australia"
@@ -62,18 +62,18 @@
   "risingRegions": [],
   "categoryTrends": {
     "politics": {
-      "count": 1218,
-      "change": "+1218",
+      "count": 1219,
+      "change": "+1219",
       "changePercent": 100
     },
     "conflict": {
-      "count": 239,
-      "change": "+239",
+      "count": 240,
+      "change": "+240",
       "changePercent": 100
     },
     "disaster": {
-      "count": 234,
-      "change": "+234",
+      "count": 233,
+      "change": "+233",
       "changePercent": 100
     },
     "sports": {
@@ -97,8 +97,8 @@
       "changePercent": 100
     },
     "technology": {
-      "count": 34,
-      "change": "+34",
+      "count": 33,
+      "change": "+33",
       "changePercent": 100
     }
   },
@@ -107,6 +107,6 @@
   "globalStats": {
     "avgAttentionScore": 0.878,
     "totalArticles": 2009,
-    "bubbleCount": 1785
+    "bubbleCount": 1786
   }
 }
