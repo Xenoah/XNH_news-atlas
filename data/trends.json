@@ -1,20 +1,27 @@
 {
-  "generatedAt": "2026-08-23T21:45:06.731342+00:00",
+  "generatedAt": "2026-08-23T21:59:36.171917+00:00",
   "timeRange": "24h",
   "risingEvents": [
-    {
-      "id": "rss_d3d39b7cfdc7",
-      "title": "Palestinian teen killed in Israeli raid buried in Occupied West Bank",
-      "velocityScore": 1.0,
-      "category": "conflict",
-      "countryName": "Israel"
-    },
     {
       "id": "rss_8a7e21695024",
       "title": "Iran discovers major new gas reserves amid war-hit energy sector",
       "velocityScore": 1.0,
       "category": "conflict",
       "countryName": "Iran"
+    },
+    {
+      "id": "rss_674089dfb492",
+      "title": "Serbia requests international assistance to battle wildfires",
+      "velocityScore": 1.0,
+      "category": "disaster",
+      "countryName": "Russia"
+    },
+    {
+      "id": "rss_7a43cc0de52e",
+      "title": "US envoy Tom Barrack retracts comment that Syria’s Golan is occupied",
+      "velocityScore": 1.0,
+      "category": "politics",
+      "countryName": "Syria"
     },
     {
       "id": "rss_b3383e987566",
@@ -50,13 +57,6 @@
       "velocityScore": 1.0,
       "category": "politics",
       "countryName": "China"
-    },
-    {
-      "id": "rss_816b4c909a94",
-      "title": "Australia news live: Shark attack victim thanks donors after ‘incredibly difficult’ recovery; penguin parade gets flu shots",
-      "velocityScore": 1.0,
-      "category": "politics",
-      "countryName": "Australia"
     }
   ],
   "risingRegions": [],
@@ -72,8 +72,13 @@
       "changePercent": 100
     },
     "disaster": {
-      "count": 217,
-      "change": "+217",
+      "count": 219,
+      "change": "+219",
+      "changePercent": 100
+    },
+    "economy": {
+      "count": 92,
+      "change": "+92",
       "changePercent": 100
     },
     "sports": {
@@ -81,14 +86,9 @@
       "change": "+92",
       "changePercent": 100
     },
-    "economy": {
-      "count": 91,
-      "change": "+91",
-      "changePercent": 100
-    },
     "health": {
-      "count": 69,
-      "change": "+69",
+      "count": 70,
+      "change": "+70",
       "changePercent": 100
     },
     "technology": {
@@ -102,11 +102,11 @@
       "changePercent": 100
     }
   },
-  "totalEvents": 2009,
-  "totalSources": 2009,
+  "totalEvents": 2013,
+  "totalSources": 2013,
   "globalStats": {
     "avgAttentionScore": 0.879,
-    "totalArticles": 2009,
-    "bubbleCount": 1789
+    "totalArticles": 2013,
+    "bubbleCount": 1792
   }
 }
