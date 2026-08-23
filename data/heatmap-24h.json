@@ -96,21 +96,6 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          -77.1783,
-          38.6071
-        ]
-      },
-      "properties": {
-        "intensity": 0.965,
-        "count": 1,
-        "region": "United States"
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
           30.1714,
           50.5484
         ]
@@ -231,36 +216,6 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          36.0333,
-          33.5795
-        ]
-      },
-      "properties": {
-        "intensity": 0.9425,
-        "count": 1,
-        "region": "Syria"
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          28.0668,
-          -25.8429
-        ]
-      },
-      "properties": {
-        "intensity": 0.9425,
-        "count": 1,
-        "region": "South Africa"
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
           -73.8613,
           40.7414
         ]
@@ -299,21 +254,6 @@
         "intensity": 0.925,
         "count": 1,
         "region": "France"
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          37.1617,
-          55.8676
-        ]
-      },
-      "properties": {
-        "intensity": 0.925,
-        "count": 1,
-        "region": "Russia"
       }
     },
     {
@@ -501,6 +441,66 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
+          -77.0242,
+          39.1707
+        ]
+      },
+      "properties": {
+        "intensity": 0.8725,
+        "count": 1,
+        "region": "United States"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          151.1961,
+          -33.9984
+        ]
+      },
+      "properties": {
+        "intensity": 0.8725,
+        "count": 1,
+        "region": "Australia"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          4.6413,
+          50.8706
+        ]
+      },
+      "properties": {
+        "intensity": 0.8725,
+        "count": 1,
+        "region": "Belgium"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -77.1783,
+          38.6071
+        ]
+      },
+      "properties": {
+        "intensity": 0.965,
+        "count": 1,
+        "region": "United States"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
           -0.4558,
           51.5672
         ]
@@ -561,14 +561,29 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          -77.4623,
-          38.7761
+          36.0333,
+          33.5795
         ]
       },
       "properties": {
-        "intensity": 0.85,
+        "intensity": 0.9425,
         "count": 1,
-        "region": "United States"
+        "region": "Syria"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          28.0668,
+          -25.8429
+        ]
+      },
+      "properties": {
+        "intensity": 0.9425,
+        "count": 1,
+        "region": "South Africa"
       }
     },
     {
@@ -1041,36 +1056,6 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          106.8887,
-          -6.3229
-        ]
-      },
-      "properties": {
-        "intensity": 0.9425,
-        "count": 1,
-        "region": "Indonesia"
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          15.4049,
-          -4.2416
-        ]
-      },
-      "properties": {
-        "intensity": 0.845,
-        "count": 1,
-        "region": "DR Congo"
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
           51.7646,
           35.7409
         ]
@@ -1101,14 +1086,14 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          30.5279,
-          50.56
+          37.1617,
+          55.8676
         ]
       },
       "properties": {
-        "intensity": 0.93,
+        "intensity": 0.925,
         "count": 1,
-        "region": "Ukraine"
+        "region": "Russia"
       }
     },
     {
@@ -1401,6 +1386,21 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
+          -58.123,
+          -34.6503
+        ]
+      },
+      "properties": {
+        "intensity": 0.82,
+        "count": 1,
+        "region": "Argentina"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
           -14.8524,
           -12.8299
         ]
@@ -1409,36 +1409,6 @@
         "intensity": 0.82,
         "count": 1,
         "region": "southern Mid-Atlantic Ridge"
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          99.61,
-          -65.68
-        ]
-      },
-      "properties": {
-        "intensity": 0.82,
-        "count": 1,
-        "region": "Sea and Lake Ice"
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          74.4767,
-          36.7596
-        ]
-      },
-      "properties": {
-        "intensity": 0.82,
-        "count": 1,
-        "region": "52 km NNW of Barishal, Pakistan"
       }
     },
     {
@@ -2001,21 +1971,6 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          96.2379,
-          16.882
-        ]
-      },
-      "properties": {
-        "intensity": 0.86,
-        "count": 1,
-        "region": "Myanmar"
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
           2.1372,
           49.0316
         ]
@@ -2024,6 +1979,21 @@
         "intensity": 0.8575,
         "count": 1,
         "region": "France"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -77.4623,
+          38.7761
+        ]
+      },
+      "properties": {
+        "intensity": 0.85,
+        "count": 1,
+        "region": "United States"
       }
     },
     {
@@ -2054,6 +2024,21 @@
         "intensity": 0.85,
         "count": 1,
         "region": "United States"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          15.4049,
+          -4.2416
+        ]
+      },
+      "properties": {
+        "intensity": 0.845,
+        "count": 1,
+        "region": "DR Congo"
       }
     },
     {
@@ -2114,6 +2099,36 @@
         "intensity": 0.8325,
         "count": 1,
         "region": "Canada"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          99.61,
+          -65.68
+        ]
+      },
+      "properties": {
+        "intensity": 0.82,
+        "count": 1,
+        "region": "Sea and Lake Ice"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          74.4767,
+          36.7596
+        ]
+      },
+      "properties": {
+        "intensity": 0.82,
+        "count": 1,
+        "region": "52 km NNW of Barishal, Pakistan"
       }
     },
     {
@@ -4574,6 +4589,21 @@
         "intensity": 0.9475,
         "count": 1,
         "region": "Ukraine"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          106.8887,
+          -6.3229
+        ]
+      },
+      "properties": {
+        "intensity": 0.9425,
+        "count": 1,
+        "region": "Indonesia"
       }
     },
     {
@@ -8774,6 +8804,21 @@
         "intensity": 0.73,
         "count": 1,
         "region": "Iran"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          30.5279,
+          50.56
+        ]
+      },
+      "properties": {
+        "intensity": 0.93,
+        "count": 1,
+        "region": "Ukraine"
       }
     },
     {
@@ -22071,6 +22116,21 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
+          96.2379,
+          16.882
+        ]
+      },
+      "properties": {
+        "intensity": 0.86,
+        "count": 1,
+        "region": "Myanmar"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
           0.2053,
           51.7603
         ]
@@ -27081,21 +27141,6 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          120.5903,
-          -7.5415
-        ]
-      },
-      "properties": {
-        "intensity": 0.82,
-        "count": 1,
-        "region": "119 km N of Ruteng, Indonesia"
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
           150.8663,
           -33.8416
         ]
@@ -30188,21 +30233,6 @@
         "coordinates": [
           -0.2443,
           51.4696
-        ]
-      },
-      "properties": {
-        "intensity": 0.62,
-        "count": 1,
-        "region": "United Kingdom"
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          -0.1414,
-          52.0072
         ]
       },
       "properties": {
