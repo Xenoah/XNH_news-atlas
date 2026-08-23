@@ -51,6 +51,36 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
+          51.5235,
+          35.7473
+        ]
+      },
+      "properties": {
+        "intensity": 0.9475,
+        "count": 1,
+        "region": "Iran"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          35.3899,
+          31.7913
+        ]
+      },
+      "properties": {
+        "intensity": 0.9425,
+        "count": 1,
+        "region": "Israel"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
           -76.6667,
           38.9339
         ]
@@ -126,21 +156,6 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          -77.0124,
-          38.798
-        ]
-      },
-      "properties": {
-        "intensity": 0.925,
-        "count": 1,
-        "region": "United States"
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
           30.7102,
           50.8871
         ]
@@ -149,6 +164,21 @@
         "intensity": 0.9075,
         "count": 1,
         "region": "Ukraine"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          151.0102,
+          -34.0656
+        ]
+      },
+      "properties": {
+        "intensity": 0.89,
+        "count": 1,
+        "region": "Australia"
       }
     },
     {
@@ -246,21 +276,6 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          -77.2222,
-          38.7436
-        ]
-      },
-      "properties": {
-        "intensity": 0.8725,
-        "count": 1,
-        "region": "United States"
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
           126.1936,
           5.7891
         ]
@@ -306,21 +321,6 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          -25.264,
-          -58.7481
-        ]
-      },
-      "properties": {
-        "intensity": 0.82,
-        "count": 1,
-        "region": "South Sandwich Islands region"
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
           -0.0954,
           51.8616
         ]
@@ -344,21 +344,6 @@
         "intensity": 0.62,
         "count": 1,
         "region": "United Kingdom"
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          46.2766,
-          24.6779
-        ]
-      },
-      "properties": {
-        "intensity": 0.62,
-        "count": 1,
-        "region": "Saudi Arabia"
       }
     }
   ]
