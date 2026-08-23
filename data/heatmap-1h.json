@@ -66,6 +66,21 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
+          30.8134,
+          50.7297
+        ]
+      },
+      "properties": {
+        "intensity": 0.9425,
+        "count": 1,
+        "region": "Ukraine"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
           2.7539,
           49.0357
         ]
@@ -74,6 +89,36 @@
         "intensity": 0.9425,
         "count": 1,
         "region": "France"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -77.0124,
+          38.798
+        ]
+      },
+      "properties": {
+        "intensity": 0.925,
+        "count": 1,
+        "region": "United States"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          116.6695,
+          40.007
+        ]
+      },
+      "properties": {
+        "intensity": 0.925,
+        "count": 1,
+        "region": "China"
       }
     },
     {
@@ -171,21 +216,6 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          -0.2091,
-          51.6105
-        ]
-      },
-      "properties": {
-        "intensity": 0.925,
-        "count": 1,
-        "region": "United Kingdom"
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
           77.4313,
           28.6029
         ]
@@ -209,21 +239,6 @@
         "intensity": 0.9075,
         "count": 1,
         "region": "Ukraine"
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          116.592,
-          40.3404
-        ]
-      },
-      "properties": {
-        "intensity": 0.9075,
-        "count": 1,
-        "region": "China"
       }
     },
     {
@@ -261,14 +276,29 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          30.4602,
-          50.4502
+          -77.2222,
+          38.7436
         ]
       },
       "properties": {
         "intensity": 0.8725,
         "count": 1,
-        "region": "Ukraine"
+        "region": "United States"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -25.264,
+          -58.7481
+        ]
+      },
+      "properties": {
+        "intensity": 0.82,
+        "count": 1,
+        "region": "South Sandwich Islands region"
       }
     },
     {
@@ -321,36 +351,6 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          142.8255,
-          41.8344
-        ]
-      },
-      "properties": {
-        "intensity": 0.82,
-        "count": 1,
-        "region": "33 km SSW of Honchō, Japan"
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          37.4793,
-          55.3218
-        ]
-      },
-      "properties": {
-        "intensity": 0.7,
-        "count": 1,
-        "region": "Russia"
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
           -0.1942,
           51.5141
         ]
@@ -374,6 +374,21 @@
         "intensity": 0.62,
         "count": 1,
         "region": "United States"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          2.6462,
+          48.6534
+        ]
+      },
+      "properties": {
+        "intensity": 0.62,
+        "count": 1,
+        "region": "France"
       }
     }
   ]
