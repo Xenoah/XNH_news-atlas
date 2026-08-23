@@ -81,21 +81,6 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          34.5811,
-          31.6961
-        ]
-      },
-      "properties": {
-        "intensity": 0.9425,
-        "count": 1,
-        "region": "Israel"
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
           -77.0924,
           38.9195
         ]
@@ -171,21 +156,6 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          30.7102,
-          50.8871
-        ]
-      },
-      "properties": {
-        "intensity": 0.9075,
-        "count": 1,
-        "region": "Ukraine"
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
           51.2303,
           35.2931
         ]
@@ -194,6 +164,21 @@
         "intensity": 0.9025,
         "count": 1,
         "region": "Iran"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          149.0527,
+          -35.3441
+        ]
+      },
+      "properties": {
+        "intensity": 0.89,
+        "count": 1,
+        "region": "Australia"
       }
     },
     {
@@ -659,6 +644,21 @@
         "intensity": 0.9475,
         "count": 1,
         "region": "United States"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          34.5811,
+          31.6961
+        ]
+      },
+      "properties": {
+        "intensity": 0.9425,
+        "count": 1,
+        "region": "Israel"
       }
     },
     {
@@ -1491,14 +1491,14 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          126.1936,
-          5.7891
+          30.7102,
+          50.8871
         ]
       },
       "properties": {
-        "intensity": 0.82,
+        "intensity": 0.9075,
         "count": 1,
-        "region": "61 km ESE of Mangili, Philippines"
+        "region": "Ukraine"
       }
     },
     {
@@ -2331,21 +2331,6 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          -0.2083,
-          51.4639
-        ]
-      },
-      "properties": {
-        "intensity": 0.84,
-        "count": 1,
-        "region": "United Kingdom"
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
           0.1012,
           51.7311
         ]
@@ -2369,6 +2354,21 @@
         "intensity": 0.8325,
         "count": 1,
         "region": "Canada"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          126.1936,
+          5.7891
+        ]
+      },
+      "properties": {
+        "intensity": 0.82,
+        "count": 1,
+        "region": "61 km ESE of Mangili, Philippines"
       }
     },
     {
@@ -22979,6 +22979,21 @@
         "intensity": 0.845,
         "count": 1,
         "region": "DR Congo"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.2083,
+          51.4639
+        ]
+      },
+      "properties": {
+        "intensity": 0.84,
+        "count": 1,
+        "region": "United Kingdom"
       }
     },
     {
