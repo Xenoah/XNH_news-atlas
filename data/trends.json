@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-23T11:18:11.242520+00:00",
+  "generatedAt": "2026-08-23T11:45:03.042718+00:00",
   "timeRange": "24h",
   "risingEvents": [
     {
@@ -22,6 +22,13 @@
       "velocityScore": 1.0,
       "category": "conflict",
       "countryName": "United States"
+    },
+    {
+      "id": "rss_ba126bcb7853",
+      "title": "Explosion injures 13 in Taiwan",
+      "velocityScore": 1.0,
+      "category": "politics",
+      "countryName": "Taiwan"
     },
     {
       "id": "rss_d2bd565a28fc",
@@ -50,35 +57,28 @@
       "velocityScore": 1.0,
       "category": "disaster",
       "countryName": "Japan"
-    },
-    {
-      "id": "rss_294e6c7c0bc2",
-      "title": "Israeli wounded in occupied West Bank stabbing",
-      "velocityScore": 1.0,
-      "category": "politics",
-      "countryName": "Israel"
     }
   ],
   "risingRegions": [],
   "categoryTrends": {
     "politics": {
-      "count": 1223,
-      "change": "+1223",
+      "count": 1222,
+      "change": "+1222",
       "changePercent": 100
     },
     "conflict": {
-      "count": 245,
-      "change": "+245",
+      "count": 244,
+      "change": "+244",
       "changePercent": 100
     },
     "disaster": {
-      "count": 226,
-      "change": "+226",
+      "count": 225,
+      "change": "+225",
       "changePercent": 100
     },
     "sports": {
-      "count": 98,
-      "change": "+98",
+      "count": 97,
+      "change": "+97",
       "changePercent": 100
     },
     "economy": {
@@ -92,8 +92,8 @@
       "changePercent": 100
     },
     "science": {
-      "count": 33,
-      "change": "+33",
+      "count": 32,
+      "change": "+32",
       "changePercent": 100
     },
     "technology": {
@@ -102,11 +102,11 @@
       "changePercent": 100
     }
   },
-  "totalEvents": 2019,
-  "totalSources": 2019,
+  "totalEvents": 2014,
+  "totalSources": 2014,
   "globalStats": {
     "avgAttentionScore": 0.878,
-    "totalArticles": 2019,
-    "bubbleCount": 1796
+    "totalArticles": 2014,
+    "bubbleCount": 1793
   }
 }
