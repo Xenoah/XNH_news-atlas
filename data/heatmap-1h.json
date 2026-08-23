@@ -6,6 +6,21 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
+          -75.8046,
+          45.1491
+        ]
+      },
+      "properties": {
+        "intensity": 0.9825,
+        "count": 1,
+        "region": "Canada"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
           51.033,
           35.822
         ]
@@ -21,29 +36,14 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          -77.0778,
-          39.1186
-        ]
-      },
-      "properties": {
-        "intensity": 0.9825,
-        "count": 1,
-        "region": "United States"
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          51.7123,
-          35.775
+          32.2782,
+          15.2816
         ]
       },
       "properties": {
         "intensity": 0.9425,
         "count": 1,
-        "region": "Iran"
+        "region": "Sudan"
       }
     },
     {
@@ -51,12 +51,27 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          151.1001,
-          -34.0235
+          151.0999,
+          -33.5847
         ]
       },
       "properties": {
         "intensity": 0.925,
+        "count": 1,
+        "region": "Australia"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          151.0988,
+          -33.7745
+        ]
+      },
+      "properties": {
+        "intensity": 0.89,
         "count": 1,
         "region": "Australia"
       }
@@ -96,51 +111,6 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          150.9484,
-          -34.0369
-        ]
-      },
-      "properties": {
-        "intensity": 0.89,
-        "count": 1,
-        "region": "Australia"
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          151.1978,
-          -33.7328
-        ]
-      },
-      "properties": {
-        "intensity": 0.89,
-        "count": 1,
-        "region": "Australia"
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          37.147,
-          -1.1973
-        ]
-      },
-      "properties": {
-        "intensity": 0.86,
-        "count": 1,
-        "region": "Kenya"
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
           150.9952,
           -34.2381
         ]
@@ -156,21 +126,6 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          120.741,
-          -8.1213
-        ]
-      },
-      "properties": {
-        "intensity": 0.82,
-        "count": 1,
-        "region": "62 km NNE of Ruteng, Indonesia"
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
           151.6679,
           -33.9206
         ]
@@ -179,21 +134,6 @@
         "intensity": 0.81,
         "count": 1,
         "region": "Australia"
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          -0.1017,
-          51.8693
-        ]
-      },
-      "properties": {
-        "intensity": 0.78,
-        "count": 1,
-        "region": "United Kingdom"
       }
     }
   ]
