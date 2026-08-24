@@ -1,7 +1,14 @@
 {
-  "generatedAt": "2026-08-24T21:34:30.070763+00:00",
+  "generatedAt": "2026-08-24T22:00:36.190978+00:00",
   "timeRange": "24h",
   "risingEvents": [
+    {
+      "id": "rss_022f3c3b7241",
+      "title": "US public support for Iran war falls as Trump approval at record low: Poll",
+      "velocityScore": 1.0,
+      "category": "conflict",
+      "countryName": "United States"
+    },
     {
       "id": "rss_fc369fef895f",
       "title": "Ceasefire monitoring mission arrives in Democratic Republic of Congo",
@@ -50,25 +57,18 @@
       "velocityScore": 1.0,
       "category": "politics",
       "countryName": "Mexico"
-    },
-    {
-      "id": "rss_b5a752d3b114",
-      "title": "Yemen’s Houthis report attack on Saudi ship",
-      "velocityScore": 1.0,
-      "category": "politics",
-      "countryName": "Yemen"
     }
   ],
   "risingRegions": [],
   "categoryTrends": {
     "politics": {
-      "count": 1247,
-      "change": "+1247",
+      "count": 1242,
+      "change": "+1242",
       "changePercent": 100
     },
     "conflict": {
-      "count": 233,
-      "change": "+233",
+      "count": 234,
+      "change": "+234",
       "changePercent": 100
     },
     "disaster": {
@@ -87,8 +87,8 @@
       "changePercent": 100
     },
     "health": {
-      "count": 66,
-      "change": "+66",
+      "count": 65,
+      "change": "+65",
       "changePercent": 100
     },
     "science": {
@@ -102,11 +102,11 @@
       "changePercent": 100
     }
   },
-  "totalEvents": 2015,
-  "totalSources": 2015,
+  "totalEvents": 2010,
+  "totalSources": 2010,
   "globalStats": {
     "avgAttentionScore": 0.878,
-    "totalArticles": 2015,
-    "bubbleCount": 1793
+    "totalArticles": 2010,
+    "bubbleCount": 1789
   }
 }
