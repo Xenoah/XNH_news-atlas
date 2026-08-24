@@ -51,6 +51,36 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
+          35.318,
+          31.7721
+        ]
+      },
+      "properties": {
+        "intensity": 0.9425,
+        "count": 1,
+        "region": "Israel"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          36.231,
+          33.6477
+        ]
+      },
+      "properties": {
+        "intensity": 0.9425,
+        "count": 1,
+        "region": "Syria"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
           37.7137,
           55.5376
         ]
@@ -171,12 +201,42 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          51.7288,
-          36.0456
+          2.6029,
+          48.7872
         ]
       },
       "properties": {
-        "intensity": 0.925,
+        "intensity": 0.9125,
+        "count": 1,
+        "region": "France"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -77.4766,
+          39.0424
+        ]
+      },
+      "properties": {
+        "intensity": 0.9075,
+        "count": 1,
+        "region": "United States"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          51.4304,
+          35.5366
+        ]
+      },
+      "properties": {
+        "intensity": 0.9075,
         "count": 1,
         "region": "Iran"
       }
@@ -186,29 +246,14 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          151.2989,
-          -33.9045
+          151.0556,
+          -34.2197
         ]
       },
       "properties": {
-        "intensity": 0.925,
+        "intensity": 0.89,
         "count": 1,
         "region": "Australia"
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          2.6182,
-          48.521
-        ]
-      },
-      "properties": {
-        "intensity": 0.9075,
-        "count": 1,
-        "region": "France"
       }
     },
     {
@@ -231,14 +276,14 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          151.395,
-          -33.5857
+          35.3948,
+          31.872
         ]
       },
       "properties": {
-        "intensity": 0.89,
+        "intensity": 0.8725,
         "count": 1,
-        "region": "Australia"
+        "region": "Israel"
       }
     },
     {
@@ -351,14 +396,14 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          4.4732,
-          50.9736
+          51.4932,
+          35.7001
         ]
       },
       "properties": {
-        "intensity": 0.8725,
+        "intensity": 0.8325,
         "count": 1,
-        "region": "Belgium"
+        "region": "Iran"
       }
     },
     {
@@ -366,14 +411,14 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          4.7453,
-          50.6749
+          -83.9132,
+          9.9853
         ]
       },
       "properties": {
-        "intensity": 0.8725,
+        "intensity": 0.82,
         "count": 1,
-        "region": "Belgium"
+        "region": "10 km NNW of Cot, Costa Rica"
       }
     },
     {
@@ -381,59 +426,14 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          13.2722,
-          33.169
+          28.1447,
+          -25.6767
         ]
       },
       "properties": {
-        "intensity": 0.8725,
+        "intensity": 0.82,
         "count": 1,
-        "region": "Libya"
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          15.6777,
-          -4.2535
-        ]
-      },
-      "properties": {
-        "intensity": 0.8725,
-        "count": 1,
-        "region": "DR Congo"
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          15.5289,
-          -4.5837
-        ]
-      },
-      "properties": {
-        "intensity": 0.8725,
-        "count": 1,
-        "region": "DR Congo"
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          151.1124,
-          -33.8091
-        ]
-      },
-      "properties": {
-        "intensity": 0.845,
-        "count": 1,
-        "region": "Australia"
+        "region": "South Africa"
       }
     },
     {
@@ -471,14 +471,14 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          116.2118,
-          40.2223
+          151.1514,
+          -33.9319
         ]
       },
       "properties": {
-        "intensity": 0.82,
+        "intensity": 0.805,
         "count": 1,
-        "region": "China"
+        "region": "Australia"
       }
     },
     {
@@ -486,12 +486,27 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          151.1514,
-          -33.9319
+          7.3831,
+          8.8664
         ]
       },
       "properties": {
-        "intensity": 0.805,
+        "intensity": 0.74,
+        "count": 1,
+        "region": "Nigeria"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          151.2805,
+          -33.9564
+        ]
+      },
+      "properties": {
+        "intensity": 0.73,
         "count": 1,
         "region": "Australia"
       }
