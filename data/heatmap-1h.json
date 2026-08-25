@@ -21,6 +21,21 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
+          51.4115,
+          35.5774
+        ]
+      },
+      "properties": {
+        "intensity": 0.965,
+        "count": 1,
+        "region": "Iran"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
           51.2032,
           35.6779
         ]
@@ -66,14 +81,14 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          -76.8749,
-          38.8906
+          151.2985,
+          -33.7916
         ]
       },
       "properties": {
-        "intensity": 0.9425,
+        "intensity": 0.925,
         "count": 1,
-        "region": "United States"
+        "region": "Australia"
       }
     },
     {
@@ -96,29 +111,14 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          139.7825,
-          35.3162
+          150.9523,
+          -33.5681
         ]
       },
       "properties": {
-        "intensity": 0.925,
+        "intensity": 0.89,
         "count": 1,
-        "region": "Japan"
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          -76.7614,
-          38.7684
-        ]
-      },
-      "properties": {
-        "intensity": 0.925,
-        "count": 1,
-        "region": "United States"
+        "region": "Australia"
       }
     },
     {
@@ -164,6 +164,36 @@
         "intensity": 0.89,
         "count": 1,
         "region": "Australia"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          151.2319,
+          -34.0032
+        ]
+      },
+      "properties": {
+        "intensity": 0.845,
+        "count": 1,
+        "region": "Australia"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          127.5589,
+          -6.6149
+        ]
+      },
+      "properties": {
+        "intensity": 0.82,
+        "count": 1,
+        "region": "219 km NNE of Lospalos, Timor Leste"
       }
     },
     {
@@ -224,21 +254,6 @@
         "intensity": 0.82,
         "count": 1,
         "region": "34 km NW of Ruteng, Indonesia"
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          -77.1767,
-          38.6624
-        ]
-      },
-      "properties": {
-        "intensity": 0.82,
-        "count": 1,
-        "region": "United States"
       }
     }
   ]
