@@ -6,6 +6,21 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
+          -99.2485,
+          19.5449
+        ]
+      },
+      "properties": {
+        "intensity": 0.9825,
+        "count": 1,
+        "region": "Mexico"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
           -76.7347,
           39.0508
         ]
@@ -21,14 +36,14 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          -76.8272,
-          38.8367
+          44.6247,
+          33.4286
         ]
       },
       "properties": {
         "intensity": 0.9425,
         "count": 1,
-        "region": "United States"
+        "region": "Iraq"
       }
     },
     {
@@ -36,12 +51,12 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          -77.0038,
-          38.977
+          -76.9785,
+          38.8483
         ]
       },
       "properties": {
-        "intensity": 0.9425,
+        "intensity": 0.925,
         "count": 1,
         "region": "United States"
       }
@@ -81,38 +96,8 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          -77.4042,
-          38.8424
-        ]
-      },
-      "properties": {
-        "intensity": 0.9075,
-        "count": 1,
-        "region": "United States"
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          51.4645,
-          35.6643
-        ]
-      },
-      "properties": {
-        "intensity": 0.9025,
-        "count": 1,
-        "region": "Iran"
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          151.5734,
-          -33.7873
+          150.8323,
+          -33.6177
         ]
       },
       "properties": {
@@ -126,8 +111,8 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          151.2577,
-          -33.813
+          151.4565,
+          -33.7143
         ]
       },
       "properties": {
@@ -141,14 +126,29 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          150.8788,
-          -33.9621
+          70.463,
+          34.462
         ]
       },
       "properties": {
-        "intensity": 0.89,
+        "intensity": 0.82,
         "count": 1,
-        "region": "Australia"
+        "region": "4 km NNE of Jalālābād, Afghanistan"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          155.6413,
+          -6.9731
+        ]
+      },
+      "properties": {
+        "intensity": 0.82,
+        "count": 1,
+        "region": "74 km SSE of Panguna, Papua New Guinea"
       }
     },
     {
@@ -216,21 +216,6 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          77.6765,
-          28.7571
-        ]
-      },
-      "properties": {
-        "intensity": 0.82,
-        "count": 1,
-        "region": "India"
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
           151.352,
           -33.9631
         ]
@@ -239,21 +224,6 @@
         "intensity": 0.81,
         "count": 1,
         "region": "Australia"
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          -73.8891,
-          41.1372
-        ]
-      },
-      "properties": {
-        "intensity": 0.62,
-        "count": 1,
-        "region": "United States"
       }
     }
   ]
